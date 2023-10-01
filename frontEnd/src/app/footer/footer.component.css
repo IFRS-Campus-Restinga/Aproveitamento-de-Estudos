@@ -1,28 +1,25 @@
-:root{
-  --color-footer: #F5F5F5
-}
-
 footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   align-items: center;
   padding: 10px;
-  background-color: #F5F5F5; /*var(--color-footer);*/
+  background-color: var(--color-footer);
 }
 
 .logo{
-  padding-right: 50px;
+  justify-self: start;
 }
 
 .logo img {
-  max-width: 100px; /* Ajuste o tamanho do logotipo conforme necessário */
+  max-width: 100px;
 }
 
 .conteudo {
   text-align: center;
+  justify-self: center;
 }
 
 p {
-  margin: 0; /* Remover margens padrão dos parágrafos */
+  margin: 0;
 }
