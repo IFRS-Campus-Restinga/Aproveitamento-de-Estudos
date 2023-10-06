@@ -1,0 +1,47 @@
+header{
+  width: 100vmax;
+  background-color: var(--color-header);
+  padding: 0.5rem;
+  font-family: system-ui;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo{
+  display: flex;
+}
+
+header .title-campus {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 0;
+  align-self: end;
+  padding: 1rem;
+}
+
+header .title-campus small {
+  color: #fff;
+  display: inline-block;
+  font-size: .8rem
+}
+
+
+.menu{
+  width: 50vmax;
+  align-self: end;
+}
+
+.menu ul{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu ul li{
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.5rem;
+  padding-right: 1.5rem;
+}

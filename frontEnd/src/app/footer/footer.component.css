@@ -1,0 +1,25 @@
+footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--color-footer);
+}
+
+.logo{
+  justify-self: start;
+}
+
+.logo img {
+  max-width: 100px;
+}
+
+.conteudo {
+  text-align: center;
+  justify-self: center;
+}
+
+p {
+  margin: 0;
+}
