@@ -10,7 +10,7 @@ Posso Editar
 
 - [Angular v15](https://devdocs.io/angular~15/)
 ```shell
-npm install -g @angular/cli@15
+npm install -g @angular/cli@15.2.9
 ```
 
 ### Back-end
