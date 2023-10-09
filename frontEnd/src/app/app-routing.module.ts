@@ -4,7 +4,7 @@ import { DisciplineRegistrationComponent } from './pages/discipline-registration
 
 const routes: Routes = [
   {
-    path:'register',
+    path:'register/discipline',
     component:DisciplineRegistrationComponent
   }
 ];
