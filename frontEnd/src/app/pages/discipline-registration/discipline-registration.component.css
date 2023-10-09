@@ -2,38 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .container form {
   width: 450px;
   margin: 0 auto;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.4em;
-}
-
-.form-group label {
-  font-weight: bold;
-  font-size: 0.9em;
-  margin-bottom: 0.4em;
-}
-
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group select {
-  padding: 0.6em;
-  color: #777;
-  font-size: 0.8em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .btn-register {
