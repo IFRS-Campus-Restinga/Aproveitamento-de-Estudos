@@ -1,0 +1,38 @@
+<div class="container">
+  <h1><span class="colored-underline">Cadastro</span></h1>
+  <form action="">
+    <div class="form-group">
+      <label for="codigo">Código</label>
+      <input type="text" placeholder="Código do componente curricular " required/>
+    </div>
+    <div class="form-group">
+      <label for="disciplina">Componente Curricular</label>
+      <input type="text" placeholder="Nome do componente curricular" required/>
+    </div>
+    <div class="form-group">
+      <label for="curso">Curso</label>
+      <select name="curso" id="curso">
+        <option value="curso">Selecione o  curso</option>
+        <option value="letras">Licenciatura em Letras Português e Espanhol</option>
+        <option value="ads">Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+        <option value="eletronica-industrial">Tecnologia em Eletrônica Industrial</option>
+        <option value="esportes-lazer">Tecnologia em Gestão Desportiva e de Lazer</option>
+        <option value="processos-gerenciais">Tecnologia em Processos Gerenciais</option>
+        <option value="eletronica">Técnico em Eletrônica</option>
+        <option value="informatica">Técnico em informática</option>
+        <option value="lazer">Técnico em lazer</option>
+        <option value="agroecologia">Técnico em agroecologia</option>
+        <option value="turismo">Técnico em guia de turismo</option>
+        <option value="comercio">Técnico em comércio</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="codigo">Carga Horária</label>
+      <input type="number" placeholder="Carga Horária(h)" min="0" required/>
+    </div>
+    <hr>
+    <div class="btn-submit-container">
+      <button type="submit" class="btn-register">Cadastrar</button>
+    </div>
+  </form>
+</div>
