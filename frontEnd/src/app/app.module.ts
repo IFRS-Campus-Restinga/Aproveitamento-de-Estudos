@@ -8,6 +8,8 @@ import {NgOptimizedImage} from "@angular/common";
 import { HeaderComponent } from './components/header/header.component';
 import { DisciplineRegistrationComponent } from './pages/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
+import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { TitleComponent } from './components/title/title.component';
     FooterComponent,
     HeaderComponent,
     DisciplineRegistrationComponent,
-    TitleComponent
+    TitleComponent,
+    UserResgistrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
