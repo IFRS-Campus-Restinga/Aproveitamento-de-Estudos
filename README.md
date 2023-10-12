@@ -14,3 +14,6 @@ npm install -g @angular/cli@15.2.9
 ```
 
 ### Back-end
+
+- [Java 17](https://download.oracle.com/java/17/archive/jdk-17.0.7_windows-x64_bin.exe)
+- [Spring Boot 3.1.4](https://spring.io/projects/spring-boot)
