@@ -12,6 +12,33 @@
   border:0
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container form {
+  width: 450px;
+  margin: 0 auto;
+}
+
+.btn-register {
+  background-color: #0d8a29;
+  color: white;
+  width: 450px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+.btn-register:hover {
+  background-color: #0b6e23;
+}
 
 .form-group {
   display: flex;
@@ -26,6 +53,7 @@
 }
 
 .form-group input[type="text"],
+.form-group input[type="email"],
 .form-group input[type="number"],
 .form-group select {
   padding: 0.6em;
@@ -36,4 +64,11 @@
   margin-bottom: 10px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.form-half-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  column-gap: 10px;  
 }
