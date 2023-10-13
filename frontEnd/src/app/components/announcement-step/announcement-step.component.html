@@ -1,0 +1,23 @@
+<form #form="ngForm" (ngSubmit)="submitForm(form)" class="step-container">
+    <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" name="descricao" placeholder="Descrição" [(ngModel)]="formData.descricao"
+            required>
+    </div>
+    <div class="grid-step">
+        <div class="form-group">
+            <label for="dataInicio">Data inicio</label>
+            <input type="date" name="dataInicio" id="dataInicio" [(ngModel)]="formData.dataInico" required>
+        </div>
+        <div class="form-group">
+            <label for="dataFim">Data fim</label>
+            <input type="date" name="dataFim" id="dataFim" [(ngModel)]="formData.dataFim" required>
+        </div>
+        <div class="form-group">
+            <label for="ator">Ator</label>
+            <select name="ator" id="ator"></select>
+        </div>
+    </div>
+</form>
+
+<!-- Add more fields as needed -->
