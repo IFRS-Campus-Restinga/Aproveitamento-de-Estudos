@@ -8,6 +8,6 @@ import lombok.Data;
 @Entity
 public class Servidor extends Usuario {
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String siape;
 }

@@ -11,12 +11,10 @@ import lombok.Data;
 @Entity
 public class Coordenador extends Servidor {
 
-	@NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date dataInicio;
 	
-	@NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date dataFim;
 	
 }

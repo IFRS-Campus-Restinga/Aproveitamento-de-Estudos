@@ -11,15 +11,12 @@ import lombok.Data;
 @Entity
 public class Aluno extends Usuario{
 
-	@NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String matricula;
     
-	@NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date dataIngresso;
 	
-	@NotNull
-    @Column(nullable = false)
+    @Column(nullable = true)
 	private String curso;
 }

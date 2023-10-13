@@ -1,12 +1,15 @@
 package br.com.aproveitamento.model;
 
 
-import jakarta.annotation.Nonnull;
+import br.com.aproveitamento.enums.UsuarioTipo;
+import br.com.aproveitamento.enums.converters.UsuarioTipoConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -17,14 +20,19 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Nonnull
+    @NotNull
     @Column(nullable = false)
     private String nome;
     
-    @Nonnull
+    @NotNull
     @Column(nullable = false)
     private String email;
     
     @Column
-    private boolean isAdmin; 
+    private boolean admin; 
+    
+    @NotNull
+    @Column(nullable = false)
+    @Convert(converter = UsuarioTipoConverter.class)
+    private UsuarioTipo tipo;
 }
