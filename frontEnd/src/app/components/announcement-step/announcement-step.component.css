@@ -1,0 +1,13 @@
+.grid-step{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 0.5rem;
+}
+
+.step-container{
+    border: 2px rgb(180, 180, 180) solid;
+    border-radius: 10px;
+    margin: .5rem 0;
+    padding: .3rem;
+}

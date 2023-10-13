@@ -10,6 +10,8 @@ import { DisciplineRegistrationComponent } from './pages/discipline-registration
 import { TitleComponent } from './components/title/title.component';
 import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
 import { FormsModule } from '@angular/forms';
+import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
+import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     DisciplineRegistrationComponent,
     TitleComponent,
-    UserResgistrationComponent
+    UserResgistrationComponent,
+    AnnouncementRegistrationComponent,
+    AnnouncementStepComponent
   ],
   imports: [
     BrowserModule,
