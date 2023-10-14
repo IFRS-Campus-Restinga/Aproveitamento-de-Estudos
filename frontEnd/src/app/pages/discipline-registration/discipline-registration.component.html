@@ -1,34 +1,25 @@
 <div class="container">
-  <app-title title="Cadastro"></app-title>
-  <form action="">
+  <app-title title="Cadastro de disciplina"></app-title>
+  <form #form="ngForm" (ngSubmit)="submitForm(form)">
     <div class="form-group">
       <label for="codigo">Código</label>
-      <input type="text" placeholder="Código do componente curricular " required />
+      <input type="text" id="codigo" name="codigo" placeholder="Código do componente curricular " [(ngModel)]="formData.codigo" required />
     </div>
     <div class="form-group">
       <label for="disciplina">Componente Curricular</label>
-      <input type="text" placeholder="Nome do componente curricular" required />
+      <input type="text" id="disciplina" name="disciplina" placeholder="Nome do componente curricular" [(ngModel)]="formData.disciplina" required />
     </div>
     <div class="form-group">
       <label for="curso">Curso</label>
-      <select name="curso" id="curso">
-        <option value="curso">Selecione o curso</option>
-        <option value="letras">Licenciatura em Letras Português e Espanhol</option>
-        <option value="ads">Tecnologia em Análise e Desenvolvimento de Sistemas</option>
-        <option value="eletronica-industrial">Tecnologia em Eletrônica Industrial</option>
-        <option value="esportes-lazer">Tecnologia em Gestão Desportiva e de Lazer</option>
-        <option value="processos-gerenciais">Tecnologia em Processos Gerenciais</option>
-        <option value="eletronica">Técnico em Eletrônica</option>
-        <option value="informatica">Técnico em informática</option>
-        <option value="lazer">Técnico em lazer</option>
-        <option value="agroecologia">Técnico em agroecologia</option>
-        <option value="turismo">Técnico em guia de turismo</option>
-        <option value="comercio">Técnico em comércio</option>
-      </select>
+      <select id="curso" name="curso" [(ngModel)]="formData.curso" required>
+        <option *ngFor="let item of listCursos" [ngValue]="item.curso">
+            {{item.curso}}
+        </option>>
+    </select>
     </div>
     <div class="form-group">
-      <label for="codigo">Carga Horária</label>
-      <input type="number" placeholder="Carga Horária(h)" min="0" required />
+      <label for="cargaHoraria">Carga Horária</label>
+      <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" [(ngModel)]="formData.cargaHoraria" required />
     </div>
     <hr>
     <div class="btn-submit-container">
