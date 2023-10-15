@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -21,18 +20,17 @@ public class Edital {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	 
-	
+	 	
 	@Column
 	private String numero;
 	
-	 //@Column(nullable = false)
-	 //private Date dataInicio;
+	@Column(nullable = false)
+	private Date dataInicio;
 		
-	// @Column(nullable = false)
-	// private Date dataFim;
+	@Column(nullable = false)
+	private Date dataFim;
 	
-	// @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "edital")
-	// private List<Etapa> etapas = new ArrayList<>();
+	@OneToMany(mappedBy = "edital", cascade = CascadeType.ALL,  orphanRemoval = true)
+	private List<Etapa> etapas = new ArrayList<>();
 
 }

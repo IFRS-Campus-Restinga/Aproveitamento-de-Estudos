@@ -13,7 +13,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -22,28 +21,27 @@ import lombok.Data;
 @Entity
 public class Etapa {
 
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 private Long id;
-	 
-	 @NotNull
-	 @Column(nullable = false)
-	 private String nome;
-
-	 @Column(nullable = false)
-	 private Date dataInicio;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@NotNull
+	@Column(nullable = false)
+	private String nome;
+	@Column(nullable = false)
+	private Date dataInicio;
+	
+	@Column(nullable = false)
+	private Date dataFim;
 		
-	 @Column(nullable = false)
-	 private Date dataFim;
-		
-	 @NotNull
-	 @Column(nullable = false)
-	 @Convert(converter = UsuarioTipoConverter.class)
-	 private UsuarioTipo ator;
+	@NotNull
+	@Column(nullable = false)
+	@Convert(converter = UsuarioTipoConverter.class)
+	private UsuarioTipo ator;
 	 	
-	// @ManyToOne(fetch = FetchType.LAZY, optional = false)
-	// @JoinColumn(name = "edital_id", nullable = false)
-	// @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	// private Edital edital;
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Edital edital;
+	
 }

@@ -1,5 +1,6 @@
 package br.com.aproveitamento.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.aproveitamento.model.Edital;
+import br.com.aproveitamento.model.Etapa;
 import br.com.aproveitamento.service.EditalService;
+import br.com.aproveitamento.service.EtapaService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -30,6 +33,8 @@ public class EditalController {
 	
 	@Autowired
 	private EditalService editalService;
+	@Autowired
+	private EtapaService etapaService;
 	
 	@GetMapping
 	public @ResponseBody List<Edital> list(){
@@ -43,13 +48,36 @@ public class EditalController {
 	
 	@PostMapping
 	public ResponseEntity<Edital> create(@RequestBody @NotNull Edital edital){
-		return ResponseEntity.status(HttpStatus.CREATED).body(editalService.create(edital));
+		List<Etapa> EtapasOriginais = edital.getEtapas();
+        edital.setEtapas(new ArrayList<>());
+
+        Edital e = editalService.create(edital);
+
+        for(Etapa etapa : EtapasOriginais) {
+            etapa.setEdital(e);
+            etapaService.create(etapa);
+            e.getEtapas().add(etapa);
+            editalService.update(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(e);
 	}
-	
-	
+		
 	@PutMapping
-	public Edital update(@RequestBody @Valid Edital edital){
-		return editalService.update(edital);
+	public ResponseEntity<Edital> update(@RequestBody @Valid Edital edital){
+		List<Etapa> EtapasOriginais = edital.getEtapas();
+        edital.setEtapas(new ArrayList<>());
+
+        Edital e = editalService.create(edital);
+
+        for(Etapa etapa : EtapasOriginais) {
+            etapa.setEdital(e);
+            etapaService.create(etapa);
+            e.getEtapas().add(etapa);
+            editalService.update(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(e);
 	}
 	
 	@DeleteMapping("/{id}")
