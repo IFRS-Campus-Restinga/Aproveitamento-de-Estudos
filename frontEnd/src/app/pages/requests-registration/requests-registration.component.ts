@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class RequestsRegistrationComponent {
+
+  tipoSolicitacao: string = ''; // Variável para armazenar o tipo de solicitação selecionado
+
   formData: any = {
     componenteCurricular: 'Selecione um componente Curricular',
     tipoSolicitacao: 'Selecione o tipo de solicitação',
@@ -27,8 +30,8 @@ export class RequestsRegistrationComponent {
     { componenteCurricular: 'Programação 3' },
     { componenteCurricular: 'Banco de dados 1' },
     { componenteCurricular: 'Banco de dados 2' },
-    { componenteCurricular: 'Desenvolvimento de software 1' },
-    { componenteCurricular: 'Desenvolvimento de software 2' },
+    { componenteCurricular: 'Desenvolvimento de sistemas 1' },
+    { componenteCurricular: 'Desenvolvimento de sistemas 2' },
     { componenteCurricular: 'Estrutura de dados' }
   ];
 
