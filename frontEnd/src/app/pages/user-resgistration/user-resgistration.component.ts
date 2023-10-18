@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class UserResgistrationComponent {
   formData: any = {
     curso: 'Selecione um curso'
-  }; // Modelo para os dados do formulário
+  };
 
   public listCursos: Array<{ curso: string }> = [
     { curso:'Selecione um curso' },
@@ -26,7 +26,6 @@ export class UserResgistrationComponent {
   ];
 
   submitForm(form: any) {
-    // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor ou exibi-los no console.
     console.log(this.formData);
   }
 }
