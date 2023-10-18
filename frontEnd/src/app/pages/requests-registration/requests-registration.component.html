@@ -1,0 +1,50 @@
+<div class="container">
+  <app-title title="Envio de Solicitações"></app-title>
+
+  <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <div class="form-group">
+      <label for="tipo">Tipo:</label>
+      <select name="tipo" id="tipo" required>
+        <option value="selecione">Selecione o tipo de solicitação</option>
+        <option value="certificacao">Certificação de conhecimento</option>
+        <option value="aproveitamento">Aproveitamento de estudos</option>
+      </select>
+    </div>
+
+    <!-- Adicionar elementos do discipline-registration -->
+    <div class="form-group">
+      <label for="componenteCurricular">Componente Curricular:</label>
+      <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
+        <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
+          {{ item.componenteCurricular }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="experienciaAnterior">Experiência anterior:</label>
+      <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza "/>
+    </div>
+
+    <!--  -->
+    <div class="form-group">
+      <label for="anexar">Anexar arquivos:</label>
+      <div class="file-upload">
+        <label for="file-input" class="file-label">
+          <span class="file-name">Arraste e solte arquivos aqui ou clique para selecionar arquivos</span>
+        </label>
+        <input type="file" id="file-input" class="file-input" multiple />
+      </div>
+    </div>
+    <br>
+    <br>
+    <!--  -->
+
+    <div class="btn-submit-container">
+      <button type="submit" class="btn-register">Enviar</button>
+    </div>
+    <div class="btn-submit-container">
+      <button type="reset" class="btn-red">Cancelar</button>
+    </div>
+  </form>
+</div>
