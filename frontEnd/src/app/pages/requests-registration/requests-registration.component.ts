@@ -91,4 +91,12 @@ export class RequestsRegistrationComponent {
   submitForm(form: any) {
     console.log(this.formData);
   }
+
+  // Método para lidar com o clique no botão de reset
+  handleResetClick() {
+    // Limpa a lista de arquivos
+    this.files = [];
+    // Atualiza a exibição dos arquivos selecionados
+    this.updateFileFormat();
+  }
 }
