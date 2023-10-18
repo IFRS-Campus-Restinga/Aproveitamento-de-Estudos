@@ -4,14 +4,14 @@
   <form #form="ngForm" (ngSubmit)="submitForm(form)">
     <div class="form-group">
       <label for="tipo">Tipo:</label>
-      <select name="tipo" id="tipo" required>
-        <option value="selecione">Selecione o tipo de solicitação</option>
-        <option value="certificacao">Certificação de conhecimento</option>
-        <option value="aproveitamento">Aproveitamento de estudos</option>
+      <select name="tipo" id="tipo" [(ngModel)]="formData.tipoSolicitacao" required>
+        <option *ngFor="let item of listTiposRequisicoes" [ngValue]="item.tipoSolicitacao">
+          {{ item.tipoSolicitacao }}
+        </option>
       </select>
     </div>
 
-    <!-- Adicionar elementos do discipline-registration -->
+    <!------------- Adicionar elementos do discipline-registration -------------->
     <div class="form-group">
       <label for="componenteCurricular">Componente Curricular:</label>
       <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
@@ -23,22 +23,20 @@
 
     <div class="form-group">
       <label for="experienciaAnterior">Experiência anterior:</label>
-      <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza "/>
+      <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" [(ngModel)]="formData.experienciaAnterior" required/>
     </div>
 
-    <!--  -->
+    <!----------------- arrumar file para aparecer mais -------------------------->
     <div class="form-group">
-      <label for="anexar">Anexar arquivos:</label>
+      <label for="file-input">Anexar arquivo:</label>
       <div class="file-upload">
-        <label for="file-input" class="file-label">
-          <span class="file-name">Arraste e solte arquivos aqui ou clique para selecionar arquivos</span>
-        </label>
-        <input type="file" id="file-input" class="file-input" multiple />
+        <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
+        <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)" required>
       </div>
     </div>
     <br>
     <br>
-    <!--  -->
+    <!--------------------------------------------------------------------------->
 
     <div class="btn-submit-container">
       <button type="submit" class="btn-register">Enviar</button>
@@ -46,5 +44,6 @@
     <div class="btn-submit-container">
       <button type="reset" class="btn-red">Cancelar</button>
     </div>
+
   </form>
 </div>

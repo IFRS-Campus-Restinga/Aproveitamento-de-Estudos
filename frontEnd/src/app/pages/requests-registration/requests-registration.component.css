@@ -11,6 +11,7 @@
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
+  color: #777;
 }
 
 .file-input {
@@ -21,24 +22,5 @@
   height: 100%;
   opacity: 0;
   cursor: pointer;
-}
-
-.file-name {
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-/* Estilize a borda pontilhada */
-.file-label:focus {
-  border: 2px dashed #007BFF;
-}
-
-/* Estilize o placeholder */
-.file-label::after {
-  content: attr(data-placeholder);
-  display: block;
-  color: #aaa;
 }
 
