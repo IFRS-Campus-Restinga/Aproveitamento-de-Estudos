@@ -1,0 +1,40 @@
+app-title {
+    visibility: hidden;
+}
+
+#form-login {
+    border: 2px solid #C2BABA;
+    padding: 10px 80px 30px 80px;
+    margin-top: -7vh;
+    
+    
+}
+
+#form-login #login{
+     /*border: 2px solid #C2BABA;*/
+    padding: 15px 120px 30px 120px;
+    padding-right: 20vw;
+    
+}
+
+
+#form-login #campos{
+    /*border: 2px solid #C2BABA;*/
+    width: 45vw;
+    padding: 5%;
+    margin-left: -2vw;
+}
+
+#botoes-login {
+   margin-top: 1vh;
+   padding: 5px;
+}
+
+#botoes-login button{
+    padding: 0.5vw 2vw 2vw 2vw;
+    margin-left: 8vw;
+    margin-right: 8vw;
+}
+
+
+

@@ -12,6 +12,7 @@ import { UserResgistrationComponent } from './pages/user-resgistration/user-resg
 import { FormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AnnouncementStepComponent } from './components/announcement-step/announ
     TitleComponent,
     UserResgistrationComponent,
     AnnouncementRegistrationComponent,
-    AnnouncementStepComponent
+    AnnouncementStepComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

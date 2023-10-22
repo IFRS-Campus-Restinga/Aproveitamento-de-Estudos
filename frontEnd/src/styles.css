@@ -27,13 +27,15 @@
 .btn-register {
   background-color: #0d8a29;
   color: white;
-  width: 450px;
+  width: 200px;
   height: 30px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.1em;
   margin-bottom: 15px;
+  margin-right: 5vw;
+
 }
 
 .btn-register:hover {
@@ -54,6 +56,7 @@
 
 .form-group input[type="text"],
 .form-group input[type="email"],
+.form-group input[type="password"],
 .form-group input[type="number"],
 .form-group input[type="date"],
 .form-group select {
