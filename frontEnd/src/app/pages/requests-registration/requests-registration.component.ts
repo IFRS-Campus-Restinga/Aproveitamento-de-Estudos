@@ -11,7 +11,7 @@ export class RequestsRegistrationComponent {
   tipoSolicitacao: string = ''; // Variável para armazenar o tipo de solicitação selecionado
 
   formData: any = {
-    componenteCurricular: 'Selecione um componente Curricular',
+    componenteCurricular: 'Selecione um componente curricular',
     tipoSolicitacao: 'Selecione o tipo de solicitação',
   };
 
@@ -24,7 +24,7 @@ export class RequestsRegistrationComponent {
 
   // ---------- Lista de Componentes Curriculares -----------------
   public listComponentesCurriculares: Array<{ componenteCurricular: string }> = [
-    { componenteCurricular: 'Selecione o componenete curricular' },
+    { componenteCurricular: 'Selecione um componente curricular' },
     { componenteCurricular: 'Programação 1' },
     { componenteCurricular: 'Programação 2' },
     { componenteCurricular: 'Programação 3' },
