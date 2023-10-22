@@ -15,6 +15,7 @@
 
     <div [ngSwitch]="formData.tipoSolicitacao">
 
+      <!-- Certificação -->
       <div *ngSwitchCase="'Certificação de conhecimento'">
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
@@ -24,19 +25,25 @@
             </option>
           </select>
         </div>
+
+        <!-- Experiencia Anterior -->
         <div class="form-group">
           <label for="experienciaAnterior">Experiência anterior:</label>
           <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" [(ngModel)]="formData.experienciaAnterior" required/>
         </div>
+
+        <!-- Anexar Arquivo -->
         <div class="form-group">
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)"/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)"/>
           </div>
         </div>
-        <br />
-        <br />
+
+        <br/><br/>
+
+        <!-- Botões -->
         <div class="form-half-grid">
           <div class="btn-submit-container">
             <button type="submit" class="btn-register">Enviar</button>
@@ -47,7 +54,10 @@
         </div>
       </div>
 
+      <!-- Aproveitamento -->
       <div *ngSwitchCase="'Aproveitamento de estudos'">
+
+        <!-- Componente Curricular -->
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
           <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
@@ -56,10 +66,14 @@
             </option>
           </select>
         </div>
+
+        <!-- Componente Anterior -->
         <div class="form-group">
           <label for="componenteCursado">Componente cursado anteriormente:</label>
           <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso cursado" [(ngModel)]="formData.componenteCursado" required>
         </div>
+
+        <!-- Nota & Carga Horaria -->
         <div class="form-half-grid">
           <div class="form-group">
             <label for="nota">Nota obtida:</label>
@@ -70,15 +84,28 @@
             <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" [(ngModel)]="formData.cargaHoraria" required />
           </div>
         </div>
+
+
+
+        <!----------------------------------------------------------------------------------------------->
+        <!-- Anexar Arquivo -->
         <div class="form-group">
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)"/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)"/>
+          </div>
+          <div *ngFor="let file of files; let i = index" class="file-info">
+            <span>{{ file.name }}</span>
+            <button (click)="removeFile(i)">(remover)</button>
           </div>
         </div>
-        <br />
-        <br />
+        <!----------------------------------------------------------------------------------------------->
+
+
+        <br/><br/>
+
+        <!-- Botões -->
         <div class="form-half-grid">
           <div class="btn-submit-container">
             <button type="submit" class="btn-register">Enviar</button>
