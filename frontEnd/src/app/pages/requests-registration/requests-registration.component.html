@@ -3,6 +3,7 @@
 
   <form #form="ngForm" (ngSubmit)="submitForm(form)">
 
+    <!-- Tipo de solicitacao -->
     <div class="form-group">
       <label for="tipoSolicitacao">Tipo:</label>
       <select name="tipoSolicitacao" id="tipoSolicitacao" [(ngModel)]="formData.tipoSolicitacao" required>
@@ -12,55 +13,85 @@
       </select>
     </div>
 
-    <!------------- Adicionar elementos do discipline-registration -------------->
-    <div class="form-group" *ngIf="tipoSolicitacao === 'certificacao' || tipoSolicitacao === 'aproveitamento'">
-      <label for="componenteCurricular">Componente Curricular:</label>
-      <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
-        <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
-          {{ item.componenteCurricular }}
-        </option>
-      </select>
-    </div>
-    <!---------------------------------------------------------------------------->
+    <div [ngSwitch]="formData.tipoSolicitacao">
 
-    <div class="form-group" *ngIf="tipoSolicitacao === 'certificacao'">
-      <label for="experienciaAnterior">Experiência anterior:</label>
-      <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" [(ngModel)]="formData.experienciaAnterior" required/>
-    </div>
-
-    <div class="form-group" *ngIf="tipoSolicitacao === 'aproveitamento'">
-      <label for="componenteCursado">Componente cursado anteriormente:</label>
-      <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso cursado"[(ngModel)]="formData.componenteCursado" required>
-    </div>
-
-    <div class="form-half-grid">
-      <div class="form-group" *ngIf="tipoSolicitacao === 'aproveitamento'">
-        <label for="nota">Nota obtida:</label>
-        <input type="number" name="nota" id="nota" min="0" max="10" placeholder="Inserir nota" required>
+      <div *ngSwitchCase="'Certificação de conhecimento'">
+        <div class="form-group">
+          <label for="componenteCurricular">Componente Curricular:</label>
+          <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
+            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
+              {{ item.componenteCurricular }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="experienciaAnterior">Experiência anterior:</label>
+          <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" [(ngModel)]="formData.experienciaAnterior" required/>
+        </div>
+        <div class="form-group">
+          <label for="file-input">Anexar arquivo:</label>
+          <div class="file-upload">
+            <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
+            <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)"/>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class="btn-submit-container">
+          <button type="submit" class="btn-register">Enviar</button>
+        </div>
+        <div class="btn-submit-container">
+          <button type="reset" class="btn-red" (click)="handleResetClick()">Cancelar</button>
+        </div>
       </div>
 
-      <div class="form-group" *ngIf="tipoSolicitacao === 'aproveitamento'">
-        <label for="cargaHoraria">Carga Horária</label>
-        <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" [(ngModel)]="formData.cargaHoraria" required />
+      <div *ngSwitchCase="'Aproveitamento de estudos'">
+        <div class="form-group">
+          <label for="componenteCurricular">Componente Curricular:</label>
+          <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
+            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
+              {{ item.componenteCurricular }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="componenteCursado">Componente cursado anteriormente:</label>
+          <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso cursado" [(ngModel)]="formData.componenteCursado" required>
+        </div>
+        <div class="form-half-grid">
+          <div class="form-group">
+            <label for="nota">Nota obtida:</label>
+            <input type="number" name="nota" id="nota" min="0" max="10" placeholder="Inserir nota" required>
+          </div>
+          <div class="form-group">
+            <label for="cargaHoraria">Carga Horária</label>
+            <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" [(ngModel)]="formData.cargaHoraria" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="file-input">Anexar arquivo:</label>
+          <div class="file-upload">
+            <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
+            <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)"/>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class="btn-submit-container">
+          <button type="submit" class="btn-register">Enviar</button>
+        </div>
+        <div class="btn-submit-container">
+          <button type="reset" class="btn-red" (click)="handleResetClick()">Cancelar</button>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group" *ngIf="tipoSolicitacao === 'certificacao' || tipoSolicitacao === 'aproveitamento'">
-      <label for="file-input">Anexar arquivo:</label>
-      <div class="file-upload">
-        <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-        <input type="file" id="file-input" class="file-input" multiple (change)="handleFileSelect($event)"/>
+      <div *ngSwitchDefault>
+        <!-- Conteúdo padrão quando 'tipoSolicitacao' não corresponde a 'certificacao' ou 'aproveitamento' -->
       </div>
+
     </div>
 
-    <br />
-    <br />
-
-    <div class="btn-submit-container">
-      <button type="submit" class="btn-register">Enviar</button>
-    </div>
-    <div class="btn-submit-container">
-      <button type="reset" class="btn-red" (click)="handleResetClick()">Cancelar</button>
-    </div>
   </form>
 </div>
+
+{{form.value | json}}

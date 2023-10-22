@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class RequestsRegistrationComponent {
 
-  tipoSolicitacao: string = 'certificacao'; // Variável para armazenar o tipo de solicitação selecionado
+  tipoSolicitacao: string = ''; // Variável para armazenar o tipo de solicitação selecionado
 
   formData: any = {
     componenteCurricular: 'Selecione um componente Curricular',
@@ -102,4 +102,5 @@ export class RequestsRegistrationComponent {
     // Atualiza a exibição dos arquivos selecionados
     this.updateFileFormat();
   }
+
 }
