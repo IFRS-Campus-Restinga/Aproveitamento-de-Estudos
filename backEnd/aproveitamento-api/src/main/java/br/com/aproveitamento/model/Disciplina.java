@@ -25,6 +25,9 @@ public class Disciplina {
     private String nome;
 
     @Column(nullable = true)
+    private int codDisciplina;
+
+    @Column(nullable = true)
     private int cargaHoraria;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
