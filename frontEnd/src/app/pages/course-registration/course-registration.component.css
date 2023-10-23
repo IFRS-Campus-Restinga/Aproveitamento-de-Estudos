@@ -1,0 +1,11 @@
+#formCurso {
+    border: 1px solid #EAEBEE;
+    margin: 2vh;
+    padding: 60px;
+
+}
+
+#formCurso #botaoSalvar, input{
+    display: flex;
+    justify-content: center;
+}
