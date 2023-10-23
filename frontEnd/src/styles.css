@@ -27,7 +27,7 @@
 .btn-register {
   background-color: #0d8a29;
   color: white;
-  width: 450px;
+  width: 100%;
   height: 30px;
   border: none;
   border-radius: 5px;
@@ -38,6 +38,22 @@
 
 .btn-register:hover {
   background-color: #0b6e23;
+}
+
+.btn-red {
+  background-color: #e71616;
+  color: white;
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+.btn-red:hover {
+  background-color: #ba0b0b;
 }
 
 .form-group {
@@ -71,5 +87,5 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  column-gap: 10px;  
+  column-gap: 10px;
 }
