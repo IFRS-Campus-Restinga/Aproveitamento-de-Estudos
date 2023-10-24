@@ -25,7 +25,7 @@ import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/api/Disciplina")
+@RequestMapping("/api/disciplina")
 public class DisciplinaController {
 
     @Autowired
