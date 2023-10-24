@@ -34,4 +34,19 @@ public class Disciplina {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PCC pcc;
 
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
+	private List<Requisicao> requisicoes = new ArrayList<>();
+    
+    public Disciplina() {
+		super();
+	}
+
+	public Disciplina(String nome, int codDisciplina, int cargaHoraria, PPC pcc) {
+		super();
+		this.nome = nome;
+        this.codDisciplina = codDisciplina;
+		this.cargaHoraria = cargaHoraria;
+		this.pcc = pcc;
+	}
+
 }
