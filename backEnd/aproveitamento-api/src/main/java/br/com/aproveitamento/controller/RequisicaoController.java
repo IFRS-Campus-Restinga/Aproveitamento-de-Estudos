@@ -17,44 +17,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.aproveitamento.model.Curso;
-import br.com.aproveitamento.service.CursoService;
+import br.com.aproveitamento.model.Requisicao;
+import br.com.aproveitamento.service.RequisicaoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/api/curso")
-public class CursoController {
+@RequestMapping("/api/requisicao")
+public class RequisicaoController {
 
-    @Autowired
-    private CursoService cursoService;
-
-    @GetMapping
-    public @ResponseBody List<Curso> list() {
-        return cursoService.list();
+	@Autowired
+	private RequisicaoService requisicaoService;
+	
+	@GetMapping
+	public @ResponseBody List<Requisicao> list(){
+		return requisicaoService.list();
+	}
+	
+	@GetMapping("/{id}")
+	public Requisicao findById(@PathVariable @NotNull @Positive Long id) {
+		return requisicaoService.findById(id);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Requisicao> create(@RequestBody @NotNull @Valid Requisicao requisicao){
+		return ResponseEntity.status(HttpStatus.CREATED).body(requisicaoService.create(requisicao));
+	}
+	
+	@PutMapping
+	public Requisicao update(@RequestBody @Valid Requisicao requisicao){
+		return requisicaoService.update(requisicao);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable @NotNull @Positive Long id){
+		requisicaoService.delete(id);
     }
-
-    @GetMapping("/{id}")
-    public Curso findById(@PathVariable @NotNull @Positive Long id) {
-        return cursoService.findById(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid Curso curso) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(curso));
-    }
-
-    @PutMapping
-    public Curso update(@RequestBody @Valid Curso curso) {
-        return cursoService.update(curso);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull @Positive Long id) {
-        cursoService.delete(id);
-    }
-
 }

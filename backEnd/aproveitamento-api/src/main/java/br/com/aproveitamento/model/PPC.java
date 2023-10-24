@@ -18,7 +18,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class PCC {
+public class PPC {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,4 +36,17 @@ public class PCC {
 
     @OneToMany(mappedBy = "pcc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
+    
+	public PPC() {
+		super();
+	}
+
+	public PPC(String nomePCC, int ano, Curso curso) {
+		super();
+		this.nomePCC = nomePCC;
+		this.ano = ano;
+		this.curso = curso;
+	}
+    
+    
 }
