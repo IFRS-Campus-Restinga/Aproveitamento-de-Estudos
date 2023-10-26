@@ -65,10 +65,10 @@ public class AproveitamentoApiApplication {
 			curso1.getPPCs().add(ppc1);
 			curso2.getPPCs().add(ppc2);
 			
-			Disciplina disciplina1 = new Disciplina("Prog I", 88, ppc1);
-			Disciplina disciplina2 = new Disciplina("Prog II", 88, ppc1);
-			Disciplina disciplina3 = new Disciplina("Literatura", 65, ppc2);
-			Disciplina disciplina4 = new Disciplina("Portugues", 65, ppc2);
+			Disciplina disciplina1 = new Disciplina("Prog I", 88, ppc1, 123);
+			Disciplina disciplina2 = new Disciplina("Prog II", 88, ppc1, 124);
+			Disciplina disciplina3 = new Disciplina("Literatura", 65, ppc2, 125);
+			Disciplina disciplina4 = new Disciplina("Portugues", 65, ppc2, 126);
 			
 			ppc1.getDisciplinas().add(disciplina1);
 			ppc1.getDisciplinas().add(disciplina2);
