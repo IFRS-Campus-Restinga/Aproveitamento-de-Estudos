@@ -30,24 +30,28 @@ public class Disciplina {
     private String nome;
 
     @Column(nullable = true)
+    private int codDisciplina;
+
+    @Column(nullable = true)
     private int cargaHoraria;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PPC pcc;
     
-	@OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
-	private List<Requisicao> requisicoes = new ArrayList<>();
+	  @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
+	  private List<Requisicao> requisicoes = new ArrayList<>();
     
     public Disciplina() {
-		super();
-	}
-
-	public Disciplina(String nome, int cargaHoraria, PPC pcc) {
-		super();
-		this.nome = nome;
-		this.cargaHoraria = cargaHoraria;
-		this.pcc = pcc;
-	}
-	
+		  super();
+	  }
+    
+	  public Disciplina(String nome, int cargaHoraria, PPC pcc, int codDisciplina) {
+		  super();
+		  this.nome = nome;
+		  this.cargaHoraria = cargaHoraria;
+		  this.pcc = pcc;
+      this.codDisciplina = codDisciplina;
+	  }
+  
 }
