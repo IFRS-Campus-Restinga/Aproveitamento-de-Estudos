@@ -17,44 +17,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.aproveitamento.model.Curso;
-import br.com.aproveitamento.service.CursoService;
+import br.com.aproveitamento.model.Analise;
+import br.com.aproveitamento.service.AnaliseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/api/curso")
-public class CursoController {
+@RequestMapping("/api/analise")
+public class AnaliseController {
 
-    @Autowired
-    private CursoService cursoService;
-
-    @GetMapping
-    public @ResponseBody List<Curso> list() {
-        return cursoService.list();
+	@Autowired
+	private AnaliseService analiseService;
+	
+	@GetMapping
+	public @ResponseBody List<Analise> list(){
+		return analiseService.list();
+	}
+	
+	@GetMapping("/{id}")
+	public Analise findById(@PathVariable @NotNull @Positive Long id) {
+		return analiseService.findById(id);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Analise> create(@RequestBody @NotNull @Valid Analise analise){
+		return ResponseEntity.status(HttpStatus.CREATED).body(analiseService.create(analise));
+	}
+	
+	@PutMapping
+	public Analise update(@RequestBody @Valid Analise analise){
+		return analiseService.update(analise);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable @NotNull @Positive Long id){
+		analiseService.delete(id);
     }
-
-    @GetMapping("/{id}")
-    public Curso findById(@PathVariable @NotNull @Positive Long id) {
-        return cursoService.findById(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid Curso curso) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(curso));
-    }
-
-    @PutMapping
-    public Curso update(@RequestBody @Valid Curso curso) {
-        return cursoService.update(curso);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull @Positive Long id) {
-        cursoService.delete(id);
-    }
-
 }
