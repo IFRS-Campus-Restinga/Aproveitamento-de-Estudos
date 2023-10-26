@@ -28,6 +28,7 @@ public class Etapa {
 	@NotNull
 	@Column(nullable = false)
 	private String nome;
+	
 	@Column(nullable = false)
 	private Date dataInicio;
 	
@@ -39,9 +40,21 @@ public class Etapa {
 	@Convert(converter = UsuarioTipoConverter.class)
 	private UsuarioTipo ator;
 	 	
-
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Edital edital;
+
+	public Etapa() {
+		super();
+	}
+
+	public Etapa(@NotNull String nome, Date dataInicio, Date dataFim, @NotNull UsuarioTipo ator, Edital edital) {
+		super();
+		this.nome = nome;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.ator = ator;
+		this.edital = edital;
+	}
 	
 }

@@ -3,9 +3,9 @@ package br.com.aproveitamento.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.aproveitamento.model.Disciplina;
+import br.com.aproveitamento.model.Analise;
 
 @Repository
-public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
+public interface AnaliseRepository extends JpaRepository<Analise, Long>{
 
 }

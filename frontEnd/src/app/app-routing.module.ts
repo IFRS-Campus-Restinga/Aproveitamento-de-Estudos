@@ -4,6 +4,7 @@ import { DisciplineRegistrationComponent } from './pages/discipline-registration
 import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent
+
+  },
+  {
+    path:'register/request',
+    component:RequestsRegistrationComponent
   }
 ];
 
