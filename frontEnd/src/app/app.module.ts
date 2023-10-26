@@ -12,6 +12,7 @@ import { UserResgistrationComponent } from './pages/user-resgistration/user-resg
 import { FormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     UserResgistrationComponent,
     AnnouncementRegistrationComponent,
     AnnouncementStepComponent,
+    LoginComponent
     RequestsRegistrationComponent
   ],
   imports: [

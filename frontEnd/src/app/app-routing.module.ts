@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DisciplineRegistrationComponent } from './pages/discipline-registration/discipline-registration.component';
 import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 
 const routes: Routes = [
   {
     path:'register/discipline',
     component:DisciplineRegistrationComponent
+    
+
   },
   {
     path:'register/user',
@@ -17,6 +20,11 @@ const routes: Routes = [
   {
     path:'register/announcement',
     component:AnnouncementRegistrationComponent
+  }, 
+  {
+    path:'login',
+    component:LoginComponent
+
   },
   {
     path:'register/request',
