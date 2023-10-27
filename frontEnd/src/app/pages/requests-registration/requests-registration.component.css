@@ -1,0 +1,25 @@
+.file-upload {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+}
+
+.file-label {
+  display: block;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: #777;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}

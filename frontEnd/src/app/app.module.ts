@@ -15,6 +15,8 @@ import { AnnouncementStepComponent } from './components/announcement-step/announ
 import { CourseListComponent } from './pages/course-list/course-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { CourseRegistrationComponent } from './pages/course-registration/course-
     AnnouncementStepComponent,
     CourseListComponent,
     CourseRegistrationComponent
+    LoginComponent
+    RequestsRegistrationComponent
   ],
   imports: [
     BrowserModule,

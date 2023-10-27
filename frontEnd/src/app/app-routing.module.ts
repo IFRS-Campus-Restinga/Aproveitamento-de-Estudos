@@ -5,11 +5,15 @@ import { UserResgistrationComponent } from './pages/user-resgistration/user-resg
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { CourseListComponent } from './pages/course-list/course-list.component';
 import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 
 const routes: Routes = [
   {
     path:'register/discipline',
     component:DisciplineRegistrationComponent
+    
+
   },
   {
     path:'register/user',
@@ -26,6 +30,13 @@ const routes: Routes = [
   {
     path:'list/courses',
     component:CourseListComponent
+    path:'login',
+    component:LoginComponent
+
+  },
+  {
+    path:'register/request',
+    component:RequestsRegistrationComponent
   }
 ];
 

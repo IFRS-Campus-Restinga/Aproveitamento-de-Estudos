@@ -35,4 +35,17 @@ public class Usuario {
     @Column(nullable = false)
     @Convert(converter = UsuarioTipoConverter.class)
     private UsuarioTipo tipo;
+    
+    public Usuario() {
+		super();
+	}
+
+	public Usuario(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.admin = admin;
+		this.tipo = tipo;
+	}
+
 }

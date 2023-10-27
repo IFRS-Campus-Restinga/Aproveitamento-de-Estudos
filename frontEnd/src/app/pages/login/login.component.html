@@ -1,0 +1,36 @@
+<div class="container">
+    <app-title title="Login"></app-title>
+
+    <div id="form-login">
+        <form #form="ngForm" (ngSubmit)="submitForm(form)">
+            <div id="logo">
+                <img src="../../../assets/images/logotipo_campus_restinga_horizontal.png">
+            </div>
+            
+            <div class="form-group" >
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" placeholder="matricula@restinga.ifrs.edu.br" [(ngModel)]="formData.email"
+                required>
+            </div>
+            <div class="form-group">
+
+                <label for="senha">Senha: </label>
+                <input type="password" id="password" name="password" placeholder="Senha" [(ngModel)]="formData.password"
+                required>
+            </div> 
+
+        </form>
+        <div id="botoes-login">
+            <div class="btn-submit-container">
+                <button type="submit" class="btn-register">Acessar</button>
+            </div>
+            
+            <div id="botoes-login">            
+                <button type="submit"  id="cadastrar" class="btn-register" >Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
+
+    {{form.value | json}}
+</div>
