@@ -34,7 +34,7 @@ import { CourseRegistrationComponent } from './pages/course-registration/course-
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

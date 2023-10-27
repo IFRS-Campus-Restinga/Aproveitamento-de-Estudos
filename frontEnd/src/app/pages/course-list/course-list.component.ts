@@ -8,7 +8,7 @@ import { Course } from '../../model/course';
 })
 export class CourseListComponent {
   course: Course[] = [{id: '01',nome: 'Tecnologia de Analise e Desenvolvimento de Sistemas',ppc :'2022'}];
-  displayedColumns = ['nome','ppc','editar', 'excluir'];
+  displayedColumns = ['nome','ppc','editar'];
   
   constructor(){
 
