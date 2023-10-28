@@ -30,6 +30,8 @@ const routes: Routes = [
   {
     path:'list/courses',
     component:CourseListComponent
+  },
+  {
     path:'login',
     component:LoginComponent
 
