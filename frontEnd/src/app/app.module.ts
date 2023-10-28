@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { CourseListComponent } from './pages/course-list/course-list.component';
 import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 
 @NgModule({
@@ -37,6 +40,7 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     CourseRegistrationComponent,
     LoginComponent,
     RequestsRegistrationComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,8 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     HttpClientModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
