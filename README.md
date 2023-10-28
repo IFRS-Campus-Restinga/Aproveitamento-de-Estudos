@@ -23,27 +23,27 @@ npm install -g @angular/cli@15.2.9
 
 #### Front-end
 
-- Certifique-se de ter o Node.js e o NPM instalados em sua máquina. Se não os tiver, siga as instruções nos links fornecidos na seção de Tecnologias Utilizadas.
-- Abra o terminal e execute o seguinte comando para instalar o Angular CLI globalmente:
+1. Certifique-se de ter o Node.js e o NPM instalados em sua máquina. Se não os tiver, siga as instruções nos links fornecidos na seção de Tecnologias Utilizadas.
+2. Abra o terminal e execute o seguinte comando para instalar o Angular CLI globalmente:
 ```shell
 npm install -g @angular/cli@15.2.9
 ```
-- Navegue até o diretório do front-end do projeto.
-- Execute o seguinte comando para instalar as dependências do projeto:
+3. Navegue até o diretório do front-end do projeto.
+4. Execute o seguinte comando para instalar as dependências do projeto:
 ```shell
 npm install
 ```
-- Para executar o servidor de desenvolvimento do Angular, use o seguinte comando:
+5. Para executar o servidor de desenvolvimento do Angular, use o seguinte comando:
 ```shell
 ng serve
 ```
 Isso iniciará o servidor de desenvolvimento em http://localhost:4200/. Abra o navegador e navegue até esse endereço para visualizar a aplicação.
 
 #### Back-end
-- Verifique se o Java 17 está instalado em sua máquina, caso contrário, siga as instruções no link fornecido na seção de Tecnologias Utilizadas.
-- Baixe e instale o Spring Boot 3.1.4 conforme o link fornecido na seção de Tecnologias Utilizadas.
-- Navegue até o diretório do back-end do projeto.
-- Execute o seguinte comando para compilar e executar o aplicativo Spring Boot:
+1. Verifique se o Java 17 está instalado em sua máquina, caso contrário, siga as instruções no link fornecido na seção de Tecnologias Utilizadas.
+2. Baixe e instale o Spring Boot 3.1.4 conforme o link fornecido na seção de Tecnologias Utilizadas.
+3. Navegue até o diretório do back-end do projeto.
+4. Execute o seguinte comando para compilar e executar o aplicativo Spring Boot:
 ```shell
 ./mvnw spring-boot:run
 ```
