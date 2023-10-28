@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lists-title',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./lists-title.component.css']
 })
 export class ListsTitleComponent {
+  @Input() title: string;
+  @Input() route: string;
+  @Input() buttonName: string;
+
+  constructor() { 
+    this.title = "";
+    this.route = "";
+    this.buttonName = "";
+  }
 
 }

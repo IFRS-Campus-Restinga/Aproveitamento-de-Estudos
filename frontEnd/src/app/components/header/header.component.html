@@ -12,15 +12,15 @@
       <ul>
         <li><button href="">Perfil</button></li>
         <li (click)="toggleDropdown()">
-          <button href="">Cadastrar</button>
+          <button>Cadastrar</button>
           <ul *ngIf="showDropdown" class="dropdown">
-            <li><a routerLink="register/discipline">Disciplina</a></li>
-            <li><a href="register/course">Curso</a></li>
-            <li><a href="register/user">Aluno</a></li>
-            <li><a href="announcement">Edital</a></li>
+            <li><a [routerLink]="['discipline']">Disciplina</a></li>
+            <li><a [routerLink]="['courses']">Curso</a></li>
+            <li><a [routerLink]="['user']">Aluno</a></li>
+            <li><a [routerLink]="['announcement']">Edital</a></li>
           </ul>
         </li>
-        <li><button href="">Solicitações</button></li>
+        <li><button [routerLink]="['request']">Solicitações</button></li>
         <li><button href="">Logout</button></li>
       </ul>
     </div>

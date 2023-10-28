@@ -22,11 +22,11 @@
         </form>
         <div id="botoes-login">
             <div class="btn-submit-container">
-                <button type="submit" class="btn-register">Acessar</button>
+                <button type="submit" class="btn-register" [routerLink]="['request']">Acessar</button>
             </div>
             
             <div id="botoes-login">            
-                <button type="submit"  id="cadastrar" class="btn-register" >Cadastrar</button>
+                <button type="submit"  id="cadastrar" class="btn-register" [routerLink]="['user/register']">Cadastrar</button>
             </div>
         </div>
     </div>
