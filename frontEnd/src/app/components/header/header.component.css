@@ -39,10 +39,41 @@ header .title-campus small {
   justify-content: flex-end;
 }
 
-.menu ul li a{
+.menu ul li button{
   font-weight: bold;
   color: #fff;
   font-size: 1.5rem;
   padding-right: 1.5rem;
   text-decoration: none;
+  background: none;
+}
+
+.menu ul li {
+  position: relative;
+}
+
+.menu ul li .dropdown {
+  display: none;
+  position: absolute;
+  background-color: var(--color-header);
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  top: 100%;
+  width: 150px; 
+}
+
+.menu ul li:hover .dropdown {
+  display: block;
+}
+
+.menu ul li .dropdown li a {
+  color: #fff; 
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.menu ul li .dropdown li a:hover {
+  background-color: var(--color-header); 
 }

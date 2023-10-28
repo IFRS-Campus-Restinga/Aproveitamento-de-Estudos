@@ -10,10 +10,18 @@
     </div>
     <div class="menu">
       <ul>
-        <li><a href="">Perfil</a></li>
-        <li><a href="">Cadastrar</a></li>
-        <li><a href="">Solicitações</a></li>
-        <li><a href="">Logout</a></li>
+        <li><button href="">Perfil</button></li>
+        <li (click)="toggleDropdown()">
+          <button href="">Cadastrar</button>
+          <ul *ngIf="showDropdown" class="dropdown">
+            <li><a routerLink="register/discipline">Disciplina</a></li>
+            <li><a href="register/course">Curso</a></li>
+            <li><a href="register/user">Aluno</a></li>
+            <li><a href="announcement">Edital</a></li>
+          </ul>
+        </li>
+        <li><button href="">Solicitações</button></li>
+        <li><button href="">Logout</button></li>
       </ul>
     </div>
   </nav>

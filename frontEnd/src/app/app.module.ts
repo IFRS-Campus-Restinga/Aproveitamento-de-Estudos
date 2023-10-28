@@ -10,13 +10,15 @@ import { DisciplineRegistrationComponent } from './pages/discipline-registration
 import { TitleComponent } from './components/title/title.component';
 import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
 import { FormsModule } from '@angular/forms';
-import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
+import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course-list/course-list.component';
-import { MatTableModule } from '@angular/material/table';
+// import { MatTableModule } from '@angular/material/table';
 import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
+import { AnnouncementListComponent } from './pages/announcement/announcement-list/announcement-list.component';
+import { ListsTitleComponent } from './components/lists-title/lists-title.component';
 
 @NgModule({
   declarations: [
@@ -29,16 +31,18 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     AnnouncementRegistrationComponent,
     AnnouncementStepComponent,
     CourseListComponent,
-    CourseRegistrationComponent
-    LoginComponent
-    RequestsRegistrationComponent
+    CourseRegistrationComponent,
+    LoginComponent,
+    RequestsRegistrationComponent,
+    AnnouncementListComponent,
+    ListsTitleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
-    MatTableModule,
+    // MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
