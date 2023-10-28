@@ -3,7 +3,7 @@ Posso Editar
 
 ## Tecnologias utilizadas
 
-- [Node 16.14.2](https://nodejs.org/pt-br/blog/release/v16.14.2)
+- [Node 16.14.2](https://nodejs.org/dist/v16.14.2/)
 - [NPM 8.5.0](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ### Front-end
