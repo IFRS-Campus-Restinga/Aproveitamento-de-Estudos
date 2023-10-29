@@ -6,7 +6,7 @@ import br.com.aproveitamento.service.PpcService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,9 +17,9 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/api/curso/ppc")
+@AllArgsConstructor
 public class PpcController {
 
-    @Autowired
     private PpcService ppcService;
 
     @GetMapping

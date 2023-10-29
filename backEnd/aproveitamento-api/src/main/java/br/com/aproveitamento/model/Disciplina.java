@@ -5,6 +5,8 @@ package br.com.aproveitamento.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -36,11 +38,12 @@ public class Disciplina {
     private int cargaHoraria;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference
     private PPC pcc;
     
-	  @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
-	  private List<Requisicao> requisicoes = new ArrayList<>();
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @JsonManagedReference
+    private List<Requisicao> requisicoes = new ArrayList<>();
     
     public Disciplina() {
 		  super();

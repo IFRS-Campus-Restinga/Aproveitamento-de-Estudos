@@ -118,6 +118,8 @@ public class AproveitamentoApiApplication {
 			
 			cursoRepository.save(curso1);
 			cursoRepository.save(curso2);
+
+			System.out.println();
 			
 			Edital edital = new Edital("5001", new Date(), new Date());
 			
@@ -177,6 +179,8 @@ public class AproveitamentoApiApplication {
 			edital.getRequisicoes().add(requisicao4);
 			
 			editalRepository.save(edital);
+
+
 			
 			/*
 			Analise analise1 = new Analise();
