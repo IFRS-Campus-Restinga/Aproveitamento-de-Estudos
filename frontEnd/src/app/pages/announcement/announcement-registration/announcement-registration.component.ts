@@ -7,8 +7,31 @@ import { AnnouncementStepComponent } from 'src/app/components/announcement-step/
   styleUrls: ['./announcement-registration.component.css']
 })
 export class AnnouncementRegistrationComponent {
+
   formData: any = {
+    dataInicio: '',
+    dataFim: ''
   };
+
+  validarDataFinalPosterior() {
+    const dataInicio = new Date(this.formData.dataInicio);
+    const dataFim = new Date(this.formData.dataFim);
+
+    if (dataInicio <= dataFim) {
+      return true; // A data final é posterior à data de início
+    } else {
+      return false; // A data final não é posterior à data de início
+    }
+  }
+
+  validarCursoSelecionado() {
+    return this.formData.curso !== 'Selecione um ator';
+  }
+
+  converterParaMaiusculas() {
+    this.formData.numero = this.formData.numero.toUpperCase();
+  }
+
 
   steps: AnnouncementStepComponent[] = [];
 
