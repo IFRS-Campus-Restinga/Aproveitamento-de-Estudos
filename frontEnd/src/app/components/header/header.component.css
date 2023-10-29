@@ -46,6 +46,16 @@ header .title-campus small {
   padding-right: 1.5rem;
   text-decoration: none;
   background: none;
+  cursor: pointer;
+}
+
+.menu ul li .active{
+  color: rgb(219, 219, 219);
+}
+
+.menu ul li button:hover{
+  transition: 0.3s;
+  transform: scale(1.05);
 }
 
 .menu ul li {

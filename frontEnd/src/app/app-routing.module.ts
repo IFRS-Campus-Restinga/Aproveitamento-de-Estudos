@@ -38,7 +38,7 @@ const routes: Routes = [
     component:AnnouncementRegistrationComponent
   }, 
   {
-    path:'courses',
+    path:'course',
     component:CourseListComponent
   },
   {

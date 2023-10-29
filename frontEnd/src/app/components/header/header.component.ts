@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,19 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  showDropdown = false; // Controla a exibição do dropdown
+  showDropdown = false;
+  currentPage: string = 'dfsdfdssdfsdf';
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
 
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentPage = event.urlAfterRedirects.split('/')[1];
+        }
+      }
+    );
+  }
 }
