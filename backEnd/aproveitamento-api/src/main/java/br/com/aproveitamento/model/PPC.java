@@ -3,6 +3,7 @@ package br.com.aproveitamento.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -30,10 +31,12 @@ public class PPC {
     @Column(nullable = true)
     private int ano;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Curso curso;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pcc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
     
