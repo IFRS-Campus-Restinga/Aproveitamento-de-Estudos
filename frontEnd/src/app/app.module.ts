@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
+    HttpClientModule
     MatTableModule,
   ],
   providers: [],
