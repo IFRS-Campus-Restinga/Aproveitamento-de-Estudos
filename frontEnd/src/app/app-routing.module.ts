@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path:'announcement/register',
     component:AnnouncementRegistrationComponent
-  }, 
+  },
   {
     path:'register/course',
     component:CourseRegistrationComponent

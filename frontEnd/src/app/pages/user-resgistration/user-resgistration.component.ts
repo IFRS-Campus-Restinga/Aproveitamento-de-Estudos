@@ -6,12 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-resgistration.component.css']
 })
 export class UserResgistrationComponent {
+
+  validarCursoSelecionado() {
+    return this.formData.curso !== 'Selecione um curso';
+  }
+
   formData: any = {
     curso: 'Selecione um curso'
+
   };
 
   public listCursos: Array<{ curso: string }> = [
-    { curso:'Selecione um curso' },
+    { curso: 'Selecione um curso' },
     { curso: 'Licenciatura em Letras Português e Espanhol' },
     { curso: 'Tecnologia em Análise e Desenvolvimento de Sistemas' },
     { curso: 'Tecnologia em Eletrônica Industrial' },
@@ -24,6 +30,7 @@ export class UserResgistrationComponent {
     { curso: 'Técnico em guia de turismo' },
     { curso: 'Técnico em comércio' }
   ];
+
 
   submitForm(form: any) {
     console.log(this.formData);

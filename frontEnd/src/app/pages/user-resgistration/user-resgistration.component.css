@@ -1,0 +1,13 @@
+.btn-invalid {
+  background-color: rgb(50, 50, 50);
+  color: rgb(80, 80, 80);
+}
+.btn-green {
+  background-color: green;
+  color: white;
+}
+
+.btn-gray {
+  background-color: gray;
+  color: white;
+}
