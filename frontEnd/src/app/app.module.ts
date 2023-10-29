@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RequestsRegistrationComponent } from './pages/requests-registration/req
     BrowserModule,
     AppRoutingModule,
     NgOptimizedImage,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

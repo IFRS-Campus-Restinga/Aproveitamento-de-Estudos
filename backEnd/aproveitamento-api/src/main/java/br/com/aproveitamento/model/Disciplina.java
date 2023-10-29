@@ -5,6 +5,7 @@ package br.com.aproveitamento.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -35,6 +36,7 @@ public class Disciplina {
     @Column(nullable = true)
     private int cargaHoraria;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PPC pcc;
