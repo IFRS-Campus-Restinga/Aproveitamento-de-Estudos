@@ -14,15 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { DisciplineRegistrationComponent } from './pages/discipline-registration/discipline-registration.component';
+import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
-import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
-import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
+import { UserResgistrationComponent } from './pages/users/user-resgistration/user-resgistration.component';
+import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
-import { CourseListComponent } from './pages/course-list/course-list.component';
-import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
+import { CourseListComponent } from './pages/course/course-list/course-list.component';
+import { CourseRegistrationComponent } from './pages/course/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
-import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
+import { RequestsRegistrationComponent } from './pages/requests/requests-registration/requests-registration.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 
