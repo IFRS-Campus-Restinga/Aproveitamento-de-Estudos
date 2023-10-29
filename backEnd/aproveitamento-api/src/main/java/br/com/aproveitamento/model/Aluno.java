@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.aproveitamento.enums.UsuarioTipo;
@@ -16,6 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 public class Aluno extends Usuario{
@@ -27,10 +31,11 @@ public class Aluno extends Usuario{
     private Date dataIngresso;
 	
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL,  orphanRemoval = true)
+	@JsonManagedReference
 	private List<Requisicao> requisicoes = new ArrayList<>();
     
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonBackReference
 	private Curso curso;
     
     public Aluno() {
