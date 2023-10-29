@@ -38,6 +38,9 @@ export class UserResgistrationComponent implements OnInit{
     }
 
     this.alunoService.createAluno(this.aluno).subscribe(
+      (data) => {
+
+      },
       (error) => {
         console.error('Erro:', error);
       }
