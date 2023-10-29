@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Course } from '../../model/course';
+import { Course } from '../../../model/Course';
 import { CoursesService } from 'src/app/services/courses.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class CourseListComponent {
 
   courses$: Observable<Course[]>;
   displayedColumns = ['nome','ppc','editar'];
-  
+
   constructor(private coursesService: CoursesService, public dialog: MatDialog){
     this.courses$ = this.coursesService.list()
     .pipe(
@@ -24,13 +24,13 @@ export class CourseListComponent {
         return of([]);
       })
     );
-    
-  
+
+
   }
 
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg 
+      data: errorMsg
     });
 
   }

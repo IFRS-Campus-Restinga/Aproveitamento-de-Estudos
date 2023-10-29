@@ -16,7 +16,7 @@ import br.com.aproveitamento.repository.DisciplinaRepository;
 import br.com.aproveitamento.repository.EditalRepository;
 import br.com.aproveitamento.repository.EnsinoRepository;
 import br.com.aproveitamento.repository.EtapaRepository;
-import br.com.aproveitamento.repository.PPCRepository;
+import br.com.aproveitamento.repository.PpcRepository;
 import br.com.aproveitamento.repository.ProfessorRepository;
 import br.com.aproveitamento.repository.RequisicaoRepository;
 import br.com.aproveitamento.enums.RequisicaoStatus;
@@ -47,7 +47,7 @@ public class AproveitamentoApiApplication {
 									ProfessorRepository ProfessorRepository,
 									EnsinoRepository ensinoRepository,
 									CursoRepository cursoRepository,
-									PPCRepository PPCRepository,
+									PpcRepository PPCRepository,
 									DisciplinaRepository disciplinaRepository,
 									EditalRepository editalRepository,
 									EtapaRepository etapaRepository,

@@ -2,6 +2,7 @@ package br.com.aproveitamento.controller;
 
 import java.util.List;
 
+import br.com.aproveitamento.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

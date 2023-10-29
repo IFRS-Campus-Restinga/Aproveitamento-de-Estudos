@@ -24,7 +24,7 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(length = 200, nullable = true)
     private String nome;
 
     @Column
