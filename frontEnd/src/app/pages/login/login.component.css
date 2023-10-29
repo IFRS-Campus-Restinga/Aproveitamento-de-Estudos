@@ -24,8 +24,8 @@ app-title {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    
-    
+
+
 }
 
 #botoes-login {
@@ -40,6 +40,16 @@ app-title {
 
 #botoes-login button{
     padding: 0.5vw 2vw 2vw 2vw;
+}
+
+.btn-green {
+  background-color: green;
+  color: white;
+}
+
+.btn-gray {
+  background-color: gray;
+  color: white;
 }
 
 
