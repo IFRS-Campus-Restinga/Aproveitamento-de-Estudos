@@ -34,10 +34,33 @@
   cursor: pointer;
   font-size: 1.1em;
   margin-bottom: 15px;
+  transition: 0.3s;
+  padding: 2px;
+  margin-right: 5vw;
 }
 
 .btn-register:hover {
   background-color: #0b6e23;
+  transition: 0.3s;
+}
+
+.btn-alert {
+  background-color: #bd0000;
+  color: white;
+  width: 20vw;
+  height: 5vh;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin: 10px;
+  transition: 0.3s;
+
+}
+
+.btn-alert:hover {
+  background-color: #6e0b0b;
+  transition: 0.3s;
 }
 
 .btn-red {
@@ -70,6 +93,7 @@
 
 .form-group input[type="text"],
 .form-group input[type="email"],
+.form-group input[type="password"],
 .form-group input[type="number"],
 .form-group input[type="date"],
 .form-group select {

@@ -12,6 +12,10 @@ import { UserResgistrationComponent } from './pages/user-resgistration/user-resg
 import { FormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
+import { CourseListComponent } from './pages/course-list/course-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { CourseRegistrationComponent } from './pages/course-registration/course-registration.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests-registration/requests-registration.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,6 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     UserResgistrationComponent,
     AnnouncementRegistrationComponent,
     AnnouncementStepComponent,
+    CourseListComponent,
+    CourseRegistrationComponent
+    LoginComponent
     RequestsRegistrationComponent
   ],
   imports: [
@@ -33,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgOptimizedImage,
     FormsModule,
     HttpClientModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

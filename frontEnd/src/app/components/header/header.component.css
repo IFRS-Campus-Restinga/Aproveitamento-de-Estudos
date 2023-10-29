@@ -39,9 +39,10 @@ header .title-campus small {
   justify-content: flex-end;
 }
 
-.menu ul li{
+.menu ul li a{
   font-weight: bold;
   color: #fff;
   font-size: 1.5rem;
   padding-right: 1.5rem;
+  text-decoration: none;
 }
