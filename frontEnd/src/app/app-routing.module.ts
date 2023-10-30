@@ -12,8 +12,6 @@ const routes: Routes = [
   {
     path:'register/discipline',
     component:DisciplineRegistrationComponent
-
-
   },
   {
     path:'register/user',
@@ -34,7 +32,6 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent
-
   },
   {
     path:'register/request',

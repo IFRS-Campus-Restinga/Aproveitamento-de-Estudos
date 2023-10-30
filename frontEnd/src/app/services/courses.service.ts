@@ -9,11 +9,13 @@ import { first, of, tap, delay } from 'rxjs';
 })
 export class CoursesService {
 
-  private readonly api = '../assets/courses.json';
+  private readonly api = 'api/curso';
 
   constructor(private httpClient: HttpClient) { }
 
   list(){
+
+
     return this.httpClient.get<Course[]>(this.api)
     .pipe(
       first(),

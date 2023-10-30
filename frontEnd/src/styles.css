@@ -22,6 +22,7 @@
 .container form {
   width: 450px;
   margin: 0 auto;
+  pointer-events: all;
 }
 
 .btn-register {
