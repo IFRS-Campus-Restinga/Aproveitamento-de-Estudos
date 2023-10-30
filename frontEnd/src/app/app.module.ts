@@ -9,7 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
 import { UserResgistrationComponent } from './pages/users/user-resgistration/user-resgistration.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course/course-list/course-list.component';
@@ -48,6 +48,7 @@ import { RequestsListComponent } from './pages/requests/requests-list/requests-l
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
+    ReactiveFormsModule,
     // MatTableModule,
   ],
   providers: [],
