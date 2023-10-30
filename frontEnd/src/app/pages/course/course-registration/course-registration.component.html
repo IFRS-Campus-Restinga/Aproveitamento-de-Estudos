@@ -1,6 +1,26 @@
+<div class="container">
+  <app-title title="Cadastrar Novo Curso"></app-title>
 
-<div class="container"> 
-    <app-title title="Cadastrar Novo Curso"></app-title>
+  <mat-card>
+    <form [formGroup]="form">
+      <mat-form-field >
+        <input matInput placeholder="Nome do Curso" formControlName="nomeCurso">
+      </mat-form-field>
+
+      <mat-form-field >
+        <input matInput placeholder="Ano PPC" formControlName="anoPpc">
+      </mat-form-field>
+
+      <mat-form-field >
+        <input matInput placeholder="Coordenador" formControlName="coordenador">
+      </mat-form-field>
+
+    </form>
+  </mat-card>
+</div>
+{{form.value | json}}
+
+<!--
     <form #form="ngForm" (ngSubmit)="submitForm(form)" id="formCurso">
         <div class="form-group">
             <label for="nomeCurso">Nome do Curso</label>
@@ -24,5 +44,4 @@
             <button type="submit" class="btn-register">Salvar</button>
         </div>
     </form>
-</div>
-{{form.value | json}}
+  -->
