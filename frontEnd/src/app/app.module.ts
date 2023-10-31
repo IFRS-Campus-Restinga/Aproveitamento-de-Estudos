@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import { HeaderComponent } from './components/header/header.component';
 import { DisciplineRegistrationComponent } from './pages/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
 import { UserResgistrationComponent } from './pages/user-resgistration/user-resgistration.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course-list/course-list.component';
@@ -42,6 +42,7 @@ import { ListsTitleComponent } from './components/lists-title/lists-title.compon
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
+    ReactiveFormsModule,
     // MatTableModule,
   ],
   providers: [],

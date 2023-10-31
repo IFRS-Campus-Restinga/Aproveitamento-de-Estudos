@@ -1,49 +1,39 @@
 <div class="container">
-  <app-title title="Cadastro"></app-title>
-  <form #form="ngForm" (ngSubmit)="submitForm(form)">
+  <app-title title="'Cadastro'"></app-title>
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()" #form="ngForm">
 
     <div class="form-group">
       <label for="nomeCompleto">Nome Completo</label>
-      <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Nome Completo"
-          [(ngModel)]="formData.nomeCompleto" required
-          pattern="^[a-zA-ZÀ-ÖØ-öø-ÿÇç\s]{5,120}$" title="O nome deve ter entre 5 e 120 caracteres, incluindo letras maiúsculas, minúsculas, acentuadas e 'ç'." />
-  </div>
+      <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome Completo" />
+    </div>
 
-  <div class="form-group">
-    <label for="email">Email Institucional</label>
-    <input type="email" id="email" name="email" placeholder="matricula@restinga.ifrs.edu.br"
-        [(ngModel)]="formData.email" required
-        pattern="^[\w.-]+@restinga\.ifrs\.edu\.br$" title="O email deve ter no máximo 40 caracteres e seguir o formato de email institucional." />
-  </div>
+    <div class="form-group">
+      <label for="email">Email Institucional</label>
+      <input type="email" id="email" formControlName="email" placeholder="matricula@restinga.ifrs.edu.br" />
+    </div>
 
     <div class="form-group">
       <label for="curso">Curso</label>
-      <select id="curso" name="curso" [(ngModel)]="formData.curso" required [class.invalid]="!validarCursoSelecionado()">
-        <option *ngFor="let item of listCursos" [ngValue]="item.curso">
-          {{item.curso}}
-        </option>
+      <select id="curso" formControlName="curso" [class.invalid]="!isCursoValid()">
+        <option value="">Selecione um curso</option>
+        <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
       </select>
     </div>
 
     <div class="form-half-grid">
       <div class="form-group">
         <label for="matricula">Matrícula</label>
-        <input type="text" id="matricula" name="matricula" placeholder="0123456789" [(ngModel)]="formData.matricula" required
-          pattern="[0-9]{10}" title="A matrícula deve conter exatamente 10 dígitos numéricos." />
+        <input type="text" id="matricula" formControlName="matricula" placeholder="0123456789" />
       </div>
 
       <div class="form-group">
         <label for="ingresso">Data de Ingresso (Semeste/Ano)</label>
-        <input type="text" id="ingresso" name="ingresso" placeholder="02/2023" [(ngModel)]="formData.ingresso" required
-          pattern="^(0[1-2]|1[0-2])/(201[6-9]|202[0-6])$" title="A data de ingresso deve estar no formato MM/AAAA e o ano deve estar entre 2016 e 2026." />
+        <input type="text" id="ingresso" formControlName="ingresso" placeholder="02/2023" />
       </div>
-
     </div>
-      <div class="btn-submit-container">
-        <button type="button" class="btn-register" [ngClass]="{'btn-green':(form.valid && validarCursoSelecionado()) , 'btn-gray': (!form.valid || !validarCursoSelecionado())}" [disabled]="!form.valid || !validarCursoSelecionado()">Enviar</button>
-      </div>
-  </form>
 
+    <div class="btn-submit-container">
+      <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}" [disabled]="!isFormValid()">Enviar</button>
+    </div>
+  </form>
 </div>
-{{form.valid && validarCursoSelecionado()| json}}
-{{form.value | json}}
