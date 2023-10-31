@@ -5,17 +5,20 @@
 
       <div class="form-group">
         <label for="nomeCurso">Nome do Curso</label>
-        <input type="text" id="nomeCurso"formControlName="nomeCurso" placeholder=""/>
+        <input type="text" id="nomeCurso"formControlName="nomeCurso" placeholder=""
+        [ngClass]="{'valid-input': !isValid('nomeCurso'), 'invalid-input': isValid('nomeCurso')}"/>
       </div>
 
       <div class="form-group">
         <label for="anoPpc">Ano do PPC</label>
-        <input type="text" id="anoPpc" formControlName="anoPpc" placeholder=""/>
+        <input type="text" id="anoPpc" formControlName="anoPpc" placeholder=""
+        [ngClass]="{'valid-input': !isValid('anoPpc'), 'invalid-input': isValid('anoPpc')}"/>
       </div>
 
       <div class="form-group">
       <label for="coordenador">Coordenador</label>
-      <input type="text" id="coordenador" formControlName="coordenador" placeholder="Nome Completo"/>
+      <input type="text" id="coordenador" formControlName="coordenador" placeholder="Nome Completo"
+      [ngClass]="{'valid-input': !isValid('coordenador'), 'invalid-input': isValid('coordenador')}"/>
       </div>
       
       <div class="btn-submit-container" id="botaoSalvar">

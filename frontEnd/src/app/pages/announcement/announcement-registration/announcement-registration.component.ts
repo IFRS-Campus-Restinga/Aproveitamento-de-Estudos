@@ -14,7 +14,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
   
   ngOnInit(): void {
     this.announcementForm = this.formBuilder.group({
-      numero: ['', [Validators.required, Validators.pattern('^[A-Z0-9\-\/.()]{6,35}$')]],
+      numero: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,35}$')]],
       dataInicio: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿÇç\\s]{5,120}$')]],
       dataFim: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]{10,60}$')]]
     });
@@ -38,9 +38,9 @@ export class AnnouncementRegistrationComponent implements OnInit {
     const dataFim = new Date(this.announcementForm.value.dataFim);
 
     if (dataInicio <= dataFim) {
-      return true; // A data final é posterior à data de início
+      return true;
     } else {
-      return false; // A data final não é posterior à data de início
+      return false;
     }
   }
 
@@ -57,6 +57,16 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
   addStep() {
     this.steps.push(new AnnouncementStepComponent());
+  }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.announcementForm.get(campo);
+    
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+    
+    return false;
   }
 
 }

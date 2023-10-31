@@ -4,20 +4,23 @@
   <form [formGroup]="announcementForm" (ngSubmit)="submitForm()" #form="ngForm">
 
     <div class="form-group">
-      <label for="nomeCurso">Nome do Curso</label>
-      <input type="text" id="nomeCurso"formControlName="nomeCurso" placeholder=""/>
+      <label for="numero">Número do edital</label>
+      <input type="text" id="numero"formControlName="numero" placeholder="" (blur)="convertNumeroToUpperCase()"
+      [ngClass]="{'valid-input': !isValid('numero'), 'invalid-input': isValid('numero')}"/>
     </div>
 
    <div class="form-half-grid">
   <div class="form-group">
     <label for="coordenador">Data Início</label>
-    <input type="date" id="dataInicio" formControlName="dataInicio" />
+    <input type="date" id="dataInicio" formControlName="dataInicio"
+    [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataInicio'), 'invalid-input': !validarDataFinalPosterior() && isValid('dataInicio')}" />
     </div>
     
 
     <div class="form-group">
     <label for="coordenador">Data Fim</label>
-    <input type="date" id="dataFim" formControlName="dataFim" />
+    <input type="date" id="dataFim" formControlName="dataFim"
+    [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataFim'), 'invalid-input': !validarDataFinalPosterior() && isValid('dataFim')}" />
     </div>
   </div>
 

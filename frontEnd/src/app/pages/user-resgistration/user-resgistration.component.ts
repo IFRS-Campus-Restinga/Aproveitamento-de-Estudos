@@ -28,7 +28,7 @@ export class UserResgistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
-      nomeCompleto: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿÇç\s]{5,120}$')]],
+      nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       curso: ['Selecione um curso', Validators.required],
       matricula: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
@@ -43,8 +43,11 @@ export class UserResgistrationComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    console.log(this.userForm.value.email.valid)
+    console.log(this.userForm.value.ingresso)
     console.log(this.userForm.value.email)
+    console.log(this.userForm.value.curso)
+    console.log(this.userForm.value.nomeCompleto)
+    console.log(this.userForm.value.matricula)
     console.log(this.isCursoValid())
     return this.userForm.valid && this.isCursoValid();
   }
@@ -52,4 +55,15 @@ export class UserResgistrationComponent implements OnInit {
   isCursoValid(): boolean {
     return this.userForm.get('curso')?.value !== 'Selecione um curso';
   }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.userForm.get(campo);
+    
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+    
+    return false;
+  }
+
 }

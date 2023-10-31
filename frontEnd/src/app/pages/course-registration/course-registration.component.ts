@@ -26,10 +26,20 @@ export class CourseRegistrationComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    console.log(this.courseForm.value.anpPpc)
+    console.log(this.courseForm.value.anoPpc)
     console.log(this.courseForm.value.coordenador)
     console.log(this.courseForm.value.nomeCurso)
     return this.courseForm.valid;
+  }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.courseForm.get(campo);
+    
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+    
+    return false;
   }
   
 }

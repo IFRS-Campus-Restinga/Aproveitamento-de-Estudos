@@ -4,12 +4,14 @@
 
     <div class="form-group">
       <label for="nomeCompleto">Nome Completo</label>
-      <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome Completo" />
+      <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome Completo" 
+      [ngClass]="{'valid-input': !isValid('nomeCompleto'), 'invalid-input': isValid('nomeCompleto')}"/>
     </div>
 
     <div class="form-group">
       <label for="email">Email Institucional</label>
-      <input type="email" id="email" formControlName="email" placeholder="matricula@restinga.ifrs.edu.br" />
+      <input type="email" id="email" formControlName="email" placeholder="matricula@restinga.ifrs.edu.br"
+      [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" />
     </div>
 
     <div class="form-group">
@@ -23,12 +25,14 @@
     <div class="form-half-grid">
       <div class="form-group">
         <label for="matricula">Matrícula</label>
-        <input type="text" id="matricula" formControlName="matricula" placeholder="0123456789" />
+        <input type="text" id="matricula" formControlName="matricula" placeholder="0123456789"
+        [ngClass]="{'valid-input': !isValid('matricula'), 'invalid-input': isValid('matricula')}" />
       </div>
 
       <div class="form-group">
         <label for="ingresso">Data de Ingresso (Semeste/Ano)</label>
-        <input type="text" id="ingresso" formControlName="ingresso" placeholder="02/2023" />
+        <input type="text" id="ingresso" formControlName="ingresso" placeholder="02/2023"
+        [ngClass]="{'valid-input': !isValid('ingresso'), 'invalid-input': isValid('ingresso')}" />
       </div>
     </div>
 
