@@ -59,4 +59,15 @@ export class DisciplineRegistrationComponent implements OnInit {
   convertDisciplinaToUpperCase() {
     this.disciplineForm.get('disciplina')?.setValue(this.disciplineForm.value.disciplina.toUpperCase());
   }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.disciplineForm.get(campo);
+    
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+    
+    return false;
+  }
+
 }

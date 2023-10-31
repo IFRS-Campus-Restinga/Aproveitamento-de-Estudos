@@ -4,12 +4,14 @@
 
     <div class="form-group">
       <label for="codigo">Código (RST-ABC123)</label>
-      <input type="text" id="codigo" formControlName="codigo" placeholder="Código do componente curricular" (blur)="convertCodigoToUpperCase()"/>
+      <input type="text" id="codigo" formControlName="codigo" placeholder="Código do componente curricular" 
+      (blur)="convertCodigoToUpperCase()" [ngClass]="{'valid-input': !isValid('codigo'), 'invalid-input': isValid('codigo')}"/>
     </div>
     
     <div class="form-group">
       <label for="disciplina">Componente Curricular</label>
-      <input type="text" id="disciplina" formControlName="disciplina" placeholder="Nome do componente curricular" (blur)="convertDisciplinaToUpperCase()"/>
+      <input type="text" id="disciplina" formControlName="disciplina" placeholder="Nome do componente curricular" 
+      (blur)="convertDisciplinaToUpperCase()" [ngClass]="{'valid-input': !isValid('disciplina'), 'invalid-input': isValid('disciplina')}"/>
     </div>
 
     <div class="form-group">
@@ -22,7 +24,8 @@
 
     <div class="form-group">
       <label for="cargaHoraria">Carga Horária</label>
-      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Carga Horária(h)"/>
+      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Carga Horária(h)"
+      [ngClass]="{'valid-input': !isValid('cargaHoraria'), 'invalid-input': isValid('cargaHoraria')}"/>
     </div>
     <hr>
 
@@ -33,3 +36,4 @@
     
   </form>
 </div>
+
