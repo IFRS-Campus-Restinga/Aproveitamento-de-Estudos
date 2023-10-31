@@ -1,6 +1,6 @@
 export interface Etapa {
   id: string;
-  descricao: string;
+  nome: string;
   ator: string;
   dataInicio: string;
   dataFim: string;

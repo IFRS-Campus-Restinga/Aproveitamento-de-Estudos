@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, UntypedFormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AnnouncementStepComponent } from 'src/app/components/announcement-step/announcement-step.component';
 import { Etapa } from 'src/app/model/Etapa';
+import { EditalService } from 'src/app/services/edital.service';
 
 @Component({
   selector: 'app-announcement-registration',
@@ -12,60 +12,73 @@ import { Etapa } from 'src/app/model/Etapa';
 export class AnnouncementRegistrationComponent implements OnInit{
 
   form!: FormGroup;
+  public listAtores: Array<{ ator: string }> = [
+    {ator: "ALUNO"},
+    {ator: "COORDENADOR"},
+    {ator: "ENSINO"},
+    {ator: "PROFESSOR"},
+    {ator: "SERVIDOR"}
+  ];
 
   constructor(private formBuilder: NonNullableFormBuilder,
-    private route: ActivatedRoute){
+    private route: ActivatedRoute,
+    private editalService: EditalService){
 
   }
   ngOnInit(): void {
     const edital: any = this.route.snapshot.data['edital'];
 
     this.form = this.formBuilder.group({
+        id:[''],
         numero: [''],
         dataInicio: [''],
         dataFim:  [''],
-        steps: this.formBuilder.array(this.retriveSteps(edital))
+        etapas: this.formBuilder.array(this.retriveSteps(edital))
       }
     );
   }
 
   addStep() {
-    const steps = this.form.get('steps') as UntypedFormArray;
-    steps.push(this.createSteps());
+    const etapas = this.form.get('etapas') as UntypedFormArray;
+    etapas.push(this.createSteps());
   }
 
   submitForm() {
-    // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor ou exibi-los no console.
-    console.log(this.form.value);
-    //console.log(this.steps[0].formData);
+    console.log(this.form.valid);
+    if (this.form.valid) {
+      this.editalService.save(this.form.value)
+        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar curso"));
+    } else {
+      alert("Prrencha todos os campos");
+    }
   }
 
-  private createSteps(steps : Etapa = {id: '', descricao: '', ator: '', dataInicio: '', dataFim: ''}){
+  private createSteps(etapa : Etapa = {id: '', nome: '', ator: '', dataInicio: '', dataFim: ''}){
     return this.formBuilder.group({
-      id: [steps.id],
-      descricao: [steps.descricao],
-      ator: [steps.ator],
-      dataInicio: [steps.dataInicio],
-      dataFim: [steps.dataFim]
+      id: [etapa.id],
+      nome: [etapa.nome],
+      ator: [etapa.ator],
+      dataInicio: [etapa.dataInicio],
+      dataFim: [etapa.dataFim]
     });
   }
 
   getStepsFormArray(){
-    return (<UntypedFormArray>this.form.get('steps')).controls;
+    return (<UntypedFormArray>this.form.get('etapas')).controls;
   }
 
   private retriveSteps(edital: any){
-    const steps = [];
+    const etapas = [];
     if(edital?.etapas){
-      edital.etapas.forEach((etapa: any) => steps.push(this.createSteps(etapa)))
+      edital.etapas.forEach((etapa: any) => etapas.push(this.createSteps(etapa)))
     }else{
-      steps.push(this.createSteps());
+      etapas.push(this.createSteps());
     }
-    return steps;
+    return etapas;
   }
 
   removeSteps(i: number) {
-    const steps = this.form.get('steps') as UntypedFormArray;
+    const steps = this.form.get('etapas') as UntypedFormArray;
     steps.removeAt(i);
   }
 }

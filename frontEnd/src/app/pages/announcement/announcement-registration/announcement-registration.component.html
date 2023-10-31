@@ -20,16 +20,20 @@
             <button (click)="addStep()" class="btn-register add-step">Etapa +</button>
         </div>
         <div class="form-group">
-          <table formArrayName="steps" *ngFor="let step of getStepsFormArray(); let i = index">
+          <table formArrayName="etapas" *ngFor="let step of getStepsFormArray(); let i = index">
             <div class="step-container">
               <tr class="grid-step" [formGroupName]="i">
                 <td>
-                  <label for="descricao">Descrição</label>
-                  <input type="text" id="descricao" name="descricao" placeholder="descricao" formControlName="descricao" required>
+                  <label for="nome">Descrição</label>
+                  <input type="text" id="nome" name="nome" placeholder="nome" formControlName="nome" required>
                 </td>
                 <td>
                   <label for="ator">Ator</label>
-                  <select formControlName="ator" name="ator" id="ator"></select>
+                  <select formControlName="ator" name="ator" id="ator">
+                    <option *ngFor="let item of listAtores" [ngValue]="item.ator">
+                      {{item.ator}}
+                  </option>
+                  </select>
                 </td>
                 </tr>
                 <tr class="grid-step" [formGroupName]="i">

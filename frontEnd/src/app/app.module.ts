@@ -22,6 +22,7 @@ import { ListsTitleComponent } from './components/lists-title/lists-title.compon
 import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RequestsListComponent } from './pages/requests/requests-list/requests-l
     NgOptimizedImage,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
     // MatTableModule,
   ],
   providers: [],
