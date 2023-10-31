@@ -9,6 +9,7 @@ import { AnnouncementStepComponent } from 'src/app/components/announcement-step/
 })
 export class AnnouncementRegistrationComponent implements OnInit {
   announcementForm!: FormGroup;
+  steps: AnnouncementStepComponent[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
   
@@ -21,9 +22,15 @@ export class AnnouncementRegistrationComponent implements OnInit {
   }
  
   submitForm(): void {
-    if (this.announcementForm.valid) {
-      console.log(this.announcementForm.value);
-    }
+    const stepResults = this.steps.map(step => step.submitForm());
+    const mainFormResult = this.announcementForm.valid ? this.announcementForm.value : null;
+
+    const jsonData = {
+      mainForm: mainFormResult,
+      steps: stepResults.filter(result => result !== null)
+    };
+
+    console.log(JSON.stringify(jsonData, null, 2));
   }
 
   isFormValid(): boolean {
@@ -33,7 +40,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
     return this.announcementForm.valid;
   }
   
-    validarDataFinalPosterior() {
+  validarDataFinalPosterior() {
     const dataInicio = new Date(this.announcementForm.value.dataInicio);
     const dataFim = new Date(this.announcementForm.value.dataFim);
 
@@ -52,11 +59,9 @@ export class AnnouncementRegistrationComponent implements OnInit {
     this.announcementForm.get('numero')?.setValue(this.announcementForm.value.numero.toUpperCase());
   }
 
-
-  steps: AnnouncementStepComponent[] = [];
-
   addStep() {
-    this.steps.push(new AnnouncementStepComponent());
+    const stepComponent = new AnnouncementStepComponent(this.formBuilder); // Passando o FormBuilder
+    this.steps.push(stepComponent);
   }
 
   isValid(campo: string): boolean {
@@ -68,7 +73,4 @@ export class AnnouncementRegistrationComponent implements OnInit {
     
     return false;
   }
-
 }
-  
-

@@ -1,23 +1,34 @@
-<form #form="ngForm" (ngSubmit)="submitForm(form)" class="step-container">
+
+<form [formGroup]="announcementStepForm" (ngSubmit)="submitForm()" #form="ngForm">
+
     <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <input type="text" id="descricao" name="descricao" placeholder="Descrição" [(ngModel)]="formData.descricao"
-            required>
+      <label for="descricao">Descrição</label>
+      <input type="text" id="descricao"formControlName="descricao" placeholder="" 
+      [ngClass]="{'valid-input': !isValid('descricao'), 'invalid-input': isValid('descricao')}"/>
     </div>
-    <div class="grid-step">
+
+    <div class="form-half-grid">
         <div class="form-group">
-            <label for="dataInicio">Data inicio</label>
-            <input type="date" name="dataInicio" id="dataInicio" [(ngModel)]="formData.dataInico" required>
-        </div>
-        <div class="form-group">
-            <label for="dataFim">Data fim</label>
-            <input type="date" name="dataFim" id="dataFim" [(ngModel)]="formData.dataFim" required>
-        </div>
-        <div class="form-group">
-            <label for="ator">Ator</label>
-            <select name="ator" id="ator"></select>
-        </div>
+        <label for="coordenador">Data Início</label>
+        <input type="date" id="dataInicio" formControlName="dataInicio"
+        [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataInicio'), 'invalid-input': !validarDataFinalPosterior() && isValid('dataInicio')}" />
     </div>
-</form>
+    
+    <div class="form-group">
+        <label for="coordenador">Data Fim</label>
+        <input type="date" id="dataFim" formControlName="dataFim"
+        [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataFim'), 'invalid-input': !validarDataFinalPosterior() && isValid('dataFim')}" />
+    </div>
+    </div>
+
+    <div class="form-group">
+        <label for="ator">Ator</label>
+        <select name="ator" id="ator"></select>
+    </div>
+
+  </form>
+{{form.value | json}}
+
+
 
 <!-- Add more fields as needed -->
