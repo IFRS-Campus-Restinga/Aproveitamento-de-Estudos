@@ -42,7 +42,6 @@ export class UserResgistrationComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    // console.log(this.userForm.valid)
     console.log(this.userForm.value.email.valid)
     console.log(this.userForm.value.email)
     console.log(this.isCursoValid())

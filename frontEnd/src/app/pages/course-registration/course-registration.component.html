@@ -1,34 +1,25 @@
 
 <div class="container">
     <app-title title="Cadastrar Novo Curso"></app-title>
-    <form #form="ngForm" (ngSubmit)="submitForm(form)" id="formCurso">
+    <form [formGroup]="courseForm" (ngSubmit)="submitForm()" #form="ngForm">
 
       <div class="form-group">
         <label for="nomeCurso">Nome do Curso</label>
-        <input type="text" id="nomeCurso" name="nomeCurso" placeholder=""
-          [(ngModel)]="formData.nomeCurso" required
-          pattern="^[a-zA-ZÀ-ÖØ-öø-ÿ\s]{10,60}$" />
+        <input type="text" id="nomeCurso"formControlName="nomeCurso" placeholder=""/>
       </div>
 
       <div class="form-group">
         <label for="anoPpc">Ano do PPC</label>
-        <input type="text" id="anoPpc" name="anoPpc" placeholder=""
-          [(ngModel)]="formData.anoPpc" required
-          pattern="^(201[7-9]|20[2-9][0-9])$" />
+        <input type="text" id="anoPpc" formControlName="anoPpc" placeholder=""/>
       </div>
-
 
       <div class="form-group">
       <label for="coordenador">Coordenador</label>
-      <input type="text" id="coordenador" name="cooredenador" placeholder="Nome Completo"
-        [(ngModel)]="formData.nomeCompleto" required
-        pattern="^[a-zA-ZÀ-ÖØ-öø-ÿÇç\s]{5,120}$" title="O nome deve ter entre 5 e 120 caracteres, incluindo letras maiúsculas, minúsculas, acentuadas e 'ç'." />
+      <input type="text" id="coordenador" formControlName="coordenador" placeholder="Nome Completo"/>
       </div>
-
-
+      
       <div class="btn-submit-container" id="botaoSalvar">
-        <button type="submit" class="btn-register" [ngClass]="{'btn-green':(form.valid ) ,
-        'btn-gray': (!form.valid)}" [disabled]="!form.valid">Salvar</button>
+        <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}">Salvar</button>
       </div>
 
     </form>

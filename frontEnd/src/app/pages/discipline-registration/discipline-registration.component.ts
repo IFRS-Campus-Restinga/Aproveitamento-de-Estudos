@@ -52,12 +52,10 @@ export class DisciplineRegistrationComponent implements OnInit {
     return this.disciplineForm.get('curso')?.value !== 'Selecione um curso';
   }
 
-  // Função para converter o valor do campo "codigo" para maiúsculas
   convertCodigoToUpperCase() {
     this.disciplineForm.get('codigo')?.setValue(this.disciplineForm.value.codigo.toUpperCase());
   }
 
-  // Função para converter o valor do campo "disciplina" para maiúsculas
   convertDisciplinaToUpperCase() {
     this.disciplineForm.get('disciplina')?.setValue(this.disciplineForm.value.disciplina.toUpperCase());
   }
