@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './user-resgistration.component.html',
   styleUrls: ['./user-resgistration.component.css']
 })
+
 export class UserResgistrationComponent implements OnInit {
   userForm!: FormGroup;
   cursos: string[] = [

@@ -1,36 +1,36 @@
 <div class="container">
-  <app-title title="Login"></app-title>
-
-  <div id="form-login">
-      <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <app-title title="Login"></app-title>
+  
+  
+  
+    <div id="form-login">
+  
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()" #form="ngForm">
+  
           <div id="logo">
               <img src="../../../assets/images/logotipo_campus_restinga_horizontal.png">
           </div>
-
-          <div class="form-group" >
-              <label for="email">Email: </label>
-              <input type="email" id="email" name="email" placeholder="matricula@restinga.ifrs.edu.br"
-              [(ngModel)]="formData.email" required
-              pattern="^[\w.-]+@restinga\.ifrs\.edu\.br$" title="O email deve ter no máximo 40 caracteres e seguir o formato de email institucional." />
-          </div>
-
+  
           <div class="form-group">
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" placeholder="Senha" [(ngModel)]="formData.senha" required
-              pattern="^(?!.*[!*])[\w\d -_~]{8,60}$" />
+              <label for="email">Email</label>
+              <input type="text" id="email" formControlName="email" placeholder="matricula@restinga.ifrs.edu.br"/>
           </div>
-
+  
+          <div class="form-group">
+              <label for="senha">Senha:</label>
+              <input type="password" id="senha" formControlName="password" placeholder="Senha"/>
+          </div>
+  
       </form>
-      <div id="botoes-login">
-          <div class="btn-submit-container">
-              <button type="submit" class="btn-register" [ngClass]="{'btn-green':(form.valid) , 'btn-gray': (!form.valid)}" [disabled]="!form.valid">Acessar</button>
-          </div>
-
-          <div id="botoes-login">
-              <button type="submit"  id="cadastrar" class="btn-register" >Cadastrar</button>
-          </div>
+  
+      <div class="btn-submit-container" id="botoes-login">
+          <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}">Acessar</button>
       </div>
+  
+      <div id="botoes-login">
+          <button type="submit"  id="cadastrar" class="btn-register" >Cadastrar</button>
+      </div>
+    </div>
   </div>
-</div>
-{{form.valid | json}}
-{{form.value | json}}
+ 
+  
