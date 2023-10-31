@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnnouncementStepComponent } from 'src/app/components/announcement-step/announcement-step.component';
 
 @Component({
@@ -6,16 +7,35 @@ import { AnnouncementStepComponent } from 'src/app/components/announcement-step/
   templateUrl: './announcement-registration.component.html',
   styleUrls: ['./announcement-registration.component.css']
 })
-export class AnnouncementRegistrationComponent {
+export class AnnouncementRegistrationComponent implements OnInit {
+  announcementForm!: FormGroup;
 
-  formData: any = {
-    dataInicio: '',
-    dataFim: ''
-  };
+  constructor(private formBuilder: FormBuilder) {}
+  
+  ngOnInit(): void {
+    this.announcementForm = this.formBuilder.group({
+      numero: ['', [Validators.required, Validators.pattern('^[A-Z0-9\-\/.()]{6,35}$')]],
+      dataInicio: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿÇç\\s]{5,120}$')]],
+      dataFim: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]{10,60}$')]]
+    });
+  }
+ 
+  submitForm(): void {
+    if (this.announcementForm.valid) {
+      console.log(this.announcementForm.value);
+    }
+  }
 
-  validarDataFinalPosterior() {
-    const dataInicio = new Date(this.formData.dataInicio);
-    const dataFim = new Date(this.formData.dataFim);
+  isFormValid(): boolean {
+    console.log(this.announcementForm.value.numero)
+    console.log(this.announcementForm.value.dataInicio)
+    console.log(this.announcementForm.value.dataFim)
+    return this.announcementForm.valid;
+  }
+  
+    validarDataFinalPosterior() {
+    const dataInicio = new Date(this.announcementForm.value.dataInicio);
+    const dataFim = new Date(this.announcementForm.value.dataFim);
 
     if (dataInicio <= dataFim) {
       return true; // A data final é posterior à data de início
@@ -25,11 +45,11 @@ export class AnnouncementRegistrationComponent {
   }
 
   validarCursoSelecionado() {
-    return this.formData.curso !== 'Selecione um ator';
+    return this.announcementForm.value.curso !== 'Selecione um ator';
   }
 
-  converterParaMaiusculas() {
-    this.formData.numero = this.formData.numero.toUpperCase();
+  convertNumeroToUpperCase() {
+    this.announcementForm.get('numero')?.setValue(this.announcementForm.value.numero.toUpperCase());
   }
 
 
@@ -37,10 +57,8 @@ export class AnnouncementRegistrationComponent {
 
   addStep() {
     this.steps.push(new AnnouncementStepComponent());
-}
-
-  submitForm(form: any) {
-    // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor ou exibi-los no console.
-    console.log(this.formData);
   }
+
 }
+  
+
