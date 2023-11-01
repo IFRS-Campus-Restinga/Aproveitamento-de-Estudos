@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.aproveitamento.enums.RequisicaoStatus;
@@ -23,6 +26,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 public class Requisicao {
@@ -78,6 +82,7 @@ public class Requisicao {
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
 	private Disciplina disciplina;
 	
 	public Requisicao() {

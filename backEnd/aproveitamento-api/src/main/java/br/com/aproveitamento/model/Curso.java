@@ -32,17 +32,14 @@ public class Curso {
 
     @Column
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<PPC> PPCs = new ArrayList<>();
 
     @Column
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Coordenador> coordenadores = new ArrayList<>();
     
     @Column
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Aluno> alunos = new ArrayList<>();
 
     public Curso() {

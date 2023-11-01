@@ -35,11 +35,10 @@ public class PPC {
     private int ano;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Curso curso;
 
     @OneToMany(mappedBy = "pcc", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Disciplina> disciplinas = new ArrayList<>();
     
 	public PPC() {

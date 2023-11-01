@@ -40,11 +40,10 @@ public class Disciplina {
     private int cargaHoraria;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PPC pcc;
     
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
-    @JsonManagedReference
     private List<Requisicao> requisicoes = new ArrayList<>();
     
     public Disciplina() {

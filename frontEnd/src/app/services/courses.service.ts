@@ -22,4 +22,11 @@ export class CoursesService {
       delay(1500),
       tap(courses => console.log(courses)));
   }
+
+
+  save(record: Course){
+    //console.log("salvando curso pelo servico");
+    //console.log(record);
+    return this.httpClient.post<Course>(this.api, record);
+  }
 }
