@@ -13,6 +13,7 @@ export class AnnouncementStepComponent implements OnInit {
     'ALUNO',
     'COORDENADOR',
     'PROFESSOR',
+    'ENSINO',
     'SERVIDOR'
   ];
 
@@ -20,7 +21,7 @@ export class AnnouncementStepComponent implements OnInit {
   
   ngOnInit(): void {
     this.announcementStepForm = this.formBuilder.group({
-      descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s.,\'-]{10,250}$')]],
+      descricao: ['', [Validators.required]],
       dataInicio: ['', [Validators.required]],
       dataFim: ['', [Validators.required]],
       ator: ['Selecione um ator', Validators.required],
@@ -39,9 +40,10 @@ export class AnnouncementStepComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    console.log(this.announcementStepForm.value.descricao)
     console.log(this.announcementStepForm.value.dataInicio)
     console.log(this.announcementStepForm.value.dataFim)
+    console.log(this.isAtorValid())
+    console.log(this.isStepValid('descricao'))
     return this.announcementStepForm.valid;
   }
   
@@ -57,14 +59,14 @@ export class AnnouncementStepComponent implements OnInit {
   }
 
   validarAtorSelecionado() {
-    return this.announcementStepForm.value.curso !== 'Selecione um ator';
+    return this.announcementStepForm.value.ator !== 'Selecione um ator';
   }
 
   isStepValid(campo: string): boolean {
     const fieldControl = this.announcementStepForm.get(campo);
     
     if (fieldControl) {
-      return !fieldControl.valid && fieldControl.touched;
+      return !fieldControl.valid ;
     }
     
     return false;

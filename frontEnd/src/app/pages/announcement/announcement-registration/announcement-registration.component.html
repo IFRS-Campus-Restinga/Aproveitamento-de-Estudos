@@ -31,7 +31,7 @@
     <button (click)="addStep()" class="btn-register add-step"
     [ngClass]="{
       'btn-green': isFormValid() && validarDataFinalPosterior(),
-      'btn-gray': !isFormValid() && !validarDataFinalPosterior()
+      'btn-gray': !isFormValid() || !validarDataFinalPosterior()
     }"
     [disabled]="!isFormValid() || !validarDataFinalPosterior()">Etapa +</button>
 </div>
@@ -43,7 +43,7 @@
   <button type="submit" class="btn-register"
     [ngClass]="{
       'btn-green': isFormValid() && validarDataFinalPosterior(),
-      'btn-gray': !isFormValid() && !validarDataFinalPosterior()
+      'btn-gray': !isFormValid() || !validarDataFinalPosterior()
     }"
     [disabled]="!isFormValid() || !validarDataFinalPosterior()">Enviar</button>
 </div>

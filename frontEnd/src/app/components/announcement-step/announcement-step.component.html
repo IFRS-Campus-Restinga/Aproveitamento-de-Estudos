@@ -11,14 +11,14 @@
       <label for="coordenador">Data Início</label>
       <input type="date" id="dataInicio" formControlName="dataInicio"
       [ngClass]="{'valid-input': validarDataFinalStepPosterior() && !isStepValid('dataInicio'), 
-      'invalid-input': !validarDataFinalStepPosterior() && isStepValid('dataInicio')}" />
+      'invalid-input': !validarDataFinalStepPosterior() || isStepValid('dataInicio')}" />
   </div>
   
   <div class="form-group">
       <label for="coordenador">Data Fim</label>
       <input type="date" id="dataFim" formControlName="dataFim"
       [ngClass]="{'valid-input': validarDataFinalStepPosterior() && !isStepValid('dataFim'), 
-      'invalid-input': !validarDataFinalStepPosterior() && isStepValid('dataFim')}" />
+      'invalid-input': !validarDataFinalStepPosterior() || isStepValid('dataFim')}" />
   </div>
   </div>
 
