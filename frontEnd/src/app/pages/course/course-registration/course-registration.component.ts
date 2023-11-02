@@ -26,7 +26,7 @@ export class CourseRegistrationComponent {
     console.log(this.form.value);
     this.service.save(this.form.value)
     .subscribe(result => console.log(result), error =>this.onError );
-
+    
   }
 
   private onError(){

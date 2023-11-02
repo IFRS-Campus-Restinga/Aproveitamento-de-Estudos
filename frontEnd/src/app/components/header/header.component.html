@@ -1,7 +1,7 @@
 <header>
   <nav>
     <div class="logo">
-      <img src="assets/images/ifrs_logo_branco.png" alt="">
+      <a [routerLink]="['login']"><img src="assets/images/ifrs_logo_branco.png" alt=""></a>
       <h1 class="title-campus">
         <small>Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul</small>
         <br>
@@ -10,10 +10,18 @@
     </div>
     <div class="menu">
       <ul>
-        <li><a href="">Perfil</a></li>
-        <li><a href="">Cadastrar</a></li>
-        <li><a href="">Solicitações</a></li>
-        <li><a href="">Logout</a></li>
+        <li><button href="">Perfil</button></li>
+        <li (click)="toggleDropdown()">
+          <button [ngClass]="{ 'active': ['discipline', 'course', 'user', 'announcement'].includes(currentPage) }">Gerenciar</button>
+          <ul *ngIf="showDropdown" class="dropdown">
+            <li><a [routerLink]="['discipline']">Disciplina</a></li>
+            <li><a [routerLink]="['course']">Curso</a></li>
+            <li><a [routerLink]="['user']">Aluno</a></li>
+            <li><a [routerLink]="['announcement']">Edital</a></li>
+          </ul>
+        </li>
+        <li><button [ngClass]="{ 'active': currentPage === 'request' }" [routerLink]="['request']">Solicitações</button></li>
+        <li><button href="">Logout</button></li>
       </ul>
     </div>
   </nav>

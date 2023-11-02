@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  showDropdown = false;
+  currentPage: string = 'register';
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentPage = event.urlAfterRedirects.split('/')[1];
+        }
+      }
+    );
+  }
 }

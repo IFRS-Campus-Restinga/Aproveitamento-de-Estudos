@@ -11,6 +11,14 @@
     padding: 3%;
 }
 
+.mat-header-cell-actions, .mat-cell-actions {
+  margin: 30px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loading-spinner {
     padding: 30px;
     display: flex;

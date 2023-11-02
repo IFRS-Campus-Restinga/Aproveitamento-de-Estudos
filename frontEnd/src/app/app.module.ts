@@ -28,6 +28,11 @@ import { CourseRegistrationComponent } from './pages/course/course-registration/
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests/requests-registration/requests-registration.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { ListsTitleComponent } from './components/lists-title/lists-title.component';
+import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
+import { AnnouncementListComponent } from './pages/announcement/announcement-list/announcement-list.component';
+import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
+import { UsersListComponent } from './pages/users/users-list/users-list.component';
 
 
 @NgModule({
@@ -45,6 +50,11 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     LoginComponent,
     RequestsRegistrationComponent,
     ErrorDialogComponent,
+    ListsTitleComponent,
+    DisciplineListComponent,
+    AnnouncementListComponent,
+    RequestsListComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,

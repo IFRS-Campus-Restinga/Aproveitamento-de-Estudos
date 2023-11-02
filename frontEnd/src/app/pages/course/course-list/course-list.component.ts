@@ -38,6 +38,6 @@ export class CourseListComponent {
 
   onAdd() {
     console.log('cadastrar');
-    this.router.navigate(['register/course']);
+    this.router.navigate(['course/register']);
   }
 }
