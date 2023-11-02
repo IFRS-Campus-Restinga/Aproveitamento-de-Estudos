@@ -16,21 +16,15 @@ export class AnnouncementRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.announcementForm = this.formBuilder.group({
       numero: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,35}$')]],
-      dataInicio: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿÇç\\s]{5,120}$')]],
-      dataFim: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]{10,60}$')]]
+      dataInicio: ['', [Validators.required]],
+      dataFim: ['', [Validators.required]]
     });
   }
  
   submitForm(): void {
-    const stepResults = this.steps.map(step => step.submitForm());
-    const mainFormResult = this.announcementForm.valid ? this.announcementForm.value : null;
-
-    const jsonData = {
-      mainForm: mainFormResult,
-      steps: stepResults.filter(result => result !== null)
-    };
-
-    console.log(JSON.stringify(jsonData, null, 2));
+    if (this.announcementForm.valid) {
+      console.log(this.announcementForm.value);
+    }
   }
 
   isFormValid(): boolean {

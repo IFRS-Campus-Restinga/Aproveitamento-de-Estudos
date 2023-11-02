@@ -22,7 +22,7 @@
       </div>
       
       <div class="btn-submit-container" id="botaoSalvar">
-        <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}">Salvar</button>
+        <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}"[disabled]="!isFormValid()">Salvar</button>
       </div>
 
     </form>

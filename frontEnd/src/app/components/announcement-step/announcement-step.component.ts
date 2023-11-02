@@ -8,14 +8,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AnnouncementStepComponent implements OnInit {
   announcementStepForm!: FormGroup;
+  atores: string[] = [
+    'Selecione um ator',
+    'ALUNO',
+    'COORDENADOR',
+    'PROFESSOR',
+    'SERVIDOR'
+  ];
 
   constructor(private formBuilder: FormBuilder) {}
   
   ngOnInit(): void {
     this.announcementStepForm = this.formBuilder.group({
       descricao: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s.,\'-]*$')]],
-      dataInicio: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿÇç\\s]{5,120}$')]],
-      dataFim: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]{10,60}$')]]
+      dataInicio: ['', [Validators.required]],
+      dataFim: ['', [Validators.required]],
+      ator: ['Selecione um ator', Validators.required],
     });
   }
      
@@ -24,6 +32,10 @@ export class AnnouncementStepComponent implements OnInit {
       return this.announcementStepForm.value;
     }
     return null;
+  }
+
+  isAtorValid(): boolean {
+    return this.announcementStepForm.get('ator')?.value !== 'Selecione um ator';
   }
 
   isFormValid(): boolean {
@@ -59,5 +71,3 @@ export class AnnouncementStepComponent implements OnInit {
   }
 
 }
-  
-
