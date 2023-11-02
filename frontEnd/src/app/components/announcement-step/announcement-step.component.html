@@ -3,22 +3,22 @@
   <div class="form-group">
     <label for="descricao">Descrição</label>
     <input type="text" id="descricao"formControlName="descricao" placeholder="" 
-    [ngClass]="{'valid-input': !isValid('descricao'), 'invalid-input': isValid('descricao')}"/>
+    [ngClass]="{'valid-input': !isStepValid('descricao'), 'invalid-input': isStepValid('descricao')}"/>
   </div>
 
   <div class="form-half-grid">
       <div class="form-group">
       <label for="coordenador">Data Início</label>
       <input type="date" id="dataInicio" formControlName="dataInicio"
-      [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataInicio'), 
-      'invalid-input': !validarDataFinalPosterior() && isValid('dataInicio')}" />
+      [ngClass]="{'valid-input': validarDataFinalStepPosterior() && !isStepValid('dataInicio'), 
+      'invalid-input': !validarDataFinalStepPosterior() && isStepValid('dataInicio')}" />
   </div>
   
   <div class="form-group">
       <label for="coordenador">Data Fim</label>
       <input type="date" id="dataFim" formControlName="dataFim"
-      [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataFim'), 
-      'invalid-input': !validarDataFinalPosterior() && isValid('dataFim')}" />
+      [ngClass]="{'valid-input': validarDataFinalStepPosterior() && !isStepValid('dataFim'), 
+      'invalid-input': !validarDataFinalStepPosterior() && isStepValid('dataFim')}" />
   </div>
   </div>
 
@@ -31,6 +31,7 @@
   </div>
 
 </form>
+{{form.valid | json}}
 {{form.value | json}}
 
 

@@ -54,8 +54,12 @@ export class AnnouncementRegistrationComponent implements OnInit {
   }
 
   addStep() {
-    const stepComponent = new AnnouncementStepComponent(this.formBuilder); // Passando o FormBuilder
-    this.steps.push(stepComponent);
+    if (this.isFormValid()) {
+      const stepComponent = new AnnouncementStepComponent(this.formBuilder);
+      this.steps.push(stepComponent);
+    } else {
+      // Exibir uma mensagem de erro ou tomar alguma outra ação adequada.
+    }
   }
 
   isValid(campo: string): boolean {
@@ -67,4 +71,9 @@ export class AnnouncementRegistrationComponent implements OnInit {
     
     return false;
   }
+
+  areStepsValid(): boolean {
+    return this.steps.every(step => step.isFormValid());
+  }
+
 }
