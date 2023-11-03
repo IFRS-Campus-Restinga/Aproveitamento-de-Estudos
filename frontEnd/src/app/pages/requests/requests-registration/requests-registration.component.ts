@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './requests-registration.component.html',
   styleUrls: ['./requests-registration.component.css'],
 })
+
 export class RequestsRegistrationComponent {
+
   tipoSolicitacao: string = ''; // Variável para armazenar o tipo de solicitação selecionado
 
   formData: any = {
@@ -42,29 +44,35 @@ export class RequestsRegistrationComponent {
   // Propriedades para controle de arquivos
   maxFileCount: number = 5;                     // Define o número máximo de arquivos permitidos
   selectedFileCount: number = 0;                // contador de número de arquivos selecionados
-  maxFileSizeInBytes: number = 2 * 1024 * 1024; // Define o tamanho maximo de upload de arquivos
+  maxFileSizeInBytes: number = 10 * 1024 * 1024; // Define o tamanho maximo de upload de arquivos
 
   // Método para lidar com a seleção de arquivos
   handleFileSelect(event: any) {
-    const selectedFiles: FileList | null = event.target.files;
+    const selectedFiles: FileList | null = event.target.files; // Obtém a lista de arquivos selecionados do evento de input
 
     if (selectedFiles) {
-      // Verifique se o número de arquivos selecionados não excede o limite
+      // Verifica se o número de arquivos selecionados não excede o limite
       if (this.selectedFileCount + selectedFiles.length <= this.maxFileCount) {
         for (let i = 0; i < selectedFiles.length; i++) {
-          const file = selectedFiles.item(i);
+          const file = selectedFiles.item(i); // Obtém o arquivo atual da lista de arquivos selecionados
           if (file) {
+            // Verifica se o tamanho do arquivo está dentro do limite permitido
             if (file.size <= this.maxFileSizeInBytes) {
-              this.files.push(file);
-              this.selectedFileCount++; // Atualize a contagem de arquivos selecionados
+              // Verifica se o arquivo já não está na lista de arquivos existentes
+              if (!this.files.some(existingFile => existingFile.name === file.name)) {
+                this.files.push(file);    // Adiciona o arquivo à lista de arquivos
+                this.selectedFileCount++; // Atualiza a contagem de arquivos selecionados
+              } else {
+                alert('O arquivo ' + file.name + ' já foi selecionado.'); // Exibe um alerta se o arquivo já foi selecionado anteriormente
+              }
             } else {
-              alert('Tamanho do arquivo '+ file.name +' excede o limite')
+              alert('Tamanho do arquivo ' + file.name + ' excede o limite'); // Exibe um alerta se o tamanho do arquivo exceder o limite
             }
           }
         }
-        this.updateFileFormat();
+        this.updateFileFormat(); // Atualiza a mensagem exibida na interface do usuário com base nos arquivos selecionados
       } else {
-        alert('Limite de arquivos excedido. Você pode selecionar no máximo ' + this.maxFileCount + ' arquivos.');
+        alert('Limite de arquivos excedido. Você pode selecionar no máximo ' + this.maxFileCount + ' arquivos.'); // Exibe um alerta se o limite de arquivos for excedido
       }
     }
   }
@@ -87,14 +95,14 @@ export class RequestsRegistrationComponent {
       fileFormats += `<i class="fas fa-file"></i> ${fileName}, ${fileSize}<br>`;
       // fileFormats += `<i class="fas fa-file"></i> ${fileName} (${fileFormat}), ${fileSize}<br>`;
     }
-    this.fileFormat = fileFormats; // Atualiza a mensagem com os detalhes dos arquivos selecionados.
+    // this.fileFormat = fileFormats; // Atualiza a mensagem com os detalhes dos arquivos selecionados.
   }
 
   // Método para lidar com a remoção de arquivos
   removeFile(index: number) {
     if (index >= 0 && index < this.files.length) {
       this.files.splice(index, 1);
-      this.selectedFileCount--; // Atualize a contagem de arquivos selecionados
+      this.selectedFileCount--; // Atualiza a contagem de arquivos selecionados
       this.updateFileFormat();
     }
   }
@@ -119,6 +127,7 @@ export class RequestsRegistrationComponent {
   submitForm(form: any) {
     console.log(this.formData); // Exibe os dados do formulário
     console.log('submitForm called');
+    alert("Solicitão enviada com sucesso");
   }
 
   handleResetClick() {

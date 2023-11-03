@@ -23,3 +23,16 @@
   opacity: 0;
   cursor: pointer;
 }
+
+.btn-remove{
+  padding-top: 10px;
+  margin-left: 3px;
+  background-color: #FFFF;
+  color: #de1c1c;
+  cursor: pointer;
+}
+
+.btn-remove:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}
