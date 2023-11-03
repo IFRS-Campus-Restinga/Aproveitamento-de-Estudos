@@ -1,5 +1,3 @@
-/*Está em construção
-Guilherme Selau Pereira*/
 package br.com.aproveitamento.model;
 
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class Disciplina {
     private String nome;
 
     @Column(nullable = true)
-    private int codDisciplina;
+    private String codDisciplina;
 
     @Column(nullable = true)
     private int cargaHoraria;
@@ -39,21 +37,21 @@ public class Disciplina {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private PPC pcc;
-    
-	  @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
-	  private List<Requisicao> requisicoes = new ArrayList<>();
-    
+    private PPC ppc;
+
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Requisicao> requisicoes = new ArrayList<>();
+
     public Disciplina() {
-		  super();
-	  }
-    
-	  public Disciplina(String nome, int cargaHoraria, PPC pcc, int codDisciplina) {
-		  super();
-		  this.nome = nome;
-		  this.cargaHoraria = cargaHoraria;
-		  this.pcc = pcc;
-      this.codDisciplina = codDisciplina;
-	  }
-  
+        super();
+    }
+
+    public Disciplina(String nome, int cargaHoraria, PPC ppc, String codDisciplina) {
+        super();
+        this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
+        this.ppc = ppc;
+        this.codDisciplina = codDisciplina;
+    }
+
 }
