@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ppc } from 'src/app/model/Ppc';
 import { CursoService } from 'src/app/services/curso.service';
 import { PpcService } from 'src/app/services/ppc.service';
 
@@ -9,13 +10,11 @@ import { PpcService } from 'src/app/services/ppc.service';
 })
 export class DisciplineRegistrationComponent implements OnInit {
 
-  formData: any = {
-    curso: 'Selecione um curso'
-  };
+  formData: any = {};
+  ppc: Ppc | null = null;
 
-  public cursos: any[] | null = null;
-  public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [];
-  public listPpcs: Array<{ nomePPC: string, id: number, ano: number}> = [];
+  public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [{id: 0, nomePPC: 'Selecione o curso', ano: 0}] }];
+  public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
   constructor(private cursoService: CursoService, private ppcService: PpcService) {
 
@@ -26,7 +25,14 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    console.log(this.formData);
+    console.log(this.adjustPpcs(form.value));
+    if (form.valid) {
+      this.ppcService.createDiscipline(this.adjustPpcs(form.value))
+        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
+    } else {
+      alert("Prrencha todos os campos");
+    }
+
   }
 
   loadCursos(){
@@ -50,8 +56,29 @@ export class DisciplineRegistrationComponent implements OnInit {
     const elementoSelecionado = event.target as HTMLSelectElement;
     const opcaoSelecionada = elementoSelecionado.value;
 
-    const idCurso = opcaoSelecionada.split('. ')[0];
-    //this.listPpcs = this.listCursos.find(item => item.id == idCurso).ppcs;
+    const idCurso: number = parseInt(opcaoSelecionada.split('. ')[0]);
+    this.listPpcs = [];
+    for (const i of this.listCursos) {
+      if(i.id === idCurso){
+       for(const j of i.ppcs){
+          this.listPpcs.push({id: j.id, nomePPC: j.nomePPC, ano: j.ano});
+       }
+      }
+    }
+  }
+
+  adjustPpcs(form: any): Ppc{
+    return this.ppc = {
+        id: form.ppc.id,
+        nomePPC: form.ppc.nomePPC,
+        ano: form.ppc.ano,
+        disciplinas: [{
+          id: '',
+          nome: form.disciplina,
+          codDisciplina: form.codigo,
+          cargaHoraria: form.cargaHoraria
+        }]
+    }
   }
 
 }

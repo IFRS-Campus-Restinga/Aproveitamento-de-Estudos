@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
+import { Ppc } from '../model/Ppc';
 
 
 @Injectable({
@@ -16,6 +17,10 @@ export class PpcService {
 
   getPpc(){
     return this.httpClient.get<any[]>(this.API).pipe(first());
+  }
+
+  createDiscipline(obj: Partial<Ppc>){
+    return this.httpClient.post(`${this.API}/disciplina`, obj).pipe(first());
   }
 
 

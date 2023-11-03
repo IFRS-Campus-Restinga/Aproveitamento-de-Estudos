@@ -11,8 +11,11 @@
     </div>
     <div class="form-group">
       <label for="ppc">PPC</label>
-      <select id="ppc" name="ppc" required>
-    </select>
+      <select id="ppc" name="ppc" [(ngModel)]="formData.ppc" required>
+        <option *ngFor="let item of listPpcs" [ngValue]="item">
+         {{item.nomePPC}} - {{item.ano}}
+        </option>>
+      </select>
     </div>
     <div class="form-group">
       <label for="codigo">Código</label>

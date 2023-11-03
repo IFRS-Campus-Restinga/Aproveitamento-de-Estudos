@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.PpcDTO;
 import br.com.aproveitamento.model.PPC;
 import br.com.aproveitamento.service.PPCService;
 import jakarta.validation.Valid;
@@ -44,6 +45,11 @@ public class PPCController {
     @PostMapping
     public ResponseEntity<PPC> create(@RequestBody @NotNull @Valid PPC ppc) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.create(ppc));
+    }
+
+    @PostMapping("/disciplina")
+    public ResponseEntity<PPC> createDisciplina(@RequestBody @NotNull @Valid PpcDTO ppc) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createDicplina(ppc));
     }
 
     @PutMapping
