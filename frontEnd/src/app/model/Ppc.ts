@@ -5,7 +5,6 @@ export interface Ppc {
   id: string;
   nomePPC: string;
   ano: number;
-
   cursos?: Curso;
   disciplinas?: Disciplina[];
 }

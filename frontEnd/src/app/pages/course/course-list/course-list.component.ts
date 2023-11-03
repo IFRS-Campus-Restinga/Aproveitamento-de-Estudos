@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Course } from '../../../model/Course';
 import { CoursesService } from 'src/app/services/courses.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/components/error-dialog/error-dialog.component';
+import { Curso } from 'src/app/model/Curso';
 
 @Component({
   selector: 'app-course-list',
@@ -14,7 +14,7 @@ import { ErrorDialogComponent } from 'src/app/components/error-dialog/error-dial
 })
 export class CourseListComponent {
 
-  courses$: Observable<Course[]>;
+  courses$: Observable<Curso[]>;
   displayedColumns = ['nome','ppc','actions'];
 
   constructor(private coursesService: CoursesService, public dialog: MatDialog, private router: Router){

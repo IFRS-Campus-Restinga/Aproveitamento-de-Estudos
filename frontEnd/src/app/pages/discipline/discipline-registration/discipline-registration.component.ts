@@ -12,6 +12,7 @@ export class DisciplineRegistrationComponent implements OnInit {
 
   formData: any = {};
   ppc: Ppc | null = null;
+  ppcAux: Ppc = { id: '', nomePPC: '', ano: 0,}
 
   public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [{id: 0, nomePPC: 'Selecione o curso', ano: 0}] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
@@ -57,7 +58,7 @@ export class DisciplineRegistrationComponent implements OnInit {
     const opcaoSelecionada = elementoSelecionado.value;
 
     const idCurso: number = parseInt(opcaoSelecionada.split('. ')[0]);
-    this.listPpcs = [];
+    this.listPpcs = [{id: 0, nomePPC: 'Selecione o PPC', ano: 0}];
     for (const i of this.listCursos) {
       if(i.id === idCurso){
        for(const j of i.ppcs){
@@ -69,9 +70,9 @@ export class DisciplineRegistrationComponent implements OnInit {
 
   adjustPpcs(form: any): Ppc{
     return this.ppc = {
-        id: form.ppc.id,
-        nomePPC: form.ppc.nomePPC,
-        ano: form.ppc.ano,
+        id: this.ppcAux.id,
+        nomePPC: this.ppcAux.nomePPC,
+        ano: this.ppcAux.ano,
         disciplinas: [{
           id: '',
           nome: form.disciplina,
@@ -80,5 +81,15 @@ export class DisciplineRegistrationComponent implements OnInit {
         }]
     }
   }
+
+  ppcChange() {
+    this.ppcAux = {
+        id: this.formData.ppc.id,
+        nomePPC: this.formData.ppc.nomePPC,
+        ano: this.formData.ppc.ano,
+    }
+  }
+
+
 
 }

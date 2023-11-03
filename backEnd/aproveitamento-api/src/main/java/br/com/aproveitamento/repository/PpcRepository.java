@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.aproveitamento.model.PPC;
 
 @Repository
-public interface PpcRepository extends JpaRepository<PPC, Long>{
+public interface PPCRepository extends JpaRepository<PPC, Long>{
 
 }

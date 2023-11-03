@@ -44,7 +44,6 @@ export class AnnouncementRegistrationComponent implements OnInit{
   }
 
   submitForm() {
-    console.log(this.form.valid);
     if (this.form.valid) {
       this.editalService.save(this.form.value)
         .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar curso"));

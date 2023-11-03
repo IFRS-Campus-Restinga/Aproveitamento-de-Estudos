@@ -41,7 +41,7 @@ public class Disciplina {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private PPC pcc;
+    private PPC ppc;
     
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<Requisicao> requisicoes = new ArrayList<>();
