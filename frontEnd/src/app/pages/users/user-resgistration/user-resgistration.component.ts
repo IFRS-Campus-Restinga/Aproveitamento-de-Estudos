@@ -39,7 +39,7 @@ export class UserResgistrationComponent implements OnInit{
 
     this.alunoService.createAluno(this.aluno).subscribe(
       (data) => {
-
+        alert('Aluno salvo com sucesso!');
       },
       (error) => {
         console.error('Erro:', error);
