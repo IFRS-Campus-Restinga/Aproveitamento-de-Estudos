@@ -15,8 +15,7 @@
     <input type="date" id="dataInicio" formControlName="dataInicio"
     [ngClass]="{'valid-input': validarDataFinalPosterior() && !isValid('dataInicio'), 'invalid-input': !validarDataFinalPosterior() && isValid('dataInicio')}" />
     </div>
-    
-
+   
     <div class="form-group">
     <label for="coordenador">Data Fim</label>
     <input type="date" id="dataFim" formControlName="dataFim"
@@ -24,7 +23,6 @@
     'invalid-input': !validarDataFinalPosterior() && isValid('dataFim')}" />
     </div>
   </div>
-
 
 <div class="btn-container">
     <h3>Etapas:</h3>
@@ -42,14 +40,11 @@
 <div class="btn-submit-container" id="enviar">
   <button type="submit" class="btn-register"
     [ngClass]="{
-      'btn-green': isFormValid() && validarDataFinalPosterior(),
-      'btn-gray': !isFormValid() || !validarDataFinalPosterior()
+      'btn-green': isFormValid() && validarDataFinalPosterior() && areStepsValid(),
+      'btn-gray': !isFormValid() || !validarDataFinalPosterior() || !areStepsValid()
     }"
-    [disabled]="!isFormValid() || !validarDataFinalPosterior()">Enviar</button>
+    [disabled]="!isFormValid() || !validarDataFinalPosterior() || !areStepsValid()">Enviar</button>
 </div>
-
 
   </form>
 </div>
-{{form.valid | json}}
-{{form.value | json}}

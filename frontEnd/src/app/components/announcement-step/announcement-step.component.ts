@@ -21,10 +21,10 @@ export class AnnouncementStepComponent implements OnInit {
   
   ngOnInit(): void {
     this.announcementStepForm = this.formBuilder.group({
-      descricao: ['', [Validators.required]],
+      descricao: ['', [Validators.required,Validators.pattern(/^(?=\s*\S)(?=.+)(?!.*[<>]).{10,240}$/),]],
       dataInicio: ['', [Validators.required]],
       dataFim: ['', [Validators.required]],
-      ator: ['Selecione um ator', Validators.required],
+      ator: ['', Validators.required],
     });
   }
      
@@ -71,5 +71,4 @@ export class AnnouncementStepComponent implements OnInit {
     
     return false;
   }
-
 }
