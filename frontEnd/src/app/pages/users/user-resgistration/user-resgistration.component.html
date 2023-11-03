@@ -1,44 +1,47 @@
 <div class="container">
     <app-title title="Cadastro"></app-title>
-    <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <form [formGroup]="formData" (ngSubmit)="submitForm(formData)">
 
         <div class="form-group">
             <label for="nomeCompleto">Nome Completo</label>
-            <input type="text" id="nome" name="nome" placeholder="Jorge Jorginho"
-                [(ngModel)]="formData.nome" required>
+            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Jorge Jorginho" 
+                [ngClass]="{'valid-input': formData.controls['nomeCompleto'].valid, 'invalid-input': !formData.controls['nomeCompleto'].valid}">
         </div>
 
         <div class="form-group">
             <label for="email">Email Institucional</label>
-            <input type="email" id="email" name="email" placeholder="123456@aluno.restinga.ifrs.edu.br"
-                [(ngModel)]="formData.email" required>
+            <input type="email" id="email" formControlName="email" placeholder="123456@aluno.restinga.ifrs.edu.br" required
+                [ngClass]="{'valid-input': formData.controls['email'].valid, 'invalid-input': !formData.controls['email'].valid}">
         </div>
 
         <div class="form-group">
             <label for="curso">Curso</label>
-            <select id="curso" name="curso" [(ngModel)]="formData.curso" required>
-                <option *ngFor="let item of listCursos" [ngValue]="item">
-                    {{item.curso}}
-                </option>
+            <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
+                <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
             </select>
         </div>
+
         <div class="form-half-grid">
             <div class="form-group">
                 <label for="matricula">Matrícula</label>
-                <input type="text" id="matricula" name="matricula" placeholder="123456" [(ngModel)]="formData.matricula"
-                    required>
+                <input type="text" id="matricula" formControlName="matricula" placeholder="123456"
+                    required [ngClass]="{'valid-input': !isValid('matricula'), 'invalid-input': isValid('matricula')}">
             </div>
 
             <div class="form-group">
                 <label for="ingresso">Data de Ingresso</label>
-                <input type="text" id="dataIngresso" name="dataIngresso" placeholder="02/2023" [(ngModel)]="formData.dataIngresso"
-                    required>
+                <input type="text" id="ingresso" formControlName="ingresso" placeholder="02/2023"
+                [ngClass]="{'valid-input': !isValid('ingresso'), 'invalid-input': isValid('ingresso')}" required>
             </div>
         </div>
         <div class="btn-submit-container">
-            <button type="submit" class="btn-register">Enviar</button>
+            <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}" [disabled]="!formData.valid">Enviar</button>
         </div>
     </form>
-
 </div>
-{{form.value | json}}
+{{formData.controls['nomeCompleto'].valid | json}}
+{{formData.controls['email'].valid | json}}
+{{formData.controls['matricula'].valid | json}}
+{{formData.valid | json}}
+{{formData.value | json}}
+

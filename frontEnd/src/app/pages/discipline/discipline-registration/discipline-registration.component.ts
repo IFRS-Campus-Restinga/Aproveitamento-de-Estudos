@@ -90,6 +90,13 @@ export class DisciplineRegistrationComponent implements OnInit {
     }
   }
 
+  validarCursoSelecionado() {
+    return this.formData.curso !== 'Selecione um curso';
+  }
 
+  converterParaMaiusculas() {
+    this.formData.codigo = this.formData.codigo.toUpperCase();
+    this.formData.disciplina = this.formData.disciplina.toUpperCase();
+  }
 
 }

@@ -80,4 +80,5 @@ export class AnnouncementRegistrationComponent implements OnInit{
     const steps = this.form.get('etapas') as UntypedFormArray;
     steps.removeAt(i);
   }
+
 }

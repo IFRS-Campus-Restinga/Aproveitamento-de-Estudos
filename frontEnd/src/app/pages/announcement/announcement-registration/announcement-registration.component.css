@@ -28,3 +28,14 @@
   margin: .5rem 0;
   padding: .3rem;
 }
+
+.btn-green {
+  background-color: green;
+  color: white;
+}
+
+.btn-gray {
+  background-color: gray;
+  color: white;
+}
+
