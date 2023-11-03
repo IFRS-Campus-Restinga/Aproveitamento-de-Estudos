@@ -9,7 +9,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class HeaderComponent {
 
   showDropdown = false;
-  currentPage: string = 'dfsdfdssdfsdf';
+  currentPage: string = 'register';
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;

@@ -10,7 +10,7 @@ export class ListsTitleComponent {
   @Input() route: string;
   @Input() buttonName: string;
 
-  constructor() { 
+  constructor() {
     this.title = "";
     this.route = "";
     this.buttonName = "";

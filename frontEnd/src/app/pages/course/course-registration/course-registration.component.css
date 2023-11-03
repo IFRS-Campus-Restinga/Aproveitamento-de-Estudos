@@ -1,0 +1,37 @@
+#formCurso {
+    border: 1px solid #EAEBEE;
+    margin: 2vh;
+    padding: 60px;
+
+}
+
+#formCurso #botaoSalvar, input{
+    display: flex;
+    justify-content: center;
+}
+
+
+mat-card {
+  max-width: 50%;
+  margin: 2em auto;
+  text-align: center;
+  align-items: center;
+}
+
+.full-width {
+  width: 95%;
+}
+
+.min-width {
+  width: 100%;
+  min-width: 150px;
+}
+
+.button {
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+.button button{
+  margin: 1%;
+}

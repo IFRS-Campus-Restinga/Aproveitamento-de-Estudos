@@ -29,7 +29,7 @@ import br.com.aproveitamento.repository.DisciplinaRepository;
 import br.com.aproveitamento.repository.EditalRepository;
 import br.com.aproveitamento.repository.EnsinoRepository;
 import br.com.aproveitamento.repository.EtapaRepository;
-import br.com.aproveitamento.repository.PPCRepository;
+import br.com.aproveitamento.repository.PpcRepository;
 import br.com.aproveitamento.repository.ProfessorRepository;
 import br.com.aproveitamento.repository.RequisicaoRepository;
 
@@ -41,6 +41,7 @@ public class AproveitamentoApiApplication {
 	}
 
 	@Bean
+
 	CommandLineRunner initDatabase(AlunoRepository alunoRepository,
 			CoordenadorRepository coordenadorRepository,
 			ProfessorRepository ProfessorRepository,
@@ -53,6 +54,7 @@ public class AproveitamentoApiApplication {
 			RequisicaoRepository requisicaoRepository,
 			AnexoRepository anexoRepository,
 			AnaliseRepository analiseRepository) {
+
 		return args -> {
 
 			Curso curso1 = new Curso("ADS");
@@ -185,6 +187,7 @@ public class AproveitamentoApiApplication {
 			edital.getRequisicoes().add(requisicao4);
 
 			editalRepository.save(edital);
+
 
 			/*
 			 * Analise analise1 = new Analise();

@@ -1,5 +1,8 @@
 export interface Curso {
     id: string;
     nome: string;
-    ppc: string;
+    coordenadores: any;
+    ppc: any;
+    alunos: any;
+
 }

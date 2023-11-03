@@ -1,15 +1,25 @@
 import { NgModule } from '@angular/core';
+import { NgOptimizedImage } from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {NgOptimizedImage} from "@angular/common";
 import { HeaderComponent } from './components/header/header.component';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
 import { UserResgistrationComponent } from './pages/users/user-resgistration/user-resgistration.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course/course-list/course-list.component';
@@ -49,9 +59,18 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
+    MatTableModule,
+    MatCardModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
     ReactiveFormsModule,
-    HttpClientModule
-    // MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

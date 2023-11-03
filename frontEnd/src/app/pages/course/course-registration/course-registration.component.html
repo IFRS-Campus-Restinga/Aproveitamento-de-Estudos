@@ -1,6 +1,57 @@
+  <mat-card>
+    <form [formGroup]="form">
+      <mat-form-field class="full-width" >
+        <mat-label>Nome do Curso</mat-label>
+        <input matInput placeholder="" formControlName="nome">
+      </mat-form-field>
 
-<div class="container"> 
-    <app-title title="Cadastrar Novo Curso"></app-title>
+      <mat-form-field class="full-width" >
+        <mat-label>Ano PPC</mat-label>
+        <!--<input matInput placeholder="" formControlName="anoPpc">-->
+        <input matInput placeholder="" >
+      </mat-form-field>
+
+      <mat-form-field class="full-width" >
+        <mat-label>Coordenador</mat-label>
+        <!--<input matInput placeholder="" formControlName="coordenador">-->
+        <input matInput placeholder="" >
+      </mat-form-field>
+
+      <mat-card-actions class="button">
+        <button mat-raised-button color="primary" (click)="onSubmit(form)"> Salvar </button>
+        <button mat-raised-button color="warn"> Apagar </button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card>
+{{form.value | json}}
+
+<!--
+
+  <mat-card>
+    <form [formGroup]="form">
+      <mat-form-field class="full-width" >
+        <input matInput placeholder="Nome do Curso" formControlName="nomeCurso">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" >
+        <input matInput placeholder="Ano PPC" formControlName="anoPpc">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" >
+        <input matInput placeholder="Coordenador" formControlName="coordenador">
+      </mat-form-field>
+
+      <mat-card-actions class="button">
+        <button mat-raised-button color="primary"> Salvar </button>
+        <button mat-raised-button color="warn"> Apagar </button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card>
+
+--------------------------
+
     <form #form="ngForm" (ngSubmit)="submitForm(form)" id="formCurso">
         <div class="form-group">
             <label for="nomeCurso">Nome do Curso</label>
@@ -24,5 +75,4 @@
             <button type="submit" class="btn-register">Salvar</button>
         </div>
     </form>
-</div>
-{{form.value | json}}
+  -->
