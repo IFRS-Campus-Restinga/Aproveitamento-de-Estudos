@@ -1,7 +1,11 @@
+import { Curso } from "./Curso";
+import { Disciplina } from "./Disciplina";
+
 export interface Ppc {
   id: string;
   nomePPC: string;
   ano: number;
-  curso: any;
-  disciplinas : any;
+
+  cursos?: Curso;
+  disciplinas?: Disciplina[];
 }

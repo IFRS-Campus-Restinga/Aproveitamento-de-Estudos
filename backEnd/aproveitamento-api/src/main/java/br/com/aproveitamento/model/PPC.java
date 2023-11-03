@@ -29,7 +29,7 @@ public class PPC {
     private Long id;
 
     @Column(nullable = true)
-    private String nomePCC;
+    private String nomePPC;
 
     @Column(nullable = true)
     private int ano;
@@ -40,19 +40,18 @@ public class PPC {
     private Curso curso;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "pcc", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ppc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
-    
-	public PPC() {
-		super();
-	}
 
-	public PPC(String nomePCC, int ano, Curso curso) {
-		super();
-		this.nomePCC = nomePCC;
-		this.ano = ano;
-		this.curso = curso;
-	}
-    
-    
+    public PPC() {
+        super();
+    }
+
+    public PPC(String nomePPC, int ano, Curso curso) {
+        super();
+        this.nomePPC = nomePPC;
+        this.ano = ano;
+        this.curso = curso;
+    }
+
 }
