@@ -55,6 +55,10 @@ const routes: Routes = [
     component:RequestsRegistrationComponent
   },
   {
+    path:'login',
+    component:LoginComponent
+  },
+  {
     path:'',
     component:LoginComponent,
     pathMatch: 'full'

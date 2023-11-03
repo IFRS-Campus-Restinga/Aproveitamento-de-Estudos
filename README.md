@@ -32,7 +32,7 @@ npm install
 ```
 5. Para executar o servidor de desenvolvimento do Angular, use o seguinte comando:
 ```shell
-ng serve
+npm run start
 ```
 Isso iniciará o servidor de desenvolvimento em http://localhost:4200/. Abra o navegador e navegue até esse endereço para visualizar a aplicação.
 

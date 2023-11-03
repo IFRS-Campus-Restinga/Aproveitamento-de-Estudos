@@ -1,29 +1,61 @@
 <div class="container">
     <app-title title="Cadastrar Edital"></app-title>
-    <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <form [formGroup]="form">
         <div class="form-group">
             <label for="numero">Numero</label>
-            <input type="text" id="numero" name="numero" placeholder="123456789" [(ngModel)]="formData.numero" required>
+            <input type="text" id="numero" placeholder="numero" formControlName="numero" #numero required>
         </div>
         <div class="form-half-grid">
             <div class="form-group">
                 <label for="dataInicio">Data inicio</label>
-                <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="formData.dataInicio" required>
+                <input type="date" id="dataInicio" name="dataInicio" formControlName="dataInicio" required>
             </div>
             <div class="form-group">
                 <label for="dataFim">Data fim</label>
-                <input type="date" id="dataFim" name="dataFim" [(ngModel)]="formData.dataFim" required>
+                <input type="date" id="dataFim" name="dataFim" formControlName="dataFim" required>
             </div>
         </div>
         <div class="btn-container">
             <h3>Etapas:</h3>
             <button (click)="addStep()" class="btn-register add-step">Etapa +</button>
         </div>
-        <div *ngFor="let step of steps">
-            <app-announcement-step></app-announcement-step>
+        <div class="form-group">
+          <table formArrayName="etapas" *ngFor="let step of getStepsFormArray(); let i = index">
+            <div class="step-container">
+              <tr class="grid-step" [formGroupName]="i">
+                <td>
+                  <label for="nome">Descrição</label>
+                  <input type="text" id="nome" name="nome" placeholder="nome" formControlName="nome" required>
+                </td>
+                <td>
+                  <label for="ator">Ator</label>
+                  <select formControlName="ator" name="ator" id="ator">
+                    <option *ngFor="let item of listAtores" [ngValue]="item.ator">
+                      {{item.ator}}
+                  </option>
+                  </select>
+                </td>
+                </tr>
+                <tr class="grid-step" [formGroupName]="i">
+                  <td>
+                    <label for="dataInicio">Data inicio</label>
+                    <input type="date" name="dataInicio" id="dataInicio" formControlName="dataInicio" required>
+                  </td>
+                  <td >
+                    <label for="dataInicio">Data inicio</label>
+                    <input type="date" name="dataFim" id="dataFim" formControlName="dataFim" required>
+                  </td>
+                  <td>
+                    <button class="btn-alert add-step" (click)="removeSteps(i)">
+                      Remove
+                    </button>
+                  </td>
+              </tr>
+            </div>
+          </table>
         </div>
         <div class="btn-submit-container">
-            <button type="submit" class="btn-register">Enviar</button>
+            <button type="submit" class="btn-register" (click)=submitForm()>Enviar</button>
         </div>
     </form>
 </div>

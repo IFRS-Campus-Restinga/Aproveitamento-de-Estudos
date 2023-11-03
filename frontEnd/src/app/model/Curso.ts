@@ -1,4 +1,4 @@
-export interface Course {
+export interface Curso {
     id: string;
     nome: string;
     coordenadores: any;

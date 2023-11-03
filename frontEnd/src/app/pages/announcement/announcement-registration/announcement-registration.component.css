@@ -1,10 +1,30 @@
-.btn-register.add-step{
+.btn-register.add-step {
     width: 20%;
 }
 
-.btn-container{
+.btn-alert.add-step {
+  width: 94%;
+  height: 50%;
+  margin-top: 8%;
+}
+
+.btn-container {
     display: flex;
     width: 100%;
     align-content: center;
     justify-content: space-between;
+}
+
+.grid-step{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  column-gap: 0.5rem;
+}
+
+.step-container{
+  border: 2px rgb(180, 180, 180) solid;
+  border-radius: 10px;
+  margin: .5rem 0;
+  padding: .3rem;
 }

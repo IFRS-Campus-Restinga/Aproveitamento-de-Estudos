@@ -34,10 +34,12 @@ public class PPC {
     @Column(nullable = true)
     private int ano;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Curso curso;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pcc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
     

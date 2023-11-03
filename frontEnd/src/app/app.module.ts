@@ -24,16 +24,16 @@ import { UserResgistrationComponent } from './pages/users/user-resgistration/use
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course/course-list/course-list.component';
+// import { MatTableModule } from '@angular/material/table';
 import { CourseRegistrationComponent } from './pages/course/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests/requests-registration/requests-registration.component';
-import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { AnnouncementListComponent } from './pages/announcement/announcement-list/announcement-list.component';
 import { ListsTitleComponent } from './components/lists-title/lists-title.component';
 import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
-import { AnnouncementListComponent } from './pages/announcement/announcement-list/announcement-list.component';
-import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
-
+import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,12 +49,11 @@ import { UsersListComponent } from './pages/users/users-list/users-list.componen
     CourseRegistrationComponent,
     LoginComponent,
     RequestsRegistrationComponent,
-    ErrorDialogComponent,
+    AnnouncementListComponent,
     ListsTitleComponent,
     DisciplineListComponent,
-    AnnouncementListComponent,
-    RequestsListComponent,
     UsersListComponent,
+    RequestsListComponent,
   ],
   imports: [
     BrowserModule,

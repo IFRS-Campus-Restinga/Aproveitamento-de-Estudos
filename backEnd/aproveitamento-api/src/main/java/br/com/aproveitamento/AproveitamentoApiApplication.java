@@ -86,8 +86,8 @@ public class AproveitamentoApiApplication {
 			disciplinaRepository.save(disciplina3);
 			disciplinaRepository.save(disciplina4);
 		
-			Aluno aluno1 = new Aluno("jackson", "jack@teste.com", false, UsuarioTipo.ALUNO, "123456", new Date(), curso1);
-			Aluno aluno2 = new Aluno("igor", "igor@teste.com", false, UsuarioTipo.ALUNO, "654123", new Date(), curso2);
+			Aluno aluno1 = new Aluno("jackson", "jack@teste.com", false, UsuarioTipo.ALUNO, "123456", "02/23", curso1);
+			Aluno aluno2 = new Aluno("igor", "igor@teste.com", false, UsuarioTipo.ALUNO, "654123","01/23", curso2);
 			
 			alunoRepository.save(aluno1);
 			alunoRepository.save(aluno2);

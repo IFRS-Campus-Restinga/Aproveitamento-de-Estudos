@@ -28,7 +28,7 @@ public class Aluno extends Usuario{
     private String matricula;
     
     @Column(nullable = true)
-    private Date dataIngresso;
+    private String dataIngresso;
 	
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Requisicao> requisicoes = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Aluno extends Usuario{
     }
 
 	public Aluno(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo,
-				 String matricula, Date dataIngresso, Curso curso) {
+				 String matricula, String dataIngresso, Curso curso) {
 		super(nome, email, admin, tipo);
 		this.matricula = matricula;
 		this.dataIngresso = dataIngresso;
