@@ -1,18 +1,18 @@
 btn-green {
-    background-color: green;
-    color: white;
-  }
-  
-  .btn-gray {
-    background-color: gray;
-    color: white;
-  }
-  .valid-input {
-    background-color: rgb(255, 255, 255);
-    color: white;
-  }
-  
-  .invalid-input {
-    background-color: rgb(229, 204, 204);
-    color: white;
-  }
+  background-color: green;
+  color: white;
+}
+
+.btn-gray {
+  background-color: gray;
+  color: white;
+}
+.valid-input {
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
+
+.invalid-input {
+  background-color: rgb(229, 204, 204);
+  color: white;
+}

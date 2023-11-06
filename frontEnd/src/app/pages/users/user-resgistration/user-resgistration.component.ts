@@ -16,7 +16,7 @@ export class UserResgistrationComponent implements OnInit {
   public cursos: any[] | null = null;
   public listCursos: Array<{ curso: string, id: number }> = [];
   formData: FormGroup;
- 
+
   constructor(private alunoService: AlunoService, private cursoService: CursoService, private formBuilder: FormBuilder) {
     this.formData = this.formBuilder.group({
       nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
@@ -29,30 +29,24 @@ export class UserResgistrationComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
     this.loadCursos();
   }
 
   submitForm(form: FormGroup) {
     if (form.valid) {
-      const selectedCursoId = form.get('curso')?.value;
-      
-      // Check if the selected curso exists in the listCursos
-      const selectedCurso = this.listCursos.find(c => c.id === selectedCursoId);
-  
-      if (selectedCurso) {
-        // The selected curso exists, so you can save the Aluno entity
-        const aluno: Aluno = {
+      const selectedCursoId = this.formData.get('curso')?.value;
+
+          const aluno: Aluno = {
           nome: form.get('nomeCompleto')?.value,
           email: form.get('email')?.value,
           matricula: form.get('matricula')?.value,
           dataIngresso: form.get('ingresso')?.value,
-          curso: selectedCurso.id, // Use the selected curso ID
+          curso: selectedCursoId.id,
           admin: form.get('admin')?.value,
-          tipo: form.get('tipo')?.value,
+          tipo: "ALUNO",
         };
-  
+
         if (aluno) {
           this.alunoService.createAluno(aluno).subscribe(
             (data) => {
@@ -63,15 +57,9 @@ export class UserResgistrationComponent implements OnInit {
             }
           );
         }
-      } else {
-        // Handle the case when the selected curso does not exist
-        console.error('Selected curso not found in listCursos.');
-      }
-    }
+     }
   }
-  
-  
-  
+
   isFormValid(): boolean {
     return this.formData.valid && this.isCursoValid();
   }
@@ -99,11 +87,11 @@ export class UserResgistrationComponent implements OnInit {
 
   isValid(campo: string): boolean {
     const fieldControl = this.formData.get(campo);
-    
+
     if (fieldControl) {
       return !fieldControl.valid && fieldControl.touched;
     }
-    
+
     return false;
   }
 }
