@@ -8,6 +8,9 @@ import { first } from 'rxjs';
   providedIn: 'root'
 })
 export class CursoService {
+  createCurso(curso: any) {
+    throw new Error('Method not implemented.');
+  }
 
   private readonly API = 'api/curso';
 
