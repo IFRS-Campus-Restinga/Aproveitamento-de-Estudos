@@ -14,8 +14,9 @@ export class DisciplineRegistrationComponent implements OnInit {
   formData: any = {};
   ppc: Ppc | null = null;
   ppcAux: Ppc = { id: '', nomePPC: '', ano: 0,}
+  idCurso: number = 0;
 
-  public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [{id: 0, nomePPC: 'Selecione o curso', ano: 0}] }];
+  public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
   constructor(private cursoService: CursoService, private ppcService: PpcService, private fb: FormBuilder) {
@@ -33,7 +34,8 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   submitForm(form: FormGroup) {
-    console.log(this.adjustPpcs(form.value));
+    //console.log(form.value);
+    //console.log(this.adjustPpcs(form.value));
     if (form.valid) {
       this.ppcService.createDiscipline(this.adjustPpcs(form.value))
         .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
@@ -60,12 +62,13 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   selectPpcs(event: Event){
+    this.listPpcs = [];
     const elementoSelecionado = event.target as HTMLSelectElement;
     const opcaoSelecionada = elementoSelecionado.value;
-    const idCurso: number = parseInt(opcaoSelecionada.split('. ')[0]);
+    this.idCurso = parseInt(opcaoSelecionada.split('. ')[0]);
     this.listPpcs = [{id: 0, nomePPC: 'Selecione o PPC', ano: 0}];
     for (const i of this.listCursos) {
-      if(i.id === idCurso){
+      if(i.id === this.idCurso){
        for(const j of i.ppcs){
           this.listPpcs.push({id: j.id, nomePPC: j.nomePPC, ano: j.ano});
        }
@@ -88,10 +91,18 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   ppcChange() {
-    this.ppcAux = {
-        id: this.formData.ppc.id,
-        nomePPC: this.formData.ppc.nomePPC,
-        ano: this.formData.ppc.ano,
+    for (const i of this.listCursos) {
+      if(i.id === this.idCurso){
+       for(const j of i.ppcs){
+          if(j.id == this.formData.value.ppc){
+            this.ppcAux = {
+              id: j.id,
+              nomePPC: j.nomePPC,
+              ano: j.ano,
+            }
+          }
+        }
+      }
     }
   }
 

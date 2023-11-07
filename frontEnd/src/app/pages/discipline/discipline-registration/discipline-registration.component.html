@@ -4,14 +4,14 @@
 
   <div class="form-group">
     <label for="curso">Curso</label>
-    <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
+    <select id="curso" formControlName="curso" (change)="selectPpcs($event)" required [class.invalid]="!isCursoValid()">
     <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
     </select>
    </div>
 
 <div class="form-group">
   <label for="ppc">Ppc</label>
-  <select id="ppc" formControlName="ppc" required [class.invalid]="!isPpcValid()">
+  <select id="ppc" formControlName="ppc" (ngModelChange)="ppcChange()" required [class.invalid]="!isPpcValid()">
   <option *ngFor="let item of listPpcs" [value]="item.id">{{ item.nomePPC }} - {{item.ano}}</option>
   </select>
 </div>
@@ -38,7 +38,8 @@
   <hr>
 
   <div class="btn-submit-container">
-    <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}" [disabled]="!formData.valid">Cadastrar</button>
+    <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}" 
+    [disabled]="!formData.valid">Cadastrar</button>
   </div>
 </form>
 </div>
