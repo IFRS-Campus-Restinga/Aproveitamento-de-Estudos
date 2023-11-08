@@ -1,8 +1,5 @@
 package br.com.aproveitamento.repository;
 
-/*Está em construção
-Guilherme Selau Pereira*/
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

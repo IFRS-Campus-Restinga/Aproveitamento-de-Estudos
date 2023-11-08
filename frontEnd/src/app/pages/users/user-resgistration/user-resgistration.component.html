@@ -1,0 +1,43 @@
+<div class="container">
+    <app-title title="Cadastro Aluno"></app-title>
+    <form [formGroup]="formData" (ngSubmit)="submitForm(formData)">
+  
+        <div class="form-group">
+            <label for="nomeCompleto">Nome Completo</label>
+            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Jorge Jorginho"
+                [ngClass]="{'valid-input': !isValid('nomeCompleto'), 'invalid-input': isValid('nomeCompleto')}" required>
+        </div>
+  
+        <div class="form-group">
+            <label for="email">Email Institucional</label>
+            <input type="email" id="email" formControlName="email" placeholder="123456@aluno.restinga.ifrs.edu.br" required
+            [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" required>
+        </div>
+  
+        <div class="form-group">
+            <label for="curso">Curso</label>
+            <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
+                <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
+            </select>
+        </div>
+  
+        <div class="form-half-grid">
+            <div class="form-group">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" formControlName="matricula" placeholder="10 dígitos"
+                    required [ngClass]="{'valid-input': !isValid('matricula'), 'invalid-input': isValid('matricula')}">
+            </div>
+  
+            <div class="form-group">
+                <label for="ingresso">Data de Ingresso (SEMESTRE/AN)</label>
+                <input type="text" id="ingresso" formControlName="ingresso" placeholder="SS/AAAA"
+                [ngClass]="{'valid-input': !isValid('ingresso'), 'invalid-input': isValid('ingresso')}" required>
+            </div>
+        </div>
+        <div class="btn-submit-container">
+            <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}" [disabled]="!formData.valid">Enviar</button>
+        </div>
+    </form>
+  </div>
+  
+  
