@@ -1,1 +1,44 @@
 <app-lists-title title="Edital" route="/announcement/register" buttonName="Adicinar Edital"></app-lists-title>
+
+<div class="containerFiltro">
+    <div class="form-group">
+      <label class="mr-2">Filtro </label>
+      <input type="text" class="form-control mr-2" placeholder="buscar">
+    </div>
+</div>
+
+<div class="container">
+  <table class="edital-container" style="width: 60%;">
+    <thead class="thead-dark" style="text-align: right;">
+      <tr>
+        <th>Id</th>
+        <th>Numero</th>
+        <th>dataInicio</th>
+        <th>dataFim</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody style="padding-left: 7px;text-align: right;" *ngIf="editalList && editalList.length">
+
+        <tr *ngFor="let edital of  editalList">
+          <td>{{edital.id}}</td>
+          <td>{{edital.numero}}</td>
+          <td>{{toDate(edital.dataInicio)}}</td>
+          <td>{{toDate(edital.dataFim)}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+            <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+          </td>
+        </tr>
+
+    </tbody>
+    <tfoot *ngIf="!editalList.length">
+      <tr>
+        <td colspan="8">
+          <h4>Nenhum evento encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
