@@ -29,6 +29,16 @@ export class CourseListComponent {
 
   }
 
+  onInit(){
+    this.courses$ = this.coursesService.list()
+    .pipe(
+      catchError(error => {
+       this.onError('Erro ao carregar cursos!');
+       return of([]);
+      })
+    );
+  }
+
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg

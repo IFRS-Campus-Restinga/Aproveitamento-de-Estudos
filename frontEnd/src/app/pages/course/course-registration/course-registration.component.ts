@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CoursesService } from 'src/app/services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-registration',
@@ -12,7 +13,7 @@ export class CourseRegistrationComponent {
   formData: any = {};
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: CoursesService, private snackBar: MatSnackBar ) {
+  constructor(private formBuilder: FormBuilder, private service: CoursesService, private snackBar: MatSnackBar, private router: Router) {
 
     this.form = this.formBuilder.group({
       nome: [null],
@@ -26,6 +27,8 @@ export class CourseRegistrationComponent {
     console.log(this.form.value);
     this.service.save(this.form.value)
     .subscribe(result => console.log(result), error =>this.onError );
+    this.router.navigate(['course'])
+
     
   }
 
