@@ -23,7 +23,6 @@ import { UserResgistrationComponent } from './pages/users/user-resgistration/use
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course/course-list/course-list.component';
-// import { MatTableModule } from '@angular/material/table';
 import { CourseRegistrationComponent } from './pages/course/course-registration/course-registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RequestsRegistrationComponent } from './pages/requests/requests-registration/requests-registration.component';
