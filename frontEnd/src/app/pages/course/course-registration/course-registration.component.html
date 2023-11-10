@@ -1,29 +1,28 @@
-  <mat-card>
-    <form [formGroup]="form">
-      <mat-form-field class="full-width" >
-        <mat-label>Nome do Curso</mat-label>
-        <input matInput placeholder="" formControlName="nome">
-      </mat-form-field>
+<div class="container">
+  <form  [formGroup]="form" (ngSubmit)="onSubmit(form)" id="formCurso">
+    <div class="form-group">
+        <label for="nome">Nome do Curso</label>
+        <input type="text" id="nome" name="nome" placeholder=""
+        formControlName="nome" required>
+    </div>
 
-      <mat-form-field class="full-width" >
-        <mat-label>Ano PPC</mat-label>
-        <!--<input matInput placeholder="" formControlName="anoPpc">-->
-        <input matInput placeholder="" >
-      </mat-form-field>
+    <div class="form-group">
+        <label for="PPCs">Ano do PPC</label>
+        <input type="text" id="PPCs" name="PPcs" placeholder=""
+        formControlName="PPCs" required>
+    </div>
 
-      <mat-form-field class="full-width" >
-        <mat-label>Coordenador</mat-label>
-        <!--<input matInput placeholder="" formControlName="coordenador">-->
-        <input matInput placeholder="" >
-      </mat-form-field>
+    <div class="form-group">
+        <label for="coordenadores">Coordenador</label>
+        <input type="text" id="coordenadores" name="coordenadores" placeholder=""
+        formControlName="coordenadores" required>
+    </div>
 
-      <mat-card-actions class="button">
-        <button mat-raised-button color="primary" (click)="onSubmit(form)"> Salvar </button>
-        <button mat-raised-button color="warn"> Apagar </button>
-      </mat-card-actions>
-
-    </form>
-  </mat-card>
+    <div class="btn-submit-container" id="botaoSalvar">
+        <button type="submit" class="btn-register">Salvar</button>
+    </div>
+  </form>
+</div>
 {{form.value | json}}
 
 <!--
