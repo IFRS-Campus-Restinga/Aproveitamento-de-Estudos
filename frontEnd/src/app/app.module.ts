@@ -32,6 +32,7 @@ import { DisciplineListComponent } from './pages/discipline/discipline-list/disc
 import { studentListComponent } from './pages/student/student-list/student-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { HttpClientModule } from '@angular/common/http';
     DisciplineListComponent,
     studentListComponent,
     RequestsListComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
