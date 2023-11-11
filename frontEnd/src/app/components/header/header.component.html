@@ -12,11 +12,11 @@
       <ul>
         <li><button href="">Perfil</button></li>
         <li (click)="toggleDropdown()">
-          <button [ngClass]="{ 'active': ['discipline', 'course', 'user', 'announcement'].includes(currentPage) }">Gerenciar</button>
+          <button [ngClass]="{ 'active': ['discipline', 'course', 'student', 'announcement'].includes(currentPage) }">Gerenciar</button>
           <ul *ngIf="showDropdown" class="dropdown">
             <li><a [routerLink]="['discipline']">Disciplina</a></li>
             <li><a [routerLink]="['course']">Curso</a></li>
-            <li><a [routerLink]="['user']">Aluno</a></li>
+            <li><a [routerLink]="['student']">Aluno</a></li>
             <li><a [routerLink]="['announcement']">Edital</a></li>
           </ul>
         </li>
