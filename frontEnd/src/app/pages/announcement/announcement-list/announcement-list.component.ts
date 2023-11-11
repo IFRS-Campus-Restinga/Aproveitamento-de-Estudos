@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Edital } from 'src/app/model/Edital';
 import { EditalService } from 'src/app/services/edital.service';
 
@@ -11,9 +11,12 @@ import { EditalService } from 'src/app/services/edital.service';
 export class AnnouncementListComponent implements OnInit {
 
   public editalList: Edital[] = [];
+  @Output() edit = new EventEmitter(false);
+  @Output() delete = new EventEmitter(false);
 
   constructor(private route: ActivatedRoute,
-              private editalService: EditalService){
+              private editalService: EditalService,
+              private router: Router){
   }
 
   ngOnInit(): void {
@@ -37,5 +40,24 @@ export class AnnouncementListComponent implements OnInit {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+
+  onEdit(edital: Edital) {
+    this.router.navigate(['edit', edital.id], {relativeTo: this.route});
+  }
+
+  //onDelete(edital: Edital) {
+  //  let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+  //    data: 'Deseja excluir este curso?',
+  //  });
+//
+  //  dialogRef.afterClosed().subscribe((result : boolean) => {
+  //    if(result){
+  //      this.coursesService.remove(course._id);
+  //      this.refresh();
+  //    }
+  //  });
+//
+  //}
 
 }

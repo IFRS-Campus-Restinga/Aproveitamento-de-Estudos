@@ -139,16 +139,16 @@ public class AproveitamentoApiApplication {
 			Etapa etapa6 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
 					new Date(), UsuarioTipo.ENSINO, edital);
 			
-			Etapa etapa7 = new Etapa("Período de inscrições", new Date(), new Date(), UsuarioTipo.ALUNO, edital);
-			Etapa etapa8 = new Etapa("Encaminhamento", new Date(), new Date(), UsuarioTipo.ENSINO, edital);
+			Etapa etapa7 = new Etapa("Período de inscrições", new Date(), new Date(), UsuarioTipo.ALUNO, edital2);
+			Etapa etapa8 = new Etapa("Encaminhamento", new Date(), new Date(), UsuarioTipo.ENSINO, edital2);
 			Etapa etapa9 = new Etapa("Análise dos processos pelos docentes", new Date(), new Date(),
-					UsuarioTipo.PROFESSOR, edital);
+					UsuarioTipo.PROFESSOR, edital2);
 			Etapa etapa = new Etapa("Homologação dos coordenadores", new Date(), new Date(), UsuarioTipo.COORDENADOR,
-					edital);
+					edital2);
 			Etapa etapa11 = new Etapa("Devolução dos processos à Coordenação", new Date(), new Date(),
-					UsuarioTipo.COORDENADOR, edital);
+					UsuarioTipo.COORDENADOR, edital2);
 			Etapa etapa12 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
-					new Date(), UsuarioTipo.ENSINO, edital);
+					new Date(), UsuarioTipo.ENSINO, edital2);
 
 			etapaRepository.save(etapa1);
 			etapaRepository.save(etapa2);

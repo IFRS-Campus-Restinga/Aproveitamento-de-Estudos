@@ -26,8 +26,8 @@
           <td>{{toDate(edital.dataInicio)}}</td>
           <td>{{toDate(edital.dataFim)}}</td>
           <td style="width: 28%;">
-            <button type="button" class="btn-register-edital">Editar</button>
-            <button type="button" class="btn-alert-edital">Excluir</button>
+            <button type="button" class="btn-register-edital" (click)=onEdit(edital)>Editar</button>
+            <button type="button" class="btn-alert-edital" (click)=onDelete(edital)>Excluir</button>
           </td>
         </tr>
 

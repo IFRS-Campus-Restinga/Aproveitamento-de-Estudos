@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Edital } from 'src/app/model/Edital';
 import { Etapa } from 'src/app/model/Etapa';
 import { EditalService } from 'src/app/services/edital.service';
 
@@ -26,16 +27,20 @@ export class AnnouncementRegistrationComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    const edital: any = this.route.snapshot.data['edital'];
+    const edital: Edital = this.route.snapshot.data['edital'];
+    console.log(this.toDate(edital.dataInicio));
 
     this.form = this.formBuilder.group({
-        id:[''],
-        numero: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,240}$')]],
-        dataInicio: ['', Validators.required],
-        dataFim:  ['', Validators.required],
+        id:[edital.id],
+        numero: [edital.numero, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,240}$')]],
+        dataInicio: [this.toDate(edital.dataInicio), Validators.required],
+        dataFim:  [this.toDate(edital.dataFim), Validators.required],
         etapas: this.formBuilder.array(this.retriveSteps(edital))
       }
     );
+
+    console.log(this.form);
+
   }
 
   addStep() {
@@ -57,8 +62,8 @@ export class AnnouncementRegistrationComponent implements OnInit{
       id: [etapa.id],
       nome: [etapa.nome, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,35}$')]],
       ator: [etapa.ator, Validators.required],
-      dataInicio: [etapa.dataInicio, Validators.required],
-      dataFim: [etapa.dataFim, Validators.required]
+      dataInicio: [this.toDate(etapa.dataInicio), Validators.required],
+      dataFim: [this.toDate(etapa.dataFim), Validators.required]
     });
   }
 
@@ -153,6 +158,14 @@ export class AnnouncementRegistrationComponent implements OnInit{
     });
 
     return allValid;
+  }
+
+  toDate(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
   }
 
  }
