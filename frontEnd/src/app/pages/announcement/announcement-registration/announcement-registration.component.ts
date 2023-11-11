@@ -27,8 +27,17 @@ export class AnnouncementRegistrationComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    const edital: Edital = this.route.snapshot.data['edital'];
-    console.log(this.toDate(edital.dataInicio));
+    let edital: Edital = this.route.snapshot.data['edital'];
+
+    if(!edital){
+      edital = {
+        id: '',
+        numero: '',
+        dataInicio: '0',
+        dataFim: '0',
+        etapas: []
+      };
+    }
 
     this.form = this.formBuilder.group({
         id:[edital.id],
@@ -38,9 +47,6 @@ export class AnnouncementRegistrationComponent implements OnInit{
         etapas: this.formBuilder.array(this.retriveSteps(edital))
       }
     );
-
-    console.log(this.form);
-
   }
 
   addStep() {
@@ -51,7 +57,7 @@ export class AnnouncementRegistrationComponent implements OnInit{
   submitForm() {
     if (this.form.valid) {
       this.editalService.save(this.form.value)
-        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar curso"));
+        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar edital"));
     } else {
       alert("Preencha todos os campos");
     }

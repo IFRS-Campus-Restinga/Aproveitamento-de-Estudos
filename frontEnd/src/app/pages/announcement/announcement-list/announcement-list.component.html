@@ -27,7 +27,7 @@
           <td>{{toDate(edital.dataFim)}}</td>
           <td style="width: 28%;">
             <button type="button" class="btn-register-edital" (click)=onEdit(edital)>Editar</button>
-            <button type="button" class="btn-alert-edital" (click)=onDelete(edital)>Excluir</button>
+            <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(edital)>Excluir</button>
           </td>
         </tr>
 
@@ -35,10 +35,14 @@
     <tfoot *ngIf="!editalList.length">
       <tr>
         <td colspan="8">
-          <h4>Nenhum evento encontrado!</h4>
+          <h4>Nenhum edital encontrado!</h4>
         </td>
       </tr>
     </tfoot>
   </table>
 </div>
-
+<app-confirmation-dialog
+  *ngIf="isConfirmationVisible"
+  [message]="confirmationMessage"
+  (confirmed)="handleConfirmation($event)"
+></app-confirmation-dialog>

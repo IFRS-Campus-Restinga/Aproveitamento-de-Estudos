@@ -1,6 +1,6 @@
+import { Edital } from './../../../model/Edital';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Edital } from 'src/app/model/Edital';
 import { EditalService } from 'src/app/services/edital.service';
 
 @Component({
@@ -11,8 +11,11 @@ import { EditalService } from 'src/app/services/edital.service';
 export class AnnouncementListComponent implements OnInit {
 
   public editalList: Edital[] = [];
+  public editaDelete!: Edital;
   @Output() edit = new EventEmitter(false);
   @Output() delete = new EventEmitter(false);
+  public isConfirmationVisible: boolean | undefined;
+  public confirmationMessage = 'Tem certeza que desja excluir este Edital?';
 
   constructor(private route: ActivatedRoute,
               private editalService: EditalService,
@@ -44,6 +47,21 @@ export class AnnouncementListComponent implements OnInit {
 
   onEdit(edital: Edital) {
     this.router.navigate(['edit', edital.id], {relativeTo: this.route});
+  }
+
+  showConfirmationDialog(edital: Edital) {
+    this.isConfirmationVisible = true;
+    this.editaDelete = edital;
+  }
+
+  handleConfirmation(confirmed: boolean) {
+    if (confirmed) {
+      this.editalService.remove(this.editaDelete?.id).subscribe(
+        result => alert("Edital deletado com sucesso"),
+        error => alert("Erro ao deletar edital")
+      );
+    }
+    this.isConfirmationVisible = false;
   }
 
   //onDelete(edital: Edital) {
