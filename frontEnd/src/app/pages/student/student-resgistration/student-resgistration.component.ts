@@ -6,12 +6,12 @@ import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-user-resgistration',
-  templateUrl: './user-resgistration.component.html',
-  styleUrls: ['./user-resgistration.component.css']
+  selector: 'app-student-resgistration',
+  templateUrl: './student-resgistration.component.html',
+  styleUrls: ['./student-resgistration.component.css']
 })
 
-export class UserResgistrationComponent implements OnInit {
+export class studentResgistrationComponent implements OnInit {
   private aluno: Aluno | null = null;
   public cursos: any[] | null = null;
   public listCursos: Array<{ curso: string, id: number }> = [];

@@ -19,7 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
 import { TitleComponent } from './components/title/title.component';
-import { UserResgistrationComponent } from './pages/users/user-resgistration/user-resgistration.component';
+import { studentResgistrationComponent } from './pages/student/student-resgistration/student-resgistration.component';
 import { AnnouncementRegistrationComponent } from './pages/announcement/announcement-registration/announcement-registration.component';
 import { AnnouncementStepComponent } from './components/announcement-step/announcement-step.component';
 import { CourseListComponent } from './pages/course/course-list/course-list.component';
@@ -29,7 +29,7 @@ import { RequestsRegistrationComponent } from './pages/requests/requests-registr
 import { AnnouncementListComponent } from './pages/announcement/announcement-list/announcement-list.component';
 import { ListsTitleComponent } from './components/lists-title/lists-title.component';
 import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
-import { UsersListComponent } from './pages/users/users-list/users-list.component';
+import { studentListComponent } from './pages/student/student-list/student-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -40,7 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     DisciplineRegistrationComponent,
     TitleComponent,
-    UserResgistrationComponent,
+    studentResgistrationComponent,
     AnnouncementRegistrationComponent,
     AnnouncementStepComponent,
     CourseListComponent,
@@ -50,7 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     AnnouncementListComponent,
     ListsTitleComponent,
     DisciplineListComponent,
-    UsersListComponent,
+    studentListComponent,
     RequestsListComponent,
   ],
   imports: [
