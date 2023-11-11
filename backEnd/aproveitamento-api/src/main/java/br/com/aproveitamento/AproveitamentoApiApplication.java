@@ -40,8 +40,9 @@ public class AproveitamentoApiApplication {
 		SpringApplication.run(AproveitamentoApiApplication.class, args);
 	}
 
-	@Bean
 
+
+	@Bean
 	CommandLineRunner initDatabase(AlunoRepository alunoRepository,
 			CoordenadorRepository coordenadorRepository,
 			ProfessorRepository ProfessorRepository,
