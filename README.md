@@ -14,6 +14,7 @@ Posso Editar
 
 - [Java 17](https://download.oracle.com/java/17/archive/jdk-17.0.7_windows-x64_bin.exe)
 - [Spring Boot 3.1.4](https://spring.io/projects/spring-boot)
+- [MySQL 8.0.35](https://dev.mysql.com/downloads/installer/)
 
 
 ### Execução do projeto
@@ -38,9 +39,10 @@ Isso iniciará o servidor de desenvolvimento em http://localhost:4200/. Abra o n
 
 #### Back-end
 1. Verifique se o Java 17 está instalado em sua máquina, caso contrário, siga as instruções no link fornecido na seção de Tecnologias Utilizadas.
-2. Baixe e instale o Spring Boot 3.1.4 conforme o link fornecido na seção de Tecnologias Utilizadas.
-3. Navegue até o diretório do back-end do projeto.
-4. Execute o seguinte comando para compilar e executar o aplicativo Spring Boot:
+2. Baixe e instale o [MySQL Community Server 8.0.35](https://dev.mysql.com/downloads/installer/) conforme seu sistema operacional e configure para utilizar o usuário: root e senha: 2023(se alterado no futuro)
+3. Baixe e instale o Spring Boot 3.1.4 conforme [o link]((https://spring.io/projects/spring-boot))fornecido na seção de Tecnologias Utilizadas.
+4. Navegue até o diretório do back-end do projeto.
+5. Execute o seguinte comando para compilar e executar o aplicativo Spring Boot:
 ```shell
 ./mvnw spring-boot:run
 ```
