@@ -460,3 +460,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### FILES ###
+*.crt
+*.key
