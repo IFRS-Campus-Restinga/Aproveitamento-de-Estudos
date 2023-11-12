@@ -14,7 +14,8 @@ public class HomeController {
         model.addAttribute("name", principal.getName());
         model.addAttribute("emailAddress", principal.getFirstAttribute("email"));
         model.addAttribute("userAttributes", principal.getAttributes());
-        System.out.println("name: " + principal.getName() + "\nemailAddress: " + principal.getFirstAttribute("email"));
+
+        //System.out.println("name: " + principal.getName() + "\nemailAddress: " + principal.getAttributes());
 
         return "home";
     }
