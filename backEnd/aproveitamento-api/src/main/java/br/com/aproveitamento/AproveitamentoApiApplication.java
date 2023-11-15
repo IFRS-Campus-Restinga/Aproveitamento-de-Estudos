@@ -123,8 +123,10 @@ public class AproveitamentoApiApplication {
 			cursoRepository.save(curso2);
 
 			Edital edital = new Edital("5001", new Date(), new Date());
+			Edital edital2 = new Edital("5001", new Date(), new Date());
 
 			editalRepository.save(edital);
+			editalRepository.save(edital2);
 
 			Etapa etapa1 = new Etapa("Período de inscrições", new Date(), new Date(), UsuarioTipo.ALUNO, edital);
 			Etapa etapa2 = new Etapa("Encaminhamento", new Date(), new Date(), UsuarioTipo.ENSINO, edital);
@@ -136,6 +138,17 @@ public class AproveitamentoApiApplication {
 					UsuarioTipo.COORDENADOR, edital);
 			Etapa etapa6 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
 					new Date(), UsuarioTipo.ENSINO, edital);
+			
+			Etapa etapa7 = new Etapa("Período de inscrições", new Date(), new Date(), UsuarioTipo.ALUNO, edital2);
+			Etapa etapa8 = new Etapa("Encaminhamento", new Date(), new Date(), UsuarioTipo.ENSINO, edital2);
+			Etapa etapa9 = new Etapa("Análise dos processos pelos docentes", new Date(), new Date(),
+					UsuarioTipo.PROFESSOR, edital2);
+			Etapa etapa = new Etapa("Homologação dos coordenadores", new Date(), new Date(), UsuarioTipo.COORDENADOR,
+					edital2);
+			Etapa etapa11 = new Etapa("Devolução dos processos à Coordenação", new Date(), new Date(),
+					UsuarioTipo.COORDENADOR, edital2);
+			Etapa etapa12 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
+					new Date(), UsuarioTipo.ENSINO, edital2);
 
 			etapaRepository.save(etapa1);
 			etapaRepository.save(etapa2);
@@ -144,6 +157,13 @@ public class AproveitamentoApiApplication {
 			etapaRepository.save(etapa5);
 			etapaRepository.save(etapa6);
 
+			etapaRepository.save(etapa7);
+			etapaRepository.save(etapa8);
+			etapaRepository.save(etapa9);
+			etapaRepository.save(etapa);
+			etapaRepository.save(etapa11);
+			etapaRepository.save(etapa12);
+
 			edital.getEtapas().add(etapa1);
 			edital.getEtapas().add(etapa2);
 			edital.getEtapas().add(etapa3);
@@ -151,7 +171,15 @@ public class AproveitamentoApiApplication {
 			edital.getEtapas().add(etapa5);
 			edital.getEtapas().add(etapa6);
 
+			edital2.getEtapas().add(etapa7);
+			edital2.getEtapas().add(etapa8);
+			edital2.getEtapas().add(etapa9);
+			edital2.getEtapas().add(etapa);
+			edital2.getEtapas().add(etapa11);
+			edital2.getEtapas().add(etapa12);
+
 			editalRepository.save(edital);
+			editalRepository.save(edital2);
 
 			Requisicao requisicao1 = new Requisicao(RequisicaoTipo.APROVEITAMENTO, RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),

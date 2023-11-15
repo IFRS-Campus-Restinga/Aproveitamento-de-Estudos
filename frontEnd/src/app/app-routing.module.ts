@@ -1,3 +1,4 @@
+import { Edital } from './model/Edital';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +15,7 @@ import { StudentListComponent } from './pages/student/student-list/student-list.
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
+import { EditalResolver } from './pages/announcement/guards/announcement-registration.resolver';
 
 const routes: Routes = [
   {
@@ -73,6 +75,11 @@ const routes: Routes = [
     component:LoginComponent,
     pathMatch: 'full'
   },
+  {
+    path: 'announcement/edit/:id',
+    component: AnnouncementRegistrationComponent,
+    resolve:{edital : EditalResolver}
+  }
 ];
 
 @NgModule({

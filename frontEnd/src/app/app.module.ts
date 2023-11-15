@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -34,6 +33,8 @@ import { RequestsListComponent } from './pages/requests/requests-list/requests-l
 import { HttpClientModule } from '@angular/common/http';
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ServantListComponent } from './pages/servant/servant-list/servant-list.
     RequestsListComponent,
     ServantRegistrationComponent,
     ServantListComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
