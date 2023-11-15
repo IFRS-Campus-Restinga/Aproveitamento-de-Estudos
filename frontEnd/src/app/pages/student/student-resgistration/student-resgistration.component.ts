@@ -11,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./student-resgistration.component.css']
 })
 
-export class studentResgistrationComponent implements OnInit {
+export class StudentResgistrationComponent implements OnInit {
   private aluno: Aluno | null = null;
   public cursos: any[] | null = null;
   public listCursos: Array<{ curso: string, id: number }> = [];
