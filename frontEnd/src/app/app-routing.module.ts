@@ -1,5 +1,3 @@
-import { Edital } from './model/Edital';
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';

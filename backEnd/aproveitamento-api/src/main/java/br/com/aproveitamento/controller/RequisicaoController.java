@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.RequisicaoDTO;
 import br.com.aproveitamento.model.Requisicao;
 import br.com.aproveitamento.service.RequisicaoService;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class RequisicaoController {
 	private RequisicaoService requisicaoService;
 	
 	@GetMapping
-	public @ResponseBody List<Requisicao> list(){
+	public @ResponseBody List<RequisicaoDTO> list(){
 		return requisicaoService.list();
 	}
 	
@@ -42,13 +43,13 @@ public class RequisicaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Requisicao> create(@RequestBody @NotNull @Valid Requisicao requisicao){
-		return ResponseEntity.status(HttpStatus.CREATED).body(requisicaoService.create(requisicao));
+	public ResponseEntity<RequisicaoDTO> create(@RequestBody @NotNull @Valid RequisicaoDTO requisicaoDTO){
+		return ResponseEntity.status(HttpStatus.CREATED).body(requisicaoService.createOrUpdate(requisicaoDTO));
 	}
 	
 	@PutMapping
-	public Requisicao update(@RequestBody @Valid Requisicao requisicao){
-		return requisicaoService.update(requisicao);
+	public RequisicaoDTO update(@RequestBody @Valid RequisicaoDTO requisicaoDTO){
+		return requisicaoService.createOrUpdate(requisicaoDTO);
 	}
 	
 	@DeleteMapping("/{id}")

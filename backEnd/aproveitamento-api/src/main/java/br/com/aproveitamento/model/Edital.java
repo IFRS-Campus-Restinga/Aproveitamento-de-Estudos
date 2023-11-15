@@ -37,7 +37,7 @@ public class Edital {
 	@OneToMany(mappedBy = "edital", cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Etapa> etapas = new ArrayList<>();
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "edital", cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Requisicao> requisicoes = new ArrayList<>();
 	
