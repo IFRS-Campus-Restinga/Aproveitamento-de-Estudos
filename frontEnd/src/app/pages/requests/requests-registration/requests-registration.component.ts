@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Requisicao } from 'src/app/model/Requisicao';
+import { Component, OnInit } from '@angular/core';
+import { NonNullableFormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { RequisicaoService } from 'src/app/services/requisicao.service';
 
 @Component({
   selector: 'app-requests-registration',
@@ -6,23 +10,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./requests-registration.component.css'],
 })
 
-export class RequestsRegistrationComponent {
+export class RequestsRegistrationComponent implements OnInit {
 
-  tipoSolicitacao: string = ''; // Variável para armazenar o tipo de solicitação selecionado
+  tipoSolicitacao: string = '';
 
   formData: any = {
     componenteCurricular: 'Selecione um componente curricular',
     tipoSolicitacao: 'Selecione o tipo de solicitação',
   };
 
-  // ---------- Lista de tipos de solicitação -----------------
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
-    { tipoSolicitacao: 'Selecione o tipo de solicitação' },
-    { tipoSolicitacao: 'Certificação de conhecimento' },
-    { tipoSolicitacao: 'Aproveitamento de estudos' },
+      { tipoSolicitacao: 'Selecione o tipo de solicitação' },
+      { tipoSolicitacao: 'Certificação de conhecimento' },
+      { tipoSolicitacao: 'Aproveitamento de estudos' },
   ];
 
-  // ---------- Lista de Componentes Curriculares -----------------
   public listComponentesCurriculares: Array<{ componenteCurricular: string }> =
     [
       { componenteCurricular: 'Selecione um componente curricular' },
@@ -45,6 +47,17 @@ export class RequestsRegistrationComponent {
   maxFileCount: number = 5;                     // Define o número máximo de arquivos permitidos
   selectedFileCount: number = 0;                // contador de número de arquivos selecionados
   maxFileSizeInBytes: number = 10 * 1024 * 1024; // Define o tamanho maximo de upload de arquivos
+
+  constructor(private formBuilder: NonNullableFormBuilder,
+    private route: ActivatedRoute,
+    private requisicaoService: RequisicaoService){
+
+  }
+
+  ngOnInit(): void {
+    let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
+    console.log(requisicao)
+  }
 
   // Método para lidar com a seleção de arquivos
   handleFileSelect(event: any) {

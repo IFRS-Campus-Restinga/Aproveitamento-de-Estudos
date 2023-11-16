@@ -14,6 +14,7 @@ import { RequestsListComponent } from './pages/requests/requests-list/requests-l
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { EditalResolver } from './pages/announcement/guards/announcement-registration.resolver';
+import { RequestResolver } from './pages/requests/guards/request-registration.resolver';
 
 const routes: Routes = [
   {
@@ -77,6 +78,11 @@ const routes: Routes = [
     path: 'announcement/edit/:id',
     component: AnnouncementRegistrationComponent,
     resolve:{edital : EditalResolver}
+  },
+  {
+    path: 'request/edit/:id',
+    component: RequestsRegistrationComponent,
+    resolve:{requisicao : RequestResolver}
   }
 ];
 

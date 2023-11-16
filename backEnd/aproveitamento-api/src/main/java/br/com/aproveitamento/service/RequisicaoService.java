@@ -33,8 +33,6 @@ public class RequisicaoService {
 	private AlunoRepository alunoRepository;
 	private EditalRepository editalRepository;
 	private DisciplinaRepository disciplinaRepository;
-	private AnaliseRepository analiseRepository;
-	private AnexoRepository anexoRepository; 
 	
 	public RequisicaoService(RequisicaoRepository requisicaoRepository,
 							AlunoRepository alunoRepository,
@@ -48,8 +46,6 @@ public class RequisicaoService {
 		this.alunoRepository = alunoRepository;
 		this.editalRepository = editalRepository;
 		this.disciplinaRepository = disciplinaRepository;
-		this.analiseRepository = analiseRepository;
-		this.anexoRepository = anexoRepository;
 	}
 	
 	public List<RequisicaoDTO> list(){
