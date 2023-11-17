@@ -46,4 +46,34 @@ public class DisciplinaService {
         disciplinaRepository.deleteById(id);
     }
 
+    public Disciplina UpdateOrCreate(@Valid @NotNull Disciplina disciplina) {
+
+        Disciplina d = new Disciplina();
+        if (disciplina.getId() != null) {
+            d.setId(disciplina.getId());
+        }
+        d.setNome(disciplina.getNome());
+        d.setCodDisciplina(disciplina.getCodDisciplina());
+        d.setCargaHoraria(disciplina.getCargaHoraria());
+
+        /*
+         * List<Etapa> etapas = edital.getEtapas().stream().map(editalEtapas -> {
+         * var etapa = new Etapa();
+         * if(editalEtapas.getId() != null){
+         * etapa.setId(editalEtapas.getId());
+         * }
+         * etapa.setNome(editalEtapas.getNome());
+         * etapa.setDataInicio(editalEtapas.getDataInicio());
+         * etapa.setDataFim(editalEtapas.getDataFim());
+         * etapa.setAtor(editalEtapas.getAtor());
+         * etapa.setEdital(e);
+         * return etapa;
+         * }).collect(Collectors.toList());
+         * 
+         * e.setEtapas(etapas);
+         */
+        disciplinaRepository.save(d);
+        return d;
+    }
+
 }

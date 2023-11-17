@@ -15,7 +15,7 @@ export class DisciplineListComponent {
   public confirmationMessage = 'Tem certeza que deseja excluir está Disciplina?';
 
   constructor(private route: ActivatedRoute,
-              private disciplinaService: DisciplinaService,
+              //private disciplinaService: DisciplinaService,
               private router: Router){
   }
 
