@@ -40,6 +40,7 @@ export class ServantRegistrationComponent implements OnInit {
       // const selectedCursoId = this.formData.get('curso')?.value;
 
       const servidor: Servidor = {
+        id: '',
         nome: form.get('nomeCompleto')?.value,
         email: form.get('email')?.value,
         siape: form.get('siape')?.value,
@@ -48,7 +49,7 @@ export class ServantRegistrationComponent implements OnInit {
       };
 
       if (servidor) {
-        this.servidorService.createServidor(servidor).subscribe(
+        this.servidorService.save(servidor).subscribe(
           (data) => {
             alert('Servidor salvo com sucesso!');
           },
