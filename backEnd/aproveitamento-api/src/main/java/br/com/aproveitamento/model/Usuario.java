@@ -10,10 +10,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @Data
 @Entity
+@Getter
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -29,12 +37,21 @@ public class Usuario {
     private String email;
     
     @Column
-    private boolean admin; 
+    private boolean admin;
+
+    //private UserRole userRole;
     
     @NotNull
     @Column(nullable = false)
     @Convert(converter = UsuarioTipoConverter.class)
     private UsuarioTipo tipo;
+
+   // @Override
+    //public Collection<? extends GrantedAuthority> getAuthorites(){
+    //    if(this.);
+//
+     //   return null;
+   // }
     
     public Usuario() {
 		super();

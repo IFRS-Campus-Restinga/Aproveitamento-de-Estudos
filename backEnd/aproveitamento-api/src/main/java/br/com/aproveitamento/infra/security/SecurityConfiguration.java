@@ -1,4 +1,4 @@
-package br.com.aproveitamento;
+package br.com.aproveitamento.infra.security;
 
 
 import java.util.Arrays;
