@@ -15,11 +15,11 @@
 	<description>API Back End aproveitamento</description>
 
 	<repositories>
-		<repository>
-			<id>mavenCentral</id>
-			<name>maven</name>
-			<url>https://build.shibboleth.net/maven/releases/</url>
-		</repository>
+<!--		<repository>-->
+<!--			<id>mavenCentral</id>-->
+<!--			<name>maven</name>-->
+<!--			<url>https://build.shibboleth.net/maven/releases/</url>-->
+<!--		</repository>-->
 	</repositories>
 
 	<properties>
@@ -53,11 +53,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.h2database</groupId>-->
+<!--			<artifactId>h2</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -96,21 +96,28 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-saml2-service-provider</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+			<version>3.1.5</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.opensaml</groupId>
-			<artifactId>opensaml-core</artifactId>
-			<version>4.1.1</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.opensaml</groupId>
-			<artifactId>opensaml-saml-api</artifactId>
-			<version>4.1.1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-saml2-service-provider</artifactId>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.opensaml</groupId>-->
+<!--			<artifactId>opensaml-core</artifactId>-->
+<!--			<version>4.1.1</version>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.opensaml</groupId>-->
+<!--			<artifactId>opensaml-saml-api</artifactId>-->
+<!--			<version>4.1.1</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.opensaml</groupId>
