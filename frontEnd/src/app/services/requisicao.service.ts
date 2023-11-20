@@ -45,4 +45,8 @@ export class RequisicaoService {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
 
+  teste(form: any){
+    return this.httpClient.post<any>(`${this.API}/teste`, form).pipe(first());
+  }
+
 }

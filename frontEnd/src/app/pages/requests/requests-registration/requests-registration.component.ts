@@ -1,8 +1,10 @@
-import { Requisicao } from 'src/app/model/Requisicao';
+import { Analise } from './../../../model/Analise';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RequisicaoService } from 'src/app/services/requisicao.service';
+import { Anexo } from 'src/app/model/Anexo';
+import { Requisicao } from 'src/app/model/Requisicao';
 
 @Component({
   selector: 'app-requests-registration',
@@ -14,28 +16,30 @@ export class RequestsRegistrationComponent implements OnInit {
 
   tipoSolicitacao: string = '';
 
-  formData: any = {
-    componenteCurricular: 'Selecione um componente curricular',
-    tipoSolicitacao: 'Selecione o tipo de solicitação',
-  };
+  form!: FormGroup;
+
+  //= {
+  //  componenteCurricular: 'Selecione um componente curricular',
+  //  tipoSolicitacao: 'Selecione o tipo de solicitação',
+  //};
 
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
       { tipoSolicitacao: 'Selecione o tipo de solicitação' },
-      { tipoSolicitacao: 'Certificação de conhecimento' },
-      { tipoSolicitacao: 'Aproveitamento de estudos' },
+      { tipoSolicitacao: 'Certificacao' },
+      { tipoSolicitacao: 'Aproveitamento' },
   ];
 
-  public listComponentesCurriculares: Array<{ componenteCurricular: string }> =
+  public listComponentesCurriculares: Array<{id: number, componenteCurricular: string }> =
     [
-      { componenteCurricular: 'Selecione um componente curricular' },
-      { componenteCurricular: 'Programação 1' },
-      { componenteCurricular: 'Programação 2' },
-      { componenteCurricular: 'Programação 3' },
-      { componenteCurricular: 'Banco de dados 1' },
-      { componenteCurricular: 'Banco de dados 2' },
-      { componenteCurricular: 'Desenvolvimento de sistemas 1' },
-      { componenteCurricular: 'Desenvolvimento de sistemas 2' },
-      { componenteCurricular: 'Estrutura de dados' },
+      {id: 1,  componenteCurricular: 'Selecione um componente curricular' },
+      {id: 1,  componenteCurricular: 'Programação 1' },
+      {id: 1,  componenteCurricular: 'Programação 2' },
+      {id: 1,  componenteCurricular: 'Programação 3' },
+      {id: 1,  componenteCurricular: 'Banco de dados 1' },
+      {id: 1,  componenteCurricular: 'Banco de dados 2' },
+      {id: 1,  componenteCurricular: 'Desenvolvimento de sistemas 1' },
+      {id: 1,  componenteCurricular: 'Desenvolvimento de sistemas 2' },
+      {id: 1,  componenteCurricular: 'Estrutura de dados' },
     ];
 
   // -------------------- File-Input ---------------------------------------
@@ -57,6 +61,26 @@ export class RequestsRegistrationComponent implements OnInit {
   ngOnInit(): void {
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
     console.log(requisicao)
+
+    this.form = this.formBuilder.group({
+      id:[''],
+      tipoSolicitacao: [''],
+      status: ['Solicitação-criada'],
+      dataCriacao: [''],
+      experienciasAnteriores: [''],
+      dataAgendamentoProva: [''],
+      notaDaProva: [''],
+      diciplinaCursaAnteriormente: [''],
+      notaObtida: [''],
+      cargaHoraria: [''],
+      analises: this.formBuilder.array(this.retriveAnalysis(requisicao)),
+      //anexos: this.formBuilder.array(this.retriveAttachments(requisicao)),
+      aluno_id: [1],
+      edital_id: [2],
+      diciplina_id: [1]
+    });
+
+
   }
 
   // Método para lidar com a seleção de arquivos
@@ -138,13 +162,76 @@ export class RequestsRegistrationComponent implements OnInit {
   // -------------------- botões ---------------------------------------
 
   submitForm(form: any) {
-    console.log(this.formData); // Exibe os dados do formulário
-    console.log('submitForm called');
-    alert("Solicitão enviada com sucesso");
+    const formData: FormData = new FormData();
+    formData.append('id', this.form.get('id')?.value);
+    formData.append('tipoSolicitacao', this.form.get('tipoSolicitacao')?.value);
+    formData.append('status', this.form.get('status')?.value);
+    formData.append('dataCriacao', this.form.get('dataCriacao')?.value);
+    formData.append('experienciasAnteriores', this.form.get('experienciasAnteriores')?.value);
+    formData.append('dataAgendamentoProva', this.form.get('dataAgendamentoProva')?.value);
+    formData.append('notaDaProva', this.form.get('notaDaProva')?.value);
+    formData.append('diciplinaCursaAnteriormente', this.form.get('diciplinaCursaAnteriormente')?.value);//notaObtida
+    formData.append('notaObtida', this.form.get('notaObtida')?.value);
+    formData.append('cargaHoraria', this.form.get('cargaHoraria')?.value);
+    formData.append('edital_id', this.form.get('edital_id')?.value);
+    formData.append('aluno_id', this.form.get('aluno_id')?.value);
+    formData.append('diciplina_id', this.form.get('diciplina_id')?.value);
+
+    for (let i = 0; i < this.files.length; i++) {
+      formData.append('files', this.files[i], this.files[i].name);
+    }
+    this.requisicaoService.teste(formData)
+    .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
   }
 
   handleResetClick() {
-    this.files = []; // Limpa a matriz de arquivos.
-    this.updateFileFormat(); // Atualiza o formato da mensagem.
+    this.files = [];
+    this.updateFileFormat();
+  }
+
+
+  private retriveAnalysis(requisicao: Requisicao){
+    const analises = [];
+    if(requisicao?.analises){
+      requisicao.analises.forEach((analise: Analise) => analises.push(this.createAnalysis(analise)))
+    }else{
+      analises.push(this.createAnalysis());
+    }
+    return analises;
+  }
+
+  private retriveAttachments(requisicao: Requisicao){
+    const anexos = [];
+    if(requisicao?.anexos){
+      requisicao.anexos.forEach((anexo: Anexo) => anexos.push(this.createAttachments(anexo)))
+    }else{
+      anexos.push(this.createAttachments());
+    }
+    return anexos;
+  }
+
+  private createAnalysis(analise : Analise = {id: '', status: '', parecer: '', servidor: '0', requisicao: 0}){
+    return this.formBuilder.group({
+      id: [analise.id],
+      status: [analise.status],
+      parecer: [analise.parecer],
+      servidor: [analise.servidor],
+      requisicao: [analise.requisicao]
+    });
+  }
+
+  private createAttachments(anexo : Anexo = {id: '', nome: '', arquivo: '', requisicao: 0}){
+    return this.formBuilder.group({
+      id: [anexo.id],
+      status: [anexo.nome],
+      parecer: [anexo.arquivo],
+      requisicao: [anexo.requisicao]
+    });
+  }
+
+
+  selectTipo(event: Event){
+    const elementoSelecionado = event.target as HTMLSelectElement;
+    this.tipoSolicitacao = elementoSelecionado.value.split(': ')[1];
   }
 }

@@ -41,7 +41,6 @@ public class AproveitamentoApiApplication {
 	}
 
 	@Bean
-
 	CommandLineRunner initDatabase(AlunoRepository alunoRepository,
 			CoordenadorRepository coordenadorRepository,
 			ProfessorRepository ProfessorRepository,

@@ -1,6 +1,11 @@
 package br.com.aproveitamento.service;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.dto.RequisicaoDTO;
+import br.com.aproveitamento.enums.RequisicaoStatus;
+import br.com.aproveitamento.enums.RequisicaoTipo;
+import br.com.aproveitamento.enums.converters.RequisicaoStatusConverter;
+import br.com.aproveitamento.enums.converters.RequisicaoTipoConverter;
 import br.com.aproveitamento.model.Aluno;
 import br.com.aproveitamento.model.Analise;
 import br.com.aproveitamento.model.Anexo;
@@ -33,6 +42,7 @@ public class RequisicaoService {
 	private AlunoRepository alunoRepository;
 	private EditalRepository editalRepository;
 	private DisciplinaRepository disciplinaRepository;
+	private AnexoRepository anexoRepository;
 	
 	public RequisicaoService(RequisicaoRepository requisicaoRepository,
 							AlunoRepository alunoRepository,
@@ -46,6 +56,7 @@ public class RequisicaoService {
 		this.alunoRepository = alunoRepository;
 		this.editalRepository = editalRepository;
 		this.disciplinaRepository = disciplinaRepository;
+		this.anexoRepository = anexoRepository;
 	}
 	
 	public List<RequisicaoDTO> list(){
@@ -95,7 +106,7 @@ public class RequisicaoService {
 
 		Requisicao requisicao = new Requisicao();
 		
-		if(requisicaoDTO.id() != null){
+		if(requisicaoDTO.id() != null && requisicaoDTO.id() != 0){
 			requisicao.setId(requisicaoDTO.id());
 		}
 		requisicao.setTipo(requisicaoDTO.tipo());
@@ -113,6 +124,7 @@ public class RequisicaoService {
 		}
 
 		for (Anexo a : requisicaoDTO.anexos()) {
+			a.setRequisicao(requisicao);
 			requisicao.getAnexos().add(a);
 		}
 
@@ -136,6 +148,10 @@ public class RequisicaoService {
 
 		requisicaoRepository.save(requisicao);
 
+		for (Anexo a : requisicao.getAnexos()) {
+			anexoRepository.save(a);
+		}
+
 		aluno.get().getRequisicoes().add(requisicao);
 		edital.get().getRequisicoes().add(requisicao);
 		disciplina.get().getRequisicoes().add(requisicao);
@@ -146,4 +162,77 @@ public class RequisicaoService {
 
 		return this.toModel(requisicao);
 	}
+
+	public RequisicaoDTO adapterDto(String id, String tipo, String status, String dataCriacao, String experienciasAnteriores, 
+									String dataAgendamentoProva, String notaDaProva, String diciplinaCursaAnteriormente, String notaObtida, 
+									String cargaHoraria, String aluno_id, String edital_id, String diciplina_id){
+			
+		RequisicaoDTO requisicaoDTO = new RequisicaoDTO(convertLong(id), 
+														RequisicaoTipoConverter.convertToEntityRequest(tipo), 
+														RequisicaoStatusConverter.convertToEntityRequest(status), 
+														convertDateNow(dataCriacao), 
+														experienciasAnteriores, 
+														convertDate(dataAgendamentoProva), 
+														convertDouble(notaDaProva), 
+														convertInteger(diciplinaCursaAnteriormente), 
+														convertDouble(notaObtida), 
+														convertInteger(cargaHoraria), 
+														new ArrayList<Analise>(), 
+														new ArrayList<Anexo>(), 
+														convertLong(aluno_id), 
+														convertLong(edital_id), 
+														convertLong(diciplina_id));
+		return requisicaoDTO;
+
+	}
+
+	private Long convertLong(String value){
+		if(value.equals("") || value == null){
+			value = "0";
+		}
+		return Long.parseLong(value);
+	}
+
+	private Integer convertInteger(String value){
+		if(value.equals("") || value == null){
+			value = "0";
+		}
+		return Integer.parseInt(value);
+	}
+
+	private Double convertDouble(String value){
+		if(value.equals("") || value == null){
+			value = "0.0";
+		}
+		return Double.parseDouble(value);
+	}
+
+	private Date convertDate(String value){
+		try {
+			if(value.equals("")){
+				return null;
+			}
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date data = (Date) dateFormat.parse(value.toString());
+			return data;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	private Date convertDateNow(String value){
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date data = new Date();
+			if(value.equals("")){
+				data = (Date) dateFormat.parse(LocalDate.now().toString());
+			}else{
+				data = (Date) dateFormat.parse(value.toString());
+			}
+			return data;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

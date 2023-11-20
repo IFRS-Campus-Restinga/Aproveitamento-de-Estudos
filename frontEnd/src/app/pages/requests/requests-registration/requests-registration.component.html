@@ -1,26 +1,26 @@
 <div class="container">
   <app-title title="Envio de Solicitações"></app-title>
 
-  <form #form="ngForm" (ngSubmit)="submitForm(form)">
+  <form [formGroup]="form">
     <!-- Tipo de solicitacao -->
 
     <div class="form-group">
       <label for="tipoSolicitacao">Tipo:</label>
-      <select name="tipoSolicitacao" id="tipoSolicitacao" [(ngModel)]="formData.tipoSolicitacao" required>
+      <select name="tipoSolicitacao" id="tipoSolicitacao"  formControlName="tipoSolicitacao" (change)="selectTipo($event)" required>
         <option *ngFor="let item of listTiposRequisicoes" [ngValue]="item.tipoSolicitacao">
           {{ item.tipoSolicitacao }}
         </option>
       </select>
     </div>
 
-    <div [ngSwitch]="formData.tipoSolicitacao">
+    <div [ngSwitch]="tipoSolicitacao">
 
       <!-- Certificação -->
-      <div *ngSwitchCase="'Certificação de conhecimento'">
+      <div *ngSwitchCase="'Certificacao'">
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
-          <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
-            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
+          <select name="componenteCurricular" id="componenteCurricular" formControlName="diciplina_id" required>
+            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.id">
               {{ item.componenteCurricular }}
             </option>
           </select>
@@ -29,7 +29,7 @@
         <!-- Experiencia Anterior -->
         <div class="form-group">
           <label for="experienciaAnterior">Experiência anterior:</label>
-          <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" [(ngModel)]="formData.experienciaAnterior" required/>
+          <input type="text" name="experienciaAnterior" id="experienciaAnterior" placeholder="ex: atuação em projeto que utiliza angular" formControlName="experienciasAnteriores" required/>
         </div>
 
         <!-- Anexar Arquivo -->
@@ -37,7 +37,7 @@
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" [(ngModel)]="formData.file" required/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" required/>
           </div>
           <div class="file-info" *ngFor="let file of files; let i = index">
             <span>{{ file.name }}</span>
@@ -50,7 +50,7 @@
         <!-- Botões -->
         <div class="form-half-grid">
           <div class="btn-submit-container">
-            <button type="submit" class="btn-register">Enviar</button>
+            <button type="submit" class="btn-register" (click)=submitForm(form)>Enviar</button>
           </div>
           <div class="btn-submit-container">
             <button type="reset" class="btn-register btn-red" (click)="handleResetClick()">Cancelar</button>
@@ -59,13 +59,13 @@
       </div>
 
       <!-- Aproveitamento -->
-      <div *ngSwitchCase="'Aproveitamento de estudos'">
+      <div *ngSwitchCase="'Aproveitamento'">
 
         <!-- Componente Curricular -->
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
-          <select name="componenteCurricular" id="componenteCurricular" [(ngModel)]="formData.componenteCurricular" required>
-            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.componenteCurricular">
+          <select name="componenteCurricular" id="componenteCurricular" formControlName="diciplina_id" required>
+            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.id">
               {{ item.componenteCurricular }}
             </option>
           </select>
@@ -74,18 +74,18 @@
         <!-- Componente Anterior -->
         <div class="form-group">
           <label for="componenteCursado">Componente cursado anteriormente:</label>
-          <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso cursado" [(ngModel)]="formData.componenteCursado" required>
+          <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso cursado" formControlName="diciplinaCursaAnteriormente" required>
         </div>
 
         <!-- Nota & Carga Horaria -->
         <div class="form-half-grid">
           <div class="form-group">
             <label for="nota">Nota obtida:</label>
-            <input type="number" name="nota" id="nota" min="0" max="10" step="0.1" placeholder="Inserir nota" [(ngModel)]="formData.nota" required>
+            <input type="number" name="nota" id="nota" min="0" max="10" step="0.1" placeholder="Inserir nota" formControlName="notaObtida" required>
           </div>
           <div class="form-group">
             <label for="cargaHoraria">Carga Horária</label>
-            <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" [(ngModel)]="formData.cargaHoraria" required />
+            <input type="number" id="cargaHoraria" name="cargaHoraria" placeholder="Carga Horária(h)" min="0" formControlName="cargaHoraria" required />
           </div>
         </div>
 
@@ -94,7 +94,7 @@
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" [(ngModel)]="formData.file" required/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" required/>
           </div>
           <div class="file-info" *ngFor="let file of files; let i = index">
             <span>{{ file.name }}</span>
@@ -107,7 +107,7 @@
         <!-- Botões -->
         <div class="form-half-grid">
           <div class="btn-submit-container">
-            <button type="submit" class="btn-register">Enviar</button>
+            <button type="submit" class="btn-register" (click)=submitForm(form)>Enviar</button>
           </div>
           <div class="btn-submit-container">
             <button type="reset" class="btn-register btn-red" (click)="handleResetClick()">Cancelar</button>
