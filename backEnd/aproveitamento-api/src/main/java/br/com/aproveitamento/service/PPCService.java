@@ -2,6 +2,7 @@ package br.com.aproveitamento.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -70,5 +71,32 @@ public class PPCService {
         ppc.getDisciplinas().add(disciplina);
         ppcRepository.save(ppc);
         return ppc;
+    }
+
+    public PPC UpdateOrCreate(@Valid @NotNull PPC ppc) {
+
+        PPC d = new PPC();
+        if (ppc.getId() != null) {
+            d.setId(ppc.getId());
+        }
+        d.setNomePPC(ppc.getNomePPC());
+        d.setAno(ppc.getAno());
+        
+         List<Disciplina> disciplinas = ppc.getDisciplinas().stream().map(ppcDisciplinas -> {
+         var disciplina = new Disciplina();
+         if(ppcDisciplinas.getId() != null){
+         disciplina.setId(ppcDisciplinas.getId());
+          }
+          disciplina.setNome(ppcDisciplinas.getNome());
+          disciplina.setCodDisciplina(ppcDisciplinas.getCodDisciplina());
+          disciplina.setCargaHoraria(ppcDisciplinas.getCargaHoraria());
+          disciplina.setPpc(d);
+          return disciplina;
+          }).collect(Collectors.toList());
+         
+            d.setDisciplinas(disciplinas);
+       
+            ppcRepository.save(d);
+            return d;
     }
 }
