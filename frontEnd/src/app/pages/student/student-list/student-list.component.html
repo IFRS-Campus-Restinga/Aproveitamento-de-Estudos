@@ -1,1 +1,47 @@
 <app-lists-title title="Usuarios" route="/student/register" buttonName="Adicinar Usuario"></app-lists-title>
+
+<div class="containerFiltro">
+  <div class="form-group">
+    <label class="mr-2">Filtro </label>
+    <input type="text" class="form-control mr-2" placeholder="buscar">
+  </div>
+</div>
+
+<div class="container">
+  <table class="aluno-container" style="width: 60%;">
+    <thead class="thead-dark" style="text-align: right;">
+      <tr>
+        <th>Id</th>
+        <th>Nome Completo</th>
+        <th>Email</th>
+        <th>Curso</th>
+        <th>Matricula</th>
+        <th>DataIngresso</th>
+      </tr>
+    </thead>
+    <tbody style="padding-left: 7px;text-align: right;" *ngIf="alunoList && alunoList.length">
+        <tr *ngFor="let aluno of  alunoList">
+          <td>{{aluno.id}}</td>
+          <td>{{aluno.nome}}</td>
+          <td>{{aluno.email}}</td>
+          <td>{{aluno.curso.nome}}</td>
+          <td>{{aluno.matricula}}</td>
+          <td>{{aluno.dataIngresso}}</td>
+          <td style="width: 28%;">
+            <button type="button" class="btn-register-edital" (click)=onEdit(aluno)>Editar</button>
+            <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(aluno)>Excluir</button>
+          </td>
+        </tr>
+    </tbody>
+
+    <tfoot *ngIf="!alunoList.length">
+      <tr>
+        <td colspan="8">
+          <h4>Nenhum aluno encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<app-confirmation-dialog *ngIf="isConfirmationVisible" [message]="confirmationMessage" (confirmed)="handleConfirmation($event)"></app-confirmation-dialog>
