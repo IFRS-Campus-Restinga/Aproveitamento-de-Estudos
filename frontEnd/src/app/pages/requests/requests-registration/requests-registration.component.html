@@ -16,7 +16,7 @@
     <div [ngSwitch]="tipoSolicitacao">
 
       <!-- Certificação -->
-      <div *ngSwitchCase="'Certificacao'">
+      <div *ngSwitchCase="'CERTIFICACAO'">
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
           <select name="componenteCurricular" id="componenteCurricular" formControlName="diciplina_id" required>
@@ -59,7 +59,7 @@
       </div>
 
       <!-- Aproveitamento -->
-      <div *ngSwitchCase="'Aproveitamento'">
+      <div *ngSwitchCase="'APROVEITAMENTO'">
 
         <!-- Componente Curricular -->
         <div class="form-group">
