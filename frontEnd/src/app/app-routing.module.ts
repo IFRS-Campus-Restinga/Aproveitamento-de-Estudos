@@ -14,6 +14,7 @@ import { DisciplineListComponent } from './pages/discipline/discipline-list/disc
 import { studentListComponent } from './pages/student/student-list/student-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { EditalResolver } from './pages/announcement/guards/announcement-registration.resolver';
+import { DisciplinaResolver } from './pages/discipline/guards/discipline-registration.resolver';
 
 const routes: Routes = [
   {
@@ -69,6 +70,11 @@ const routes: Routes = [
     path: 'announcement/edit/:id',
     component: AnnouncementRegistrationComponent,
     resolve:{edital : EditalResolver}
+  },
+  {
+    path: 'discipline/edit/:id',
+    component: DisciplineRegistrationComponent,
+    resolve:{disciplina : DisciplinaResolver}
   }
 ];
 

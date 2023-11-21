@@ -8,7 +8,7 @@ import { Disciplina } from '../model/Disciplina';
 })
 export class DisciplinaService {
 
-  private readonly API = 'api/edital';
+  private readonly API = 'api/disciplina';
 
   constructor(private httpClient: HttpClient) { }
 

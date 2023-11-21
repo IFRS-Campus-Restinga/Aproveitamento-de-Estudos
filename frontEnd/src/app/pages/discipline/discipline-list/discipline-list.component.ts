@@ -1,5 +1,7 @@
-/*Desenvolvido por Guilherme Selau Pereira*/
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Disciplina } from 'src/app/model/Disciplina';
+import { DisciplinaService } from 'src/app/services/disciplina.service';
 
 @Component({
   selector: 'app-discipline-list',
@@ -7,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./discipline-list.component.css']
 })
 export class DisciplineListComponent {
-  /*public disciplinaList: Disciplina[] = [];
+  public disciplinaList: Disciplina[] = [];
   public disciplinaDelete!: Disciplina;
   @Output() edit = new EventEmitter(false);
   @Output() delete = new EventEmitter(false);
@@ -15,15 +17,16 @@ export class DisciplineListComponent {
   public confirmationMessage = 'Tem certeza que deseja excluir está Disciplina?';
 
   constructor(private route: ActivatedRoute,
-              //private disciplinaService: DisciplinaService,
+              private disciplinaService: DisciplinaService,
               private router: Router){
   }
 
   ngOnInit(): void {
-    this.getAnnouncement();
+    
+    this.getDisciplina();
   }
 
-  getAnnouncement(){
+  getDisciplina(){
     this.disciplinaService.list().subscribe(
       (_disciplina: Disciplina[]) => {
         this.disciplinaList = _disciplina;
@@ -31,14 +34,6 @@ export class DisciplineListComponent {
       error => console.log(error)
     )
 
-  }
-
-  toDate(dateString: string): string {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
   }
 
 
@@ -59,5 +54,5 @@ export class DisciplineListComponent {
       );
     }
     this.isConfirmationVisible = false;
-  }*/
+  }
 }

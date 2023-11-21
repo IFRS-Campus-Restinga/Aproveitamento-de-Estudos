@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder  } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Disciplina } from 'src/app/model/Disciplina';
 import { Ppc } from 'src/app/model/Ppc';
 import { CursoService } from 'src/app/services/curso.service';
 import { PpcService } from 'src/app/services/ppc.service';
@@ -19,7 +21,12 @@ export class DisciplineRegistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
-  constructor(private cursoService: CursoService, private ppcService: PpcService, private fb: FormBuilder) {
+  constructor(private cursoService: CursoService, private route: ActivatedRoute, private ppcService: PpcService, private fb: FormBuilder) {
+    
+  }
+
+  ngOnInit(): void {
+    let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
     this.formData = this.fb.group({
       curso: ['', Validators.required],
       ppc: ['', Validators.required],
@@ -27,9 +34,6 @@ export class DisciplineRegistrationComponent implements OnInit {
       disciplina: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
       cargaHoraria: ['', [Validators.required, Validators.min(10), Validators.max(500)]],
     });
-  }
-
-  ngOnInit(): void {
      this.loadCursos();
   }
 
