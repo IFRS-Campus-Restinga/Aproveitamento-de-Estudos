@@ -17,15 +17,29 @@ export class studentResgistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number }> = [];
   formData!: FormGroup;
 
-  constructor(private alunoService: AlunoService, private cursoService: CursoService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
-
+  constructor(private alunoService: AlunoService,
+              private cursoService: CursoService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-
     this.loadCursos();
     let aluno: Aluno = this.route.snapshot.data['aluno'];
     console.log(aluno);
+
+    if(!aluno){
+      aluno = {
+        id:'',
+        nome: '',
+        email: '',
+        matricula: '',
+        dataIngresso: '',
+        curso: '',
+        admin: false,
+        tipo: ''
+      }
+    }
 
     this.formData = this.formBuilder.group({
       nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
@@ -35,7 +49,8 @@ export class studentResgistrationComponent implements OnInit {
       ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
       tipo: ['ALUNO'],
       admin: false
-    });
+      });
+
   }
 
   submitForm(form: FormGroup) {
@@ -52,6 +67,7 @@ export class studentResgistrationComponent implements OnInit {
         tipo: "ALUNO",
       };
 
+    //  if (aluno.id) {
       if (aluno) {
         this.alunoService.createAluno(aluno).subscribe(
           (data) => {

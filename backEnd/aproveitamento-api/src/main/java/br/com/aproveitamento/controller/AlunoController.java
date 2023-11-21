@@ -43,8 +43,13 @@ public class AlunoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Aluno> create(@RequestBody @NotNull @Valid Aluno aluno){
+	public ResponseEntity<Aluno> create (@RequestBody @NotNull @Valid Aluno aluno){ 
 		return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.create(aluno));
+	}
+
+	@PostMapping("/aluno")
+	public ResponseEntity<Aluno> createAluno(@RequestBody @NotNull @Valid AlunoDTO aluno){
+		return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.createAluno(aluno));
 	}
 	
 	@PutMapping

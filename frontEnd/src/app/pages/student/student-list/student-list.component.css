@@ -5,14 +5,14 @@
   position: relative;
 }
 
-.edital-container tbody tr{
+.student-container tbody tr{
   border: 2px rgb(20, 18, 18) solid;
   border-radius: 10px;
   margin: .5rem 0;
   padding: .3rem;
 }
 
-.btn-register-edital{
+.btn-register-student{
   background-color: #0d8a29;
   color: white;
   width: 88px;
@@ -26,7 +26,7 @@
   margin: 3%;
 }
 
-.btn-alert-edital{
+.btn-alert-student{
   background-color: #bd0000;
   color: white;
   width: 88px;

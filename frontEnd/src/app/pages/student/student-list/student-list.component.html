@@ -24,12 +24,12 @@
           <td>{{aluno.id}}</td>
           <td>{{aluno.nome}}</td>
           <td>{{aluno.email}}</td>
-          <td>{{aluno.curso.nome}}</td>
+          <td>{{aluno.curso?.nome}}</td>
           <td>{{aluno.matricula}}</td>
           <td>{{aluno.dataIngresso}}</td>
           <td style="width: 28%;">
-            <button type="button" class="btn-register-edital" (click)=onEdit(aluno)>Editar</button>
-            <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(aluno)>Excluir</button>
+            <button type="button" class="btn-register-student" (click)=onEdit(aluno)>Editar</button>
+            <button type="button" class="btn-alert-student" (click)=showConfirmationDialog(aluno)>Excluir</button>
           </td>
         </tr>
     </tbody>
