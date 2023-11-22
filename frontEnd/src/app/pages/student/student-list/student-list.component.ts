@@ -52,6 +52,5 @@ export class studentListComponent {
       );
     }
     this.isConfirmationVisible = false;
-
   }
 }

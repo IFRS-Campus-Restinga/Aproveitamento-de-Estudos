@@ -16,8 +16,8 @@
 
         <div class="form-group">
             <label for="curso">Curso</label>
-            <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
-                <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
+            <select id="curso"  formControlName="curso" required [class.invalid]="!isCursoValid()" >
+                <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
             </select>
         </div>
 
@@ -40,3 +40,5 @@
     </form>
   </div>
 
+<!-- {{formData.valid | json}} -->
+<!-- {{formData.value | json}} -->

@@ -43,5 +43,4 @@ export class AlunoService {
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
-
 }

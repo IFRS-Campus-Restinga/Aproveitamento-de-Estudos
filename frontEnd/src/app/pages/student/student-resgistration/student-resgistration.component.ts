@@ -26,7 +26,7 @@ export class studentResgistrationComponent implements OnInit {
   ngOnInit(): void {
     this.loadCursos();
     let aluno: Aluno = this.route.snapshot.data['aluno'];
-    console.log(aluno);
+    console.log(this.listCursos);
 
     if(!aluno){
       aluno = {
@@ -44,7 +44,7 @@ export class studentResgistrationComponent implements OnInit {
     this.formData = this.formBuilder.group({
       nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
-      curso: [aluno.curso.id, Validators.required],
+      curso: [aluno.curso, Validators.required],
       matricula: [aluno.matricula, [Validators.required, Validators.pattern('[0-9]{10}')]],
       ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
       tipo: ['ALUNO'],
@@ -55,13 +55,20 @@ export class studentResgistrationComponent implements OnInit {
   submitForm(form: FormGroup) {
     if (form.valid) {
       const selectedCursoId = this.formData.get('curso')?.value;
+      console.log(selectedCursoId);
+
+      //for para achar idCurso
+
       const aluno: Aluno = {
         id: form.get('aluno.id')?.value,
         nome: form.get('nomeCompleto')?.value,
         email: form.get('email')?.value,
         matricula: form.get('matricula')?.value,
         dataIngresso: form.get('ingresso')?.value,
-        curso: selectedCursoId.id,
+        curso: {
+          id: selectedCursoId,
+          nome: "",
+        },
         admin: form.get('admin')?.value,
         tipo: "ALUNO",
       };
@@ -110,7 +117,6 @@ export class studentResgistrationComponent implements OnInit {
     if (fieldControl) {
       return !fieldControl.valid && fieldControl.touched;
     }
-
     return false;
   }
 }
