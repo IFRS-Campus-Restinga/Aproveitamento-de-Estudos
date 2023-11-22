@@ -21,7 +21,7 @@
           </ul>
         </li>
         <li><button [ngClass]="{ 'active': currentPage === 'request' }" [routerLink]="['request']">Solicitações</button></li>
-        <li><button href="">Logout</button></li>
+        <li><button [routerLink]="['logout']">Logout</button></li>
       </ul>
     </div>
   </nav>

@@ -12,6 +12,7 @@ import { AnnouncementListComponent } from './pages/announcement/announcement-lis
 import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
 import { studentListComponent } from './pages/student/student-list/student-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
+import { LoginOAuthComponent } from './pages/login-oauth/login-oauth.component';
 
 const routes: Routes = [
   {
@@ -60,7 +61,7 @@ const routes: Routes = [
   },
   {
     path:'',
-    component:LoginComponent,
+    component:LoginOAuthComponent,
     pathMatch: 'full'
   },
 ];

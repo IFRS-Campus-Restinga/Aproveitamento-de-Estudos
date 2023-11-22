@@ -1,0 +1,58 @@
+app-title {
+  visibility: hidden;
+}
+
+.bloco {
+  /*border: 2px solid #C2BABA;*/
+  width: 50vw;
+  display: inline;
+  flex-direction: line;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #C2BABA;
+  padding: 10px 80px 30px 80px;
+  margin-top: -7vh;
+}
+
+
+#logo{
+  scale: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#botao-login{
+  /*border: 2px solid black;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-google{
+  scale: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20%;
+}
+
+.column{
+  width: calc(100% / 3);
+  height: 100px;
+  display: inline-block;
+  font-size: 16px;
+  /*border: 2px solid black;*/
+}
