@@ -27,6 +27,7 @@ export class AnnouncementRegistrationComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    const currentYear = new Date().getFullYear();
     let edital: Edital = this.route.snapshot.data['edital'];
 
     if(!edital){
@@ -40,17 +41,16 @@ export class AnnouncementRegistrationComponent implements OnInit{
     }
 
     this.form = this.formBuilder.group({
-        id:[edital.id],
-        numero: [edital.numero, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,240}$')]],
-        dataInicio: [this.toDate(edital.dataInicio), Validators.required],
-        dataFim:  [this.toDate(edital.dataFim), Validators.required],
-        etapas: this.formBuilder.array(this.retriveSteps(edital))
-      }
-    );
+      id: [edital.id],
+      numero: [edital.numero, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,240}$')]],
+      dataInicio: [this.toDate(edital.dataInicio), Validators.required],
+      dataFim: [this.toDate(edital.dataFim), [Validators.required]],
+      etapas: this.formBuilder.array(this.retriveSteps(edital))
+    });
   }
 
   addStep() {
-    const etapas = this.form.get('etapas') as UntypedFormArray;
+    const etapas = this.form.get('etapas') as UntypedFormArray
     etapas.push(this.createSteps());
   }
 
@@ -123,14 +123,21 @@ export class AnnouncementRegistrationComponent implements OnInit{
     return allValid;
   }
 
-  validarDataFinalPosterior() {
+  validarDataFinalPosterior(): boolean {
     const dataInicio = new Date(this.form.value.dataInicio);
     const dataFim = new Date(this.form.value.dataFim);
-    if (dataInicio < dataFim) {
-      return true;
-    } else {
-      return false;
+
+    const currentYear = new Date().getFullYear();
+
+    if (dataFim.getFullYear() > currentYear) {
+      return false;  // Ano futuro não é válido
     }
+
+    if (dataInicio < dataFim) {
+      return true;   // Data final é posterior à data de início
+    }
+
+    return false;    // Caso contrário
   }
 
   isAtorValid(): boolean {
