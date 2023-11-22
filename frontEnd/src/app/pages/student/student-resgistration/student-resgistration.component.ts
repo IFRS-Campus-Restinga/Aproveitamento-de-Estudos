@@ -17,13 +17,25 @@ export class StudentResgistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number }> = [];
   formData: FormGroup;
 
-  constructor(private alunoService: AlunoService, private cursoService: CursoService, private formBuilder: FormBuilder) {
+  constructor(
+    private alunoService: AlunoService,
+    private cursoService: CursoService,
+    private formBuilder: FormBuilder
+  ) {
+    const currentYear = new Date().getFullYear();
+
     this.formData = this.formBuilder.group({
       nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       curso: ['', Validators.required],
       matricula: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      ingresso: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
+      ingresso: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(`^(01|02)\/(${currentYear - 6}|${currentYear - 5}|${currentYear - 4}|${currentYear - 3}|${currentYear - 2}|${currentYear - 1}|${currentYear})$`)
+        ]
+      ],
       tipo: ['ALUNO'],
       admin: false
     });
