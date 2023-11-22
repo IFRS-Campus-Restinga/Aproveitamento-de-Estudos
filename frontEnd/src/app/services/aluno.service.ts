@@ -7,7 +7,7 @@ import { Aluno } from '../model/Aluno';
 })
 export class AlunoService {
 
-  private readonly API = 'api/aluno';
+  private readonly API = '/api/aluno';
 
   constructor(private httpClient: HttpClient) { }
 

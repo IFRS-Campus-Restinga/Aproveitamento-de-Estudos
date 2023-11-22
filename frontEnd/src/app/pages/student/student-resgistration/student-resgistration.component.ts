@@ -33,11 +33,11 @@ export class studentResgistrationComponent implements OnInit {
         id:'',
         nome: '',
         email: '',
+        curso: '',
         matricula: '',
         dataIngresso: '',
-        curso: '',
         admin: false,
-        tipo: ''
+        tipo: 'Aluno'
       }
     }
 
@@ -50,7 +50,6 @@ export class studentResgistrationComponent implements OnInit {
       tipo: ['ALUNO'],
       admin: false
       });
-
   }
 
   submitForm(form: FormGroup) {
@@ -67,7 +66,6 @@ export class studentResgistrationComponent implements OnInit {
         tipo: "ALUNO",
       };
 
-    //  if (aluno.id) {
       if (aluno) {
         this.alunoService.createAluno(aluno).subscribe(
           (data) => {
