@@ -22,9 +22,7 @@ export class ServantRegistrationComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    //this.loadCursos();
     let servidor: Servidor = this.route.snapshot.data['servidor'];
-    //log(this.listCursos);
 
     if(!servidor){
       servidor = {
@@ -38,10 +36,10 @@ export class ServantRegistrationComponent implements OnInit {
     }
 
     this.formData = this.formBuilder.group({
-      nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
-      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
-      siape: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      cargo: [''],
+      nomeCompleto: [servidor.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      email: [servidor.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
+      siape: [servidor.siape, [Validators.required, Validators.pattern('[0-9]{10}')]],
+      cargo: [servidor.tipo],
       admin: false
     });
   }
@@ -75,23 +73,6 @@ export class ServantRegistrationComponent implements OnInit {
   isFormValid(): boolean {
     return this.formData.valid && this.isCargoValid();
   }
-
-  // loadCargos(){
-  //   this.cursoService.getCursos().subscribe(
-  //     (data) => {
-  //       if (data !== null) {
-  //         data.forEach((curso: any) => {
-  //           this.listCursos.push(
-  //             { curso: curso.nome, id: curso.id }
-  //           )
-  //         });
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log('Erro:', error);
-  //     }
-  //   );
-  // }
 
   isCargoValid(): boolean {
     return this.formData.get('cargo')?.value !== 'Selecione um curso';
