@@ -11,12 +11,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider.ResponseToken;
 //import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 //import org.springframework.security.saml2.provider.service.authentication.Saml2Authentication;
+import org.springframework.security.oauth2.client.JwtBearerOAuth2AuthorizedClientProvider;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -24,6 +32,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
@@ -36,9 +45,36 @@ public class SecurityConfiguration {
                     auth.anyRequest().authenticated();
                 })
                 .oauth2Login(withDefaults())
+                .oauth2Client(withDefaults())
                 //.formLogin(withDefaults())
                 .build();
     }
+
+    @Bean
+    public OAuth2AuthorizedClientManager authorizedClientManager(
+        ClientRegistrationRepository clientRegistrationRepository,
+        OAuth2AuthorizedClientRepository authorizedClientRepository) {
+
+            OAuth2AuthorizedClientProvider authorizedClientProvider =
+                    OAuth2AuthorizedClientProviderBuilder.builder()
+                            .authorizationCode()
+                            .refreshToken()
+                            .clientCredentials()
+                            .password()
+                            .provider(new JwtBearerOAuth2AuthorizedClientProvider())
+                            .build();
+
+            DefaultOAuth2AuthorizedClientManager authorizedClientManager =
+                    new DefaultOAuth2AuthorizedClientManager(
+                            clientRegistrationRepository, authorizedClientRepository);
+            authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+
+
+            return authorizedClientManager;
+        }
+
+
+
 
 
 //    @Bean

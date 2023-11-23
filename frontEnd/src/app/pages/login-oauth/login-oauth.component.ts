@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-oauth',
@@ -7,12 +9,14 @@ import { Component } from '@angular/core';
 })
 export class LoginOAuthComponent {
 
-  private readonly api = '/';
+  private readonly api = "http://localhost:8080/login";
+
+  constructor(private router: Router){
+
+  }
 
   onClick() {
-    console.log('FOOOI');
-
-
-    return null;
+    console.log('indo');
+    window.location.href = this.api;
   }
 }

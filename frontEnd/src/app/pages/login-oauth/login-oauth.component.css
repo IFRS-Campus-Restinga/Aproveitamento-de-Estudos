@@ -30,6 +30,8 @@ app-title {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-right: 15%;
+
 }
 
 #logo-google{
@@ -45,8 +47,10 @@ app-title {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding-top: 20%;
+  align-items: right;
+  padding: 18%;
+  text-decoration: solid;
+  font-weight: bolder;
 }
 
 .column{
