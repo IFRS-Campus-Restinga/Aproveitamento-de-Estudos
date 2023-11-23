@@ -28,14 +28,21 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadCursos();
     let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
-    //console.log(disciplina);
-    if(disciplina){
-      //console.log(this.listCursos);
+    if(!disciplina){
+      disciplina = {
+        id: '',
+        nome: '',
+        codDisciplina: '',
+        cargaHoraria: 0,
+        curso_id: 0,
+        ppc_id: 0,
+      }
+      this.loadCursos();
+    }else{
       let curso_id: any = disciplina.curso_id;
       let ppc_id: any = disciplina.ppc_id;
-      this.ppcEdit(curso_id, ppc_id);
+      this.loadCursosEdit(curso_id, ppc_id);
     }
 
     this.formData = this.fb.group({
@@ -47,6 +54,30 @@ export class DisciplineRegistrationComponent implements OnInit {
     });
      
   }
+
+  loadCursosEdit(curso_id: number, ppc_id: number){
+    this.cursoService.getCursos().subscribe(
+      (data) => {
+        if (data !== null) {
+          data.forEach((curso: { nome: string, id: number, ppcs: any[]}) => {
+            if(curso.id == curso_id){
+              console.log(curso);
+              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.ppcs });
+              curso.ppcs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
+                if(element.id == ppc_id ){
+                  this.listPpcs.push({id: element.id, nomePPC: element.nomePPC, ano: element.ano});
+                }
+              });
+            }
+          });
+        }
+      },
+      (error) => {
+        console.log('Erro:', error);
+      }
+    );
+  }
+
 
   submitForm(form: FormGroup) {
     //console.log(form.value);
@@ -75,28 +106,6 @@ export class DisciplineRegistrationComponent implements OnInit {
       }
     );
   }
-
-  ppcEdit(idCurso: any, idPpc: number){
-    const teste = this.listCursos;
-    console.log(this.listCursos.length);
-    teste.forEach(curso => {
-      console.log(curso);
-    });
-      
-      //console.log(i);
-      /*if(i.id === idCurso){
-       for(const j of i.ppcs ){
-          if(j.id === idPpc){
-            this.listPpcs.push({id: j.id, nomePPC: j.nomePPC, ano: j.ano});
-            this.ppcAux = {
-              id: j.id,
-              nomePPC: j.nomePPC,
-              ano: j.ano,
-            }
-          }
-        }*/
-      
-    }
   
 
   selectPpcs(event: Event){
