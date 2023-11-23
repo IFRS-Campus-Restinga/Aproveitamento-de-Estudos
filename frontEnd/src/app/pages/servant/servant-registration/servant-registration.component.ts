@@ -2,10 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Servidor } from 'src/app/model/Servidor';
 import { ServidorService } from 'src/app/services/servidor.service';
-// import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserType } from 'src/app/enum/user-type';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-servant-registration',
   templateUrl: './servant-registration.component.html',
@@ -13,26 +12,38 @@ import { UserType } from 'src/app/enum/user-type';
 })
 
 export class ServantRegistrationComponent implements OnInit {
+
   private servidor: Servidor | null = null;
   userTypes = Object.values(UserType).filter(type => type !== UserType.ALUNO);
-  // public cursos: any[] | null = null;
-  // public listCursos: Array<{ curso: string, id: number }> = [];
-  formData: FormGroup;
+  formData!: FormGroup;
 
-  constructor(private servidorService: ServidorService, private formBuilder: FormBuilder) {
-    // constructor(private servidorService: ServidorService, private cursoService: CursoService, private formBuilder: FormBuilder) {
+  constructor(private servidorService: ServidorService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    //this.loadCursos();
+    let servidor: Servidor = this.route.snapshot.data['servidor'];
+    //log(this.listCursos);
+
+    if(!servidor){
+      servidor = {
+        id: '',
+        nome: '',
+        email: '',
+        admin: false,
+        tipo: '',
+        siape: ''
+      }
+    }
+
     this.formData = this.formBuilder.group({
       nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
-      // curso: ['', Validators.required],
       siape: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
       tipo: [''],
       admin: false
     });
-  }
-
-  ngOnInit(): void {
-    // this.loadCursos();
   }
 
   submitForm(form: FormGroup) {
@@ -40,7 +51,7 @@ export class ServantRegistrationComponent implements OnInit {
       // const selectedCursoId = this.formData.get('curso')?.value;
 
       const servidor: Servidor = {
-        id: '',
+        id: form.get('servidor.id')?.value,
         nome: form.get('nomeCompleto')?.value,
         email: form.get('email')?.value,
         siape: form.get('siape')?.value,
@@ -92,7 +103,6 @@ export class ServantRegistrationComponent implements OnInit {
     if (fieldControl) {
       return !fieldControl.valid && fieldControl.touched;
     }
-
     return false;
   }
 

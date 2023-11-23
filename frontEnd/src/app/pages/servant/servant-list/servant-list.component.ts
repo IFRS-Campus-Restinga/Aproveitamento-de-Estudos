@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Servidor } from 'src/app/model/Servidor';
+import { Servidor } from './../../../model/Servidor';
 import { ServidorService } from 'src/app/services/servidor.service';
 
 @Component({
@@ -32,15 +32,6 @@ export class ServantListComponent {
       },
       error => console.log(error)
     )
-
-  }
-
-  toDate(dateString: string): string {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
   }
 
 
@@ -56,8 +47,8 @@ export class ServantListComponent {
   handleConfirmation(confirmed: boolean) {
     if (confirmed) {
       this.servidorService.remove(this.servidorDelete?.id).subscribe(
-        result => alert("Edital deletado com sucesso"),
-        error => alert("Erro ao deletar edital")
+        result => alert("Servidor deletado com sucesso"),
+        error => alert("Erro ao deletar servidor")
       );
     }
     this.isConfirmationVisible = false;

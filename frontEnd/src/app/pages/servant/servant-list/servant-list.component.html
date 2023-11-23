@@ -2,32 +2,33 @@
 
 <div class="containerFiltro">
     <div class="form-group">
-      <label class="mr-2">Filtro </label>
+      <label class="mr-2"> Filtro </label>
       <input type="text" class="form-control mr-2" placeholder="buscar">
     </div>
 </div>
 
 <div class="container">
-  <table class="edital-container" style="width: 60%;">
+  <table class="servidor-container" style="width: 60%;">
     <thead class="thead-dark" style="text-align: right;">
       <tr>
         <th>Id</th>
-        <th>Numero</th>
-        <th>dataInicio</th>
-        <th>dataFim</th>
-        <th>Opções</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Siape</th>
+        <th>Cargo</th>
       </tr>
     </thead>
     <tbody style="padding-left: 7px;text-align: right;" *ngIf="servidorList && servidorList.length">
 
-        <tr *ngFor="let edital of  servidorList">
-          <td>{{edital.id}}</td>
-          <td>{{edital.nome}}</td>
-          <td>{{toDate(edital.email)}}</td>
-          <td>{{toDate(edital.tipo)}}</td>
+        <tr *ngFor="let servidor of  servidorList">
+          <td>{{servidor.id}}</td>
+          <td>{{servidor.nome}}</td>
+          <td>{{servidor.email}}</td>
+          <td>{{servidor.siape}}</td>
+          <td>{{servidor.tipo}}</td>
           <td style="width: 28%;">
-            <button type="button" class="btn-register-edital" (click)=onEdit(edital)>Editar</button>
-            <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(edital)>Excluir</button>
+            <button type="button" class="btn-register-servidor" (click)=onEdit(servidor)>Editar</button>
+            <button type="button" class="btn-alert-servidor" (click)=showConfirmationDialog(servidor)>Excluir</button>
           </td>
         </tr>
 
@@ -35,7 +36,7 @@
     <tfoot *ngIf="!servidorList.length">
       <tr>
         <td colspan="8">
-          <h4>Nenhum edital encontrado!</h4>
+          <h4>Nenhum servidor encontrado!</h4>
         </td>
       </tr>
     </tfoot>

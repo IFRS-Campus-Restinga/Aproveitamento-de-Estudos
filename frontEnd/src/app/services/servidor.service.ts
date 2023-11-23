@@ -9,11 +9,9 @@ import { Servidor } from '../model/Servidor';
 })
 export class ServidorService {
 
-  private readonly API = 'api/Servidor';
+  private readonly API = '/api/servidor';
 
-  constructor(private httpClient: HttpClient) {
-
-  }
+  constructor(private httpClient: HttpClient) { }
 
   list() {
     return this.httpClient.get<Servidor[]>(this.API)
