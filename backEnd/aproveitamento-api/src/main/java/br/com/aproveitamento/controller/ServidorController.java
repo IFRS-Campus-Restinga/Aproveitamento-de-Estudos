@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.ServidorDTO;
 import br.com.aproveitamento.model.Servidor;
 import br.com.aproveitamento.service.ServidorService;
 import jakarta.validation.Valid;
@@ -32,12 +33,12 @@ public class ServidorController {
 	private ServidorService servidorService;
 	
 	@GetMapping
-	public @ResponseBody List<Servidor> list(){
+	public @ResponseBody List<ServidorDTO> list(){
 		return servidorService.list();
 	}
 	
 	@GetMapping("/{id}")
-	public Servidor findById(@PathVariable @NotNull @Positive Long id) {
+	public ServidorDTO findById(@PathVariable @NotNull @Positive Long id) {
 		return servidorService.findById(id);
 	}
 	
@@ -46,6 +47,11 @@ public class ServidorController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(servidorService.create(servidor));
 	}
 	
+	@PostMapping("/servidor")
+	public ResponseEntity<Servidor> createServidor(@RequestBody @NotNull @Valid ServidorDTO servidor){
+		return ResponseEntity.status(HttpStatus.CREATED).body(servidorService.createServidor(servidor));
+	}
+
 	@PutMapping
 	public Servidor update(@RequestBody @Valid Servidor Usuario){
 		return servidorService.update(Usuario);

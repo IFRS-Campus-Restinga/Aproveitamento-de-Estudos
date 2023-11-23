@@ -41,7 +41,7 @@ export class ServantRegistrationComponent implements OnInit {
       nomeCompleto: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       siape: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      tipo: [''],
+      cargo: [''],
       admin: false
     });
   }
@@ -72,11 +72,11 @@ export class ServantRegistrationComponent implements OnInit {
     }
   }
 
-  // isFormValid(): boolean {
-  //   return this.formData.valid && this.isCursoValid();
-  // }
+  isFormValid(): boolean {
+    return this.formData.valid && this.isCargoValid();
+  }
 
-  // loadCursos(){
+  // loadCargos(){
   //   this.cursoService.getCursos().subscribe(
   //     (data) => {
   //       if (data !== null) {
@@ -93,9 +93,9 @@ export class ServantRegistrationComponent implements OnInit {
   //   );
   // }
 
-  // isCursoValid(): boolean {
-  //   return this.formData.get('curso')?.value !== 'Selecione um curso';
-  // }
+  isCargoValid(): boolean {
+    return this.formData.get('cargo')?.value !== 'Selecione um curso';
+  }
 
   isValid(campo: string): boolean {
     const fieldControl = this.formData.get(campo);
