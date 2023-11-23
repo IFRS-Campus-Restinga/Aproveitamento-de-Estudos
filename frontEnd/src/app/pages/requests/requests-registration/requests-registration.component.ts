@@ -6,6 +6,8 @@ import { RequisicaoService } from 'src/app/services/requisicao.service';
 import { Anexo } from 'src/app/model/Anexo';
 import { Requisicao } from 'src/app/model/Requisicao';
 import { AnexoService } from 'src/app/services/anexo.service';
+import { DisciplinaService } from 'src/app/services/disciplina.service';
+import { Disciplina } from 'src/app/model/Disciplina';
 
 @Component({
   selector: 'app-requests-registration',
@@ -19,69 +21,69 @@ export class RequestsRegistrationComponent implements OnInit {
 
   form!: FormGroup;
 
-  //= {
-  //  componenteCurricular: 'Selecione um componente curricular',
-  //  tipoSolicitacao: 'Selecione o tipo de solicitação',
-  //};
-
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
       { tipoSolicitacao: 'Selecione o tipo de solicitação' },
       { tipoSolicitacao: 'CERTIFICACAO' },
       { tipoSolicitacao: 'APROVEITAMENTO' },
   ];
 
-  public listComponentesCurriculares: Array<{id: number, componenteCurricular: string }> =
-    [
-      {id: 1,  componenteCurricular: 'Selecione um componente curricular' },
-      {id: 1,  componenteCurricular: 'Programação 1' },
-      {id: 1,  componenteCurricular: 'Programação 2' },
-      {id: 1,  componenteCurricular: 'Programação 3' },
-      {id: 1,  componenteCurricular: 'Banco de dados 1' },
-      {id: 1,  componenteCurricular: 'Banco de dados 2' },
-      {id: 1,  componenteCurricular: 'Desenvolvimento de sistemas 1' },
-      {id: 1,  componenteCurricular: 'Desenvolvimento de sistemas 2' },
-      {id: 1,  componenteCurricular: 'Estrutura de dados' },
-    ];
-
-  // -------------------- File-Input ---------------------------------------
-
-  files: File[] = [];                                                               // propriedade para armazenar os arquivos selecionados.
-  fileFormat = 'Arraste e solte arquivos aqui ou clique para selecionar arquivos';  // mensagem inicial para exibir aos usuários.
-
-  // Propriedades para controle de arquivos
-  maxFileCount: number = 5;                     // Define o número máximo de arquivos permitidos
-  selectedFileCount: number = 0;                // contador de número de arquivos selecionados
-  maxFileSizeInBytes: number = 10 * 1024 * 1024; // Define o tamanho maximo de upload de arquivos
+  files: File[] = [];
+  fileFormat = 'Arraste e solte arquivos aqui ou clique para selecionar arquivos';
+  listDisciplinas: Disciplina[] = []
+  maxFileCount: number = 5;
+  selectedFileCount: number = 0;
+  maxFileSizeInBytes: number = 10 * 1024 * 1024;
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private route: ActivatedRoute,
     private requisicaoService: RequisicaoService,
-    private anexoService: AnexoService){
+    private anexoService: AnexoService,
+    private disciplinaService: DisciplinaService){
 
   }
 
   ngOnInit(): void {
+    this.getDisciplinas();
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
-    console.log(requisicao)
+    console.log(requisicao);
+    if(requisicao){
+      this.tipoSolicitacao = requisicao.tipo
+      this.getDisciplina(requisicao.diciplina_id);
+    }
 
     this.form = this.formBuilder.group({
-      id:[''],
+      id:[requisicao.id],
       tipoSolicitacao: [requisicao.tipo],
-      status: ['Solicitação-criada'],
-      dataCriacao: [''],
-      experienciasAnteriores: [''],
-      dataAgendamentoProva: [''],
-      notaDaProva: [''],
-      diciplinaCursaAnteriormente: [''],
-      notaObtida: [''],
-      cargaHoraria: [''],
+      status: [requisicao.status],
+      dataCriacao: [requisicao.dataCriacao],
+      experienciasAnteriores: [requisicao.experienciasAnteriores],
+      dataAgendamentoProva: [requisicao.dataAgendamentoProva],
+      notaDaProva: [requisicao.notaDaProva],
+      diciplinaCursaAnteriormente: [requisicao.diciplinaCursaAnteriormente],
+      notaObtida: [requisicao.notaObtida],
+      cargaHoraria: [requisicao.cargaHoraria],
       analises: this.formBuilder.array(this.retriveAnalysis(requisicao)),
-      aluno_id: [1],
-      edital_id: [2],
-      diciplina_id: [1]
+      aluno_id: [requisicao.aluno_id],
+      edital_id: [requisicao.edital_id],
+      disciplina_id: [requisicao.diciplina_id]
     });
 
     this.getAnexos(requisicao.anexos);
+  }
+
+  getDisciplina(diciplina_id: number) {
+    let disciplinaAux: Disciplina = {id: '',nome: '',codDisciplina: '', cargaHoraria: 0};
+    console.log(this.listDisciplinas);
+    this.listDisciplinas.forEach(disciplina => {
+      console.log('teste2');
+      if (parseInt(disciplina.id) === diciplina_id){
+        console.log(disciplina);
+        disciplinaAux = disciplina;
+      }
+    });
+    this.listDisciplinas = [];
+    this.listDisciplinas = [disciplinaAux];
+    console.log(this.listDisciplinas);
   }
 
   handleFileSelect(event: any) {
@@ -113,15 +115,15 @@ export class RequestsRegistrationComponent implements OnInit {
 
   private updateFileFormat() {
     if (this.files.length === 0) {
-      this.fileFormat = 'Arraste e solte arquivos aqui ou clique para selecionar arquivos'; // Define a mensagem padrão.
+      this.fileFormat = 'Arraste e solte arquivos aqui ou clique para selecionar arquivos';
       return;
     }
 
     let fileFormats = '';
     for (const file of this.files) {
       const fileName = file.name;
-      const fileSize = this.formatBytes(file.size); // Converte o tamanho do arquivo para uma representação legível.
-      const fileFormat = fileName.split('.').pop(); // Extrai a extensão do arquivo.
+      const fileSize = this.formatBytes(file.size);
+      const fileFormat = fileName.split('.').pop();
       fileFormats += `<i class="fas fa-file"></i> ${fileName}, ${fileSize}<br>`;
     }
   }
@@ -162,7 +164,7 @@ export class RequestsRegistrationComponent implements OnInit {
     formData.append('cargaHoraria', this.form.get('cargaHoraria')?.value);
     formData.append('edital_id', this.form.get('edital_id')?.value);
     formData.append('aluno_id', this.form.get('aluno_id')?.value);
-    formData.append('diciplina_id', this.form.get('diciplina_id')?.value);
+    formData.append('disciplina_id', this.form.get('disciplina_id')?.value);
 
     for (let i = 0; i < this.files.length; i++) {
       formData.append('files', this.files[i], this.files[i].name);
@@ -214,6 +216,19 @@ export class RequestsRegistrationComponent implements OnInit {
     });
   }
 
+  getDisciplinas() {
+    this.disciplinaService.listAlternative().subscribe(
+      (_diciplinas: Disciplina[]) => {
+        console.log('teste');
+        console.log(_diciplinas);
+        this.listDisciplinas = _diciplinas;
+      },
+      error => console.log(error)
+    )
+  }
+
 }
+
+
 
 

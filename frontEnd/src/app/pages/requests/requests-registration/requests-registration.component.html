@@ -19,9 +19,9 @@
       <div *ngSwitchCase="'CERTIFICACAO'">
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
-          <select name="componenteCurricular" id="componenteCurricular" formControlName="diciplina_id" required>
-            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.id">
-              {{ item.componenteCurricular }}
+          <select name="componenteCurricular" id="componenteCurricular" formControlName="disciplina_id" required>
+            <option *ngFor="let item of listDisciplinas" [ngValue]="item.id">
+              {{ item.nome }}
             </option>
           </select>
         </div>
@@ -64,9 +64,9 @@
         <!-- Componente Curricular -->
         <div class="form-group">
           <label for="componenteCurricular">Componente Curricular:</label>
-          <select name="componenteCurricular" id="componenteCurricular" formControlName="diciplina_id" required>
-            <option *ngFor="let item of listComponentesCurriculares" [ngValue]="item.id">
-              {{ item.componenteCurricular }}
+          <select name="componenteCurricular" id="componenteCurricular" formControlName="disciplina_id" required>
+            <option *ngFor="let item of listDisciplinas" [ngValue]="item.id">
+              {{ item.nome }}
             </option>
           </select>
         </div>

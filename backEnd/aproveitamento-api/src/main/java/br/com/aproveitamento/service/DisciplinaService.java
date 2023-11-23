@@ -46,4 +46,8 @@ public class DisciplinaService {
         disciplinaRepository.deleteById(id);
     }
 
+    public List<Disciplina> listAlternative() {
+        return disciplinaRepository.findAll();
+    }
+
 }
