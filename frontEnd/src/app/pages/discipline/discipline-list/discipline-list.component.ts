@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Disciplina } from 'src/app/model/Disciplina';
 import { DisciplinaService } from 'src/app/services/disciplina.service';
@@ -22,7 +22,6 @@ export class DisciplineListComponent {
   }
 
   ngOnInit(): void {
-    
     this.getDisciplina();
   }
 
@@ -35,7 +34,6 @@ export class DisciplineListComponent {
     )
 
   }
-
 
   onEdit(disciplina: Disciplina) {
     this.router.navigate(['edit', disciplina.id], {relativeTo: this.route});

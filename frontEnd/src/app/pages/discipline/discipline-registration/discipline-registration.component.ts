@@ -21,20 +21,31 @@ export class DisciplineRegistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
-  constructor(private cursoService: CursoService, private route: ActivatedRoute, private ppcService: PpcService, private fb: FormBuilder) {
+  constructor(private cursoService: CursoService, private route: ActivatedRoute, 
+    private ppcService: PpcService, 
+    private fb: FormBuilder) {
     
   }
 
   ngOnInit(): void {
+    this.loadCursos();
     let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
+    //console.log(disciplina);
+    if(disciplina){
+      //console.log(this.listCursos);
+      let curso_id: any = disciplina.curso_id;
+      let ppc_id: any = disciplina.ppc_id;
+      this.ppcEdit(curso_id, ppc_id);
+    }
+
     this.formData = this.fb.group({
-      curso: ['', Validators.required],
-      ppc: ['', Validators.required],
-      codigo: ['', [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
-      disciplina: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
-      cargaHoraria: ['', [Validators.required, Validators.min(10), Validators.max(500)]],
+      curso: [disciplina.curso_id, Validators.required],
+      ppc: [disciplina.ppc_id, Validators.required],
+      codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
+      disciplina: [disciplina.nome, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
+      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(500)]],
     });
-     this.loadCursos();
+     
   }
 
   submitForm(form: FormGroup) {
@@ -64,6 +75,29 @@ export class DisciplineRegistrationComponent implements OnInit {
       }
     );
   }
+
+  ppcEdit(idCurso: any, idPpc: number){
+    const teste = this.listCursos;
+    console.log(this.listCursos.length);
+    teste.forEach(curso => {
+      console.log(curso);
+    });
+      
+      //console.log(i);
+      /*if(i.id === idCurso){
+       for(const j of i.ppcs ){
+          if(j.id === idPpc){
+            this.listPpcs.push({id: j.id, nomePPC: j.nomePPC, ano: j.ano});
+            this.ppcAux = {
+              id: j.id,
+              nomePPC: j.nomePPC,
+              ano: j.ano,
+            }
+          }
+        }*/
+      
+    }
+  
 
   selectPpcs(event: Event){
     this.listPpcs = [];

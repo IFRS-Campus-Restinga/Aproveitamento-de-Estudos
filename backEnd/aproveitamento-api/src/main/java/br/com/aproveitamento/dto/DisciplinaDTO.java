@@ -5,7 +5,7 @@ public record DisciplinaDTO(
         String nome,
         String codDisciplina,
         int cargaHoraria, 
-        String ppc,
-        String curso) {
+        long ppc_id,
+        long curso_id) {
 
 }

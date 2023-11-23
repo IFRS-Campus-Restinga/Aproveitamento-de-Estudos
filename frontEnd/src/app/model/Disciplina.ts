@@ -6,4 +6,6 @@ export interface Disciplina {
     codDisciplina: string;
     cargaHoraria: number;
     ppc?: Ppc;
+    curso_id?: number;
+    ppc_id?: number;
   }

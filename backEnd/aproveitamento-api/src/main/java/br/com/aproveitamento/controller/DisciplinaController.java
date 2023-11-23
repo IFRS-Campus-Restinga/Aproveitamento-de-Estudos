@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.DisciplinaDTO;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.service.DisciplinaService;
 import jakarta.validation.Valid;
@@ -37,7 +38,7 @@ public class DisciplinaController {
     }
 
     @GetMapping("/{id}")
-    public Disciplina findById(@PathVariable @NotNull @Positive Long id) {
+    public DisciplinaDTO findById(@PathVariable @NotNull @Positive Long id) {
         return disciplinaService.findById(id);
     }
 

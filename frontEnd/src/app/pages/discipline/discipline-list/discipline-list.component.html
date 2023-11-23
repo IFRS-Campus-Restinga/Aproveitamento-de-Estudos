@@ -9,16 +9,16 @@
 
 <div class="container">
 <table class="disciplina-container" style="width: 60%;">
-  <thead class="thead-dark" style="text-align: right;">
+  <thead class="thead-dark" style="text-align: center;">
     <tr>
       <th>Id</th>
       <th>Nome</th>
-      <th>codigo</th>
-      <th>carga Horaria</th>
+      <th>Codigo</th>
+      <th>Carga Horaria</th>
       <th>Opções</th>
     </tr>
   </thead>
-  <tbody style="padding-left: 7px;text-align: right;">
+  <tbody style="padding-left: 7px;text-align: center;" *ngIf="disciplinaList && disciplinaList.length">
       <tr *ngFor="let disciplina of  disciplinaList">
         <td>{{disciplina.id}}</td>
         <td>{{disciplina.nome}}</td>
@@ -29,13 +29,11 @@
           <button type="button" class="btn-alert-disciplina" (click)=showConfirmationDialog(disciplina)>Excluir</button>
         </td>
       </tr>
-<!--(click)=onEdit(disciplina)-->
-<!--(click)=showConfirmationDialog(disciplina)-->
   </tbody>
   <tfoot *ngIf="!disciplinaList.length">
     <tr>
       <td colspan="8">
-        <h4>Nenhuma disciplina encontrado!</h4>
+        <h4>Nenhuma disciplina encontrada!</h4>
       </td>
     </tr>
   </tfoot>

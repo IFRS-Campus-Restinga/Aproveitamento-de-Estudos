@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import br.com.aproveitamento.dto.DisciplinaDTO;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.repository.DisciplinaRepository;
 import jakarta.validation.Valid;
@@ -27,11 +28,11 @@ public class DisciplinaService {
         return disciplinaRepository.findAll();
     }
 
-    public Disciplina findById(@NotNull @Positive Long id) {
+    public DisciplinaDTO findById(@NotNull @Positive Long id) {
         Optional<Disciplina> disciplina = disciplinaRepository.findById(id);
         if (!disciplina.isPresent())
             return null;
-        return disciplina.get();
+        return new DisciplinaDTO(disciplina.get().getId(), disciplina.get().getNome(), disciplina.get().getCodDisciplina(), disciplina.get().getCargaHoraria(), disciplina.get().getPpc().getId(), disciplina.get().getPpc().getCurso().getId());
     }
 
     public Disciplina create(@Valid @NotNull Disciplina disciplina) {

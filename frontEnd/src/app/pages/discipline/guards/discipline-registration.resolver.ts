@@ -1,5 +1,3 @@
-import { EditalService } from './../../../services/edital.service';
-import { Edital } from './../../../model/Edital';
 import { Injectable } from '@angular/core';
 import {
   Resolve,
