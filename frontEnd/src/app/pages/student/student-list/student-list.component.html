@@ -3,7 +3,7 @@
 <div class="containerFiltro">
   <div class="form-group">
     <label class="mr-2">Filtro </label>
-    <input type="text" class="form-control mr-2" placeholder="buscar">
+    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa" (input)="getStudent()">
   </div>
 </div>
 

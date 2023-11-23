@@ -16,6 +16,7 @@ export class studentListComponent {
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que deseja excluir este Aluno?';
+  public termoPesquisa: string = '';
 
   constructor(private route: ActivatedRoute,
               private alunoService: AlunoService,
@@ -29,7 +30,12 @@ export class studentListComponent {
   getStudent(){
     this.alunoService.list().subscribe(
       (_aluno: Aluno[]) => {
-        this.alunoList = _aluno;
+        this.alunoList = _aluno.filter(aluno =>
+          (aluno.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (aluno.matricula.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (aluno.curso.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (aluno.dataIngresso.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
+        );
       },
       error => console.log(error)
     )
@@ -51,6 +57,7 @@ export class studentListComponent {
         error => alert("Erro ao deletar Aluno")
       );
     }
+    location.reload();
     this.isConfirmationVisible = false;
   }
 }

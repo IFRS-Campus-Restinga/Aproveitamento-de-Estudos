@@ -4,7 +4,7 @@ import { AlunoService } from 'src/app/services/aluno.service';
 import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-student-resgistration',
   templateUrl: './student-resgistration.component.html',
@@ -20,7 +20,8 @@ export class studentResgistrationComponent implements OnInit {
   constructor(private alunoService: AlunoService,
               private cursoService: CursoService,
               private formBuilder: FormBuilder,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -77,6 +78,7 @@ export class studentResgistrationComponent implements OnInit {
         this.alunoService.createAluno(aluno).subscribe(
           (data) => {
             alert('Aluno salvo com sucesso!');
+            this.router.navigate(['/student']);
           },
           (error) => {
             console.error('Erro:', error);
