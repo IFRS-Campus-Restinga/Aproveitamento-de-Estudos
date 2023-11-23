@@ -5,6 +5,7 @@ import { ServidorService } from 'src/app/services/servidor.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserType } from 'src/app/enum/user-type';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-servant-registration',
   templateUrl: './servant-registration.component.html',
@@ -19,7 +20,8 @@ export class ServantRegistrationComponent implements OnInit {
 
   constructor(private servidorService: ServidorService,
               private formBuilder: FormBuilder,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     let servidor: Servidor = this.route.snapshot.data['servidor'];
@@ -46,8 +48,6 @@ export class ServantRegistrationComponent implements OnInit {
 
   submitForm(form: FormGroup) {
     if (form.valid) {
-      // const selectedCursoId = this.formData.get('curso')?.value;
-
       const servidor: Servidor = {
         id: form.get('servidor.id')?.value,
         nome: form.get('nomeCompleto')?.value,
@@ -61,6 +61,7 @@ export class ServantRegistrationComponent implements OnInit {
         this.servidorService.save(servidor).subscribe(
           (data) => {
             alert('Servidor salvo com sucesso!');
+            this.router.navigate(['/servant']);
           },
           (error) => {
             console.error('Erro:', error);
@@ -75,7 +76,7 @@ export class ServantRegistrationComponent implements OnInit {
   }
 
   isCargoValid(): boolean {
-    return this.formData.get('cargo')?.value !== 'Selecione um curso';
+    return this.formData.get('cargo')?.value !== 'Selecione um cargo';
   }
 
   isValid(campo: string): boolean {
