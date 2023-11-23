@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthModule, AuthClientConfig } from '@auth0/auth0-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,9 @@ import { studentListComponent } from './pages/student/student-list/student-list.
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginOAuthComponent } from './pages/login-oauth/login-oauth.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -73,8 +77,17 @@ import { LoginOAuthComponent } from './pages/login-oauth/login-oauth.component';
     MatInputModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    AuthModule.forRoot({
+      domain: 'YOUR_AUTH0_DOMAIN',
+      clientId: 'YOUR_AUTH0_CLIENT_ID',
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

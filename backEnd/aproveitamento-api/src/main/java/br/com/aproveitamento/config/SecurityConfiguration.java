@@ -1,10 +1,7 @@
 package br.com.aproveitamento.config;
 
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +24,7 @@ import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedCli
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -35,20 +33,34 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+
+
+    @GetMapping("hello")
+    public Map<String, String> hello(){
+        return Collections.singletonMap("text", "hello");
+    }
+
+
+
+
+
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
-
+        // configurando a permissao dos caminhos
         return http
                 .authorizeHttpRequests( auth -> {
                     auth.requestMatchers("/").permitAll();
                     auth.anyRequest().authenticated();
-                })
+                })  // configurando os metodos de login, utilizando o resource server
                 .oauth2Login(withDefaults())
-                .oauth2Client(withDefaults())
+               // .oauth2Client(withDefaults())
+                .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
                 //.formLogin(withDefaults())
                 .build();
     }
+
+
 
     @Bean
     public OAuth2AuthorizedClientManager authorizedClientManager(
