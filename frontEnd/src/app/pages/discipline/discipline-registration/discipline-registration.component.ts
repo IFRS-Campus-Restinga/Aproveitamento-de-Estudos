@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Disciplina } from 'src/app/model/Disciplina';
 import { Ppc } from 'src/app/model/Ppc';
 import { CursoService } from 'src/app/services/curso.service';
@@ -22,6 +23,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
   constructor(private cursoService: CursoService, private route: ActivatedRoute, 
+    private router: Router,
     private ppcService: PpcService, 
     private fb: FormBuilder) {
     
@@ -83,6 +85,14 @@ export class DisciplineRegistrationComponent implements OnInit {
     //console.log(form.value);
     //console.log(this.adjustPpcs(form.value));
     if (form.valid) {
+
+      const disciplina: Disciplina = {
+        id: form.get('disciplina.id')?.value,
+        nome: form.get('disciplina')?.value,
+        codDisciplina: form.get('codigo')?.value,
+        cargaHoraria: form.get('cargaHoraria')?.value,
+        //dataIngresso: form.get('ingresso')?.value,
+      };
       this.ppcService.createDiscipline(this.adjustPpcs(form.value))
         .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
     } else {
