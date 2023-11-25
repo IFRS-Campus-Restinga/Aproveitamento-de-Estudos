@@ -64,18 +64,4 @@ export class AnnouncementListComponent implements OnInit {
     this.isConfirmationVisible = false;
   }
 
-  //onDelete(edital: Edital) {
-  //  let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-  //    data: 'Deseja excluir este curso?',
-  //  });
-//
-  //  dialogRef.afterClosed().subscribe((result : boolean) => {
-  //    if(result){
-  //      this.coursesService.remove(course._id);
-  //      this.refresh();
-  //    }
-  //  });
-//
-  //}
-
 }

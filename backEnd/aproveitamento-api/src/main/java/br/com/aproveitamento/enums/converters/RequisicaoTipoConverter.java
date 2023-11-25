@@ -2,6 +2,7 @@ package br.com.aproveitamento.enums.converters;
 
 import java.util.stream.Stream;
 
+import br.com.aproveitamento.enums.RequisicaoStatus;
 import br.com.aproveitamento.enums.RequisicaoTipo;
 import jakarta.persistence.AttributeConverter;
 
@@ -25,4 +26,15 @@ public class RequisicaoTipoConverter implements AttributeConverter<RequisicaoTip
         .findFirst()
         .orElseThrow(IllegalArgumentException::new);
 	}
+
+    public static RequisicaoTipo convertToEntityRequest(String value){
+		if(value == null){
+            return null;
+        }
+        
+        return Stream.of(RequisicaoTipo.values())
+        .filter(c -> c.name().equals(value))
+        .findFirst()
+        .orElseThrow(IllegalArgumentException::new);
+    }
 }

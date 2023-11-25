@@ -56,5 +56,10 @@ public class DisciplinaController {
     public void delete(@PathVariable @NotNull @Positive Long id) {
         disciplinaService.delete(id);
     }
+    
+    @GetMapping("/list")
+    public @ResponseBody List<Disciplina> listAlternative() {
+        return disciplinaService.listAlternative();
+    }
 
 }

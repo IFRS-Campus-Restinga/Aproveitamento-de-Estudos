@@ -25,16 +25,23 @@ public class Anexo {
     
     @Column(nullable = false)
     private String arquivo;
+
+	@Column(nullable = false)
+    private String pasta;
     
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Requisicao requisicao;
 
-	public Anexo(Long id, String nome, String arquivo, Requisicao requisicao) {
+	public Anexo(){
+		
+	}
+
+	public Anexo(String nome, String arquivo, String pasta, Requisicao requisicao) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.arquivo = arquivo;
+		this.pasta = pasta;
 		this.requisicao = requisicao;
 	}
 }

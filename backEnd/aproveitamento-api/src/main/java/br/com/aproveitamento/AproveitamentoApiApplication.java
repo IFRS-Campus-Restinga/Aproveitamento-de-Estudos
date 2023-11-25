@@ -41,7 +41,6 @@ public class AproveitamentoApiApplication {
 	}
 
 	@Bean
-
 	CommandLineRunner initDatabase(AlunoRepository alunoRepository,
 			CoordenadorRepository coordenadorRepository,
 			ProfessorRepository ProfessorRepository,
@@ -202,7 +201,7 @@ public class AproveitamentoApiApplication {
 					new Date(),
 					"Portugues", new Date(), 0.00,
 					0, 0.00, 0,
-					aluno1, edital, disciplina4);
+					aluno2, edital, disciplina4);
 
 			requisicaoRepository.save(requisicao1);
 			requisicaoRepository.save(requisicao2);
@@ -215,14 +214,6 @@ public class AproveitamentoApiApplication {
 			edital.getRequisicoes().add(requisicao4);
 
 			editalRepository.save(edital);
-
-
-			/*
-			 * Analise analise1 = new Analise();
-			 * Analise analise2 = new Analise();
-			 * Analise analise3 = new Analise();
-			 * Analise analise4 = new Analise();
-			 */
 
 		};
 	}
