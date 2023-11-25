@@ -4,13 +4,13 @@
 
         <div class="form-group">
             <label for="nomeCompleto">Nome Completo</label>
-            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Jorge Jorginho"
+            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Seu Nome"
                 [ngClass]="{'valid-input': !isValid('nomeCompleto'), 'invalid-input': isValid('nomeCompleto')}" required>
         </div>
 
         <div class="form-group">
             <label for="email">Email Institucional</label>
-            <input type="email" id="email" formControlName="email" placeholder="123456@aluno.restinga.ifrs.edu.br" required
+            <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required
             [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" required>
         </div>
 
@@ -39,6 +39,3 @@
         </div>
     </form>
   </div>
-
-<!-- {{formData.valid | json}} -->
-<!-- {{formData.value | json}} -->

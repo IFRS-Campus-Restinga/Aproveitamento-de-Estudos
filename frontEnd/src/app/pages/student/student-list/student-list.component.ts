@@ -2,13 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/model/Aluno';
 import { AlunoService } from 'src/app/services/aluno.service';
+
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css']
 })
-
-export class studentListComponent {
+export class StudentListComponent {
 
   public alunoList: Aluno[] = [];
   public alunoDelete!: Aluno;

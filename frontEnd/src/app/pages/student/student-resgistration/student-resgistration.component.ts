@@ -5,13 +5,14 @@ import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-student-resgistration',
   templateUrl: './student-resgistration.component.html',
   styleUrls: ['./student-resgistration.component.css']
 })
-
-export class studentResgistrationComponent implements OnInit {
+export class StudentResgistrationComponent implements OnInit {
+  
   private aluno: Aluno | null = null;
   public cursos: any[] | null = null;
   public listCursos: Array<{ curso: string, id: number }> = [];
@@ -22,6 +23,7 @@ export class studentResgistrationComponent implements OnInit {
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router) {
+
   }
 
   ngOnInit(): void {
@@ -57,8 +59,6 @@ export class studentResgistrationComponent implements OnInit {
     if (form.valid) {
       const selectedCursoId = this.formData.get('curso')?.value;
       console.log(selectedCursoId);
-
-      //for para achar idCurso
 
       const aluno: Aluno = {
         id: form.get('aluno.id')?.value,

@@ -119,7 +119,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   isValid(controlName: string) {
-    return this.formData.get(controlName)?.valid;
+    return !this.formData.get(controlName)?.valid;
   }
 
 }
