@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'student/edit/:id',
-    component: studentResgistrationComponent,
+    component: StudentResgistrationComponent,
     resolve:{aluno : StudentResolver}
   },
   {
