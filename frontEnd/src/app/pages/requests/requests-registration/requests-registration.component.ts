@@ -1,7 +1,7 @@
 import { Analise } from './../../../model/Analise';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequisicaoService } from 'src/app/services/requisicao.service';
 import { Anexo } from 'src/app/model/Anexo';
 import { Requisicao } from 'src/app/model/Requisicao';
@@ -38,7 +38,8 @@ export class RequestsRegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private requisicaoService: RequisicaoService,
     private anexoService: AnexoService,
-    private disciplinaService: DisciplinaService){
+    private disciplinaService: DisciplinaService,
+    private router: Router){
 
   }
 
@@ -190,12 +191,16 @@ export class RequestsRegistrationComponent implements OnInit {
       formData.append('files', element, element.name);
     }
     this.requisicaoService.create(formData)
-    .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
+    .subscribe((result) => {
+      alert("Salvo com sucesso");
+      this.router.navigate(['/request']);
+    }, error => alert("Erro ao salvar disciplina"));
   }
 
   handleResetClick() {
     this.files = [];
     this.updateFileFormat();
+    this.router.navigate(['/request']);
   }
 
   private retriveAnalysis(requisicao: Requisicao){

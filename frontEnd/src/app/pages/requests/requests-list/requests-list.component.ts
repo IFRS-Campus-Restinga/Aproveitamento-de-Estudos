@@ -61,6 +61,7 @@ export class RequestsListComponent implements OnInit {
         error => alert("Erro ao deletar Requisicao")
       );
     }
+    location.reload();
     this.isConfirmationVisible = false;
   }
 

@@ -23,10 +23,6 @@ export class RequisicaoService {
     return this.httpClient.get<Requisicao>(`${this.API}/${id}`);
   }
 
-  private update(record: Partial<Requisicao>) {
-    return this.httpClient.put<Requisicao>(`${this.API}`, record).pipe(first());
-  }
-
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }

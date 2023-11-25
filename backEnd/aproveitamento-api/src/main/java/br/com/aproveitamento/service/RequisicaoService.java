@@ -77,6 +77,11 @@ public class RequisicaoService {
 	}
 		
 	public void delete(@NotNull @Positive Long id){
+		Optional<Requisicao> requisicaoOPC = requisicaoRepository.findById(id);
+		if(requisicaoOPC.isPresent()){
+			Requisicao requisicao = requisicaoOPC.get();
+			deleteArquivos(requisicao);
+		}
 		requisicaoRepository.deleteById(id);
 	}
 
