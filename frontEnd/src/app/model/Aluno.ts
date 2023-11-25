@@ -1,4 +1,5 @@
 export interface Aluno {
+  id: string;
   nome: string;
   email: string;
   admin: boolean;
@@ -6,5 +7,4 @@ export interface Aluno {
   matricula: string;
   dataIngresso: string;
   curso: any;
-
 }

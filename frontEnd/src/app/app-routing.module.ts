@@ -15,6 +15,8 @@ import { ServantRegistrationComponent } from './pages/servant/servant-registrati
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { EditalResolver } from './pages/announcement/guards/announcement-registration.resolver';
 import { RequestResolver } from './pages/requests/guards/request-registration.resolver';
+import { StudentResolver } from './pages/student/guards/student-registration.resolver';
+
 
 const routes: Routes = [
   {
@@ -40,6 +42,11 @@ const routes: Routes = [
   {
     path:'servant/register',
     component:ServantRegistrationComponent
+  },
+  {
+    path: 'student/edit/:id',
+    component: studentResgistrationComponent,
+    resolve:{aluno : StudentResolver}
   },
   {
     path: 'announcement',

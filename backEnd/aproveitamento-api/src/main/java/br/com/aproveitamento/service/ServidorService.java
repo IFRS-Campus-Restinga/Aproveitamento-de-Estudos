@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.model.Servidor;
-import br.com.aproveitamento.model.Usuario;
 import br.com.aproveitamento.repository.ServidorRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
