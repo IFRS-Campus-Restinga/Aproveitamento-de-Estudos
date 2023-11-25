@@ -23,7 +23,7 @@ public record RequisicaoDTO(
         List<Anexo> anexos,
         Long aluno_id,
         Long edital_id,
-        Long diciplina_id ) {
+        Long disciplina_id ) {
 
 }
 	

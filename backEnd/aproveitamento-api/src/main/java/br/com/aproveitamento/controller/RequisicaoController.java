@@ -56,15 +56,10 @@ public class RequisicaoController {
 	}
 	
 	@GetMapping("/{id}")
-	public Requisicao findById(@PathVariable @NotNull @Positive Long id) {
+	public RequisicaoDTO findById(@PathVariable @NotNull @Positive Long id) {
 		return requisicaoService.findById(id);
 	}
-	
-	@PostMapping
-	public ResponseEntity<RequisicaoDTO> create(@RequestBody @NotNull @Valid RequisicaoDTO requisicaoDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(requisicaoService.createOrUpdate(requisicaoDTO));
-	}
-	
+		
 	@PutMapping
 	public RequisicaoDTO update(@RequestBody @Valid RequisicaoDTO requisicaoDTO){
 		return requisicaoService.createOrUpdate(requisicaoDTO);
@@ -76,7 +71,7 @@ public class RequisicaoController {
 		requisicaoService.delete(id);
     }
 
-	@PostMapping("/teste")
+	@PostMapping
 	public ResponseEntity<RequisicaoDTO> handleFileUpload(
             @RequestParam("id") String id,
 			@RequestParam("tipoSolicitacao") String tipoSolicitacao,
@@ -90,24 +85,24 @@ public class RequisicaoController {
 			@RequestParam("cargaHoraria") String cargaHoraria,
 			@RequestParam("edital_id") String edital_id,
 			@RequestParam("aluno_id") String aluno_id,
-			@RequestParam("diciplina_id") String diciplina_id,
-            @RequestPart("files") List<MultipartFile> files) {
+			@RequestParam("disciplina_id") String disciplina_id,
+            @RequestParam(value = "files", required = false) List<MultipartFile> files) {
 
         try {
 			RequisicaoDTO requisicaoDTO = requisicaoService.adapterDto(id, tipoSolicitacao, status, dataCriacao, 
 																	   experienciasAnteriores, dataAgendamentoProva, 
 																	   notaDaProva, diciplinaCursaAnteriormente, notaObtida, 
-																	   cargaHoraria, aluno_id, edital_id, diciplina_id); 
-
-			String uuid = UUID.randomUUID().toString();
-			for (MultipartFile file : files) {
-				String path = UPLOAD_DIR + "/" + uuid;
-                Path filePath = Path.of(path, file.getOriginalFilename());
-				Files.createDirectories(filePath);
-                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-				requisicaoDTO.anexos().add(new Anexo(file.getName(), file.getOriginalFilename(), path, null));
-            }
-
+																	   cargaHoraria, aluno_id, edital_id, disciplina_id); 
+			if(files != null && !files.isEmpty()){
+				String uuid = UUID.randomUUID().toString();
+				for (MultipartFile file : files) {
+					String path = UPLOAD_DIR + "/" + uuid;
+            	    Path filePath = Path.of(path, file.getOriginalFilename());
+					Files.createDirectories(filePath);
+            	    Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+					requisicaoDTO.anexos().add(new Anexo(file.getName(), file.getOriginalFilename(), path, null));
+            	}
+			}
             return ResponseEntity.status(HttpStatus.CREATED).body(requisicaoService.createOrUpdate(requisicaoDTO));
 
         } catch (Exception e) {

@@ -1,7 +1,8 @@
 package br.com.aproveitamento.service;
 
 
-import java.text.ParseException;
+import java.io.File;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.dto.RequisicaoDTO;
-import br.com.aproveitamento.enums.RequisicaoStatus;
-import br.com.aproveitamento.enums.RequisicaoTipo;
 import br.com.aproveitamento.enums.converters.RequisicaoStatusConverter;
 import br.com.aproveitamento.enums.converters.RequisicaoTipoConverter;
 import br.com.aproveitamento.model.Aluno;
@@ -67,10 +66,10 @@ public class RequisicaoService {
 		}).collect(Collectors.toList());	 
 	}
 	
-	public Requisicao findById(@NotNull @Positive Long id){
+	public RequisicaoDTO findById(@NotNull @Positive Long id){
 		Optional<Requisicao> requisicao = requisicaoRepository.findById(id);
 		if(!requisicao.isPresent()) return null;
-		return requisicao.get();
+		return toModel(requisicao.get());
 	}
 	
 	public RequisicaoDTO createOrUpdate(@Valid @NotNull RequisicaoDTO requisicaoDTO){
@@ -107,7 +106,11 @@ public class RequisicaoService {
 		Requisicao requisicao = new Requisicao();
 		
 		if(requisicaoDTO.id() != null && requisicaoDTO.id() != 0){
-			requisicao.setId(requisicaoDTO.id());
+			Optional<Requisicao> requisicaoOPC = requisicaoRepository.findById(requisicaoDTO.id());
+			if(!requisicaoOPC.isPresent()) return null;
+			requisicao = requisicaoOPC.get();
+			deleteArquivos(requisicao);
+			//requisicao.setId(requisicaoDTO.id());
 		}
 		requisicao.setTipo(requisicaoDTO.tipo());
 		requisicao.setStatus(requisicaoDTO.status());
@@ -125,7 +128,7 @@ public class RequisicaoService {
 
 		for (Anexo a : requisicaoDTO.anexos()) {
 			a.setRequisicao(requisicao);
-			requisicao.getAnexos().add(a);
+			requisicao.getAnexos().add(a); 
 		}
 
 		Optional<Aluno> aluno = alunoRepository.findById(requisicaoDTO.aluno_id());
@@ -140,7 +143,7 @@ public class RequisicaoService {
 		}
 		requisicao.setEdital(edital.get());
 
-		Optional<Disciplina> disciplina = disciplinaRepository.findById(requisicaoDTO.diciplina_id());
+		Optional<Disciplina> disciplina = disciplinaRepository.findById(requisicaoDTO.disciplina_id());
 		if(!disciplina.isPresent()){
 			return null;
 		}
@@ -152,20 +155,22 @@ public class RequisicaoService {
 			anexoRepository.save(a);
 		}
 
-		aluno.get().getRequisicoes().add(requisicao);
-		edital.get().getRequisicoes().add(requisicao);
-		disciplina.get().getRequisicoes().add(requisicao);
+		if(requisicaoDTO.id() == null && requisicaoDTO.id() == 0){
+			aluno.get().getRequisicoes().add(requisicao);
+			edital.get().getRequisicoes().add(requisicao);
+			disciplina.get().getRequisicoes().add(requisicao);
 
-		alunoRepository.save(aluno.get());
-		editalRepository.save(edital.get());
-		disciplinaRepository.save(disciplina.get());
+			alunoRepository.save(aluno.get());
+			editalRepository.save(edital.get());
+			disciplinaRepository.save(disciplina.get());
+		}
 
 		return this.toModel(requisicao);
 	}
 
 	public RequisicaoDTO adapterDto(String id, String tipo, String status, String dataCriacao, String experienciasAnteriores, 
 									String dataAgendamentoProva, String notaDaProva, String diciplinaCursaAnteriormente, String notaObtida, 
-									String cargaHoraria, String aluno_id, String edital_id, String diciplina_id){
+									String cargaHoraria, String aluno_id, String edital_id, String disciplina_id){
 			
 		RequisicaoDTO requisicaoDTO = new RequisicaoDTO(convertLong(id), 
 														RequisicaoTipoConverter.convertToEntityRequest(tipo), 
@@ -181,7 +186,7 @@ public class RequisicaoService {
 														new ArrayList<Anexo>(), 
 														convertLong(aluno_id), 
 														convertLong(edital_id), 
-														convertLong(diciplina_id));
+														convertLong(disciplina_id));
 		return requisicaoDTO;
 
 	}
@@ -234,5 +239,33 @@ public class RequisicaoService {
 			return null;
 		}
 	}
+
+	private void deleteArquivos(Requisicao requisicao){
+		if(!requisicao.getAnexos().isEmpty()){
+			String directoryPath = requisicao.getAnexos().get(0).getPasta();
+			File directory = new File(directoryPath);
+			deleteDirectory(directory);
+			int size = requisicao.getAnexos().size();
+			for(int i = 0; i < size; i++ ){
+				requisicao.getAnexos().remove(0);
+			}
+		}
+	}
+
+	private static void deleteDirectory(File directory) {
+        if (directory.exists()) {
+            if (directory.isDirectory()) {
+
+                File[] files = directory.listFiles();
+				
+                if (files != null) {
+                    for (File file : files) {
+                        deleteDirectory(file);
+                    }
+                }
+            }
+            directory.delete();
+        }
+    }
 
 }

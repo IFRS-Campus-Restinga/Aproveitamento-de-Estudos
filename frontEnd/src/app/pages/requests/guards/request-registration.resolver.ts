@@ -34,7 +34,7 @@ export class RequestResolver implements Resolve<Requisicao> {
                 anexos: [],
                 aluno_id: 0,
                 edital_id: 0,
-                diciplina_id: 0
+                disciplina_id: 0
               });
   }
 }

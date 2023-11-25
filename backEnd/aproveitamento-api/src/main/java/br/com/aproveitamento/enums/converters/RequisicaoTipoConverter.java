@@ -31,8 +31,9 @@ public class RequisicaoTipoConverter implements AttributeConverter<RequisicaoTip
 		if(value == null){
             return null;
         }
+        
         return Stream.of(RequisicaoTipo.values())
-        .filter(c -> c.getValue().equals(value))
+        .filter(c -> c.name().equals(value))
         .findFirst()
         .orElseThrow(IllegalArgumentException::new);
     }

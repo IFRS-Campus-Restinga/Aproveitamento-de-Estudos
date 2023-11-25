@@ -23,20 +23,6 @@ export class RequisicaoService {
     return this.httpClient.get<Requisicao>(`${this.API}/${id}`);
   }
 
-  save(record: Partial<Requisicao>) {
-    console.log(record);
-    if (record.id) {
-      console.log('update');
-      return this.update(record);
-    }
-    console.log('create');
-    return this.create(record);
-  }
-
-  private create(record: Partial<Requisicao>) {
-    return this.httpClient.post<Requisicao>(this.API, record).pipe(first());
-  }
-
   private update(record: Partial<Requisicao>) {
     return this.httpClient.put<Requisicao>(`${this.API}`, record).pipe(first());
   }
@@ -45,8 +31,8 @@ export class RequisicaoService {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
 
-  teste(form: any){
-    return this.httpClient.post<any>(`${this.API}/teste`, form).pipe(first());
+  create(form: any){
+    return this.httpClient.post<any>(`${this.API}`, form).pipe(first());
   }
 
 }

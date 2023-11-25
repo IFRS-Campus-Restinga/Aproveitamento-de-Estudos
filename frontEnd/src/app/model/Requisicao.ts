@@ -16,5 +16,5 @@ export interface Requisicao {
   anexos: Anexo[],
   aluno_id: number,
   edital_id: number,
-  diciplina_id: number
+  disciplina_id: number
 }

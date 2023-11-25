@@ -37,7 +37,7 @@
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" required/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)"/>
           </div>
           <div class="file-info" *ngFor="let file of files; let i = index">
             <span>{{ file.name }}</span>
@@ -94,7 +94,7 @@
           <label for="file-input">Anexar arquivo:</label>
           <div class="file-upload">
             <label for="file-input" class="file-label" [innerHTML]="fileFormat"></label>
-            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)" required/>
+            <input type="file" id="file-input" class="file-input" accept=".pdf, .jpeg" multiple (change)="handleFileSelect($event)"/>
           </div>
           <div class="file-info" *ngFor="let file of files; let i = index">
             <span>{{ file.name }}</span>

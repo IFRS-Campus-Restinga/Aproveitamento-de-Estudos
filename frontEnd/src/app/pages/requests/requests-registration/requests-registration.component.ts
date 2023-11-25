@@ -48,7 +48,9 @@ export class RequestsRegistrationComponent implements OnInit {
     console.log(requisicao);
     if(requisicao){
       this.tipoSolicitacao = requisicao.tipo
-      this.getDisciplina(requisicao.diciplina_id);
+      this.getDisciplina(requisicao.disciplina_id);
+    }else{
+      requisicao = this.generateObject();
     }
 
     this.form = this.formBuilder.group({
@@ -65,25 +67,43 @@ export class RequestsRegistrationComponent implements OnInit {
       analises: this.formBuilder.array(this.retriveAnalysis(requisicao)),
       aluno_id: [requisicao.aluno_id],
       edital_id: [requisicao.edital_id],
-      disciplina_id: [requisicao.diciplina_id]
+      disciplina_id: [requisicao.disciplina_id]
     });
 
-    this.getAnexos(requisicao.anexos);
+    if(requisicao.id != ''){
+      this.getAnexos(requisicao.anexos);
+    }
+  }
+
+  generateObject(): Requisicao {
+    return {
+      id: '',
+      tipo: '',
+      status: 'SOLICITACAO_CRIADA',
+      dataCriacao:'',
+      experienciasAnteriores:'',
+      dataAgendamentoProva: '',
+      notaDaProva: 0,
+      diciplinaCursaAnteriormente: 0,
+      notaObtida: 0,
+      cargaHoraria: 0,
+      analises: [{id: '', status: '', parecer: '', servidor: '0', requisicao: 0}],
+      anexos: [{id: '', nome: '', arquivo: '', requisicao: 0 }],
+      aluno_id: 1,
+      edital_id: 1,
+      disciplina_id: 0
+    }
   }
 
   getDisciplina(diciplina_id: number) {
     let disciplinaAux: Disciplina = {id: '',nome: '',codDisciplina: '', cargaHoraria: 0};
-    console.log(this.listDisciplinas);
     this.listDisciplinas.forEach(disciplina => {
-      console.log('teste2');
       if (parseInt(disciplina.id) === diciplina_id){
-        console.log(disciplina);
         disciplinaAux = disciplina;
       }
     });
     this.listDisciplinas = [];
     this.listDisciplinas = [disciplinaAux];
-    console.log(this.listDisciplinas);
   }
 
   handleFileSelect(event: any) {
@@ -166,10 +186,10 @@ export class RequestsRegistrationComponent implements OnInit {
     formData.append('aluno_id', this.form.get('aluno_id')?.value);
     formData.append('disciplina_id', this.form.get('disciplina_id')?.value);
 
-    for (let i = 0; i < this.files.length; i++) {
-      formData.append('files', this.files[i], this.files[i].name);
+    for (const element of this.files) {
+      formData.append('files', element, element.name);
     }
-    this.requisicaoService.teste(formData)
+    this.requisicaoService.create(formData)
     .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
   }
 
@@ -219,8 +239,6 @@ export class RequestsRegistrationComponent implements OnInit {
   getDisciplinas() {
     this.disciplinaService.listAlternative().subscribe(
       (_diciplinas: Disciplina[]) => {
-        console.log('teste');
-        console.log(_diciplinas);
         this.listDisciplinas = _diciplinas;
       },
       error => console.log(error)
