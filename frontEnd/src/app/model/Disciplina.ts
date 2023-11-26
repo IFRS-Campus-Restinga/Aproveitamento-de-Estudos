@@ -4,7 +4,7 @@ export interface Disciplina {
     id: string;
     nome: string;
     codDisciplina: string;
-    cargaHoraria: any;
+    cargaHoraria: number;
     ppc?: Ppc;
     curso_id?: number;
     ppc_id?: number;

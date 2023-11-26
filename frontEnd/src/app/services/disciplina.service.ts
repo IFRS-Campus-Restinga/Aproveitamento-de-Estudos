@@ -19,8 +19,6 @@ export class DisciplinaService {
       );
   }
 
-  
-
   loadById(id: string) {
     return this.httpClient.get<Disciplina>(`${this.API}/${id}`);
   }

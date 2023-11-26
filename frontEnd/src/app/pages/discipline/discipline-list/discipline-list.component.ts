@@ -15,7 +15,7 @@ export class DisciplineListComponent {
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que deseja excluir está Disciplina?';
-  public termoPesquisa: string = '';
+  public termoPesquisa: String = '';
 
   constructor(private route: ActivatedRoute,
               private disciplinaService: DisciplinaService,
@@ -29,12 +29,9 @@ export class DisciplineListComponent {
   getDisciplina(){
     this.disciplinaService.list().subscribe(
       (_disciplina: Disciplina[]) => {
-        this.disciplinaList = _disciplina;
         this.disciplinaList = _disciplina.filter(disciplina =>
-          (disciplina.id.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
           (disciplina.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
-          (disciplina.codDisciplina.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
-          (disciplina.cargaHoraria.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
+          (disciplina.codDisciplina.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
         );
       },
       error => console.log(error)
@@ -58,6 +55,7 @@ export class DisciplineListComponent {
         error => alert("Erro ao deletar disciplina")
       );
     }
+    this.router.navigate(['/discipline']);
     location.reload();
     this.isConfirmationVisible = false;
   }
