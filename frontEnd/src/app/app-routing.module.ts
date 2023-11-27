@@ -89,12 +89,13 @@ const routes: Routes = [
   {
     path: 'discipline/edit/:id',
     component: DisciplineRegistrationComponent,
-    resolve:{disciplina : DisciplinaResolver
+    resolve:{disciplina : DisciplinaResolver}
   },
+  {
     path: 'request/edit/:id',
     component: RequestsRegistrationComponent,
-    resolve:{requisicao : RequestResolver
-   }
+    resolve:{requisicao : RequestResolver}
+  }
 ];
 
 @NgModule({

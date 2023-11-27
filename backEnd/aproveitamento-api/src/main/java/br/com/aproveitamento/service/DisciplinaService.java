@@ -68,22 +68,22 @@ public class DisciplinaService {
         d.setNomePPC(ppc.getNomePPC());
         d.setAno(ppc.getAno());
         
-         List<Disciplina> disciplinas = ppc.getDisciplinas().stream().map(ppcDisciplinas -> {
-         var disciplina = new Disciplina();
-         if(ppcDisciplinas.getId() != null){
-         disciplina.setId(ppcDisciplinas.getId());
-          }
-          disciplina.setNome(ppcDisciplinas.getNome());
-          disciplina.setCodDisciplina(ppcDisciplinas.getCodDisciplina());
-          disciplina.setCargaHoraria(ppcDisciplinas.getCargaHoraria());
-          //disciplina.setPpc(d);
-          return disciplina;
-          }).collect(Collectors.toList());
+        List<Disciplina> disciplinas = ppc.getDisciplinas().stream().map(ppcDisciplinas -> {
+            var disciplina = new Disciplina();
+            if(ppcDisciplinas.getId() != null){
+                disciplina.setId(ppcDisciplinas.getId());
+            }
+            disciplina.setNome(ppcDisciplinas.getNome());
+            disciplina.setCodDisciplina(ppcDisciplinas.getCodDisciplina());
+            disciplina.setCargaHoraria(ppcDisciplinas.getCargaHoraria());
+            return disciplina;
+        }).collect(Collectors.toList());
          
-            d.setDisciplinas(disciplinas);
+        d.setDisciplinas(disciplinas);
        
-            ppcRepository.save(d);
-            return d;
+        ppcRepository.save(d);
+        return d;
+    }
 
     public List<Disciplina> listAlternative() {
         return disciplinaRepository.findAll();
