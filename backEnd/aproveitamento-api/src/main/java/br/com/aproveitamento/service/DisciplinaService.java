@@ -84,6 +84,9 @@ public class DisciplinaService {
        
             ppcRepository.save(d);
             return d;
+
+    public List<Disciplina> listAlternative() {
+        return disciplinaRepository.findAll();
     }
 
 }

@@ -1,30 +1,31 @@
 <div class="container">
   <form  [formGroup]="form" (ngSubmit)="onSubmit(form)" id="formCurso">
+
     <div class="form-group">
-        <label for="nome">Nome do Curso</label>
-        <input type="text" id="nome" name="nome" placeholder=""
-        formControlName="nome" required>
+      <label for="nome">Nome do Curso</label>
+      <input type="text" id="nome" formControlName="nome" placeholder=""
+      [ngClass]="{'valid-input': !isValid('nome'), 'invalid-input': isValid('nome')}" required>
     </div>
 
     <div class="form-group">
-        <label for="PPCs">Ano do PPC</label>
-        <input type="text" id="PPCs" name="PPcs" placeholder=""
-        formControlName="PPCs" required>
+      <label for="PPCs">Ano do PPC</label>
+      <input type="text" id="PPCs" formControlName="PPCs" placeholder="AAAA"
+      [ngClass]="{'valid-input': !isValid('PPCs'), 'invalid-input': isValid('PPCs')}" required>
     </div>
 
     <div class="form-group">
-        <label for="coordenadores">Coordenador</label>
-        <input type="text" id="coordenadores" name="coordenadores" placeholder=""
-        formControlName="coordenadores" required>
+      <label for="coordenadores">Coordenadores</label>
+      <input type="text" id="coordenadores" formControlName="coordenadores" placeholder="Nome"
+      [ngClass]="{'valid-input': !isValid('coordenadores'), 'invalid-input': isValid('coordenadores')}" required>
     </div>
 
-    <div class="btn-submit-container" id="botaoSalvar">
-        <button type="submit" class="btn-register">Salvar</button>
-    </div>
+  <div class="btn-submit-container" id="botaoSalvar">
+      <button type="submit" class="btn-register" [ngClass]="{'btn-green': form.valid, 'btn-gray': !form.valid}" [disabled]="!form.valid">Salvar</button>
+  </div>
   </form>
 </div>
+{{form.valid | json}}
 {{form.value | json}}
-
 <!--
 
   <mat-card>

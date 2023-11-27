@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.AlunoDTO;
 import br.com.aproveitamento.model.Aluno;
 import br.com.aproveitamento.service.AlunoService;
 import jakarta.validation.Valid;
@@ -32,18 +33,23 @@ public class AlunoController {
 	private AlunoService alunoService;
 	
 	@GetMapping
-	public @ResponseBody List<Aluno> list(){
+	public @ResponseBody List<AlunoDTO> list(){
 		return alunoService.list();
 	}
 	
 	@GetMapping("/{id}")
-	public Aluno findById(@PathVariable @NotNull @Positive Long id) {
+	public AlunoDTO findById(@PathVariable @NotNull @Positive Long id) {
 		return alunoService.findById(id);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Aluno> create(@RequestBody @NotNull @Valid Aluno aluno){
+	public ResponseEntity<Aluno> create (@RequestBody @NotNull @Valid Aluno aluno){ 
 		return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.create(aluno));
+	}
+
+	@PostMapping("/aluno")
+	public ResponseEntity<Aluno> createAluno(@RequestBody @NotNull @Valid AlunoDTO aluno){
+		return ResponseEntity.status(HttpStatus.CREATED).body(alunoService.createAluno(aluno));
 	}
 	
 	@PutMapping

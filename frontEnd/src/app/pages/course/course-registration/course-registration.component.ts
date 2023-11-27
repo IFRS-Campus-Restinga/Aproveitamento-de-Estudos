@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoursesService } from 'src/app/services/courses.service';
 //import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,16 +16,27 @@ export class CourseRegistrationComponent {
 
   // construtor utilizando o material snackbar, para customização do alert de sucesso
   //constructor(private formBuilder: FormBuilder, private service: CoursesService, private snackBar: MatSnackBar, private router: Router) {
-  
-  constructor(private formBuilder: FormBuilder, private service: CoursesService, private router: Router) {
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: CoursesService,
+    private router: Router
+    ) {
+    const currentYear = new Date().getFullYear();
 
     this.form = this.formBuilder.group({
-      nome: [null],
-      PPCs: [null],
-      coordenadores: [null],
+      nome: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      PPCs: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(`^(${currentYear - 10}|${currentYear - 9}|${currentYear - 8}|${currentYear - 7}|${currentYear - 6}
+            |${currentYear - 5}|${currentYear - 4}|${currentYear - 3}|${currentYear - 2}|${currentYear - 1}|${currentYear})$`)
+        ]
+      ],
+      coordenadores: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
     });
   }
-
 
   onSubmit(form: any) {
     console.log(this.form.value);
@@ -47,7 +58,21 @@ export class CourseRegistrationComponent {
 
     this.router.navigate(['course'])
 
-    
+
+  }
+
+  isFormValid(): boolean {
+    return this.form.valid;
+  }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.form.get(campo);
+
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+
+    return false;
   }
 
 //  private onError(){

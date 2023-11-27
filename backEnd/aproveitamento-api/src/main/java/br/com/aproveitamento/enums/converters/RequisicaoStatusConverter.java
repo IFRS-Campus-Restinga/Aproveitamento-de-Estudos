@@ -26,4 +26,14 @@ public class RequisicaoStatusConverter implements AttributeConverter<RequisicaoS
         .orElseThrow(IllegalArgumentException::new);
 	}
 
+    public static RequisicaoStatus convertToEntityRequest(String value){
+        if(value.equals("") || value == null){
+            return null;
+        }
+        return Stream.of(RequisicaoStatus.values())
+        .filter(c -> c.name().equals(value))
+        .findFirst()
+        .orElseThrow(IllegalArgumentException::new);
+    }
+
 }

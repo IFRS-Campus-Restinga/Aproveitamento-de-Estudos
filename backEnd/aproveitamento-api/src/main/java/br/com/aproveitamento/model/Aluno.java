@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +31,7 @@ public class Aluno extends Usuario{
     @Column(nullable = true)
     private String dataIngresso;
 	
+	@JsonIgnore
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL,  orphanRemoval = true)
 	private List<Requisicao> requisicoes = new ArrayList<>();
     

@@ -10,6 +10,8 @@ export class HeaderComponent {
 
   showDropdown = false;
   currentPage: string = 'register';
+  adminManegent: string[] = ['discipline', 'course', 'student', 'announcement', 'servant'];
+
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;

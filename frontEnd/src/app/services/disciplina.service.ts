@@ -19,6 +19,13 @@ export class DisciplinaService {
       );
   }
 
+  listAlternative() {
+    return this.httpClient.get<Disciplina[]>(`${this.API}/list`)
+      .pipe(
+        first()
+      );
+  }
+
   loadById(id: string) {
     return this.httpClient.get<Disciplina>(`${this.API}/${id}`);
   }
@@ -34,6 +41,10 @@ export class DisciplinaService {
   }
 
   private createDiscipline(record: Partial<Disciplina>) {
+    return this.create(record);
+  }
+
+  private create(record: Partial<Disciplina>) {
     return this.httpClient.post<Disciplina>(this.API, record).pipe(first());
   }
 
@@ -44,4 +55,5 @@ export class DisciplinaService {
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
+  
 }
