@@ -52,7 +52,7 @@ public class PPCService {
     public PPC createDiscipline(@Valid @NotNull PpcDTO ppcRequest) {
 
         PPC p1 = null;
-
+ 
         if (ppcRequest.id() != null || !ppcRequest.id().equals("")) {
             Optional<PPC> p = ppcRepository.findById(Long.parseLong(ppcRequest.id()));
             if (!p.isPresent()) {
