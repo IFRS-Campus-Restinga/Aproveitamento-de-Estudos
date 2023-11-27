@@ -30,10 +30,10 @@ export class DisciplinaService {
       return this.update(record);
     }
     console.log('create');
-    return this.create(record);
+    return this.createDiscipline(record);
   }
 
-  private create(record: Partial<Disciplina>) {
+  private createDiscipline(record: Partial<Disciplina>) {
     return this.httpClient.post<Disciplina>(this.API, record).pipe(first());
   }
 

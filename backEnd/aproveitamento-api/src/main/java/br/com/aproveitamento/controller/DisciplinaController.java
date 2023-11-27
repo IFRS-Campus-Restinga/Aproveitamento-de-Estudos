@@ -33,7 +33,7 @@ public class DisciplinaController {
     private DisciplinaService disciplinaService;
 
     @GetMapping
-    public @ResponseBody List<Disciplina> list() {
+    public @ResponseBody List<DisciplinaDTO> list() {
         return disciplinaService.list();
     }
 

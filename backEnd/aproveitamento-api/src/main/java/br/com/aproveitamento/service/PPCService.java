@@ -49,12 +49,12 @@ public class PPCService {
         ppcRepository.deleteById(id);
     }
 
-    public PPC createDicplina(@Valid @NotNull PpcDTO ppcRequest) {
+    public PPC createDiscipline(@Valid @NotNull PpcDTO ppcRequest) {
 
         PPC p1 = null;
 
-        if (ppcRequest.id() != null) {
-            Optional<PPC> p = ppcRepository.findById(ppcRequest.id());
+        if (ppcRequest.id() != null || !ppcRequest.id().equals("")) {
+            Optional<PPC> p = ppcRepository.findById(Long.parseLong(ppcRequest.id()));
             if (!p.isPresent()) {
                 p1 = new PPC();
             } else {
@@ -90,7 +90,7 @@ public class PPCService {
           disciplina.setNome(ppcDisciplinas.getNome());
           disciplina.setCodDisciplina(ppcDisciplinas.getCodDisciplina());
           disciplina.setCargaHoraria(ppcDisciplinas.getCargaHoraria());
-          disciplina.setPpc(d);
+          //disciplina.setPpc(d);
           return disciplina;
           }).collect(Collectors.toList());
          

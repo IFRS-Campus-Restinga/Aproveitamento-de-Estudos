@@ -24,7 +24,8 @@ export class DisciplineRegistrationComponent implements OnInit {
   constructor(private cursoService: CursoService, 
     private route: ActivatedRoute, 
     private ppcService: PpcService, 
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
     
   }
 
@@ -47,6 +48,7 @@ export class DisciplineRegistrationComponent implements OnInit {
     }
 
     this.formData = this.fb.group({
+      disciplina_id: [disciplina.id],
       curso: [disciplina.curso_id, Validators.required],
       ppc: [disciplina.ppc_id, Validators.required],
       codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
@@ -62,11 +64,12 @@ export class DisciplineRegistrationComponent implements OnInit {
         if (data !== null) {
           data.forEach((curso: { nome: string, id: number, ppcs: any[]}) => {
             if(curso.id == curso_id){
-              console.log(curso);
               this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.ppcs });
               curso.ppcs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
                 if(element.id == ppc_id ){
                   this.listPpcs.push({id: element.id, nomePPC: element.nomePPC, ano: element.ano});
+                  let id = element.id.toString();
+                  this.ppcAux = {id: id, nomePPC: element.nomePPC, ano: element.ano};
                 }
               });
             }
@@ -81,11 +84,12 @@ export class DisciplineRegistrationComponent implements OnInit {
 
 
   submitForm(form: FormGroup) {
-    //console.log(form.value);
-    //console.log(this.adjustPpcs(form.value));
     if (form.valid) {
       this.ppcService.createDiscipline(this.adjustPpcs(form.value))
-        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
+        .subscribe(result => { 
+          alert("Salvo com sucesso");
+          this.router.navigate(['/discipline']);
+        }, error => alert("Erro ao salvar disciplina"));
     } else {
       alert("Preencha todos os campos");
     }
@@ -130,7 +134,7 @@ export class DisciplineRegistrationComponent implements OnInit {
         nomePPC: this.ppcAux.nomePPC,
         ano: this.ppcAux.ano,
         disciplinas: [{
-          id: '',
+          id: form.disciplina_id,
           nome: form.disciplina,
           codDisciplina: form.codigo,
           cargaHoraria: form.cargaHoraria
