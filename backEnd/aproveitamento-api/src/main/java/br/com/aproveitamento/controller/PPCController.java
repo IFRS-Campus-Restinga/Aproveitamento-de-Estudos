@@ -48,8 +48,8 @@ public class PPCController {
     }
 
     @PostMapping("/disciplina")
-    public ResponseEntity<PPC> createDisciplina(@RequestBody @NotNull @Valid PpcDTO ppc) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createDicplina(ppc));
+    public ResponseEntity<PPC> createDiscipline(@RequestBody @NotNull @Valid PpcDTO ppc) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createDiscipline(ppc));
     }
 
     @PutMapping

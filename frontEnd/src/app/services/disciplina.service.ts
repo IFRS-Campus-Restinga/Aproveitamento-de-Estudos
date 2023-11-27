@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Edital } from '../model/Edital';
 import { first } from 'rxjs';
 import { Disciplina } from '../model/Disciplina';
 
@@ -38,6 +37,10 @@ export class DisciplinaService {
       return this.update(record);
     }
     console.log('create');
+    return this.createDiscipline(record);
+  }
+
+  private createDiscipline(record: Partial<Disciplina>) {
     return this.create(record);
   }
 
@@ -52,4 +55,5 @@ export class DisciplinaService {
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
+  
 }
