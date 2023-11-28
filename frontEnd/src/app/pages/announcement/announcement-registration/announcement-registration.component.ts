@@ -71,7 +71,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
       this.editalService.save(this.form.value)
         .subscribe(result => {
           alert("Salvo com sucesso");
-          this.router.navigate(['/request']);
+          this.router.navigate(['/announcement']);
         },
         error => alert("Erro ao salvar edital"));
     } else {
