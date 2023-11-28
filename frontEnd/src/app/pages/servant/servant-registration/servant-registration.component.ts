@@ -42,7 +42,7 @@ export class ServantRegistrationComponent implements OnInit {
       nomeCompleto: [servidor.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: [servidor.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       siape: [servidor.siape, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      cargo: [servidor.tipo],
+      tipo: [servidor.tipo],
       admin: false
     });
   }
@@ -89,4 +89,7 @@ export class ServantRegistrationComponent implements OnInit {
     return false;
   }
 
+  isTipoValid(): boolean {
+    return this.formData.get('tipo')?.value !== '';
+  }
 }
