@@ -16,6 +16,7 @@ export class AnnouncementListComponent implements OnInit {
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que deseja excluir este Edital?';
+  public termoPesquisa: string = '';
 
   constructor(private route: ActivatedRoute,
               private editalService: EditalService,
@@ -29,7 +30,11 @@ export class AnnouncementListComponent implements OnInit {
   getAnnouncement(){
     this.editalService.list().subscribe(
       (_edital: Edital[]) => {
-        this.editalList = _edital;
+        this.editalList = _edital.filter(edital =>
+          (edital.numero.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (this.toDate(edital.dataInicio).toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (this.toDate(edital.dataFim).toLowerCase().includes(this.termoPesquisa.toLowerCase()))
+        );
       },
       error => console.log(error)
     )
@@ -61,6 +66,7 @@ export class AnnouncementListComponent implements OnInit {
         error => alert("Erro ao deletar edital")
       );
     }
+    location.reload();
     this.isConfirmationVisible = false;
   }
 

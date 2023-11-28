@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators, AbstractControl, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Edital } from 'src/app/model/Edital';
 import { Etapa } from 'src/app/model/Etapa';
 import { EditalService } from 'src/app/services/edital.service';
@@ -26,7 +26,8 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private route: ActivatedRoute,
-    private editalService: EditalService) {}
+    private editalService: EditalService,
+    private router: Router) {}
 
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
@@ -68,7 +69,11 @@ export class AnnouncementRegistrationComponent implements OnInit {
   submitForm() {
     if (this.form.valid) {
       this.editalService.save(this.form.value)
-        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar edital"));
+        .subscribe(result => {
+          alert("Salvo com sucesso");
+          this.router.navigate(['/request']);
+        },
+        error => alert("Erro ao salvar edital"));
     } else {
       alert("Preencha todos os campos");
     }
