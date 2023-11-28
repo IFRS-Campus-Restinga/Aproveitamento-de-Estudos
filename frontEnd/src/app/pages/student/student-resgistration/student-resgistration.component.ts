@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./student-resgistration.component.css']
 })
 export class StudentResgistrationComponent implements OnInit {
-  
+
   private aluno: Aluno | null = null;
   public cursos: any[] | null = null;
   public listCursos: Array<{ curso: string, id: number }> = [];
@@ -45,9 +45,10 @@ export class StudentResgistrationComponent implements OnInit {
     }
 
     this.formData = this.formBuilder.group({
+      aluno_id: [aluno.id],
       nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
-      curso: [aluno.curso, Validators.required],
+      curso: [aluno.curso.id, Validators.required],
       matricula: [aluno.matricula, [Validators.required, Validators.pattern('[0-9]{10}')]],
       ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
       tipo: ['ALUNO'],
@@ -61,7 +62,7 @@ export class StudentResgistrationComponent implements OnInit {
       console.log(selectedCursoId);
 
       const aluno: Aluno = {
-        id: form.get('aluno.id')?.value,
+        id: form.get('aluno_id')?.value,
         nome: form.get('nomeCompleto')?.value,
         email: form.get('email')?.value,
         matricula: form.get('matricula')?.value,
