@@ -38,6 +38,7 @@ export class ServantRegistrationComponent implements OnInit {
     }
 
     this.formData = this.formBuilder.group({
+      servidor_id: [servidor.id],
       nomeCompleto: [servidor.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       email: [servidor.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       siape: [servidor.siape, [Validators.required, Validators.pattern('[0-9]{10}')]],
@@ -49,7 +50,7 @@ export class ServantRegistrationComponent implements OnInit {
   submitForm(form: FormGroup) {
     if (form.valid) {
       const servidor: Servidor = {
-        id: form.get('servidor.id')?.value,
+        id: form.get('servidor_id')?.value,
         nome: form.get('nomeCompleto')?.value,
         email: form.get('email')?.value,
         siape: form.get('siape')?.value,

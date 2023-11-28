@@ -49,12 +49,12 @@ public class ServidorController {
 	
 	@PostMapping("/servidor")
 	public ResponseEntity<Servidor> createServidor(@RequestBody @NotNull @Valid ServidorDTO servidor){
-		return ResponseEntity.status(HttpStatus.CREATED).body(servidorService.createServidor(servidor));
+		return ResponseEntity.status(HttpStatus.CREATED).body(servidorService.createOrUpdateServidor(servidor));
 	}
 
 	@PutMapping
-	public Servidor update(@RequestBody @Valid Servidor Usuario){
-		return servidorService.update(Usuario);
+	public Servidor update(@RequestBody @Valid ServidorDTO servidor){
+		return servidorService.createOrUpdateServidor(servidor);
 	}
 	
 	@DeleteMapping("/{id}")

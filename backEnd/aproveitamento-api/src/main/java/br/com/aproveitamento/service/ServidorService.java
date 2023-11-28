@@ -52,7 +52,7 @@ public class ServidorService {
 		servidorRepository.deleteById(id);
 	}
 
-	public Servidor createServidor(@Valid @NotNull ServidorDTO servidorRequest){
+	public Servidor createOrUpdateServidor(@Valid @NotNull ServidorDTO servidorRequest){
 
 		Servidor s1 = null;
 		if (servidorRequest.id() != null) {
