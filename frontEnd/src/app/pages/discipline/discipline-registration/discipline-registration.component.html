@@ -38,16 +38,9 @@
   <hr>
 
   <div class="btn-submit-container">
-    <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}" 
+    <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
     [disabled]="!formData.valid">Cadastrar</button>
   </div>
 </form>
 </div>
 
- Curso: {{isValid('curso') | json}}
- PPC: {{isValid('ppc') | json}}
- Codigo: {{isValid('codigo') | json}}
- Disciplina: {{isValid('disciplina') | json}}
- Carga: Horaria {{isValid('cargaHoraria') | json}}
- Form: {{formData.valid | json}}
-{{formData.value | json}}

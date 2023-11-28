@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.DisciplinaDTO;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.service.DisciplinaService;
 import jakarta.validation.Valid;
@@ -32,12 +33,12 @@ public class DisciplinaController {
     private DisciplinaService disciplinaService;
 
     @GetMapping
-    public @ResponseBody List<Disciplina> list() {
+    public @ResponseBody List<DisciplinaDTO> list() {
         return disciplinaService.list();
     }
 
     @GetMapping("/{id}")
-    public Disciplina findById(@PathVariable @NotNull @Positive Long id) {
+    public DisciplinaDTO findById(@PathVariable @NotNull @Positive Long id) {
         return disciplinaService.findById(id);
     }
 
@@ -55,6 +56,11 @@ public class DisciplinaController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull @Positive Long id) {
         disciplinaService.delete(id);
+    }
+    
+    @GetMapping("/list")
+    public @ResponseBody List<Disciplina> listAlternative() {
+        return disciplinaService.listAlternative();
     }
 
 }

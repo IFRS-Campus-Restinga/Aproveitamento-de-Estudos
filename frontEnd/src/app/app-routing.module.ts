@@ -1,5 +1,3 @@
-import { Edital } from './model/Edital';
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
@@ -17,6 +15,9 @@ import { ServantRegistrationComponent } from './pages/servant/servant-registrati
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { EditalResolver } from './pages/announcement/guards/announcement-registration.resolver';
 import { ServantResolver } from './pages/servant/guards/servant-registration.resolver';
+import { DisciplinaResolver } from './pages/discipline/guards/discipline-registration.resolver';
+import { RequestResolver } from './pages/requests/guards/request-registration.resolver';
+import { StudentResolver } from './pages/student/guards/student-registration.resolver';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
     path:'servant/edit/:id',
     component:ServantRegistrationComponent,
     resolve:{servidor : ServantResolver}
+  },
+  {
+    path: 'student/edit/:id',
+    component: StudentResgistrationComponent,
+    resolve:{aluno : StudentResolver}
   },
   {
     path: 'announcement',
@@ -85,6 +91,16 @@ const routes: Routes = [
     path: 'announcement/edit/:id',
     component: AnnouncementRegistrationComponent,
     resolve:{edital : EditalResolver}
+  },
+  {
+    path: 'discipline/edit/:id',
+    component: DisciplineRegistrationComponent,
+    resolve:{disciplina : DisciplinaResolver}
+  },
+  {
+    path: 'request/edit/:id',
+    component: RequestsRegistrationComponent,
+    resolve:{requisicao : RequestResolver}
   }
 ];
 

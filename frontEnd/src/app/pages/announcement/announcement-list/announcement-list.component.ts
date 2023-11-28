@@ -1,7 +1,7 @@
-import { Edital } from './../../../model/Edital';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditalService } from 'src/app/services/edital.service';
+import { Edital } from './../../../model/Edital';
 
 @Component({
   selector: 'app-announcement-list',
@@ -15,7 +15,7 @@ export class AnnouncementListComponent implements OnInit {
   @Output() edit = new EventEmitter(false);
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
-  public confirmationMessage = 'Tem certeza que desja excluir este Edital?';
+  public confirmationMessage = 'Tem certeza que deseja excluir este Edital?';
 
   constructor(private route: ActivatedRoute,
               private editalService: EditalService,
@@ -63,19 +63,5 @@ export class AnnouncementListComponent implements OnInit {
     }
     this.isConfirmationVisible = false;
   }
-
-  //onDelete(edital: Edital) {
-  //  let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-  //    data: 'Deseja excluir este curso?',
-  //  });
-//
-  //  dialogRef.afterClosed().subscribe((result : boolean) => {
-  //    if(result){
-  //      this.coursesService.remove(course._id);
-  //      this.refresh();
-  //    }
-  //  });
-//
-  //}
 
 }

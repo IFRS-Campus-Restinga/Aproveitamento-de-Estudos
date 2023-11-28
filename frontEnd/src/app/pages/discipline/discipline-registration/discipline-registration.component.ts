@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Disciplina } from 'src/app/model/Disciplina';
 import { Ppc } from 'src/app/model/Ppc';
 import { CursoService } from 'src/app/services/curso.service';
 import { PpcService } from 'src/app/services/ppc.service';
@@ -19,26 +21,75 @@ export class DisciplineRegistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
-  constructor(private cursoService: CursoService, private ppcService: PpcService, private fb: FormBuilder) {
-    this.formData = this.fb.group({
-      curso: ['', Validators.required],
-      ppc: ['', Validators.required],
-      codigo: ['', [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
-      disciplina: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
-      cargaHoraria: ['', [Validators.required, Validators.min(10), Validators.max(500)]],
-    });
+  constructor(private cursoService: CursoService, 
+    private route: ActivatedRoute, 
+    private ppcService: PpcService, 
+    private fb: FormBuilder,
+    private router: Router) {
+    
   }
 
   ngOnInit(): void {
-     this.loadCursos();
+    let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
+    if(!disciplina){
+      disciplina = {
+        id: '',
+        nome: '',
+        codDisciplina: '',
+        cargaHoraria: 0,
+        curso_id: 0,
+        ppc_id: 0,
+      }
+      this.loadCursos();
+    }else{
+      let curso_id: any = disciplina.curso_id;
+      let ppc_id: any = disciplina.ppc_id;
+      this.loadCursosEdit(curso_id, ppc_id);
+    }
+
+    this.formData = this.fb.group({
+      disciplina_id: [disciplina.id],
+      curso: [disciplina.curso_id, Validators.required],
+      ppc: [disciplina.ppc_id, Validators.required],
+      codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
+      disciplina: [disciplina.nome, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
+      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(500)]],
+    });
+     
   }
 
+  loadCursosEdit(curso_id: number, ppc_id: number){
+    this.cursoService.getCursos().subscribe(
+      (data) => {
+        if (data !== null) {
+          data.forEach((curso: { nome: string, id: number, ppcs: any[]}) => {
+            if(curso.id == curso_id){
+              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.ppcs });
+              curso.ppcs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
+                if(element.id == ppc_id ){
+                  this.listPpcs.push({id: element.id, nomePPC: element.nomePPC, ano: element.ano});
+                  let id = element.id.toString();
+                  this.ppcAux = {id: id, nomePPC: element.nomePPC, ano: element.ano};
+                }
+              });
+            }
+          });
+        }
+      },
+      (error) => {
+        console.log('Erro:', error);
+      }
+    );
+  }
+
+
   submitForm(form: FormGroup) {
-    //console.log(form.value);
-    //console.log(this.adjustPpcs(form.value));
     if (form.valid) {
       this.ppcService.createDiscipline(this.adjustPpcs(form.value))
-        .subscribe(result => alert("Salvo com sucesso"), error => alert("Erro ao salvar disciplina"));
+        .subscribe(result => { 
+          alert("Salvo com sucesso");
+          this.router.navigate(['/discipline']);
+        }, error => alert("Erro ao salvar disciplina"));
     } else {
       alert("Preencha todos os campos");
     }
@@ -60,6 +111,7 @@ export class DisciplineRegistrationComponent implements OnInit {
       }
     );
   }
+  
 
   selectPpcs(event: Event){
     this.listPpcs = [];
@@ -82,7 +134,7 @@ export class DisciplineRegistrationComponent implements OnInit {
         nomePPC: this.ppcAux.nomePPC,
         ano: this.ppcAux.ano,
         disciplinas: [{
-          id: '',
+          id: form.disciplina_id,
           nome: form.disciplina,
           codDisciplina: form.codigo,
           cargaHoraria: form.cargaHoraria
@@ -119,7 +171,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   isValid(controlName: string) {
-    return this.formData.get(controlName)?.valid;
+    return !this.formData.get(controlName)?.valid;
   }
 
 }

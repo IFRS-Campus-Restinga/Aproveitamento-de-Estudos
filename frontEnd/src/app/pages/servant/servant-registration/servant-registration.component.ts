@@ -55,7 +55,7 @@ export class ServantRegistrationComponent implements OnInit {
         email: form.get('email')?.value,
         siape: form.get('siape')?.value,
         admin: form.get('admin')?.value,
-        tipo: form.get('cargo')?.value,
+        tipo: form.get('tipo')?.value,
       };
 
       if (servidor) {

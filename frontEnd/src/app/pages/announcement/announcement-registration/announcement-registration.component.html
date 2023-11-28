@@ -4,25 +4,36 @@
 
     <div class="form-group">
       <label for="numero">Número do edital</label>
-      <input type="text" id="numero"formControlName="numero" placeholder="" (blur)="convertNumeroToUpperCase()"
-      [ngClass]="{'valid-input': isNumeroValid(), 'invalid-input': !isNumeroValid()}"/>
+      <input type="text" id="numero" formControlName="numero" placeholder="" (blur)="convertNumeroToUpperCase()" />
+      <span class="alert" *ngIf="form.get('numero')?.hasError('required') && form.get('numero')?.touched">
+        Este campo é obrigatório.
+      </span>
+      <span class="alert" *ngIf=" form.get('numero')?.hasError('minLengthError') ">
+        Mínimo 6 caracteres!
+      </span>
+      <span class="alert" *ngIf=" form.get('numero')?.hasError('maxLengthError') ">
+        Máximo 35 caracteres!
+      </span>
+      <span class="alert" *ngIf="form.get('numero')?.hasError('contentInvalid')">
+      Contém caracter inválido! Use somente letras e números.
+      </span>
     </div>
 
     <div class="form-half-grid">
       <div class="form-group">
         <label for="coordenador">Data Início</label>
         <input type="date" id="dataInicio" formControlName="dataInicio"
-        [ngClass]="{'valid-input': validarDataFinalPosterior(),
-         'invalid-input': !validarDataFinalPosterior()}" />
-        </div>
-
-        <div class="form-group">
+          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}" />
+       </div>
+      <div class="form-group">
         <label for="coordenador">Data Fim</label>
         <input type="date" id="dataFim" formControlName="dataFim"
-        [ngClass]="{'valid-input': validarDataFinalPosterior(),
-        'invalid-input': !validarDataFinalPosterior()}" />
-        </div>
+          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}" />
       </div>
+    </div>
+    <span class="alert" *ngIf="form.get('dataInicio')?.dirty && form.get('dataFim')?.dirty && !validarDataFinalPosterior()">
+      Data de início maior que final ou ano inválido!
+    </span>
 
       <div class="btn-container">
           <h3>Etapas:</h3>
@@ -34,16 +45,28 @@
             <tr class="grid-step" [formGroupName]="i">
               <td>
                 <label for="nome">Descrição</label>
-                <input type="text" id="nome" name="nome" formControlName="nome" placeholder=""
-                [ngClass]="{'valid-input': isNomeValid(), 'invalid-input': !isNomeValid()}"/>
+                <input type="text" id="nome" name="nome" formControlName="nome" placeholder="" [ngClass]="{}" />
+                <span class="alert" *ngIf="getStepsFormArray()[i]?.get('nome')?.touched && getStepsFormArray()[i]?.get('nome')?.hasError('required')">
+                  Este campo é obrigatório.
+                </span>
+                <span class="alert" *ngIf=" getStepsFormArray()[i]?.get('nome')?.hasError('minLengthNomeError') ">
+                  Mínimo 6 caracteres!
+                </span>
+                <span class="alert" *ngIf=" getStepsFormArray()[i]?.get('nome')?.hasError('maxLengthNomeError') ">
+                  Máximo 35 caracteres!
+                </span>
+              <span class="alert" *ngIf="getStepsFormArray()[i]?.get('nome')?.hasError('contentNomeInvalid')">
+                Contém caracter inválido!
+              </span>
               </td>
 
               <td>
                 <label for="ator">Ator</label>
-                <select id="ator" formControlName="ator" [class.invalid]="!isAtorValid()">
-                <option value="">Selecione um ator</option>
+                <select id="ator" formControlName="ator" [class.invalid]="!isAtorValid(i)">
+                <option value="" >Selecione um ator</option>
                 <option *ngFor="let ator of listAtores" [value]="ator.ator">{{ ator.ator }}</option>
                 </select>
+                <span class="alert" *ngIf="getStepsFormArray()[i]?.get('nome')?.hasError('isAtorValid()')">*</span>
               </td>
 
             </tr>
@@ -51,30 +74,39 @@
                 <td>
                   <label for="coordenador">Data Início</label>
                   <input type="date" id="dataInicio" formControlName="dataInicio"
-                  [ngClass]="{'valid-input': validarEtapaDataFinalPosterior(),
-                  'invalid-input': !validarEtapaDataFinalPosterior()}" />
-
+                    [ngClass]="{
+                      'valid-input': form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && validarEtapaDataFinalPosterior(i),
+                      'invalid-input': !validarEtapaDataFinalPosterior(i)
+                    }" />
+                  <span class="alert" *ngIf="form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && !validarEtapaDataFinalPosterior(i)">
+                    Data de início precisa ser anterior à final!
+                  </span>
                 </td>
-                <td >
+                <td>
                   <label for="coordenador">Data Fim</label>
                   <input type="date" id="dataFim" formControlName="dataFim"
-                  [ngClass]="{'valid-input': validarEtapaDataFinalPosterior(),
-                  'invalid-input': !validarEtapaDataFinalPosterior()}" />
+                    [ngClass]="{
+                      'valid-input': form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && validarEtapaDataFinalPosterior(i),
+                      'invalid-input': !validarEtapaDataFinalPosterior(i)
+                    }" />
                 </td>
                 <td>
                   <button class="btn-alert add-step" (click)="removeSteps(i)">
                     Remove
                   </button>
                 </td>
-            </tr>
-          </div>
-        </table>
+              </tr>
+            </div>
+          </table>
       </div>
       <div class="btn-submit-container">
         <button type="submit" class="btn-register" (click)=submitForm()
-        [ngClass]="{'btn-green': isNumeroValid() && isNomeValid() && isAtorValid() && validarDataFinalPosterior() && validarEtapaDataFinalPosterior(),
-                    'btn-gray': !(isNumeroValid() && isNomeValid() && isAtorValid() && validarDataFinalPosterior() && validarEtapaDataFinalPosterior())}"
-        [disabled]="!(isNumeroValid() && isNomeValid() && isAtorValid() && validarDataFinalPosterior() && validarEtapaDataFinalPosterior())">Enviar</button>
+        [ngClass]="{'btn-green': isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas(),
+                    'btn-gray': !(isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas())}"
+        [disabled]="!(isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas())">Enviar</button>
       </div>
-  </form>
+    </form>
+    <span class="alert" *ngIf="!todosAtoresValid()">
+      Algum "Ator" não foi selecionado!
+    </span>
 </div>
