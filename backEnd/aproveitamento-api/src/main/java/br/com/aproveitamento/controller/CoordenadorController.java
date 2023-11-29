@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.CoordenadorDTO;
 import br.com.aproveitamento.model.Coordenador;
 import br.com.aproveitamento.model.Professor;
 import br.com.aproveitamento.service.CoordenadorService;
@@ -34,7 +35,7 @@ public class CoordenadorController {
 	private CoordenadorService coordenadorService;
 	
 	@GetMapping
-	public @ResponseBody List<Coordenador> list(){
+	public @ResponseBody List<CoordenadorDTO> list(){
 		return coordenadorService.list();
 	}
 	

@@ -62,10 +62,10 @@ export class DisciplineRegistrationComponent implements OnInit {
     this.cursoService.list().subscribe(
       (data) => {
         if (data !== null) {
-          data.forEach((curso: { nome: string, id: string, PPCs: any[]}) => {
+          data.forEach((curso: { nome: string, id: string, ppcs: any[]}) => {
             if(curso.id === curso_id){
-              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.PPCs });
-              curso.PPCs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
+              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.ppcs });
+              curso.ppcs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
                 if(element.id == ppc_id ){
                   this.listPpcs.push({id: element.id, nomePPC: element.nomePPC, ano: element.ano});
                   let id = element.id.toString();

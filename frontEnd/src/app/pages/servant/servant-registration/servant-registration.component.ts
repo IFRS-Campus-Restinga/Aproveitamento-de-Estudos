@@ -25,7 +25,7 @@ export class ServantRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     let servidor: Servidor = this.route.snapshot.data['servidor'];
-
+    console.log(servidor)
     if(!servidor){
       servidor = {
         id: '',

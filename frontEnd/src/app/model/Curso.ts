@@ -2,6 +2,6 @@ export interface Curso {
     id: string;
     nome: string;
     coordenadores: any;
-    PPCs: any;
+    ppcs: any;
     alunos: any;
 }

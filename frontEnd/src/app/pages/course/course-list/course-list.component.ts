@@ -41,6 +41,7 @@ export class CourseListComponent {
 
   onEdit(curso: Curso) {
     this.router.navigate(['edit', curso.id], {relativeTo: this.route});
+    console.log(curso)
   }
 
   showConfirmationDialog(curso: Curso) {

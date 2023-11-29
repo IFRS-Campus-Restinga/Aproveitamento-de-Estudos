@@ -96,9 +96,9 @@ public class AproveitamentoApiApplication {
 			curso2.getAlunos().add(aluno2);
 
 			Coordenador coordenador1 = new Coordenador("Yuri", "yuri@teste.com", true, UsuarioTipo.COORDENADOR,
-					"987456", new Date(), new Date(), curso1);
+					"987456", new Date(), new Date(), curso1, true);
 			Coordenador coordenador2 = new Coordenador("João", "joão@teste.com", true, UsuarioTipo.COORDENADOR,
-					"369852", new Date(), new Date(), curso2);
+					"369852", new Date(), new Date(), curso2, true);
 
 			coordenadorRepository.save(coordenador1);
 			coordenadorRepository.save(coordenador2);

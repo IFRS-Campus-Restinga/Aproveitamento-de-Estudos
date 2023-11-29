@@ -22,16 +22,19 @@ public class Coordenador extends Servidor {
     @Column(nullable = true)
     private Date dataFim;
 	
+	@Column(nullable = true)
+	private Boolean ativo = false;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Curso curso;
-    
+
     public Coordenador() {
     	super();
     }
     
     public Coordenador( @NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo, String siape,
-    					Date dataInicio, Date dataFim, Curso curso) {
+    					Date dataInicio, Date dataFim, Curso curso, Boolean ativo) {
 		super(nome, email, admin, tipo, siape);
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;

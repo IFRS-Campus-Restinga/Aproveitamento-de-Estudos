@@ -17,12 +17,13 @@ export class CourseResolver implements Resolve<Curso> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Curso> {
     if (route.params && route.params['id']) {
       return this.cursoService.loadById(route.params['id']);
+      // console.log(this.cursoService.loadById(route.params['id']))
     }
     return of({
       id: '',
       nome: '',
+      ppcs: '',
       coordenadores: '',
-      PPCs: '',
       alunos: null,
     });
   }
