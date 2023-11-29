@@ -1,30 +1,43 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoursesService } from 'src/app/services/courses.service';
-//import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from '@angular/core';
+import { Curso } from 'src/app/model/Curso';
+import { CursoService } from 'src/app/services/curso.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Curso } from '../../../model/Curso';
 
 @Component({
   selector: 'app-course-registration',
   templateUrl: './course-registration.component.html',
   styleUrls: ['./course-registration.component.css']
 })
-export class CourseRegistrationComponent {
-  formData: any = {};
-  form: FormGroup;
 
-  // construtor utilizando o material snackbar, para customização do alert de sucesso
-  //constructor(private formBuilder: FormBuilder, private service: CoursesService, private snackBar: MatSnackBar, private router: Router) {
+export class CourseRegistrationComponent implements OnInit {
 
-  constructor(
+  private curso: Curso | null = null;
+  formData!: FormGroup;
+
+  constructor(private cursoService: CursoService,
     private formBuilder: FormBuilder,
-    private service: CoursesService,
-    private router: Router
-    ) {
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
+
+  ngOnInit(): void {
+    let curso: Curso = this.route.snapshot.data['curso'];
+
+    if (!curso) {
+      curso = {
+        id: '',
+        nome: '',
+        PPCs: '',
+        coordenadores: '',
+        alunos: null,
+      }
+    }
+
     const currentYear = new Date().getFullYear();
 
-    this.form = this.formBuilder.group({
+    this.formData = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       PPCs: [
         '',
@@ -38,44 +51,50 @@ export class CourseRegistrationComponent {
     });
   }
 
-  onSubmit(form: any) {
-    console.log(this.form.value);
 
-    const curso: Curso = {
-      nome: form.get('nome')?.value,
-      PPCs: form.get('PPCs')?.value,
-      coordenadores: form.get('')?.value,
-      alunos: null,
+  submitForm(form: FormGroup) {
+    if (form.valid) {
+
+      const curso: Curso = {
+        id: form.get('id')?.value,
+        nome: form.get('nome')?.value,
+        PPCs: form.get('PPCs')?.value,
+        coordenadores: form.get('')?.value,
+        alunos: null,
+      }
+      if (curso) {
+        this.cursoService.save(curso).subscribe(
+          (data) => {
+            alert('Curso salvo com sucesso!');
+            this.router.navigate(['/course']);
+          },
+          (error) => {
+            console.error('Erro:', error);
+          }
+        );
+      }
     }
-
-    this.service.save(curso).subscribe(
-      (data) => {
-        alert('Curso salvo com sucesso!');
-      },
-      (error) => {
-        console.error('Erro:', error);
-      });
-
-    this.router.navigate(['course'])
-
-
   }
 
   isFormValid(): boolean {
-    return this.form.valid;
+    return this.formData.valid;
   }
 
   isValid(campo: string): boolean {
-    const fieldControl = this.form.get(campo);
+    const fieldControl = this.formData.get(campo);
 
     if (fieldControl) {
       return !fieldControl.valid && fieldControl.touched;
     }
-
     return false;
   }
-
-//  private onError(){
-//    this.snackBar.open('erro ao salvar curso.', '', { duration: 5000});
-//  }
 }
+
+
+
+
+
+
+
+
+

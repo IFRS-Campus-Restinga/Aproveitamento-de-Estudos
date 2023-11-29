@@ -16,9 +16,9 @@ export class DisciplineRegistrationComponent implements OnInit {
   formData: any = {};
   ppc: Ppc | null = null;
   ppcAux: Ppc = { id: '', nomePPC: '', ano: 0,}
-  idCurso: number = 0;
+  idCurso: string = '';
 
-  public listCursos: Array<{ curso: string, id: number, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: 0, ppcs: [] }];
+  public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: '', ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
   constructor(private cursoService: CursoService, 
@@ -58,14 +58,14 @@ export class DisciplineRegistrationComponent implements OnInit {
      
   }
 
-  loadCursosEdit(curso_id: number, ppc_id: number){
-    this.cursoService.getCursos().subscribe(
+  loadCursosEdit(curso_id: string, ppc_id: number){
+    this.cursoService.list().subscribe(
       (data) => {
         if (data !== null) {
-          data.forEach((curso: { nome: string, id: number, ppcs: any[]}) => {
-            if(curso.id == curso_id){
-              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.ppcs });
-              curso.ppcs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
+          data.forEach((curso: { nome: string, id: string, PPCs: any[]}) => {
+            if(curso.id === curso_id){
+              this.listCursos.push({ curso: curso.nome, id: curso.id, ppcs: curso.PPCs });
+              curso.PPCs.forEach((element: { id: number, nomePPC: string, ano: number}) => {
                 if(element.id == ppc_id ){
                   this.listPpcs.push({id: element.id, nomePPC: element.nomePPC, ano: element.ano});
                   let id = element.id.toString();
@@ -96,7 +96,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   loadCursos(){
-    this.cursoService.getCursos().subscribe(
+    this.cursoService.list().subscribe(
       (data) => {
         if (data !== null) {
           data.forEach((curso: any) => {
@@ -117,7 +117,7 @@ export class DisciplineRegistrationComponent implements OnInit {
     this.listPpcs = [];
     const elementoSelecionado = event.target as HTMLSelectElement;
     const opcaoSelecionada = elementoSelecionado.value;
-    this.idCurso = parseInt(opcaoSelecionada.split('. ')[0]);
+    this.idCurso = opcaoSelecionada.split('. ')[0];
     this.listPpcs = [{id: 0, nomePPC: 'Selecione o PPC', ano: 0}];
     for (const i of this.listCursos) {
       if(i.id === this.idCurso){
