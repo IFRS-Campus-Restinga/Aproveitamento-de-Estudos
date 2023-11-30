@@ -1,4 +1,5 @@
 export interface Coordenador {
+    id: string;
+    nome: string
     ativo: boolean;
-    curso: any;
 }

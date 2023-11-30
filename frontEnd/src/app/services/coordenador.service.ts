@@ -21,6 +21,10 @@ export class CoordenadorService {
   loadById(id: string) {
     return this.httpClient.get<Coordenador>(`${this.API}/${id}`);
   }
+  
+  listByIdCurso(id: number) {
+    return this.httpClient.get<Coordenador[]>(`${this.API}/curso/${id}`);
+  }
 
   // save(record: Partial<Coordenador>) {
   //   console.log(record);

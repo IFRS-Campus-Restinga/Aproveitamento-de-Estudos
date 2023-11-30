@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Curso } from 'src/app/model/Curso';
+import { CursoCreate } from 'src/app/model/CursoCreate';
 import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { CoordenadorService } from 'src/app/services/coordenador.service';
+import { Coordenador } from 'src/app/model/Coordenador';
 
 @Component({
   selector: 'app-course-registration',
@@ -14,9 +15,10 @@ import { CoordenadorService } from 'src/app/services/coordenador.service';
 
 export class CourseRegistrationComponent implements OnInit {
 
-  private curso: Curso | null = null;
-  listCoordenadores: Array<{ coordenador: string, id: string, ativo: any}> = [{ coordenador: 'Selecione o coordenador', id: '', ativo:true }];
+  private curso: CursoCreate | null = null;
+  listCoordenadores!: Coordenador[];
   formData!: FormGroup;
+  exibeCoordenadores: boolean = false;
 
 
   constructor(private cursoService: CursoService,
@@ -27,46 +29,38 @@ export class CourseRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let curso: Curso = this.route.snapshot.data['curso'];
-
-    console.log(this.listCoordenadores)
+    let curso: CursoCreate = this.route.snapshot.data['curso'];
+    // this.listCoordenadores = [{ nome: 'Selecione o curso', id: '0', ativo: false }]
     if (!curso) {
       curso = {
         id: '',
         nome: '',
-        ppcs: '',
-        coordenadores: '',
-        alunos: null,
+        coordenador_id: 0,
+        coordenadores: [{ nome: 'Selecione o curso', id: '0', ativo: false }]
       }
-      this.loadCoordenadores();
+      // this.loadCoordenadores();
+    } else {
+      this.exibeCoordenadores = true;
+      // this.loadCoordenadoresByIdCurso(parseInt(curso.id));
+      this.listCoordenadores = curso.coordenadores;
     }
-    console.log(this.coordenadorService.list())
-    const currentYear = new Date().getFullYear();
-
-    // this.formData = this.formBuilder.group({
-    //   nome: [curso.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
-    //   // ppcs: [
-    //   //   curso.ppcs[0].ano,
-    //   //   [
-    //   //     Validators.required,
-    //   //     Validators.pattern(`^(${currentYear - 10}|${currentYear - 9}|${currentYear - 8}|${currentYear - 7}|${currentYear - 6}
-    //   //       |${currentYear - 5}|${currentYear - 4}|${currentYear - 3}|${currentYear - 2}|${currentYear - 1}|${currentYear})$`)
-    //   //   ]
-    //   // ],
-    //   coordenadores: [curso.coordenadores[0].nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
-    // });
+    console.log(this.listCoordenadores);
+    this.formData = this.formBuilder.group({
+      nome: [curso.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      coordenador_id: [curso.coordenador_id, []],
+    });
+    console.log(curso.coordenador_id)
   }
 
 
   submitForm(form: FormGroup) {
     if (form.valid) {
 
-      const curso: Curso = {
+      const curso: CursoCreate = {
         id: form.get('id')?.value,
         nome: form.get('nome')?.value,
-        ppcs: form.get('ppcs')?.value,
-        coordenadores: form.get('')?.value,
-        alunos: null,
+        coordenador_id: form.get('coordenador_id')?.value,
+        coordenadores: this.listCoordenadores
       }
       if (curso) {
         this.cursoService.save(curso).subscribe(
@@ -82,13 +76,13 @@ export class CourseRegistrationComponent implements OnInit {
     }
   }
 
-  loadCoordenadores(){
+  loadCoordenadores() {
     this.coordenadorService.list().subscribe(
       (data) => {
         if (data !== null) {
-          data.forEach((coordenador: any) => {
+          data.forEach((coordenador: Coordenador) => {
             this.listCoordenadores.push(
-              { coordenador: coordenador.nome, id: coordenador.id, ativo: coordenador.ativo }
+              { nome: coordenador.nome, id: coordenador.id, ativo: coordenador.ativo }
               // coordenador: string, id: string, ativo: boolean
             )
           });
@@ -99,7 +93,27 @@ export class CourseRegistrationComponent implements OnInit {
       }
     );
   }
-  
+
+  loadCoordenadoresByIdCurso(id: number) {
+    this.coordenadorService.listByIdCurso(id).subscribe(
+      (data) => {
+        if (data !== null) {
+          data.forEach((coordenador: Coordenador) => {
+            this.listCoordenadores.push(
+              { nome: coordenador.nome, id: coordenador.id, ativo: coordenador.ativo }
+              // coordenador: string, id: string, ativo: boolean
+            )
+          });
+        }
+      },
+      (error) => {
+        console.log('Erro:', error);
+      }
+    );
+  }
+
+
+
 
   isFormValid(): boolean {
     return this.formData.valid;
@@ -114,7 +128,7 @@ export class CourseRegistrationComponent implements OnInit {
     return false;
   }
 
-  coordenadoresChange(){
+  coordenadoresChange() {
 
   }
 }

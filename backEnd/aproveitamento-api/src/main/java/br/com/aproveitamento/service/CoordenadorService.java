@@ -36,6 +36,17 @@ public class CoordenadorService {
 		}
 		return coordenadoresDTO;
 	}
+	
+	public List<CoordenadorDTO> listByIdCurso(Long id){
+		ArrayList<CoordenadorDTO> coordenadoresDTO = new ArrayList<CoordenadorDTO>();
+		for(Coordenador coordenador: coordenadorRepository.findAll()){
+			if(coordenador.getCurso().getId() == id){
+				CoordenadorDTO coordenadorDTO = new CoordenadorDTO(coordenador.getId(), coordenador.getNome() ,coordenador.getEmail(), false, true, coordenador.getTipo(), coordenador.getSiape(), coordenador.getCurso());
+				coordenadoresDTO.add(coordenadorDTO);
+			}
+		}
+		return coordenadoresDTO;
+	}
 
 	public Coordenador findById(@NotNull @Positive Long id){
 		Optional<Coordenador> coordenador = coordenadorRepository.findById(id);

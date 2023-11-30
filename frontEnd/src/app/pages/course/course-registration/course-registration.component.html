@@ -19,11 +19,11 @@
       <input type="text" id="coordenadores" formControlName="coordenadores" placeholder="Nome"
         [ngClass]="{'valid-input': !isValid('coordenadores'), 'invalid-input': isValid('coordenadores')}" required>
     </div> -->
-
-    <div class="form-group">
+    
+    <div class="form-group" *ngIf=" exibeCoordenadores">
       <label for="coordenador">Coordenador</label>
-      <select id="coordenador" formControlName="coordenador" (ngModelChange)="coordenadoresChange()" required>
-        <option *ngFor="let item of listCoordenadores" [value]="item.id">{{ item.coordenador }}</option>
+      <select id="coordenador_id" formControlName="coordenador_id" (ngModelChange)="coordenadoresChange()" required>
+        <option *ngFor="let item of listCoordenadores" [value]="item.id">{{ item.nome }}</option>
       </select>
     </div>
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
 import { Curso } from '../model/Curso';
+import { CursoCreate } from '../model/CursoCreate';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,11 @@ export class CursoService {
 
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
+  }
+
+
+  loadById2(id: string) {
+    return this.httpClient.get<CursoCreate>(`${this.API}/${id}`);
   }
 
 }

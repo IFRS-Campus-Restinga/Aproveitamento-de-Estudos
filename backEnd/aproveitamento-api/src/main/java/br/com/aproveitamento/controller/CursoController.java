@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.CursoCreateDTO;
+import br.com.aproveitamento.dto.CursoDTO;
 import br.com.aproveitamento.model.Curso;
 import br.com.aproveitamento.service.CursoService;
 import jakarta.validation.Valid;
@@ -38,12 +40,12 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public Curso findById(@PathVariable @NotNull @Positive Long id) {
+    public CursoDTO findById(@PathVariable @NotNull @Positive Long id) {
         return cursoService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid Curso curso) {
+    public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid CursoCreateDTO curso) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(curso));
     }
 
