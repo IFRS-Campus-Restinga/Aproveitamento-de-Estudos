@@ -14,10 +14,10 @@ import { Observable, of } from 'rxjs';
 })
 export class ServantResolver implements Resolve<Servidor> {
 
-  constructor(private servidorService: ServidorService){}
+  constructor(private servidorService: ServidorService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Servidor> {
-    if(route.params && route.params['id']){
+    if (route.params && route.params['id']) {
       return this.servidorService.loadById(route.params['id']);
     }
     return of({

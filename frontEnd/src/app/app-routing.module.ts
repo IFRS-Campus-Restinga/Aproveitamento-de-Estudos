@@ -18,6 +18,7 @@ import { ServantResolver } from './pages/servant/guards/servant-registration.res
 import { DisciplinaResolver } from './pages/discipline/guards/discipline-registration.resolver';
 import { RequestResolver } from './pages/requests/guards/request-registration.resolver';
 import { StudentResolver } from './pages/student/guards/student-registration.resolver';
+import { CourseResolver } from './pages/course/guards/course.resolver';
 
 const routes: Routes = [
   {
@@ -101,6 +102,11 @@ const routes: Routes = [
     path: 'request/edit/:id',
     component: RequestsRegistrationComponent,
     resolve:{requisicao : RequestResolver}
+  },
+  {
+    path: 'course/edit/:id',
+    component: CourseRegistrationComponent,
+    resolve:{curso : CourseResolver}
   }
 ];
 

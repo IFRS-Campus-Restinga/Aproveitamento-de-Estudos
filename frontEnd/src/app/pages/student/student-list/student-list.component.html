@@ -5,7 +5,8 @@
 <div class="containerFiltro">
   <div class="form-group">
     <label class="mr-2">Filtro </label>
-    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa" (input)="getStudent()">
+    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa"
+      (input)="getStudent()">
   </div>
 </div>
 
@@ -22,18 +23,18 @@
       </tr>
     </thead>
     <tbody style="padding-left: 7px;text-align: right;" *ngIf="alunoList && alunoList.length">
-        <tr *ngFor="let aluno of  alunoList">
-          <td>{{aluno.id}}</td>
-          <td>{{aluno.nome}}</td>
-          <td>{{aluno.email}}</td>
-          <td>{{aluno.curso?.nome}}</td>
-          <td>{{aluno.matricula}}</td>
-          <td>{{aluno.dataIngresso}}</td>
-          <td style="width: 28%;">
-            <button type="button" class="btn-register-student" (click)=onEdit(aluno)>Editar</button>
-            <button type="button" class="btn-alert-student" (click)=showConfirmationDialog(aluno)>Excluir</button>
-          </td>
-        </tr>
+      <tr *ngFor="let aluno of  alunoList">
+        <td>{{aluno.id}}</td>
+        <td>{{aluno.nome}}</td>
+        <td>{{aluno.email}}</td>
+        <td>{{aluno.curso?.nome}}</td>
+        <td>{{aluno.matricula}}</td>
+        <td>{{aluno.dataIngresso}}</td>
+        <td style="width: 28%;">
+          <button type="button" class="btn-register-student" (click)=onEdit(aluno)>Editar</button>
+          <button type="button" class="btn-alert-student" (click)=showConfirmationDialog(aluno)>Excluir</button>
+        </td>
+      </tr>
     </tbody>
 
     <tfoot *ngIf="!alunoList.length">
@@ -46,4 +47,5 @@
   </table>
 </div>
 
-<app-confirmation-dialog *ngIf="isConfirmationVisible" [message]="confirmationMessage" (confirmed)="handleConfirmation($event)"></app-confirmation-dialog>
+<app-confirmation-dialog *ngIf="isConfirmationVisible" [message]="confirmationMessage"
+  (confirmed)="handleConfirmation($event)"></app-confirmation-dialog>

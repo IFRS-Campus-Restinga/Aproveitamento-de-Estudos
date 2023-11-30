@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.CoordenadorDTO;
 import br.com.aproveitamento.model.Coordenador;
 import br.com.aproveitamento.model.Professor;
 import br.com.aproveitamento.service.CoordenadorService;
@@ -24,39 +25,42 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-
 @Validated
 @RestController
 @RequestMapping("/api/coordenador")
 public class CoordenadorController {
-	
+
 	@Autowired
 	private CoordenadorService coordenadorService;
-	
+
 	@GetMapping
-	public @ResponseBody List<Coordenador> list(){
+	public @ResponseBody List<CoordenadorDTO> list() {
 		return coordenadorService.list();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Coordenador findById(@PathVariable @NotNull @Positive Long id) {
 		return coordenadorService.findById(id);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Coordenador> create(@RequestBody @NotNull @Valid Coordenador coordenador){
+	public ResponseEntity<Coordenador> create(@RequestBody @NotNull @Valid Coordenador coordenador) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(coordenadorService.create(coordenador));
 	}
-	
+
 	@PutMapping
-	public Coordenador update(@RequestBody @Valid Coordenador coordenador){
+	public Coordenador update(@RequestBody @Valid Coordenador coordenador) {
 		return coordenadorService.update(coordenador);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable @NotNull @Positive Long id){
+	public void delete(@PathVariable @NotNull @Positive Long id) {
 		coordenadorService.delete(id);
-    }
+	}
 
+	@GetMapping("/curso/{id}")
+	public @ResponseBody List<CoordenadorDTO> listCoordenadorByCurso(@PathVariable @NotNull @Positive Long id) {
+		return coordenadorService.listByIdCurso(id);
+	}
 }

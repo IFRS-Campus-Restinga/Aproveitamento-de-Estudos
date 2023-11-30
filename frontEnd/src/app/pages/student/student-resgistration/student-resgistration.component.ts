@@ -19,10 +19,10 @@ export class StudentResgistrationComponent implements OnInit {
   formData!: FormGroup;
 
   constructor(private alunoService: AlunoService,
-              private cursoService: CursoService,
-              private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private cursoService: CursoService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
@@ -31,9 +31,9 @@ export class StudentResgistrationComponent implements OnInit {
     let aluno: Aluno = this.route.snapshot.data['aluno'];
     console.log(this.listCursos);
 
-    if(!aluno){
+    if (!aluno) {
       aluno = {
-        id:'',
+        id: '',
         nome: '',
         email: '',
         curso: '',
@@ -53,7 +53,7 @@ export class StudentResgistrationComponent implements OnInit {
       ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
       tipo: ['ALUNO'],
       admin: false
-      });
+    });
   }
 
   submitForm(form: FormGroup) {
@@ -93,8 +93,8 @@ export class StudentResgistrationComponent implements OnInit {
     return this.formData.valid && this.isCursoValid();
   }
 
-  loadCursos(){
-    this.cursoService.getCursos().subscribe(
+  loadCursos() {
+    this.cursoService.list().subscribe(
       (data) => {
         if (data !== null) {
           data.forEach((curso: any) => {
