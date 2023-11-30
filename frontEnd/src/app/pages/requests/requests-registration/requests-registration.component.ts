@@ -1,6 +1,6 @@
 import { Analise } from './../../../model/Analise';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators, ValidatorFn, MaxLengthValidator } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequisicaoService } from 'src/app/services/requisicao.service';
 import { Anexo } from 'src/app/model/Anexo';
@@ -16,16 +16,25 @@ import { Disciplina } from 'src/app/model/Disciplina';
 })
 
 export class RequestsRegistrationComponent implements OnInit {
-
   tipoSolicitacao: string = '';
-
   form!: FormGroup;
 
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
-      { tipoSolicitacao: 'Selecione o tipo de solicitação' },
       { tipoSolicitacao: 'CERTIFICACAO' },
       { tipoSolicitacao: 'APROVEITAMENTO' },
-  ];
+    ];
+
+  isAproveitamento(): boolean {
+    this.form.get('diciplinaCursaAnteriormente')?.setValue('');
+    this.form.get('notaObtida')?.setValue('');
+    this.form.get('cargaHoraria')?.setValue('');
+    return this.tipoSolicitacao === 'APROVEITAMENTO';
+  }
+
+  isCertificacao(): boolean {
+    this.form.get('experienciasAnteriores')?.setValue('');
+    return this.tipoSolicitacao === 'CERTIFICACAO';
+  }
 
   files: File[] = [];
   fileFormat = 'Arraste e solte arquivos aqui ou clique para selecionar arquivos';
@@ -46,33 +55,91 @@ export class RequestsRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.getDisciplinas();
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
-    console.log(requisicao);
-    if(requisicao){
-      this.tipoSolicitacao = requisicao.tipo
+
+    if (requisicao) {
+      this.tipoSolicitacao = requisicao.tipo;
       this.getDisciplina(requisicao.disciplina_id);
-    }else{
+    } else {
       requisicao = this.generateObject();
     }
 
     this.form = this.formBuilder.group({
-      id:[requisicao.id],
-      tipoSolicitacao: [requisicao.tipo],
+      id: [requisicao.id],
+      tipoSolicitacao: [requisicao.tipo, [Validators.required]],
       status: [requisicao.status],
       dataCriacao: [requisicao.dataCriacao],
-      experienciasAnteriores: [requisicao.experienciasAnteriores],
+      experienciasAnteriores: [
+        requisicao.experienciasAnteriores,
+        this.getExperienciasAnterioresValidators(),
+      ],
       dataAgendamentoProva: [requisicao.dataAgendamentoProva],
       notaDaProva: [requisicao.notaDaProva],
-      diciplinaCursaAnteriormente: [requisicao.diciplinaCursaAnteriormente],
-      notaObtida: [requisicao.notaObtida],
-      cargaHoraria: [requisicao.cargaHoraria],
+      diciplinaCursaAnteriormente: [
+        requisicao.diciplinaCursaAnteriormente,
+        this.getDiciplinaCursaAnteriormenteValidators(),
+      ],
+      notaObtida: [requisicao.notaObtida, this.getNotaObtidaValidators()],
+      cargaHoraria: [requisicao.cargaHoraria, this.getCargaHorariaValidators()],
       analises: this.formBuilder.array(this.retriveAnalysis(requisicao)),
       aluno_id: [requisicao.aluno_id],
       edital_id: [requisicao.edital_id],
-      disciplina_id: [requisicao.disciplina_id]
+      disciplina_id: [requisicao.disciplina_id, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
     });
 
-    if(requisicao.id != ''){
+    this.form.get('tipoSolicitacao')?.valueChanges.subscribe(() => {
+      this.clearFormValues();
+    });
+
+    if (requisicao.id != '') {
       this.getAnexos(requisicao.anexos);
+    }
+  }
+
+  clearFormValues() {
+    this.form.get('disciplina_id')?.setValue('');
+    this.files = [];
+    this.updateFileFormat();
+    this.form.markAsUntouched();
+  }
+
+  private getExperienciasAnterioresValidators(): ValidatorFn[] {
+    if (this.tipoSolicitacao === 'CERTIFICACAO') {
+      return [];
+    } else {
+      return [
+        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]{6,120}$/),
+        Validators.minLength(6),Validators.maxLength(120)
+      ];
+    }
+  }
+
+  private getDiciplinaCursaAnteriormenteValidators(): ValidatorFn[] {
+    if (this.tipoSolicitacao === 'APROVEITAMENTO') {
+      return [];
+    } else {
+      return [
+        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]{6,120}$/)
+      ];
+    }
+  }
+
+  private getNotaObtidaValidators(): ValidatorFn[] {
+    if (this.tipoSolicitacao === 'APROVEITAMENTO') {
+      return [];
+    } else {
+      return [
+        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]*$/)
+      ];
+    }
+  }
+
+  private getCargaHorariaValidators(): ValidatorFn[] {
+    if (this.tipoSolicitacao === 'APROVEITAMENTO') {
+      return [];
+    } else {
+      return [
+        Validators.pattern(/^(?:[0-9]|[1-9][0-9]{1,2}|1000)$/)
+      ];
     }
   }
 
@@ -171,30 +238,41 @@ export class RequestsRegistrationComponent implements OnInit {
     );
   }
 
-  submitForm(form: any) {
-    const formData: FormData = new FormData();
-    formData.append('id', this.form.get('id')?.value);
-    formData.append('tipoSolicitacao', this.form.get('tipoSolicitacao')?.value);
-    formData.append('status', this.form.get('status')?.value);
-    formData.append('dataCriacao', this.form.get('dataCriacao')?.value);
-    formData.append('experienciasAnteriores', this.form.get('experienciasAnteriores')?.value);
-    formData.append('dataAgendamentoProva', this.form.get('dataAgendamentoProva')?.value);
-    formData.append('notaDaProva', this.form.get('notaDaProva')?.value);
-    formData.append('diciplinaCursaAnteriormente', this.form.get('diciplinaCursaAnteriormente')?.value);//notaObtida
-    formData.append('notaObtida', this.form.get('notaObtida')?.value);
-    formData.append('cargaHoraria', this.form.get('cargaHoraria')?.value);
-    formData.append('edital_id', this.form.get('edital_id')?.value);
-    formData.append('aluno_id', this.form.get('aluno_id')?.value);
-    formData.append('disciplina_id', this.form.get('disciplina_id')?.value);
-
-    for (const element of this.files) {
-      formData.append('files', element, element.name);
+  submitForm() {
+    if (this.form.valid) {
+      const formData: FormData = new FormData();
+  
+      Object.keys(this.form.value).forEach(chave => {
+        const valor = this.form.value[chave];
+  
+        if (chave === 'analises') {
+          valor.forEach((analise: any) => {
+            Object.keys(analise).forEach(chaveAnalise => {
+              formData.append(`analises[${chave}][${chaveAnalise}]`, analise[chaveAnalise]);
+            });
+          });
+        } else {
+          formData.append(chave, valor);
+        }
+      });
+  
+      this.files.forEach((arquivo: File) => {
+        formData.append('files', arquivo, arquivo.name);
+      });
+  
+      this.requisicaoService.create(formData).subscribe(
+        (resultado) => {
+          alert("Salvo com sucesso");
+          this.router.navigate(['/request']);
+        },
+        (erro) => {
+          console.error("Erro ao salvar disciplina", erro);
+          alert("Erro ao salvar disciplina");
+        }
+      );
+    } else {
+      alert("Formulário inválido. Por favor, verifique os campos.");
     }
-    this.requisicaoService.create(formData)
-    .subscribe((result) => {
-      alert("Salvo com sucesso");
-      this.router.navigate(['/request']);
-    }, error => alert("Erro ao salvar disciplina"));
   }
 
   handleResetClick() {
@@ -203,23 +281,31 @@ export class RequestsRegistrationComponent implements OnInit {
     this.router.navigate(['/request']);
   }
 
-  private retriveAnalysis(requisicao: Requisicao){
+  private retriveAnalysis(requisicao: Requisicao) {
     const analises = [];
-    if(requisicao?.analises){
-      requisicao.analises.forEach((analise: Analise) => analises.push(this.createAnalysis(analise)))
-    }else{
+    if (requisicao?.analises) {
+      requisicao.analises.forEach((analise: Analise) =>
+        analises.push(this.createAnalysis(analise))
+      );
+    } else {
       analises.push(this.createAnalysis());
     }
     return analises;
   }
 
-  private createAnalysis(analise : Analise = {id: '', status: '', parecer: '', servidor: '0', requisicao: 0}){
+  private createAnalysis(analise: Analise = {
+    id: '',
+    status: '',
+    parecer: '',
+    servidor: '0',
+    requisicao: 0,
+  }) {
     return this.formBuilder.group({
       id: [analise.id],
       status: [analise.status],
       parecer: [analise.parecer],
       servidor: [analise.servidor],
-      requisicao: [analise.requisicao]
+      requisicao: [analise.requisicao],
     });
   }
 
@@ -248,6 +334,33 @@ export class RequestsRegistrationComponent implements OnInit {
       },
       error => console.log(error)
     )
+  }
+
+   check(variableName: string, condition: string): boolean {
+    const variable = this.form.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
+  }
+
+  isValid(controlName: string) {
+    return this.form.get(controlName)?.valid;
+  }
+
+  isTipoSolicitacaoSelected(): boolean {
+    return this.form.get('tipoSolicitacao')?.touched || this.form.get('tipoSolicitacao')?.value !== '';
   }
 
 }
