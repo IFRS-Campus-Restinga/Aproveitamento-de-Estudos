@@ -36,3 +36,29 @@
   color: #ff0000;
   text-decoration: underline;
 }
+
+.btn-green {
+  background-color: green;
+  color: white;
+  }
+  
+  .btn-gray {
+  background-color: gray;
+  color: white;
+  }
+  
+  .valid-input {
+  background-color: rgb(255, 255, 255);
+  color: white;
+  }
+  
+  .invalid-input {
+  background-color: rgb(229, 204, 204);
+  color: white;
+  }
+  
+  .alert {
+    background-color: rgb(188, 4, 5);
+    color: rgb(255, 255, 255);
+    }
+  
