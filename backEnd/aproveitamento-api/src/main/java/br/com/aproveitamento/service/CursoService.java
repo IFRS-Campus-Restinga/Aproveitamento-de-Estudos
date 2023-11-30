@@ -17,6 +17,7 @@ import br.com.aproveitamento.model.Coordenador;
 import br.com.aproveitamento.model.Curso;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.model.PPC;
+import br.com.aproveitamento.repository.CoordenadorRepository;
 import br.com.aproveitamento.repository.CursoRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -27,10 +28,12 @@ import jakarta.validation.constraints.Positive;
 public class CursoService {
 
     private CursoRepository cursoRepository;
+    private CoordenadorRepository coordenadorRepository;
 
-    public CursoService(CursoRepository cursoRepository) {
+    public CursoService(CursoRepository cursoRepository, CoordenadorRepository coordenadorRepository) {
         super();
         this.cursoRepository = cursoRepository;
+        this.coordenadorRepository = coordenadorRepository;
     }
 
     public List<Curso> list() {
@@ -81,17 +84,28 @@ public class CursoService {
         return Long.parseLong("0");
     }
 
-    public Curso createOrUpdate(@Valid @NotNull CursoCreateDTO curso) {
-        Curso c = new Curso();
-        if (curso.id() != null) {
-            c.setId(curso.id());
+    public Curso createOrUpdate(@Valid @NotNull CursoCreateDTO cursoDto) {
+        Curso curso = new Curso();
+        if (cursoDto.id() != null) {
+            curso.setId(cursoDto.id());
         }
-        c.setNome(curso.nome());
-         
-        c.set(disciplinas);
-       
-        ppcRepository.save(d);
-        return d;
+        curso.setNome(cursoDto.nome());
+
+        if(cursoDto.coordenadores() != null){
+            for(CoordenadorDTO coordenadorDTO : cursoDto.coordenadores()){
+                Optional<Coordenador> coordenador = coordenadorRepository.findById(coordenadorDTO.id());
+                if (coordenador.isPresent()){
+                    if(coordenadorDTO.id() == cursoDto.coordenador_id()){
+                        coordenador.get().setAtivo(true);
+                    }else{
+                        coordenador.get().setAtivo(false);
+                    }
+                }
+            }
+        }
+        
+        cursoRepository.save(curso);
+        return curso;
     }
 
 }

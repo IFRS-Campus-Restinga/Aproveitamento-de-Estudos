@@ -120,7 +120,7 @@ export class DisciplineRegistrationComponent implements OnInit {
     this.idCurso = opcaoSelecionada.split('. ')[0];
     this.listPpcs = [{id: 0, nomePPC: 'Selecione o PPC', ano: 0}];
     for (const i of this.listCursos) {
-      if(i.id === this.idCurso){
+      if(i.id == this.idCurso){
        for(const j of i.ppcs){
           this.listPpcs.push({id: j.id, nomePPC: j.nomePPC, ano: j.ano});
        }
@@ -144,7 +144,7 @@ export class DisciplineRegistrationComponent implements OnInit {
 
   ppcChange() {
     for (const i of this.listCursos) {
-      if(i.id === this.idCurso){
+      if(i.id == this.idCurso){
        for(const j of i.ppcs){
           if(j.id == this.formData.value.ppc){
             this.ppcAux = {

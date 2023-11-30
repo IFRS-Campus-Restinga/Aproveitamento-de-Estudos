@@ -32,13 +32,8 @@ export class CursoService {
     return this.httpClient.get<Curso>(`${this.API}/${id}`);
   }
 
-  save(record: Partial<Curso>) {
-    console.log(record);
-    if (record.id) {
-      console.log('update');
-      return this.update(record);
-    }
-    console.log('create');
+  save(record: Partial<CursoCreate>) {
+    console.log(record)
     return this.createCurso(record);
   }
 
@@ -48,10 +43,6 @@ export class CursoService {
 
   private create(record: Partial<Curso>) {
     return this.httpClient.post<Curso>(this.API, record).pipe(first());
-  }
-
-  private update(record: Partial<Curso>) {
-    return this.httpClient.put<Curso>(`${this.API}`, record).pipe(first());
   }
 
   remove(id: string) {

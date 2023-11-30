@@ -46,7 +46,7 @@ public class CursoController {
 
     @PostMapping
     public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid CursoCreateDTO curso) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(curso));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.createOrUpdate(curso));
     }
 
     @PutMapping

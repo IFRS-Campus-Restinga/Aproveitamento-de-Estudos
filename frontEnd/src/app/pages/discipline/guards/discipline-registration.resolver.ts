@@ -18,8 +18,7 @@ export class DisciplinaResolver implements Resolve<Disciplina> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Disciplina> {
     if(route.params && route.params['id']){
-      // return this.disciplinaService.loadById(route.params['id']);
-      console.log(this.disciplinaService.loadById(route.params['id']));
+      return this.disciplinaService.loadById(route.params['id']);
     }
     return of({id: '', nome: '', codDisciplina: '', cargaHoraria: 0, ppcs: [], ppc_id: 0, curso_id: 0});
   }

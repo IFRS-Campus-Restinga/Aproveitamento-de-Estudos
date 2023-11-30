@@ -7,11 +7,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.aproveitamento.dto.AlunoDTO;
 import br.com.aproveitamento.dto.CoordenadorDTO;
-import br.com.aproveitamento.model.Aluno;
 import br.com.aproveitamento.model.Coordenador;
-import br.com.aproveitamento.model.Ensino;
 import br.com.aproveitamento.repository.CoordenadorRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

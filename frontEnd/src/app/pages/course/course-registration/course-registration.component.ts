@@ -30,7 +30,6 @@ export class CourseRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     let curso: CursoCreate = this.route.snapshot.data['curso'];
-    // this.listCoordenadores = [{ nome: 'Selecione o curso', id: '0', ativo: false }]
     if (!curso) {
       curso = {
         id: '',
@@ -38,24 +37,23 @@ export class CourseRegistrationComponent implements OnInit {
         coordenador_id: 0,
         coordenadores: [{ nome: 'Selecione o curso', id: '0', ativo: false }]
       }
-      // this.loadCoordenadores();
     } else {
       this.exibeCoordenadores = true;
-      // this.loadCoordenadoresByIdCurso(parseInt(curso.id));
       this.listCoordenadores = curso.coordenadores;
+      console.log(this.exibeCoordenadores);
+      console.log(this.listCoordenadores);
     }
-    console.log(this.listCoordenadores);
     this.formData = this.formBuilder.group({
+      id: [curso.id],
       nome: [curso.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
       coordenador_id: [curso.coordenador_id, []],
     });
-    console.log(curso.coordenador_id)
+
   }
 
 
   submitForm(form: FormGroup) {
     if (form.valid) {
-
       const curso: CursoCreate = {
         id: form.get('id')?.value,
         nome: form.get('nome')?.value,
@@ -69,10 +67,12 @@ export class CourseRegistrationComponent implements OnInit {
             this.router.navigate(['/course']);
           },
           (error) => {
-            console.error('Erro:', error);
+            alert("Erro ao salvar o curso");
           }
         );
       }
+    }else{
+      alert("from invalido");
     }
   }
 
