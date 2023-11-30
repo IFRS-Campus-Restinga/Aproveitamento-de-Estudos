@@ -95,11 +95,14 @@ public class CursoService {
             for(CoordenadorDTO coordenadorDTO : cursoDto.coordenadores()){
                 Optional<Coordenador> coordenador = coordenadorRepository.findById(coordenadorDTO.id());
                 if (coordenador.isPresent()){
-                    if(coordenadorDTO.id() == cursoDto.coordenador_id()){
-                        coordenador.get().setAtivo(true);
+                    Coordenador c = coordenador.get();
+                    if(c.getId() == cursoDto.coordenador_id().longValue()){
+                        c.setAtivo(true);
                     }else{
-                        coordenador.get().setAtivo(false);
+                        c.setAtivo(false);
                     }
+                    curso.getCoordenadores().add(c);
+                    coordenadorRepository.save(c);
                 }
             }
         }
