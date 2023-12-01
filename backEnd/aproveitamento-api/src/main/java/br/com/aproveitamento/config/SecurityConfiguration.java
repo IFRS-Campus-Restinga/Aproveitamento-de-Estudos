@@ -41,9 +41,6 @@ public class SecurityConfiguration {
     }
 
 
-
-
-
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
@@ -54,7 +51,7 @@ public class SecurityConfiguration {
                     auth.anyRequest().authenticated();
                 })  // configurando os metodos de login, utilizando o resource server
                 .oauth2Login(withDefaults())
-               // .oauth2Client(withDefaults())
+                //.oauth2Client(withDefaults())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
                 //.formLogin(withDefaults())
                 .build();
