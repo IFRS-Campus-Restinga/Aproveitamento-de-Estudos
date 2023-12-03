@@ -18,6 +18,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -33,9 +36,13 @@ public class Disciplina {
     private String nome;
 
     @Column(nullable = true)
+    /*@NotBlank
+    @Pattern(regexp = "^[A-Z]{3}-[A-Z]{3}[0-9]{3}$", message = "O código deve seguir o padrão ABC-DEF123.")*/
     private String codDisciplina;
 
     @Column(nullable = true)
+    /*@NotBlank
+    @Size(min = 10, max = 120, message = "O nome do componente curricular deve ter entre 10 e 120 caracteres.")*/
     private int cargaHoraria;
 
     @JsonIgnore

@@ -19,16 +19,52 @@
 
     <div class="form-group">
       <label for="codigo">Código (ABC-DEF123)</label>
-      <input type="text" id="codigo" formControlName="codigo" placeholder="" (input)="converterParaMaiusculas()"
-        [ngClass]="{'valid-input': !isValid('codigo'), 'invalid-input': isValid('codigo')}" required>
+      <input type="text" id="codigo" formControlName="codigo" placeholder="" (input)="converterParaMaiusculas()" required>
+        <span class="alert" *ngIf="formData.get('codigo')?.hasError('required') && formData.get('codigo')?.touched">
+          Este campo é obrigatório.
+        </span>
+        <span class="alert" *ngIf=" check('codigo', 'minLength') ">
+          Exigidos 10 caracteres!
+        </span>
+        <span class="alert" *ngIf=" check('codigo', 'maxLength') ">
+          Máximo 10 caracteres!
+        </span>
+        <span class="alert" *ngIf=" check('codigo', 'status') && !formData.get('codigo')?.touched && !check('codigo', 'minLength') && !formData.get('codigo')?.hasError('required')">
+          Contém caracter inválido! Use como exemplo (ABC-DEF123).
+        </span>
     </div>
 
 
     <div class="form-group">
       <label for="disciplina">Componente Curricular</label>
-      <input type="text" id="disciplina" formControlName="disciplina" placeholder="Nome do componente curricular"
-        [ngClass]="{'valid-input': !isValid('disciplina'), 'invalid-input': isValid('disciplina')}" required>
+      <input type="text" id="disciplina" formControlName="disciplina" placeholder="Nome do componente curricular" required>
+        <span class="alert" *ngIf="formData.get('disciplina')?.hasError('required') && formData.get('disciplina')?.touched">
+          Este campo é obrigatório.
+        </span>
+        <span class="alert" *ngIf=" check('disciplina', 'minLength') ">
+          Mínimo 10 caracteres!
+        </span>
+        <span class="alert" *ngIf=" check('disciplina', 'maxLength') ">
+          Máximo 120 caracteres!
+        </span>
+        <span class="alert" *ngIf=" check('disciplina', 'status') && formData.get('disciplina')?.touched 
+          && !check('disciplina', 'minLength') && !formData.get('disciplina')?.hasError('required')">
+          Contém caracter inválido! Use somente letras, números e ponto final.
+        </span>
     </div>
+
+   disciplina status {{check('disciplina', 'status')}}<br>
+   form {{!formData.get('disciplina')?.touched }}<br>
+   check {{!check('disciplina', 'minLength')}}<br>
+   disc err {{!formData.get('disciplina')?.hasError('required')}}<br>
+    
+    <br>
+    
+    
+    
+    disciplina status:{{check('disciplina', 'status')|json}}<br>
+    formData.get('disciplina'){{formData.get('disciplina')?.hasError('required')}}<br>
+    isValid('disciplina'){{isValid('disciplina')}}
 
     <div class="form-group">
       <label for="cargaHoraria">Carga Horária</label>

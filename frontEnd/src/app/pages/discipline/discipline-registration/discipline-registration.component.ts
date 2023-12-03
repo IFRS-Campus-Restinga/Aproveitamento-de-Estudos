@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NonNullableFormBuilder, ValidatorFn} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Disciplina } from 'src/app/model/Disciplina';
 import { Ppc } from 'src/app/model/Ppc';
@@ -51,8 +51,10 @@ export class DisciplineRegistrationComponent implements OnInit {
       disciplina_id: [disciplina.id],
       curso: [disciplina.curso_id, Validators.required],
       ppc: [disciplina.ppc_id, Validators.required],
-      codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$')]],
-      disciplina: [disciplina.nome, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{10,120}$')]],
+      codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$'), Validators.minLength(10), Validators.maxLength(10)]],
+      disciplina: [disciplina.nome, [Validators.required, 
+        Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/), 
+        Validators.minLength(10),Validators.maxLength(120)]],
       cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(500)]],
     });
      
@@ -170,8 +172,27 @@ export class DisciplineRegistrationComponent implements OnInit {
     return this.formData.get('ppc')?.valid;
   }
 
+  check(variableName: string, condition: string): boolean {
+    const variable = this.formData.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
+  }
+
   isValid(controlName: string) {
-    return !this.formData.get(controlName)?.valid;
+    return this.formData.get(controlName)?.valid;
   }
 
 }
