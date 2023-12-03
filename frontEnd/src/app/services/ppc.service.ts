@@ -37,6 +37,10 @@ export class PpcService {
     return this.httpClient.get<Ppc>(`${this.API}/${id}`);
   }
 
+  loadById2(id: string) {
+    return this.httpClient.get<PpcCreate>(`${this.API}/${id}`);
+  }
+/*
   save(record: Partial<PpcCreate>) {
     console.log(record);
     if (record.id) {
@@ -53,6 +57,20 @@ export class PpcService {
 
   private update(record: Partial<PpcCreate>) {
     return this.httpClient.put<Ppc>(`${this.API}`, record).pipe(first());
+  }
+*/
+
+  save(record: Partial<PpcCreate>) {
+    console.log(record)
+    return this.createPpc(record);
+  }
+
+  private createPpc(record: Partial<Ppc>) {
+    return this.create(record);
+  }
+
+  private create(record: Partial<Ppc>) {
+    return this.httpClient.post<Ppc>(this.API, record).pipe(first());
   }
 
   remove(id: string) {

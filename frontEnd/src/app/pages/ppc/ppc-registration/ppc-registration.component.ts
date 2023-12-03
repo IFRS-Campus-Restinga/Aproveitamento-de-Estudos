@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ppc } from 'src/app/model/Ppc';
+//import { Ppc } from 'src/app/model/Ppc';
 import { PpcService } from 'src/app/services/ppc.service';
 import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -27,7 +27,7 @@ export class PpcRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCursos();
-    let ppc: Ppc = this.route.snapshot.data['ppc'];
+    let ppc: PpcCreate = this.route.snapshot.data['ppc'];
     console.log(this.listCursos);
 
     if(!ppc) {
@@ -53,9 +53,9 @@ export class PpcRegistrationComponent implements OnInit {
       const selectedCursoId = this.formData.get('curso')?.value;
       console.log(selectedCursoId);
 
-      const ppc: Ppc = {
+      const ppc: PpcCreate = {
         id: form.get('ppc_id')?.value,
-        nomePPC: form.get('nomeCompleto')?.value,
+        nomePPC: form.get('nomePPC')?.value,
         ano: form.get('ano')?.value,
         curso: {
           id: selectedCursoId,
@@ -64,7 +64,7 @@ export class PpcRegistrationComponent implements OnInit {
       };
 
       if (ppc) {
-        this.ppcService.createPpc(ppc).subscribe(
+        this.ppcService.save(ppc).subscribe(
           (data) => {
             alert('PPC salvo com sucesso!');
             this.router.navigate(['/ppc']);
