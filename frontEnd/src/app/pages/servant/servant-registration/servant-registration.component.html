@@ -4,8 +4,20 @@
 
         <div class="form-group">
             <label for="nomeCompleto">Nome Completo</label>
-            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome do Servidor"
-                [ngClass]="{'valid-input': !isValid('nomeCompleto'), 'invalid-input': isValid('nomeCompleto')}" required>
+            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome do Servidor" required>
+                <span class="alert" *ngIf="formData.get('nomeCompleto')?.hasError('required') && formData.get('nomeCompleto')?.touched">
+                    Este campo é obrigatório.
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
+                    Exigidos 6 caracteres!
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
+                    Máximo 120 caracteres!
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'status') && !formData.get('nomeCompleto')?.touched && 
+                  !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
+                  Contém caracter inválido! Use somente letras.
+                </span>
         </div>
 
         <div class="form-group">

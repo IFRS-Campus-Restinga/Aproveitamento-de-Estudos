@@ -39,7 +39,8 @@ export class ServantRegistrationComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       servidor_id: [servidor.id],
-      nomeCompleto: [servidor.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      nomeCompleto: [servidor.nome, [Validators.required, Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+      Validators.minLength(6), Validators.maxLength(120)]],
       email: [servidor.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       siape: [servidor.siape, [Validators.required, Validators.pattern('[0-9]{10}')]],
       tipo: [servidor.tipo],
@@ -92,4 +93,25 @@ export class ServantRegistrationComponent implements OnInit {
   isTipoValid(): boolean {
     return this.formData.get('tipo')?.value !== '';
   }
+
+  check(variableName: string, condition: string): boolean {
+    const variable = this.formData.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
+  }
+
+
 }
