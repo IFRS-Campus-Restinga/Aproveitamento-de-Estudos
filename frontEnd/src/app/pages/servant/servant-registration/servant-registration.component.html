@@ -7,14 +7,14 @@
             <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Nome do Servidor" required>
                 <span class="alert" *ngIf="formData.get('nomeCompleto')?.hasError('required') && formData.get('nomeCompleto')?.touched">
                     Este campo é obrigatório.
-                  </span>
-                  <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
+                </span>
+                <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
                     Exigidos 6 caracteres!
-                  </span>
-                  <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
+                </span>
+                <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
                     Máximo 120 caracteres!
-                  </span>
-                  <span class="alert" *ngIf=" check('nomeCompleto', 'status') && !formData.get('nomeCompleto')?.touched && 
+                </span>
+                <span class="alert" *ngIf=" check('nomeCompleto', 'status') && !formData.get('nomeCompleto')?.touched && 
                   !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
                   Contém caracter inválido! Use somente letras.
                 </span>
@@ -22,20 +22,34 @@
 
         <div class="form-group">
             <label for="email">Email Institucional</label>
-            <input type="email" id="email" formControlName="email" placeholder="email@restinga.ifrs.edu.br"
-            [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" required>
+            <input type="email" id="email" formControlName="email" placeholder="email@restinga.ifrs.edu.br" required>
+            <span class="alert" *ngIf="formData.get('email')?.hasError('required') && formData.get('email')?.touched">
+                Este campo é obrigatório.
+            </span>
+            <span class="alert" *ngIf=" check('email', 'maxLength') ">
+                Máximo 50 caracteres!
+            </span>
         </div>
 
         <div class="form-half-grid">
             <div class="form-group">
                 <label for="siape">Siape</label>
-                <input type="text" id="siape" formControlName="siape" placeholder="numérico"
-                required [ngClass]="{'valid-input': !isValid('matricula'), 'invalid-input': isValid('matricula')}">
+                <input type="text" id="siape" formControlName="siape" placeholder="numérico" required>
+                <span class="alert" *ngIf="formData.get('siape')?.hasError('required') && formData.get('siape')?.touched">
+                    Este campo é obrigatório.
+                </span>
+                <span class="alert" *ngIf=" check('siape', 'minLength') ">
+                    Exigidos 10 numéricos!
+                </span>
+                <span class="alert" *ngIf=" check('siape', 'maxLength') ">
+                    Máximo 10 numéricos!
+                </span>
             </div>
 
             <div class="form-group">
                 <label for="tipo">Cargo</label>
                 <select id="tipo" formControlName="tipo" placeholder=""required [class.invalid]="!isTipoValid()">
+                <option value="" [disabled]="isTipoSolicitacaoSelected()">Selecione um cargo</option>
                 <option *ngFor="let userType of userTypes" [value]="userType">{{ userType }}</option>
                 </select>
               </div>

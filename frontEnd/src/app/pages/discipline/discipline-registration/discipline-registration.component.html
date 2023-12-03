@@ -72,12 +72,6 @@
         <span class="alert" *ngIf="formData.get('cargaHoraria')?.hasError('required') && formData.get('cargaHoraria')?.touched">
           Este campo é obrigatório.
         </span>
-        <!--<span class="alert" *ngIf=" check('cargaHoraria', 'min') ">
-          Mínimo 10 horas!
-        </span>
-        <span class="alert" *ngIf=" check('cargaHoraria', 'max') ">
-          Máximo 88 horas!
-        </span>-->
         <span class="alert" *ngIf=" check('cargaHoraria', 'status') && formData.get('cargaHoraria')?.touched 
           && !check('cargaHoraria', 'min') && !formData.get('cargaHoraria')?.hasError('required')">
           A carga horária deve estar entre 10 e 88 horas.
