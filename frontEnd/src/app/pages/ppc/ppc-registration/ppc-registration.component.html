@@ -1,0 +1,39 @@
+<div class="container">
+  <app-title title="Cadastro de PPC"></app-title>
+
+  <form [formGroup]="formData" (ngSubmit)="submitForm(formData)">
+
+    <!-- curso -->
+    <div class="form-group">
+      <label for="curso">Curso</label>
+      <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
+          <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
+      </select>
+    </div>
+
+    <!-- Nome ppc -->
+    <div class="form-group">
+      <label for="nomePPC">Nome PPC</label>
+      <input type="text" id="nomePPC" formControlName="nomePPC" placeholder="nome do ppc"
+          [ngClass]="{'valid-input': !isValid('nomePPC'), 'invalid-input': isValid('nomePPC')}"
+          required>
+    </div>
+
+    <!-- Ano ppc -->
+    <div class="form-group">
+      <label for="ano">Ano</label>
+      <input type="number" id="ano" formControlName="ano" placeholder="ano do ppc" required
+          [ngClass]="{'valid-input': !isValid('ano'), 'invalid-input': isValid('ano')}">
+    </div>
+
+    <hr>
+
+    <!-- Enviar -->
+    <div class="btn-submit-container">
+      <button type="submit" class="btn-register"
+          [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
+          [disabled]="!formData.valid">Enviar</button>
+  </div>
+
+  </form>
+</div>
