@@ -55,7 +55,7 @@ export class DisciplineRegistrationComponent implements OnInit {
       disciplina: [disciplina.nome, [Validators.required, 
         Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/), 
         Validators.minLength(10),Validators.maxLength(120)]],
-      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(500)]],
+      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(88)]],
     });
      
   }
