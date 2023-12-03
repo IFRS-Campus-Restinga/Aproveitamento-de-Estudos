@@ -4,6 +4,43 @@
 <div class="containerFiltro">
   <div class="form-group">
     <label class="mr-2">Filtro </label>
-    <input type="text" class="form-control mr-2" placeholder="buscar">
+    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa"
+      (input)="getPpc()">
   </div>
 </div>
+
+<div class="container">
+  <table class="aluno-container" style="width: 60%;">
+    <thead class="thead-dark" style="text-align: center;">
+      <tr>
+        <th>Id</th>
+        <th>Curso</th>
+        <th>Nome PPC</th>
+        <th>Ano</th>
+      </tr>
+    </thead>
+    <tbody style="padding-left: 7px;text-align: center;" *ngIf="ppcList && ppcList.length">
+      <tr *ngFor="let ppc of  ppcList">
+        <td>{{ppc.id}}</td>
+        <td>{{ppc.cursos?.id}}</td>
+        <td>{{ppc.nomePPC}}</td>
+        <td>{{ppc.ano}}</td>
+        <td style="width: 28%;">
+          <button type="button" class="btn-register-student" (click)=onEdit(ppc)>Editar</button>
+          <button type="button" class="btn-alert-student" (click)=showConfirmationDialog(ppc)>Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+
+    <tfoot *ngIf="!ppcList.length">
+      <tr>
+        <td colspan="8">
+          <h4>Nenhum ppc encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<app-confirmation-dialog *ngIf="isConfirmationVisible" [message]="confirmationMessage"
+  (confirmed)="handleConfirmation($event)"></app-confirmation-dialog>
