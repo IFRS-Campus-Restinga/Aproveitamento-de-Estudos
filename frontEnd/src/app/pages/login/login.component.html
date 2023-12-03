@@ -2,7 +2,7 @@
   <app-title title="Login"></app-title>
 
   <div id="form-login">
-    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm)">
       <div id="logo">
         <img src="../../../assets/images/logotipo_campus_restinga_horizontal.png">
       </div>
@@ -21,8 +21,7 @@
 
       <div id="botoes-login">
         <div class="btn-submit-container">
-          <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}"
-           [disabled]="!isFormValid()">Acessar</button>
+          <button type="submit" class="btn-register" >Acessar</button>
         </div>
 
         <div id="botoes-login">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -19,11 +20,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submitForm(): void {
-    if (this.loginForm.valid) {
+  submitForm(form: FormGroup){
+    // if (this.form.valid) {
+      // this.usuarioService.loadByEmail(this.loginForm.email.value)
       console.log(this.loginForm.value);
-    }
+  
+      // [routerLink]="['student/register']
+    // }
   }
+  
 
   isFormValid(): boolean {
     return this.loginForm.valid;
