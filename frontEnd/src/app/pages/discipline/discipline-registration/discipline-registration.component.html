@@ -4,10 +4,8 @@
 
     <div class="form-group">
       <label for="curso">Curso</label>
-    
       <select id="curso" formControlName="curso" (change)="selectPpcs($event)" required
         [class.invalid]="!isCursoValid()">
-        <option value="" [disabled]="!isEdit()">Selecione o curso</option>
         <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
       </select>
     </div>

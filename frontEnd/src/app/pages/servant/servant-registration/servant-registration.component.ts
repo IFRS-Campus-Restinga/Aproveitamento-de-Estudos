@@ -40,7 +40,7 @@ export class ServantRegistrationComponent implements OnInit {
     this.formData = this.formBuilder.group({
       servidor_id: [servidor.id],
       nomeCompleto: [servidor.nome, [Validators.required, 
-      Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+      Validators.pattern("^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]*$"),
       Validators.minLength(6), Validators.maxLength(120)]],
       email: [servidor.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$'), Validators.maxLength(50)]],
       siape: [servidor.siape, [Validators.required, Validators.pattern('[0-9]{10}'), Validators.minLength(10), Validators.maxLength(10)]],

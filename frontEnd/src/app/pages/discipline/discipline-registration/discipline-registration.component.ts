@@ -18,7 +18,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   ppcAux: Ppc = { id: '', nomePPC: '', ano: 0,}
   idCurso: string = '';
 
-  public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'xxxx', id: '', ppcs: [] }];
+  public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: '', ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
   isEditMode: boolean = false;
