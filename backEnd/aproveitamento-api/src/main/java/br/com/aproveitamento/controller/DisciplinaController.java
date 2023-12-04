@@ -43,8 +43,8 @@ public class DisciplinaController {
     }
 
     @PostMapping
-    public ResponseEntity<Disciplina> create(@RequestBody @NotNull @Valid @NotNull DisciplinaDTO disciplina) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(disciplinaService.createOrUpdateDisciplina(disciplina));
+    public ResponseEntity<Disciplina> create(@RequestBody @NotNull @Valid Disciplina disciplina) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(disciplinaService.create(disciplina));
     }
 
     @PutMapping
