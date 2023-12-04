@@ -4,8 +4,10 @@
 
     <div class="form-group">
       <label for="curso">Curso</label>
+    
       <select id="curso" formControlName="curso" (change)="selectPpcs($event)" required
         [class.invalid]="!isCursoValid()">
+        <option value="" [disabled]="!isEdit()">Selecione o curso</option>
         <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
       </select>
     </div>
@@ -52,19 +54,6 @@
           Contém caracter inválido! Use somente letras, números e ponto final.
         </span>
     </div>
-
-   disciplina status {{check('disciplina', 'status')}}<br>
-   form {{!formData.get('disciplina')?.touched }}<br>
-   check {{!check('disciplina', 'minLength')}}<br>
-   disc err {{!formData.get('disciplina')?.hasError('required')}}<br>
-    
-    <br>
-    
-    
-    
-    disciplina status:{{check('disciplina', 'status')|json}}<br>
-    formData.get('disciplina'){{formData.get('disciplina')?.hasError('required')}}<br>
-    isValid('disciplina'){{isValid('disciplina')}}
 
     <div class="form-group">
       <label for="cargaHoraria">Carga Horária</label>

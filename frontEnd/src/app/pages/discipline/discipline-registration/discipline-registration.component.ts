@@ -18,8 +18,10 @@ export class DisciplineRegistrationComponent implements OnInit {
   ppcAux: Ppc = { id: '', nomePPC: '', ano: 0,}
   idCurso: string = '';
 
-  public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: '', ppcs: [] }];
+  public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'xxxx', id: '', ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
+
+  isEditMode: boolean = false;
 
   constructor(private cursoService: CursoService, 
     private route: ActivatedRoute, 
@@ -32,6 +34,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   ngOnInit(): void {
     let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
     if(!disciplina){
+      this.isEditMode = true;
       disciplina = {
         id: '',
         nome: '',
@@ -193,6 +196,10 @@ export class DisciplineRegistrationComponent implements OnInit {
 
   isValid(controlName: string) {
     return this.formData.get(controlName)?.valid;
+  }
+
+  isEdit(){
+    return this.isEditMode;
   }
 
 }
