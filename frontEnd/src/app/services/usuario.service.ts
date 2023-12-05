@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { first } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { Usuario } from '../model/Usuario';
 
 
@@ -14,8 +14,8 @@ export class UsuarioService {
     constructor(private httpClient: HttpClient) { }
 
 
-    loadByEmail(email: string) {
-        return this.httpClient.get<Usuario>(`${this.API}/${email}`);
+    loadByEmail(email: string): Observable<Usuario> {
+        return this.httpClient.get<Usuario>(`${this.API}/email/${email}`);
     }
 
 }

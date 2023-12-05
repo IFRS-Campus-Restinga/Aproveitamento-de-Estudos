@@ -57,7 +57,7 @@ public class UsuarioController {
 		usuarioService.delete(id);
 	}
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	public Usuario findByEmail(@PathVariable @NotNull String email) {
 		return usuarioService.findByEmail(email);
 	}

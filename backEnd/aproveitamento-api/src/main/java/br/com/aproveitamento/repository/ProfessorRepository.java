@@ -7,5 +7,4 @@ import br.com.aproveitamento.model.Professor;
 
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
-
 }

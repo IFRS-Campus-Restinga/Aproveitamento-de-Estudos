@@ -7,5 +7,4 @@ import br.com.aproveitamento.model.Servidor;
 
 @Repository
 public interface ServidorRepository extends JpaRepository<Servidor, Long> {
-
 }
