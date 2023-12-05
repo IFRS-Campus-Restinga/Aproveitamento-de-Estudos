@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             this.usuario = response;
             console.log(this.usuario);
             // Aqui você pode tratar os dados recebidos e redirecionar para outra página, por exemplo.
+            localStorage.setItem('currentUser', JSON.stringify(this.usuario));
           },
           (error) => {
             // Trata erros caso a requisição falhe
