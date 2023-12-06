@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/model/Usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  usuario!: Usuario
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService
+    ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -19,11 +25,26 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submitForm(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+  submitForm(form: FormGroup) {
+    // if (this.isFormValid()) {
+    if (true) {
+      this.usuarioService.loadByEmail(form.value.email)
+        .subscribe(
+          (response) => {
+            // Recebe a resposta do backend
+            this.usuario = response;
+            console.log(this.usuario);
+            // Aqui você pode tratar os dados recebidos e redirecionar para outra página, por exemplo.
+            localStorage.setItem('currentUser', JSON.stringify(this.usuario));
+          },
+          (error) => {
+            // Trata erros caso a requisição falhe
+            console.error('Erro:', error);
+          }
+        );
     }
   }
+  
 
   isFormValid(): boolean {
     return this.loginForm.valid;

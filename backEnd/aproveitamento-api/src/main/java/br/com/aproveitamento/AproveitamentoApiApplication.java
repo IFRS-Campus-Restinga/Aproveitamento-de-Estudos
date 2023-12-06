@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import br.com.aproveitamento.enums.RequisicaoStatus;
 import br.com.aproveitamento.enums.RequisicaoTipo;
@@ -86,37 +87,58 @@ public class AproveitamentoApiApplication {
 			disciplinaRepository.save(disciplina3);
 			disciplinaRepository.save(disciplina4);
 
-			Aluno aluno1 = new Aluno("jackson", "jack@restinga.ifrs.edu.br", false, UsuarioTipo.ALUNO, "1234567890", "02/2022", curso1);
-			Aluno aluno2 = new Aluno("igor", "igor@restinga.ifrs.edu.br", false, UsuarioTipo.ALUNO, "1122334455", "01/2023", curso2);
+			Aluno aluno1 = new Aluno("jackson", "jack@restinga.ifrs.edu.br", false,
+					UsuarioTipo.ALUNO, "1234567890",
+					"02/2022", curso1);
+			Aluno aluno2 = new Aluno("igor", "igor@restinga.ifrs.edu.br", false,
+					UsuarioTipo.ALUNO, "1122334455",
+					"01/2023", curso2);
 
-			alunoRepository.save(aluno1);
-			alunoRepository.save(aluno2);
+			try {
+				alunoRepository.save(aluno1);
+				alunoRepository.save(aluno2);
+				curso1.getAlunos().add(aluno1);
+				curso2.getAlunos().add(aluno2);
 
-			curso1.getAlunos().add(aluno1);
-			curso2.getAlunos().add(aluno2);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			Coordenador coordenador1 = new Coordenador("Yuri", "yuri@teste.com", true, UsuarioTipo.COORDENADOR,
 					"987456", new Date(), new Date(), curso1, true);
 			Coordenador coordenador2 = new Coordenador("João", "joão@teste.com", true, UsuarioTipo.COORDENADOR,
 					"369852", new Date(), new Date(), curso2, true);
 
-			coordenadorRepository.save(coordenador1);
-			coordenadorRepository.save(coordenador2);
-
-			curso1.getCoordenadores().add(coordenador1);
-			curso2.getCoordenadores().add(coordenador2);
+			try {
+				coordenadorRepository.save(coordenador1);
+				coordenadorRepository.save(coordenador2);
+				curso1.getCoordenadores().add(coordenador1);
+				curso2.getCoordenadores().add(coordenador2);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			Professor professor1 = new Professor("Ricardo", "ricardo@teste.com", true, UsuarioTipo.PROFESSOR, "258741");
 			Professor professor2 = new Professor("Eliana", "eliana@teste.com", true, UsuarioTipo.PROFESSOR, "951357");
 
-			ProfessorRepository.save(professor1);
-			ProfessorRepository.save(professor2);
+			try {
+				ProfessorRepository.save(professor1);
+				ProfessorRepository.save(professor2);
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			Ensino ensino1 = new Ensino("Fulano", "fulano@teste.com", true, UsuarioTipo.ENSINO, "962478");
 			Ensino ensino2 = new Ensino("Ciclino", "ciclano@teste.com", true, UsuarioTipo.ENSINO, "314658");
 
-			ensinoRepository.save(ensino1);
-			ensinoRepository.save(ensino2);
+			try {
+				ensinoRepository.save(ensino1);
+				ensinoRepository.save(ensino2);
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			cursoRepository.save(curso1);
 			cursoRepository.save(curso2);
@@ -137,7 +159,7 @@ public class AproveitamentoApiApplication {
 					UsuarioTipo.COORDENADOR, edital);
 			Etapa etapa6 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
 					new Date(), UsuarioTipo.ENSINO, edital);
-			
+
 			Etapa etapa7 = new Etapa("Período de inscrições", new Date(), new Date(), UsuarioTipo.ALUNO, edital2);
 			Etapa etapa8 = new Etapa("Encaminhamento", new Date(), new Date(), UsuarioTipo.ENSINO, edital2);
 			Etapa etapa9 = new Etapa("Análise dos processos pelos docentes", new Date(), new Date(),
@@ -146,7 +168,8 @@ public class AproveitamentoApiApplication {
 					edital2);
 			Etapa etapa11 = new Etapa("Devolução dos processos à Coordenação", new Date(), new Date(),
 					UsuarioTipo.COORDENADOR, edital2);
-			Etapa etapa12 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares", new Date(),
+			Etapa etapa12 = new Etapa("Processamento dos resultados pela Coordenação de Registros Escolares",
+					new Date(),
 					new Date(), UsuarioTipo.ENSINO, edital2);
 
 			etapaRepository.save(etapa1);
@@ -180,38 +203,45 @@ public class AproveitamentoApiApplication {
 			editalRepository.save(edital);
 			editalRepository.save(edital2);
 
-			Requisicao requisicao1 = new Requisicao(RequisicaoTipo.APROVEITAMENTO, RequisicaoStatus.SOLICITACAO_CRIADA,
+			Requisicao requisicao1 = new Requisicao(RequisicaoTipo.APROVEITAMENTO,
+					RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					null, null, 0.00,
 					2, 8.00, 80,
 					aluno1, edital, disciplina1);
-			Requisicao requisicao2 = new Requisicao(RequisicaoTipo.CERTIFICACAO, RequisicaoStatus.SOLICITACAO_CRIADA,
+			Requisicao requisicao2 = new Requisicao(RequisicaoTipo.CERTIFICACAO,
+					RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					"Prog II", new Date(), 0.00,
 					0, 0.00, 0,
 					aluno1, edital, disciplina2);
 
-			Requisicao requisicao3 = new Requisicao(RequisicaoTipo.APROVEITAMENTO, RequisicaoStatus.SOLICITACAO_CRIADA,
+			Requisicao requisicao3 = new Requisicao(RequisicaoTipo.APROVEITAMENTO,
+					RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					null, null, 0.00,
 					3, 9.00, 80,
 					aluno2, edital, disciplina3);
 
-			Requisicao requisicao4 = new Requisicao(RequisicaoTipo.CERTIFICACAO, RequisicaoStatus.SOLICITACAO_CRIADA,
+			Requisicao requisicao4 = new Requisicao(RequisicaoTipo.CERTIFICACAO,
+					RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					"Portugues", new Date(), 0.00,
 					0, 0.00, 0,
 					aluno2, edital, disciplina4);
+			try {
+				requisicaoRepository.save(requisicao1);
+				requisicaoRepository.save(requisicao2);
+				requisicaoRepository.save(requisicao3);
+				requisicaoRepository.save(requisicao4);
+				edital.getRequisicoes().add(requisicao1);
+				edital.getRequisicoes().add(requisicao2);
+				edital.getRequisicoes().add(requisicao3);
+				edital.getRequisicoes().add(requisicao4);
 
-			requisicaoRepository.save(requisicao1);
-			requisicaoRepository.save(requisicao2);
-			requisicaoRepository.save(requisicao3);
-			requisicaoRepository.save(requisicao4);
-
-			edital.getRequisicoes().add(requisicao1);
-			edital.getRequisicoes().add(requisicao2);
-			edital.getRequisicoes().add(requisicao3);
-			edital.getRequisicoes().add(requisicao4);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			editalRepository.save(edital);
 

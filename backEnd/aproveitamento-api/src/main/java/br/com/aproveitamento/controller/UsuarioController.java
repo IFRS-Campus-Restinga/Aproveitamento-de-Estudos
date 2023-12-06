@@ -27,34 +27,38 @@ import jakarta.validation.constraints.Positive;
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@GetMapping
-	public @ResponseBody List<Usuario> list(){
+	public @ResponseBody List<Usuario> list() {
 		return usuarioService.list();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Usuario findById(@PathVariable @NotNull @Positive Long id) {
 		return usuarioService.findById(id);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Usuario> create(@RequestBody @NotNull @Valid Usuario Usuario){
+	public ResponseEntity<Usuario> create(@RequestBody @NotNull @Valid Usuario Usuario) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.create(Usuario));
 	}
-	
+
 	@PutMapping
-	public Usuario update(@RequestBody @Valid Usuario Usuario){
+	public Usuario update(@RequestBody @Valid Usuario Usuario) {
 		return usuarioService.update(Usuario);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable @NotNull @Positive Long id){
+	public void delete(@PathVariable @NotNull @Positive Long id) {
 		usuarioService.delete(id);
-    }
+	}
 
+	@GetMapping("/email/{email}")
+	public Usuario findByEmail(@PathVariable @NotNull String email) {
+		return usuarioService.findByEmail(email);
+	}
 }
