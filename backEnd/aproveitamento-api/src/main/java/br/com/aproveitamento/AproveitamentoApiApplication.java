@@ -1,7 +1,8 @@
 package br.com.aproveitamento;
 
-import java.util.Date;
+import java.util.*;
 
+import br.com.aproveitamento.model.*;
 import br.com.aproveitamento.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,28 +13,34 @@ import org.springframework.context.annotation.Bean;
 import br.com.aproveitamento.enums.RequisicaoStatus;
 import br.com.aproveitamento.enums.RequisicaoTipo;
 import br.com.aproveitamento.enums.UsuarioTipo;
-import br.com.aproveitamento.model.Aluno;
-import br.com.aproveitamento.model.Coordenador;
-import br.com.aproveitamento.model.Curso;
-import br.com.aproveitamento.model.Disciplina;
-import br.com.aproveitamento.model.Edital;
-import br.com.aproveitamento.model.Ensino;
-import br.com.aproveitamento.model.Etapa;
-import br.com.aproveitamento.model.PPC;
-import br.com.aproveitamento.model.Professor;
-import br.com.aproveitamento.model.Requisicao;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class AproveitamentoApiApplication {
+public class AproveitamentoApiApplication implements CommandLineRunner{
 
+//	rodar somente na hora da criação da base
 	@Autowired
 	RoleRepository roleRepository;
+
+	@Autowired
+	PasswordEncoder passEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AproveitamentoApiApplication.class, args);
 	}
 
-
+	@Override
+	public void run(String... args) throws Exception {
+// 		rodar somente na hora de criação da base de dados
+		Role adminRole = Role.builder().role(UsuarioTipo.SERVIDOR).build();
+		Role userRole = Role.builder().role(UsuarioTipo.ALUNO).build();
+		Role coordenatorRole = Role.builder().role(UsuarioTipo.COORDENADOR).build();
+		Role professorRole = Role.builder().role(UsuarioTipo.PROFESSOR).build();
+		roleRepository.save(adminRole);
+		roleRepository.save(coordenatorRole);
+		roleRepository.save(professorRole);
+		roleRepository.save(userRole);
+	}
 
 	@Bean
 	CommandLineRunner initDatabase(AlunoRepository alunoRepository,
@@ -46,6 +53,7 @@ public class AproveitamentoApiApplication {
 			EditalRepository editalRepository,
 			EtapaRepository etapaRepository,
 			RequisicaoRepository requisicaoRepository,
+		    UsuarioRepository usuarioRepository,
 			AnexoRepository anexoRepository,
 			AnaliseRepository analiseRepository) {
 
@@ -94,6 +102,15 @@ public class AproveitamentoApiApplication {
 					"987456", new Date(), new Date(), curso1);
 			Coordenador coordenador2 = new Coordenador("João", "joão@teste.com", true, UsuarioTipo.COORDENADOR,
 					"369852", new Date(), new Date(), curso2);
+
+
+
+
+			Usuario userCoordenacao1 = new Usuario(coordenador1.getNome(), coordenador1.getEmail(), true, coordenador1.getTipo(), "admin", passEncoder.encode("admin"), roleRepository.findByRole(UsuarioTipo.COORDENADOR));
+
+
+
+			usuarioRepository.save(userCoordenacao1);
 
 			coordenadorRepository.save(coordenador1);
 			coordenadorRepository.save(coordenador2);

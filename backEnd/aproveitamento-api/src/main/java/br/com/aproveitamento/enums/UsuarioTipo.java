@@ -2,11 +2,11 @@ package br.com.aproveitamento.enums;
 
 public enum UsuarioTipo {
 	
-	ALUNO("Aluno"),
-    COORDENADOR("Coordenador"),
-	ENSINO("Ensino"),
-	PROFESSOR("Professor"),
-	SERVIDOR("Servidor");
+	ALUNO("ALUNO"),
+    COORDENADOR("COORDENADOR"),
+	ENSINO("ENSINO"),
+	PROFESSOR("PROFESSOR"),
+	SERVIDOR("SERVIDOR");
 
     private String value;
 

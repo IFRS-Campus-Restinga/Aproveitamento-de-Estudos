@@ -69,9 +69,7 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(2)
     public SecurityFilterChain webSecurityFilterChaain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated())
+        httpSecurity.authorizeHttpRequests( auth -> auth.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
                 .formLogin(withDefaults())
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()));

@@ -16,5 +16,7 @@ public class Ensino extends Servidor {
 	public Ensino(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo,String siape) {
 		super(nome, email, admin, tipo, siape);
 	}
+
+
 	
 }

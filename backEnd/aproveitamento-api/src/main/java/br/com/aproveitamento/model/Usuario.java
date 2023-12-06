@@ -9,8 +9,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -61,6 +60,17 @@ public class Usuario implements UserDetails {
         this.email = email;
         this.admin = admin;
         this.tipo = tipo;
+    }
+
+    public Usuario(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo, @NotNull String username, @NotNull String password, @NotNull Optional<Role> newRoles) {
+        super();
+        this.nome = nome;
+        this.email = email;
+        this.admin = admin;
+        this.tipo = tipo;
+        this.username = username;
+        this.password = password;
+        this.roles = newRoles.map(Collections::singleton).orElse(Collections.emptySet());
     }
 
 
