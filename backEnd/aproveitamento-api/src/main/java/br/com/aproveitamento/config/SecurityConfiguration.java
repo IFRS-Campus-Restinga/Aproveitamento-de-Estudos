@@ -15,13 +15,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider.ResponseToken;
 //import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 //import org.springframework.security.saml2.provider.service.authentication.Saml2Authentication;
-import org.springframework.security.oauth2.client.JwtBearerOAuth2AuthorizedClientProvider;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+//import org.springframework.security.oauth2.client.JwtBearerOAuth2AuthorizedClientProvider;
+//import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+//import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
+//import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+//import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+//import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
+//import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,46 +41,46 @@ public class SecurityConfiguration {
     }
 
 
-    @Bean
-    SecurityFilterChain configure(HttpSecurity http) throws Exception {
-
-        // configurando a permissao dos caminhos
-        return http
-                .authorizeHttpRequests( auth -> {
-                    auth.requestMatchers("/").permitAll();
-                    auth.anyRequest().authenticated();
-                })  // configurando os metodos de login, utilizando o resource server
-                .oauth2Login(withDefaults())
-                //.oauth2Client(withDefaults())
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
-                //.formLogin(withDefaults())
-                .build();
-    }
-
-
-
-    @Bean
-    public OAuth2AuthorizedClientManager authorizedClientManager(
-        ClientRegistrationRepository clientRegistrationRepository,
-        OAuth2AuthorizedClientRepository authorizedClientRepository) {
-
-            OAuth2AuthorizedClientProvider authorizedClientProvider =
-                    OAuth2AuthorizedClientProviderBuilder.builder()
-                            .authorizationCode()
-                            .refreshToken()
-                            .clientCredentials()
-                            .password()
-                            .provider(new JwtBearerOAuth2AuthorizedClientProvider())
-                            .build();
-
-            DefaultOAuth2AuthorizedClientManager authorizedClientManager =
-                    new DefaultOAuth2AuthorizedClientManager(
-                            clientRegistrationRepository, authorizedClientRepository);
-            authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+//    @Bean
+//    SecurityFilterChain configure(HttpSecurity http) throws Exception {
+//
+//        // configurando a permissao dos caminhos
+//        return http
+//                .authorizeHttpRequests( auth -> {
+//                    auth.requestMatchers("/").permitAll();
+//                    auth.anyRequest().authenticated();
+//                })  // configurando os metodos de login, utilizando o resource server
+//                .oauth2Login(withDefaults())
+//                //.oauth2Client(withDefaults())
+//                .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
+//                //.formLogin(withDefaults())
+//                .build();
+//    }
 
 
-            return authorizedClientManager;
-        }
+
+//    @Bean
+//    public OAuth2AuthorizedClientManager authorizedClientManager(
+//        ClientRegistrationRepository clientRegistrationRepository,
+//        OAuth2AuthorizedClientRepository authorizedClientRepository) {
+//
+//            OAuth2AuthorizedClientProvider authorizedClientProvider =
+//                    OAuth2AuthorizedClientProviderBuilder.builder()
+//                            .authorizationCode()
+//                            .refreshToken()
+//                            .clientCredentials()
+//                            .password()
+//                            .provider(new JwtBearerOAuth2AuthorizedClientProvider())
+//                            .build();
+//
+//            DefaultOAuth2AuthorizedClientManager authorizedClientManager =
+//                    new DefaultOAuth2AuthorizedClientManager(
+//                            clientRegistrationRepository, authorizedClientRepository);
+//            authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+//
+//
+//            return authorizedClientManager;
+//        }
 
 
 
