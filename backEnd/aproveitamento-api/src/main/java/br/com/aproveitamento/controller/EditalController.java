@@ -43,12 +43,12 @@ public class EditalController {
 	
 	@PostMapping
 	public ResponseEntity<Edital> create(@RequestBody @NotNull Edital edital){
-        return ResponseEntity.status(HttpStatus.CREATED).body(editalService.UpdateOrCreate(edital));
+        return ResponseEntity.status(HttpStatus.CREATED).body(editalService.updateOrCreate(edital));
 	}
 		
 	@PutMapping
 	public ResponseEntity<Edital> update(@RequestBody @Valid Edital edital){
-		return ResponseEntity.status(HttpStatus.CREATED).body(editalService.UpdateOrCreate(edital));
+		return ResponseEntity.status(HttpStatus.CREATED).body(editalService.updateOrCreate(edital));
 	}
 	
 	@DeleteMapping("/{id}")

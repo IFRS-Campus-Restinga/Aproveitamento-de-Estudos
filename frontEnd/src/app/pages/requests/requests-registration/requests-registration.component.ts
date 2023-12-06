@@ -42,6 +42,7 @@ export class RequestsRegistrationComponent implements OnInit {
   maxFileCount: number = 5;
   selectedFileCount: number = 0;
   maxFileSizeInBytes: number = 10 * 1024 * 1024;
+  isEditMode: boolean = false;
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private route: ActivatedRoute,
@@ -57,6 +58,7 @@ export class RequestsRegistrationComponent implements OnInit {
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
 
     if (requisicao) {
+      this.isEditMode = true;
       this.tipoSolicitacao = requisicao.tipo;
       this.getDisciplina(requisicao.disciplina_id);
     } else {
@@ -83,7 +85,7 @@ export class RequestsRegistrationComponent implements OnInit {
       analises: this.formBuilder.array(this.retriveAnalysis(requisicao)),
       aluno_id: [requisicao.aluno_id],
       edital_id: [requisicao.edital_id],
-      disciplina_id: [requisicao.disciplina_id, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      disciplina_id: [requisicao.disciplina_id, [Validators.required]],
     });
 
     this.form.get('tipoSolicitacao')?.valueChanges.subscribe(() => {
@@ -107,7 +109,7 @@ export class RequestsRegistrationComponent implements OnInit {
       return [];
     } else {
       return [
-        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]{6,120}$/),
+        Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
         Validators.minLength(6),Validators.maxLength(120)
       ];
     }
@@ -118,7 +120,8 @@ export class RequestsRegistrationComponent implements OnInit {
       return [];
     } else {
       return [
-        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]{6,120}$/)
+        Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+        Validators.minLength(6),Validators.maxLength(120)
       ];
     }
   }
@@ -128,7 +131,7 @@ export class RequestsRegistrationComponent implements OnInit {
       return [];
     } else {
       return [
-        Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ.,0-9\s]*$/)
+        Validators.pattern(/^([0-9]|10|10\.0|10\.00|[1-9]\.[0-9])$/)
       ];
     }
   }
@@ -138,7 +141,7 @@ export class RequestsRegistrationComponent implements OnInit {
       return [];
     } else {
       return [
-        Validators.pattern(/^(?:[0-9]|[1-9][0-9]{1,2}|1000)$/)
+        Validators.pattern(/^(?:[1-9]\d{0,2}|1000)$/)
       ];
     }
   }
@@ -152,7 +155,7 @@ export class RequestsRegistrationComponent implements OnInit {
       experienciasAnteriores:'',
       dataAgendamentoProva: '',
       notaDaProva: 0,
-      diciplinaCursaAnteriormente: 0,
+      diciplinaCursaAnteriormente: '',
       notaObtida: 0,
       cargaHoraria: 0,
       analises: [{id: '', status: '', parecer: '', servidor: '0', requisicao: 0}],
@@ -241,10 +244,10 @@ export class RequestsRegistrationComponent implements OnInit {
   submitForm() {
     if (this.form.valid) {
       const formData: FormData = new FormData();
-  
+
       Object.keys(this.form.value).forEach(chave => {
         const valor = this.form.value[chave];
-  
+
         if (chave === 'analises') {
           valor.forEach((analise: any) => {
             Object.keys(analise).forEach(chaveAnalise => {
@@ -255,11 +258,11 @@ export class RequestsRegistrationComponent implements OnInit {
           formData.append(chave, valor);
         }
       });
-  
+
       this.files.forEach((arquivo: File) => {
         formData.append('files', arquivo, arquivo.name);
       });
-  
+
       this.requisicaoService.create(formData).subscribe(
         (resultado) => {
           alert("Salvo com sucesso");
@@ -361,6 +364,28 @@ export class RequestsRegistrationComponent implements OnInit {
 
   isTipoSolicitacaoSelected(): boolean {
     return this.form.get('tipoSolicitacao')?.touched || this.form.get('tipoSolicitacao')?.value !== '';
+  }
+
+  isInvalidFiles(parameter: 'size' | 'qtd' | 'qtdMin'): boolean {
+    let totalFileSize = 0;
+
+    for (const file of this.files) {
+      totalFileSize += file.size;
+    }
+
+    if (parameter === 'qtd') {
+      return this.files.length > this.maxFileCount;
+    } else if (parameter === 'size') {
+      return totalFileSize > this.maxFileSizeInBytes;
+    } else if (parameter === 'qtdMin') {
+      return this.files.length < 1;
+    } else {
+      return true;
+    }
+  }
+
+  isEdit(){
+    return this.isEditMode;
   }
 
 }

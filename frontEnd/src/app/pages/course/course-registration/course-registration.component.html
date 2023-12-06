@@ -19,7 +19,7 @@
       <input type="text" id="coordenadores" formControlName="coordenadores" placeholder="Nome"
         [ngClass]="{'valid-input': !isValid('coordenadores'), 'invalid-input': isValid('coordenadores')}" required>
     </div> -->
-    
+
     <div class="form-group" *ngIf="exibeCoordenadores && listCoordenadores.length > 0">
       <label for="coordenador">Coordenador</label>
       <select id="coordenador_id" formControlName="coordenador_id" (ngModelChange)="coordenadoresChange()" required>

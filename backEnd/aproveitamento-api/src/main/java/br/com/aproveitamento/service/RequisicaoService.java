@@ -184,7 +184,7 @@ public class RequisicaoService {
 														experienciasAnteriores, 
 														convertDate(dataAgendamentoProva), 
 														convertDouble(notaDaProva), 
-														convertInteger(diciplinaCursaAnteriormente), 
+														diciplinaCursaAnteriormente, 
 														convertDouble(notaObtida), 
 														convertInteger(cargaHoraria), 
 														new ArrayList<Analise>(), 

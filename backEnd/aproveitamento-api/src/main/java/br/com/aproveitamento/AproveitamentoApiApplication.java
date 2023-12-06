@@ -121,8 +121,8 @@ public class AproveitamentoApiApplication {
 			cursoRepository.save(curso1);
 			cursoRepository.save(curso2);
 
-			Edital edital = new Edital("5001", new Date(), new Date());
-			Edital edital2 = new Edital("5001", new Date(), new Date());
+			Edital edital = new Edital("5001522", new Date(), new Date());
+			Edital edital2 = new Edital("5001654", new Date(), new Date());
 
 			editalRepository.save(edital);
 			editalRepository.save(edital2);
@@ -183,24 +183,24 @@ public class AproveitamentoApiApplication {
 			Requisicao requisicao1 = new Requisicao(RequisicaoTipo.APROVEITAMENTO, RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					null, null, 0.00,
-					2, 8.00, 80,
+					"Corte e costura", 8.00, 80,
 					aluno1, edital, disciplina1);
 			Requisicao requisicao2 = new Requisicao(RequisicaoTipo.CERTIFICACAO, RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					"Prog II", new Date(), 0.00,
-					0, 0.00, 0,
+					"Funilaria", 0.00, 0,
 					aluno1, edital, disciplina2);
 
 			Requisicao requisicao3 = new Requisicao(RequisicaoTipo.APROVEITAMENTO, RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					null, null, 0.00,
-					3, 9.00, 80,
+					"Jardinagem", 9.00, 80,
 					aluno2, edital, disciplina3);
 
 			Requisicao requisicao4 = new Requisicao(RequisicaoTipo.CERTIFICACAO, RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
 					"Portugues", new Date(), 0.00,
-					0, 0.00, 0,
+					"Música", 0.00, 0,
 					aluno2, edital, disciplina4);
 
 			requisicaoRepository.save(requisicao1);

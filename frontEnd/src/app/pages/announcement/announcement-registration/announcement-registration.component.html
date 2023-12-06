@@ -4,7 +4,13 @@
 
     <div class="form-group">
       <label for="numero">Número do edital</label>
+      <ng-container *ngIf="isEdit()">
       <input type="text" id="numero" formControlName="numero" placeholder="" (blur)="convertNumeroToUpperCase()" />
+    </ng-container>
+      <ng-container *ngIf="!isEdit()">
+        <input type="text" name="numero" id="numero" formControlName="numero" readonly />
+      </ng-container>
+
       <span class="alert" *ngIf="form.get('numero')?.hasError('required') && form.get('numero')?.touched">
         Este campo é obrigatório.
       </span>
@@ -23,12 +29,12 @@
       <div class="form-group">
         <label for="coordenador">Data Início</label>
         <input type="date" id="dataInicio" formControlName="dataInicio"
-          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}" />
+          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}"[min]="minDate" [max]="maxDate" />
        </div>
       <div class="form-group">
         <label for="coordenador">Data Fim</label>
         <input type="date" id="dataFim" formControlName="dataFim"
-          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}" />
+          [ngClass]="{'valid-input': validarDataFinalPosterior(), 'invalid-input': !validarDataFinalPosterior()}" [min]="minDate" [max]="maxDate"/>
       </div>
     </div>
     <span class="alert" *ngIf="form.get('dataInicio')?.dirty && form.get('dataFim')?.dirty && !validarDataFinalPosterior()">
@@ -74,10 +80,9 @@
                 <td>
                   <label for="coordenador">Data Início</label>
                   <input type="date" id="dataInicio" formControlName="dataInicio"
-                    [ngClass]="{
-                      'valid-input': form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && validarEtapaDataFinalPosterior(i),
-                      'invalid-input': !validarEtapaDataFinalPosterior(i)
-                    }" />
+                  [ngClass]="{
+                    'valid-input': form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && validarEtapaDataFinalPosterior(i),
+                    'invalid-input': !validarEtapaDataFinalPosterior(i)}" [min]="minDate" [max]="maxDate" />
                   <span class="alert" *ngIf="form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && !validarEtapaDataFinalPosterior(i)">
                     Data de início precisa ser anterior à final!
                   </span>
@@ -88,25 +93,47 @@
                     [ngClass]="{
                       'valid-input': form.get('etapas.' + i + '.dataInicio')?.dirty && form.get('etapas.' + i + '.dataFim')?.dirty && validarEtapaDataFinalPosterior(i),
                       'invalid-input': !validarEtapaDataFinalPosterior(i)
-                    }" />
+                    }"[min]="minDate" [max]="maxDate" />
                 </td>
                 <td>
                   <button class="btn-alert add-step" (click)="removeSteps(i)">
                     Remove
                   </button>
                 </td>
-              </tr>
+              </tr><br>
+                <span class="alert" *ngIf="form.get('etapas.' + i + '.dataInicio')?.dirty 
+                && form.get('etapas.' + i + '.dataFim')?.dirty && !isAtorValid(i)">
+                  Algum "Ator" não foi selecionado!
+                </span>
             </div>
           </table>
       </div>
       <div class="btn-submit-container">
         <button type="submit" class="btn-register" (click)=submitForm()
-        [ngClass]="{'btn-green': isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas(),
-                    'btn-gray': !(isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas())}"
-        [disabled]="!(isNumeroValid() && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas())">Enviar</button>
+        [ngClass]="{'btn-green': form.valid && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() 
+                    && todasEtapasComDatasValidas() && validarEtapasDentroDoPeriodo(form) && validarEtapasSemSobreposicao(form) && haEtapas(form),
+                    'btn-gray': !(form.valid && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() 
+                    && todasEtapasComDatasValidas() && validarEtapasDentroDoPeriodo(form) && validarEtapasSemSobreposicao(form) && haEtapas(form))}"
+        [disabled]="!(form.valid && isNomeValid() && todosAtoresValid() && validarDataFinalPosterior() && todasEtapasComDatasValidas()
+                    && validarEtapasDentroDoPeriodo(form) && validarEtapasSemSobreposicao(form) && haEtapas(form))">Salvar</button>
       </div>
     </form>
     <span class="alert" *ngIf="!todosAtoresValid()">
       Algum "Ator" não foi selecionado!
+    </span>
+    <span class="alert" *ngIf="!todosDescricaoValid()">
+      Alguma "Descrição" não foi preenchida!
+    </span>
+    <span class="alert" *ngIf="!todosDatasValid()">
+      Alguma "Data" não foi selecionada ou é inválida!
+    </span>
+    <span class="alert" *ngIf="!validarEtapasDentroDoPeriodo(form)">
+      Há Etapa fora do período do Edital!
+    </span>
+    <span class="alert" *ngIf="!validarEtapasSemSobreposicao(form)">
+      Conflito temporal! Uma etapa só pode iniciar após o fim de outra.
+    </span>
+    <span class="alert" *ngIf="!haEtapas(form) && validarDataFinalPosterior()">
+      Obrigatório inserir Etapa(s).
     </span>
 </div>
