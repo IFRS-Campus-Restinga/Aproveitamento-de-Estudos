@@ -12,6 +12,10 @@ import { EditalService } from 'src/app/services/edital.service';
 })
 export class AnnouncementRegistrationComponent implements OnInit {
 
+  anoCorrente: number = new Date().getFullYear();
+  minDate: string = `${this.anoCorrente}-01-01`;
+  maxDate: string = `${this.anoCorrente}-12-31`;
+
   minLengthValue: number = 0;
   maxLengthValue: number = 0;
 
@@ -24,6 +28,8 @@ export class AnnouncementRegistrationComponent implements OnInit {
     {ator: "SERVIDOR"}
   ];
 
+  isEditMode: boolean = false;
+
   constructor(private formBuilder: NonNullableFormBuilder,
     private route: ActivatedRoute,
     private editalService: EditalService,
@@ -34,6 +40,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
     let edital: Edital = this.route.snapshot.data['edital'];
 
     if (!edital) {
+      this.isEditMode = true;
       edital = {
         id: '',
         numero: '',
@@ -45,7 +52,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       id: [edital.id],
-      numero: [edital.numero, [Validators.required, Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]{6,35}$')]],
+      numero: [edital.numero, [Validators.required, Validators.pattern('^(?!.*(?:\s{2}|/.*\/))[a-zA-Z0-9À-ÖØ-ÿ\s/]{6,35}$')]],
       dataInicio: [this.toDate(edital.dataInicio), Validators.required],
       dataFim: [this.toDate(edital.dataFim), [Validators.required]],
       etapas: this.formBuilder.array(this.retriveSteps(edital))
@@ -68,6 +75,14 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
   submitForm() {
     if (this.form.valid) {
+      const dataInicioValue = this.form.get('dataInicio')?.value;
+      const dataFimValue = this.form.get('dataFim')?.value;
+      if (dataInicioValue && dataFimValue) {
+        this.form.patchValue({
+          dataInicio: this.addDayToDate(dataInicioValue),
+          dataFim: this.addDayToDate(dataFimValue)
+        })
+
       this.editalService.save(this.form.value)
         .subscribe(result => {
           alert("Salvo com sucesso");
@@ -77,7 +92,9 @@ export class AnnouncementRegistrationComponent implements OnInit {
     } else {
       alert("Preencha todos os campos");
     }
+    this.router.navigate(['/announcement']);
   }
+}
 
   private createSteps(etapa: Etapa = { id: '', nome: '', ator: '', dataInicio: '0', dataFim: '0' }) {
     return this.formBuilder.group({
@@ -86,7 +103,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
         etapa.nome,
         [
           Validators.required,
-          Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ0-9. ]{6,240}$'),
+          Validators.pattern(/^[^<>;'"`\\]{6,240}$/),
           this.customNomeValidator(6, 240),
         ],
       ],
@@ -101,14 +118,19 @@ export class AnnouncementRegistrationComponent implements OnInit {
   }
 
   private retriveSteps(edital: any) {
-    const etapas = [];
-    if (edital?.etapas) {
-      edital.etapas.forEach((etapa: any) => etapas.push(this.createSteps(etapa)));
-    } else {
-      etapas.push(this.createSteps());
-    }
-    return etapas;
+  const etapas = [];
+  if (edital?.etapas) {
+    edital.etapas.forEach((etapa: any) => {
+      etapa.dataInicio = this.addDayToDate(new Date(etapa.dataInicio));
+      etapa.dataFim = this.addDayToDate(new Date(etapa.dataFim));
+      etapas.push(this.createSteps(etapa));
+    });
+  } else {
+    etapas.push(this.createSteps());
   }
+  return etapas;
+}
+
 
   removeSteps(i: number) {
     const steps = this.form.get('etapas') as UntypedFormArray;
@@ -136,7 +158,6 @@ export class AnnouncementRegistrationComponent implements OnInit {
   isNomeValid(): boolean {
     const etapasArray = this.form.get('etapas') as FormArray;
     let allValid = true;
-
     etapasArray.controls.forEach((control: AbstractControl) => {
       const nomeControl = control.get('nome');
       if (nomeControl && !nomeControl.valid) {
@@ -161,18 +182,15 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
   isAtorValid(i: number): boolean {
     const etapa = (this.form.get('etapas') as FormArray).at(i);
-
     if (etapa) {
       const atorControl = etapa.get('ator');
       return atorControl ? atorControl.valid : false;
     }
-
     return false;
   }
 
   validarEtapaDataFinalPosterior(i: number): boolean {
     const etapa = (this.form.get('etapas') as FormArray).at(i);
-
     if (etapa) {
       const dataInicio = new Date(etapa.get('dataInicio')?.value);
       const dataFim = new Date(etapa.get('dataFim')?.value);
@@ -187,17 +205,18 @@ export class AnnouncementRegistrationComponent implements OnInit {
 
   toDate(dateString: string): string {
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
     const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
 
   private customNumberValidator(minLength: number, maxLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: string = control.value;
       const isValidLength = value && value.length >= minLength && value.length <= maxLength;
-      const patternValidator = Validators.pattern('^[a-zA-Z0-9À-ÖØ-\\s]*$')(control);
+      const patternValidator = Validators.pattern('^(?!.*(?:\s{2}|/.*\/))[a-zA-Z0-9À-ÖØ-ÿ\s/]{6,35}$')(control);
       if (!isValidLength) {
         if (value && value.length < minLength) {
           return { 'minLengthError': true };
@@ -216,7 +235,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: string = control.value;
       const isValidLength = value && value.length >= minLength && value.length <= maxLength;
-      const patternValidator = Validators.pattern('^[a-zA-ZÀ-ÖØ-öø-ÿ0-9. ]*$')(control);
+      const patternValidator = Validators.pattern(/^[^<>;'"`\\]{6,240}$/)(control);
       if (!isValidLength) {
         if (value && value.length < minLength) {
           return { 'minLengthNomeError': true };
@@ -242,6 +261,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
         nomeControl.updateValueAndValidity();
       }
     });
+
   }
 
   todasEtapasComDatasValidas(): boolean {
@@ -272,4 +292,87 @@ export class AnnouncementRegistrationComponent implements OnInit {
     }
     return true;
   }
+
+  todosDescricaoValid(): boolean {
+    const etapasArray = this.form.get('etapas') as FormArray;
+    for (let i = 0; i < etapasArray.length; i++) {
+      const etapa = etapasArray.at(i);
+      if (etapa) {
+        const descricaoControl = etapa.get('nome');
+        if (descricaoControl && !descricaoControl.valid) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  todosDatasValid(): boolean {
+    const etapasArray = this.form.get('etapas') as FormArray;
+    for (let i = 0; i < etapasArray.length; i++) {
+      const etapa = etapasArray.at(i);
+      if (etapa) {
+        const dataInicio = new Date(etapa.get('dataInicio')?.value);
+        const dataFim = new Date(etapa.get('dataFim')?.value);
+        if (!(dataInicio < dataFim)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  isEdit(){
+    return this.isEditMode;
+  }
+
+  addDayToDate(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1);
+    return newDate;
+  }
+
+  validarEtapasDentroDoPeriodo(formGroup: FormGroup): boolean {
+    const dataInicioEdital = new Date(formGroup.get('dataInicio')?.value);
+    const dataFimEdital = new Date(formGroup.get('dataFim')?.value);
+    const etapasArray = formGroup.get('etapas') as FormArray;
+    for (let i = 0; i < etapasArray.length; i++) {
+      const etapa = etapasArray.at(i) as FormGroup;
+      const dataInicioEtapa = new Date(etapa.get('dataInicio')?.value);
+      const dataFimEtapa = new Date(etapa.get('dataFim')?.value);
+      if (dataInicioEtapa < dataInicioEdital) {
+        return false;
+      }
+      if (dataFimEtapa > dataFimEdital) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  validarEtapasSemSobreposicao(formGroup: FormGroup): boolean {
+    const etapasArray = formGroup.get('etapas') as FormArray;
+    const etapasOrdenadas = etapasArray.controls.slice().sort((a, b) => {
+      const dataInicioA = new Date((a as FormGroup).get('dataInicio')?.value).getTime();
+      const dataInicioB = new Date((b as FormGroup).get('dataInicio')?.value).getTime();
+      return dataInicioA - dataInicioB;
+    });
+  
+    for (let i = 0; i < etapasOrdenadas.length - 1; i++) {
+      const etapaAtual = etapasOrdenadas[i] as FormGroup;
+      const etapaSeguinte = etapasOrdenadas[i + 1] as FormGroup;
+      const dataFimEtapaAtual = new Date(etapaAtual.get('dataFim')?.value);
+      const dataInicioEtapaSeguinte = new Date(etapaSeguinte.get('dataInicio')?.value);
+      if (dataInicioEtapaSeguinte <= dataFimEtapaAtual) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  haEtapas(formGroup: FormGroup): boolean {
+    const etapasArray = formGroup.get('etapas') as FormArray;
+    return etapasArray.length > 0;
+  }
+
 }

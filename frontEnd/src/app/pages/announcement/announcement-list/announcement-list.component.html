@@ -23,8 +23,8 @@
         <tr *ngFor="let edital of  editalList">
           <td>{{edital.id}}</td>
           <td>{{edital.numero}}</td>
-          <td>{{toDate(edital.dataInicio)}}</td>
-          <td>{{toDate(edital.dataFim)}}</td>
+          <td>{{edital.dataInicio | date:'dd/MM/yyyy'}}</td>
+          <td>{{edital.dataFim | date:'dd/MM/yyyy'}}</td>
           <td style="width: 28%;">
             <button type="button" class="btn-register-edital" (click)=onEdit(edital)>Editar</button>
             <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(edital)>Excluir</button>
