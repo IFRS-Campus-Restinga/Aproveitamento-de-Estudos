@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.dto.DisciplinaDTO;
-
+import br.com.aproveitamento.model.Curso;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.model.PPC;
+import br.com.aproveitamento.repository.CursoRepository;
 import br.com.aproveitamento.repository.DisciplinaRepository;
 import br.com.aproveitamento.repository.PPCRepository;
 import jakarta.validation.Valid;
@@ -24,11 +25,13 @@ public class DisciplinaService {
 
     private DisciplinaRepository disciplinaRepository;
     private PPCRepository ppcRepository;
+    private CursoRepository cursoRepository;
 
-    public DisciplinaService(DisciplinaRepository disciplinaRepository, PPCRepository ppcRepository) {
+    public DisciplinaService(DisciplinaRepository disciplinaRepository, PPCRepository ppcRepository, CursoRepository cursoRepository) {
         super();
         this.disciplinaRepository = disciplinaRepository;
         this.ppcRepository = ppcRepository;
+        this.cursoRepository = cursoRepository;
     }
 
     public List<DisciplinaDTO> list() {
@@ -90,6 +93,7 @@ public class DisciplinaService {
     }
 
     public Disciplina createOrUpdateDisciplina(@Valid @NotNull DisciplinaDTO disciplinaRequest) {
+
         Disciplina disciplina = obterDisciplinaParaAtualizar(disciplinaRequest.id());
         // Adicionando validações
         validarNomeDisciplina(disciplinaRequest.nome());
@@ -112,6 +116,7 @@ public class DisciplinaService {
         disciplina.setCodDisciplina(disciplinaRequest.codDisciplina());
         disciplina.setCargaHoraria(disciplinaRequest.cargaHoraria());
         disciplina.setPpc(ppc);
+
 
         return disciplinaRepository.save(disciplina);
     }

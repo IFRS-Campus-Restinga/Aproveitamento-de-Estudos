@@ -29,6 +29,10 @@
             <span class="alert" *ngIf=" check('email', 'maxLength') ">
                 Máximo 50 caracteres!
             </span>
+            <span class="alert" *ngIf=" check('email', 'status') && !formData.get('email')?.touched && 
+                  !check('email', 'minLength') && !formData.get('email')?.hasError('required')">
+                  Contém caracter inválido! Use somente letras e números.
+                </span>
         </div>
 
         <div class="form-half-grid">
@@ -48,7 +52,7 @@
 
             <div class="form-group">
                 <label for="tipo">Cargo</label>
-                <select id="tipo" formControlName="tipo" placeholder=""required [class.invalid]="!isTipoValid()">
+                <select id="tipo" formControlName="tipo" placeholder=""required>
                 <option value="" [disabled]="isTipoSolicitacaoSelected()">Selecione um cargo</option>
                 <option *ngFor="let userType of userTypes" [value]="userType">{{ userType }}</option>
                 </select>
@@ -58,5 +62,8 @@
             <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid && isTipoValid(),
             'btn-gray': !formData.valid || !isTipoValid() }" [disabled]="!formData.valid || !isTipoValid()">Enviar</button>
         </div>
+        <span class="alert" *ngIf="formData.get('tipo')?.hasError('required')">
+            É necessário escolher um cargo.
+        </span>
     </form>
   </div>
