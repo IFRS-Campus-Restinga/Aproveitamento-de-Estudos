@@ -59,8 +59,8 @@
     </div>
 
     <div class="form-group">
-      <label for="cargaHoraria">Carga Horária</label>
-      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Número em horas" required min="10" max="88" pattern="[1-9][0-9]*">
+      <label for="cargaHoraria">Carga Horária (Horas Relógio)</label>
+      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Número em horas (horas relógio)" required min="10" max="88" pattern="[1-9][0-9]*">
         <span class="alert" *ngIf="formData.get('cargaHoraria')?.hasError('required') && formData.get('cargaHoraria')?.touched">
           Este campo é obrigatório.
         </span>
