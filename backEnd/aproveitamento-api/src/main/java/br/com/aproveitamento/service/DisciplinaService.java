@@ -33,11 +33,11 @@ public class DisciplinaService {
 
     public List<DisciplinaDTO> list() {
         ArrayList<DisciplinaDTO> discilinasDTO = new ArrayList<DisciplinaDTO>();
-		for(Disciplina disciplina: disciplinaRepository.findAll()){
-			DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina.getId(), disciplina.getNome(), disciplina.getCodDisciplina(), disciplina.getCargaHoraria(), disciplina.getPpc().getId(), disciplina.getPpc().getCurso().getId());
-			discilinasDTO.add(disciplinaDTO);
-		}
-		return discilinasDTO;
+		    for(Disciplina disciplina: disciplinaRepository.findAll()){
+			      DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina.getId(), disciplina.getNome(), disciplina.getCodDisciplina(), disciplina.getCargaHoraria(), disciplina.getPpc().getId(), disciplina.getPpc().getCurso().getId());
+			      discilinasDTO.add(disciplinaDTO);
+		    }
+		    return discilinasDTO;
     }
 
     public DisciplinaDTO findById(@NotNull @Positive Long id) {
@@ -115,9 +115,10 @@ public class DisciplinaService {
 
         return disciplinaRepository.save(disciplina);
     }
+  
     private Disciplina obterDisciplinaParaAtualizar(Long id) {
-		return id != null ? disciplinaRepository.findById(id).orElseGet(Disciplina::new) : new Disciplina();
-	}
+		  return id != null ? disciplinaRepository.findById(id).orElseGet(Disciplina::new) : new Disciplina();
+	  }
     // Métodos de validação
 
     private String validarNomeDisciplina(String nome) {

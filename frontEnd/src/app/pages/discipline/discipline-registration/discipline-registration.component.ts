@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NonNullableFormBuilder, ValidatorFn} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Disciplina } from 'src/app/model/Disciplina';
 import { Ppc } from 'src/app/model/Ppc';
@@ -21,6 +21,8 @@ export class DisciplineRegistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: string, ppcs: any[]}> = [{ curso: 'Selecione o curso', id: '', ppcs: [] }];
   public listPpcs: Array<{ id: number, nomePPC: string, ano: number}> = [{id: 0, nomePPC: 'Selecione o curso', ano: 0}];
 
+  isEditMode: boolean = false;
+
   constructor(private cursoService: CursoService, 
     private route: ActivatedRoute, 
     private ppcService: PpcService, 
@@ -32,6 +34,7 @@ export class DisciplineRegistrationComponent implements OnInit {
   ngOnInit(): void {
     let disciplina: Disciplina = this.route.snapshot.data['disciplina'];
     if(!disciplina){
+      this.isEditMode = true;
       disciplina = {
         id: '',
         nome: '',
@@ -193,6 +196,10 @@ export class DisciplineRegistrationComponent implements OnInit {
 
   isValid(controlName: string) {
     return this.formData.get(controlName)?.valid;
+  }
+
+  isEdit(){
+    return this.isEditMode;
   }
 
 }
