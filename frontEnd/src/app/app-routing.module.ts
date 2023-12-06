@@ -21,6 +21,7 @@ import { StudentResolver } from './pages/student/guards/student-registration.res
 import { CourseResolver } from './pages/course/guards/course.resolver';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
+import { PpcResolver } from './pages/ppc/guards/ppc-registration.resolver';
 
 const routes: Routes = [
   {
@@ -118,6 +119,11 @@ const routes: Routes = [
     path: 'ppc',
     component: PpcListComponent
   },
+  {
+    path: 'ppc/edit/:id',
+    component: PpcRegistrationComponent,
+    resolve:{curso : PpcResolver}
+  }
 
 ];
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.PpcCreateDTO;
 import br.com.aproveitamento.dto.PpcDTO;
 import br.com.aproveitamento.model.PPC;
 import br.com.aproveitamento.service.PPCService;
@@ -62,5 +63,12 @@ public class PPCController {
     public void delete(@PathVariable @NotNull @Positive Long id) {
         ppcService.delete(id);
     }
+
+    // -----------------------------------------
+    @PostMapping("/ppc")
+    public ResponseEntity<PPC> createPpc(@RequestBody @NotNull @Valid PpcCreateDTO ppc2) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createPpc(ppc2));
+    }
+    // -----------------------------------------
 
 }

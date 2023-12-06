@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import br.com.aproveitamento.dto.PpcCreateDTO;
 import br.com.aproveitamento.dto.PpcDTO;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.model.PPC;
@@ -99,4 +100,30 @@ public class PPCService {
             ppcRepository.save(d);
             return d;
     }
+
+    //---------------------------------------------------------------------
+    public PPC createPpc(@Valid @NotNull PpcCreateDTO ppcRequest) {
+        PPC p1 = null;
+    
+        if (ppcRequest.id() != null || !ppcRequest.id().equals("")) {
+            Optional<PPC> p = ppcRepository.findById(Long.parseLong(ppcRequest.id()));
+            if (!p.isPresent()) {
+                p1 = new PPC();
+            } else {
+                p1 = p.get();
+            }
+        }
+        PPC ppc = p1;
+        ppc.setCurso(ppcRequest.curso());
+        ppc.setNomePPC(ppcRequest.nomePCC());
+        ppc.setAno(ppcRequest.ano());
+    
+        return ppcRepository.save(p1);
+    }
+
+    
+
+   
+    
+    //---------------------------------------------------------------------
 }

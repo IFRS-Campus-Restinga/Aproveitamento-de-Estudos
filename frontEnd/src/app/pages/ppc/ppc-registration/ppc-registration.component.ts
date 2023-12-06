@@ -28,7 +28,6 @@ export class PpcRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.loadCursos();
     let ppc: PpcCreate = this.route.snapshot.data['ppc'];
-    console.log(this.listCursos);
 
     if(!ppc) {
       ppc = {
@@ -36,15 +35,14 @@ export class PpcRegistrationComponent implements OnInit {
         curso: '',
         nomePPC: '',
         ano: 0,
-
       }
     }
 
     this.formData = this.formBuilder.group({
       ppc_id: [ppc.id],
+      curso: [ppc.curso.id],
       nomePPC: [ppc.nomePPC,],
       ano: [ppc.ano],
-      curso: [ppc.curso.id],
     });
   }
   //--------------------------------------------------
@@ -55,12 +53,12 @@ export class PpcRegistrationComponent implements OnInit {
 
       const ppc: PpcCreate = {
         id: form.get('ppc_id')?.value,
-        nomePPC: form.get('nomePPC')?.value,
-        ano: form.get('ano')?.value,
         curso: {
           id: selectedCursoId,
           nome: "",
         },
+        nomePPC: form.get('nomePPC')?.value,
+        ano: form.get('ano')?.value,
       };
 
       if (ppc) {
@@ -78,8 +76,6 @@ export class PpcRegistrationComponent implements OnInit {
   }
 
   //--------------------------------------------------
-
-
 
   isFormValid(): boolean {
     return this.formData.valid && this.isCursoValid();

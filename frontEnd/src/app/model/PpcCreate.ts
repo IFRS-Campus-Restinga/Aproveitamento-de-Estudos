@@ -1,7 +1,7 @@
 
 export interface PpcCreate {
   id: string;
-  curso: any;
+  curso?: any;
   nomePPC: string;
   ano: number;
 }
