@@ -2,6 +2,8 @@ package br.com.aproveitamento;
 
 import java.util.Date;
 
+import br.com.aproveitamento.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,21 +22,12 @@ import br.com.aproveitamento.model.Etapa;
 import br.com.aproveitamento.model.PPC;
 import br.com.aproveitamento.model.Professor;
 import br.com.aproveitamento.model.Requisicao;
-import br.com.aproveitamento.repository.AlunoRepository;
-import br.com.aproveitamento.repository.AnaliseRepository;
-import br.com.aproveitamento.repository.AnexoRepository;
-import br.com.aproveitamento.repository.CoordenadorRepository;
-import br.com.aproveitamento.repository.CursoRepository;
-import br.com.aproveitamento.repository.DisciplinaRepository;
-import br.com.aproveitamento.repository.EditalRepository;
-import br.com.aproveitamento.repository.EnsinoRepository;
-import br.com.aproveitamento.repository.EtapaRepository;
-import br.com.aproveitamento.repository.PPCRepository;
-import br.com.aproveitamento.repository.ProfessorRepository;
-import br.com.aproveitamento.repository.RequisicaoRepository;
 
 @SpringBootApplication
 public class AproveitamentoApiApplication {
+
+	@Autowired
+	RoleRepository roleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AproveitamentoApiApplication.class, args);

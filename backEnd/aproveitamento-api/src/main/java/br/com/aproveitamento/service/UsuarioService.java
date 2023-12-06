@@ -1,8 +1,19 @@
 package br.com.aproveitamento.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import br.com.aproveitamento.dto.CreateUsuarioDTO;
+import br.com.aproveitamento.dto.MessageDTO;
+import br.com.aproveitamento.enums.UsuarioTipo;
+import br.com.aproveitamento.model.Role;
+import br.com.aproveitamento.repository.RoleRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -12,16 +23,41 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@Validated
 @Service
+@Validated
+@RequiredArgsConstructor
+@Slf4j
 public class UsuarioService {
 
-	private UsuarioRepository usuarioRepository;
-	
-	public UsuarioService(UsuarioRepository usuarioRepository){
-		super();
-		this.usuarioRepository = usuarioRepository;
-	}
+	private final UsuarioRepository usuarioRepository;
+	private final RoleRepository roleRepository;
+	private final PasswordEncoder passwordEncoder;
+	public MessageDTO createUser(CreateUsuarioDTO dto){
+		Usuario usuario = Usuario.builder()
+				.username(dto.username())
+				.password(passwordEncoder.encode(dto.password()))
+				.build();
+		Set<Role> roles = new HashSet<>();
+
+		dto.roles().forEach(r -> {
+			Role role  = roleRepository.findByRole(UsuarioTipo.valueOf(r))
+					.orElseThrow(() -> new RuntimeException("Role not found | Função nao encontrada"));
+			roles.add(role);
+		});
+
+		usuario.setRoles(roles);
+		usuarioRepository.save(usuario);
+
+		return new MessageDTO("usuario " + usuario.getUsername() + " salvo");
+	};
+
+//	public UsuarioService(UsuarioRepository usuarioRepository, RoleRepository roleRepository){
+//		super();
+//		this.usuarioRepository = usuarioRepository;
+//		this.roleRepository = roleRepository;
+//	}
+
+
 	
 	public List<Usuario> list(){
 		return usuarioRepository.findAll();

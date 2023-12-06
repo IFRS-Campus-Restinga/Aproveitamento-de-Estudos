@@ -5,7 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import br.com.aproveitamento.model.Usuario;
 
+import java.util.Optional;
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+
+    Optional<Usuario> findByUsername (String username);
+
 
 }
