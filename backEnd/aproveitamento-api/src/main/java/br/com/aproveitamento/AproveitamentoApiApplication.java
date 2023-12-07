@@ -21,6 +21,9 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 //	rodar somente na hora da criação da base
 	@Autowired
 	RoleRepository roleRepository;
+	@Autowired
+	ClientRepository clientRepository;
+
 
 	@Autowired
 	PasswordEncoder passEncoder;
@@ -40,6 +43,24 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 		roleRepository.save(coordenatorRole);
 		roleRepository.save(professorRole);
 		roleRepository.save(userRole);
+
+		Set<String> authenticationsMethods = new HashSet<>();
+		authenticationsMethods.add("client_secret_basic");
+
+		Set<String> authenticationsGrantTypes = new HashSet<>();
+		authenticationsGrantTypes.add("authorization_code");
+		authenticationsGrantTypes.add("refresh_token");
+		authenticationsGrantTypes.add("client_credentials");
+
+		Set<String> redirectUris = new HashSet<>();
+		redirectUris.add("https://oauthdebugger.com/debug");
+
+		Set<String> scopes = new HashSet<>();
+		scopes.add("openid");
+
+		Client cliente = new Client("client", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
+
+		clientRepository.save(cliente);
 	}
 
 	@Bean

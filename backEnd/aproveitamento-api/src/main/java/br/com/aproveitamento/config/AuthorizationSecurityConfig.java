@@ -1,5 +1,6 @@
 package br.com.aproveitamento.config;
 
+import br.com.aproveitamento.service.ClientService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
@@ -56,6 +57,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class AuthorizationSecurityConfig {
 
     private final PasswordEncoder passwordEncoder;
+    private final ClientService clientService;
 
     @Bean
     @Order(1)
@@ -75,12 +77,12 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(2)
     public SecurityFilterChain webSecurityFilterChaain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests( auth -> auth.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+        httpSecurity.authorizeHttpRequests( auth -> auth.requestMatchers("/auth/**", "*/client/**").permitAll().anyRequest().authenticated())
                 .formLogin(withDefaults())
                 .oauth2Login(Customizer.withDefaults())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()));
 
-        httpSecurity.csrf().ignoringRequestMatchers("/auth/**");
+        httpSecurity.csrf().ignoringRequestMatchers("/auth/**", "*/client/**");
 
 
         return httpSecurity.build();
@@ -100,21 +102,21 @@ public class AuthorizationSecurityConfig {
 //
 //    }
 
-    @Bean
-    public RegisteredClientRepository registeredClientRepository () {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client")
-                .clientSecret(passwordEncoder.encode("secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://oauthdebugger.com/debug")
-                .scope(OidcScopes.OPENID)
-                .clientSettings(clientSettings())
-                .build();
-        return new InMemoryRegisteredClientRepository(registeredClient);
-    }
+//    @Bean
+//    public RegisteredClientRepository registeredClientRepository () {
+//        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//                .clientId("client")
+//                .clientSecret(passwordEncoder.encode("secret"))
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+//                .redirectUri("https://oauthdebugger.com/debug")
+//                .scope(OidcScopes.OPENID)
+//                .clientSettings(clientSettings())
+//                .build();
+//        return new InMemoryRegisteredClientRepository(registeredClient);
+//    }
 
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer (){
@@ -132,10 +134,10 @@ public class AuthorizationSecurityConfig {
         };
     }
 
-    @Bean
-    public ClientSettings clientSettings() {
-        return ClientSettings.builder().requireProofKey(true).build();
-    }
+//    @Bean
+//    public ClientSettings clientSettings() {
+//        return ClientSettings.builder().requireProofKey(true).build();
+//    }
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -11,9 +12,12 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 public class Client {
@@ -42,6 +46,47 @@ public class Client {
     private Set<String> scopes;
 
     private boolean requireProofKey;
+
+    public Client (String clientId,
+                   String clientSecret,
+                   String clientName,
+                   Set<String> clientAuthenticationMethodsSet,
+                   Set<String> authorizationGrantTypes,
+                   Set<String> redirectUris,
+                   Set<String> scopes,
+                   boolean requireProofKey){
+
+        this.clientName = clientName;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+
+        Set<ClientAuthenticationMethod> tempAuthMethod = new HashSet<>();
+
+        clientAuthenticationMethodsSet.forEach( r -> {
+            tempAuthMethod.add(new ClientAuthenticationMethod(r));
+        });
+
+        this.clientAuthenticationMethodsSet = tempAuthMethod;
+
+
+
+        Set<AuthorizationGrantType> tempAauthorizationGrantTypes = new HashSet<>();
+
+        authorizationGrantTypes.forEach( r -> {
+            tempAauthorizationGrantTypes.add(new AuthorizationGrantType(r));
+        });
+
+
+
+        this.authorizationGrantTypes = tempAauthorizationGrantTypes;
+
+        this.redirectUris = redirectUris;
+
+        this.scopes = scopes;
+
+        this.requireProofKey = requireProofKey;
+
+    }
 
     public static RegisteredClient toRegisteredClient(Client client){
         RegisteredClient.Builder builder = RegisteredClient.withId(client.getClientId())
