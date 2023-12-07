@@ -39,6 +39,11 @@ public class UsuarioService {
 				.build();
 		Set<Role> roles = new HashSet<>();
 
+		usuario.setEmail(dto.email());
+		usuario.setAdmin(dto.admin());
+		usuario.setNome(dto.nome());
+		usuario.setTipo(UsuarioTipo.COORDENADOR);
+
 		dto.roles().forEach(r -> {
 			Role role  = roleRepository.findByRole(UsuarioTipo.valueOf(r))
 					.orElseThrow(() -> new RuntimeException("Role not found | Função nao encontrada"));
