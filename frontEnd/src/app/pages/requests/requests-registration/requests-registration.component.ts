@@ -18,6 +18,8 @@ import { Disciplina } from 'src/app/model/Disciplina';
 export class RequestsRegistrationComponent implements OnInit {
   tipoSolicitacao: string = '';
   form!: FormGroup;
+  public idRequest: string = "0";
+  public isAddVisible: boolean = false;
 
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
       { tipoSolicitacao: 'CERTIFICACAO' },
@@ -58,6 +60,7 @@ export class RequestsRegistrationComponent implements OnInit {
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
 
     if (requisicao) {
+      this.idRequest = requisicao.id;
       this.isEditMode = true;
       this.tipoSolicitacao = requisicao.tipo;
       this.getDisciplina(requisicao.disciplina_id);
@@ -386,6 +389,24 @@ export class RequestsRegistrationComponent implements OnInit {
 
   isEdit(){
     return this.isEditMode;
+  }
+
+
+  viewAnalytics(){
+    alert("teste 1");
+  }
+
+  addAnalysis(){
+    this.isAddVisible = true;
+  }
+
+  handleConfirmation(confirmed: boolean) {
+    if (confirmed) {
+      alert('ok');
+    }else{
+      alert('ok');
+    }
+    this.isAddVisible = false;
   }
 
 }
