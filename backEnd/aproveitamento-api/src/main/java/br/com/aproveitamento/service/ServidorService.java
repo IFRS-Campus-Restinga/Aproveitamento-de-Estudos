@@ -53,7 +53,7 @@ public class ServidorService {
 	}
 
 	public Servidor createOrUpdateServidor(@Valid @NotNull ServidorDTO servidorRequest){
-
+		Servidor servidor = obterServidorParaAtualizar(servidorRequest.id());
 		Servidor s1 = null;
 		if (servidorRequest.id() != null) {
 			Optional<Servidor> s = servidorRepository.findById(servidorRequest.id());
@@ -63,17 +63,44 @@ public class ServidorService {
 				s1 = s.get();
 			}
 		}
-		Servidor servidor = s1;
+		//Servidor servidor = s1;
 
+		 // Verifique se o id não é nulo antes de chamar setId
 		servidor.setId(servidorRequest.id());
-		servidor.setNome(servidorRequest.nome());
-		servidor.setEmail(servidorRequest.email());
+		servidor.setNome(validarNome(servidorRequest.nome()));
+		servidor.setEmail(validarEmail(servidorRequest.email()));
 		servidor.setAdmin(servidorRequest.admin());
 		servidor.setTipo(servidorRequest.tipo());
-		servidor.setSiape(servidorRequest.siape());
+		servidor.setSiape(validarSiape(servidorRequest.siape()));
 		
 
 		servidorRepository.save(servidor);
 		return servidor;
 	}
+	private Servidor obterServidorParaAtualizar(Long id) {
+		return id != null ? servidorRepository.findById(id).orElseGet(Servidor::new) : new Servidor();
+	}
+	
+	
+	private String validarNome(String nome) {
+		if (nome == null || nome.trim().length() < 6 || nome.trim().length() > 120) {
+			throw new IllegalArgumentException("O nome deve ter entre 6 e 120 caracteres");
+		}
+		return nome.trim();
+	}
+	
+	private String validarEmail(String email) {
+		if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@restinga\\.ifrs\\.edu\\.br$") || email.length() > 50) {
+			throw new IllegalArgumentException("O email não atende aos critérios de validação");
+		}
+		return email;
+	}
+	
+	private String validarSiape(String siape) {
+		if (siape == null || !siape.matches("[0-9]{10}") || siape.length() != 10) {
+			throw new IllegalArgumentException("O SIAPE não atende aos critérios de validação");
+		}
+		return siape;
+	}
+
 }

@@ -56,7 +56,7 @@ public class Requisicao {
 	private double notaDaProva;
 	
 	@Column(nullable = true)
-	private int diciplinaCursaAnteriormente;
+	private String diciplinaCursaAnteriormente;
 	
 	@Column(nullable = true)
 	private double notaObtida;
@@ -88,7 +88,7 @@ public class Requisicao {
 
 	public Requisicao(@NotNull RequisicaoTipo tipo, @NotNull RequisicaoStatus status, Date dataCriacao,
 			String experienciasAnteriores, Date dataAgendamentoProva, double notaDaProva,
-			int diciplinaCursaAnteriormente, double notaObtida, int cargaHoraria, Aluno aluno, Edital edital, Disciplina disciplina) {
+			String diciplinaCursaAnteriormente, double notaObtida, int cargaHoraria, Aluno aluno, Edital edital, Disciplina disciplina) {
 		super();
 		this.tipo = tipo;
 		this.status = status;

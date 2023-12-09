@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import br.com.aproveitamento.model.Ensino;
 
 @Repository
-public interface EnsinoRepository extends JpaRepository<Ensino, Long>{
-
+public interface EnsinoRepository extends JpaRepository<Ensino, Long> {
 }

@@ -14,7 +14,7 @@ export class ServantListComponent {
   @Output() edit = new EventEmitter(false);
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
-  public confirmationMessage = 'Tem certeza que desja excluir este Servidor?';
+  public confirmationMessage = 'Tem certeza que deseja excluir este Servidor?';
   public termoPesquisa: string = '';
 
   constructor(private route: ActivatedRoute,

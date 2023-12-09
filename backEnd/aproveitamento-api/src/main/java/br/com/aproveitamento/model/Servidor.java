@@ -18,17 +18,24 @@ public class Servidor extends Usuario {
 
 	@Column(nullable = true)
 	private String siape;
-	
-	@OneToMany(mappedBy = "servidor", cascade = CascadeType.ALL,  orphanRemoval = true)
+
+	@OneToMany(mappedBy = "servidor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Analise> Analises = new ArrayList<>();
-	
+
 	public Servidor() {
 		super();
 	}
 
-	public Servidor(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo, String siape) {
+	public Servidor(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo,
+			String siape) {
 		super(nome, email, admin, tipo);
-		this.siape = siape;
+
+		try {
+			this.siape = siape;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

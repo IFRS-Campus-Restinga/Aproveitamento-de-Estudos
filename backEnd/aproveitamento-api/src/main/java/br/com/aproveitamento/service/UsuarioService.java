@@ -17,31 +17,39 @@ import jakarta.validation.constraints.Positive;
 public class UsuarioService {
 
 	private UsuarioRepository usuarioRepository;
-	
-	public UsuarioService(UsuarioRepository usuarioRepository){
+
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 		super();
 		this.usuarioRepository = usuarioRepository;
 	}
-	
-	public List<Usuario> list(){
+
+	public List<Usuario> list() {
 		return usuarioRepository.findAll();
 	}
-	
-	public Usuario findById(@NotNull @Positive Long id){
+
+	public Usuario findById(@NotNull @Positive Long id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		if(!usuario.isPresent()) return null;
+		if (!usuario.isPresent())
+			return null;
 		return usuario.get();
 	}
-	
-	public Usuario create(@Valid @NotNull Usuario usuario){
+
+	public Usuario create(@Valid @NotNull Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
-	
-	public Usuario update(@Valid Usuario usuario){
+
+	public Usuario update(@Valid Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
-	
-	public void delete(@NotNull @Positive Long id){
+
+	public void delete(@NotNull @Positive Long id) {
 		usuarioRepository.deleteById(id);
+	}
+
+	public Usuario findByEmail(@NotNull String email) {
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+		if (!usuario.isPresent())
+			return null;
+		return usuario.get();
 	}
 }

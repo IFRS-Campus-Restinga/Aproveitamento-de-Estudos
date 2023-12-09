@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.dto.DisciplinaDTO;
-
+import br.com.aproveitamento.model.Curso;
 import br.com.aproveitamento.model.Disciplina;
 import br.com.aproveitamento.model.PPC;
+import br.com.aproveitamento.repository.CursoRepository;
 import br.com.aproveitamento.repository.DisciplinaRepository;
 import br.com.aproveitamento.repository.PPCRepository;
 import jakarta.validation.Valid;
@@ -24,20 +25,22 @@ public class DisciplinaService {
 
     private DisciplinaRepository disciplinaRepository;
     private PPCRepository ppcRepository;
+    private CursoRepository cursoRepository;
 
-    public DisciplinaService(DisciplinaRepository disciplinaRepository, PPCRepository ppcRepository) {
+    public DisciplinaService(DisciplinaRepository disciplinaRepository, PPCRepository ppcRepository, CursoRepository cursoRepository) {
         super();
         this.disciplinaRepository = disciplinaRepository;
         this.ppcRepository = ppcRepository;
+        this.cursoRepository = cursoRepository;
     }
 
     public List<DisciplinaDTO> list() {
         ArrayList<DisciplinaDTO> discilinasDTO = new ArrayList<DisciplinaDTO>();
-		for(Disciplina disciplina: disciplinaRepository.findAll()){
-			DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina.getId(), disciplina.getNome(), disciplina.getCodDisciplina(), disciplina.getCargaHoraria(), disciplina.getPpc().getId(), disciplina.getPpc().getCurso().getId());
-			discilinasDTO.add(disciplinaDTO);
-		}
-		return discilinasDTO;
+		    for(Disciplina disciplina: disciplinaRepository.findAll()){
+			      DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina.getId(), disciplina.getNome(), disciplina.getCodDisciplina(), disciplina.getCargaHoraria(), disciplina.getPpc().getId(), disciplina.getPpc().getCurso().getId());
+			      discilinasDTO.add(disciplinaDTO);
+		    }
+		    return discilinasDTO;
     }
 
     public DisciplinaDTO findById(@NotNull @Positive Long id) {
@@ -87,6 +90,61 @@ public class DisciplinaService {
 
     public List<Disciplina> listAlternative() {
         return disciplinaRepository.findAll();
+    }
+
+    public Disciplina createOrUpdateDisciplina(@Valid @NotNull DisciplinaDTO disciplinaRequest) {
+
+        Disciplina disciplina = obterDisciplinaParaAtualizar(disciplinaRequest.id());
+        // Adicionando validações
+        validarNomeDisciplina(disciplinaRequest.nome());
+        validarCodDisciplina(disciplinaRequest.codDisciplina());
+        validarCargaHoraria(disciplinaRequest.cargaHoraria());
+
+        PPC ppc = ppcRepository.findById(disciplinaRequest.ppc_id()).orElseThrow(() -> new IllegalArgumentException("PPC não encontrado"));
+
+        Disciplina d1 = null;
+        if (disciplinaRequest.id() != null) {
+            Optional<Disciplina> d = disciplinaRepository.findById(disciplinaRequest.id());
+            if (d.isPresent()) {
+                d1 = d.get();
+            }
+        }
+
+        //Disciplina disciplina = (d1 != null) ? d1 : new Disciplina();
+        disciplina.setId(disciplinaRequest.id());
+        disciplina.setNome(disciplinaRequest.nome());
+        disciplina.setCodDisciplina(disciplinaRequest.codDisciplina());
+        disciplina.setCargaHoraria(disciplinaRequest.cargaHoraria());
+        disciplina.setPpc(ppc);
+
+
+        return disciplinaRepository.save(disciplina);
+    }
+  
+    private Disciplina obterDisciplinaParaAtualizar(Long id) {
+		  return id != null ? disciplinaRepository.findById(id).orElseGet(Disciplina::new) : new Disciplina();
+	  }
+    // Métodos de validação
+
+    private String validarNomeDisciplina(String nome) {
+        if (nome == null || nome.trim().length() < 6 || nome.trim().length() > 120) {
+            throw new IllegalArgumentException("O nome deve ter entre 6 e 120 caracteres");
+        }
+        return nome.trim();
+    }
+
+    private String validarCodDisciplina(String codDisciplina) {
+        if (codDisciplina == null || !codDisciplina.matches("^[A-Z]{3}-[A-Z]{3}[0-9]{3}$") || codDisciplina.length() != 10) {
+            throw new IllegalArgumentException("O código da disciplina não atende aos critérios de validação");
+        }
+        return codDisciplina;
+    }
+
+    private int validarCargaHoraria(int cargaHoraria) {
+        if (cargaHoraria < 10 || cargaHoraria > 88) {
+            throw new IllegalArgumentException("A carga horária deve estar entre 10 e 88 horas");
+        }
+        return cargaHoraria;
     }
 
 }

@@ -78,34 +78,7 @@ public class PPCService {
         ppcRepository.save(ppc);
         return ppc;
     }
-
-    public PPC UpdateOrCreate(@Valid @NotNull PPC ppc) {
-
-        PPC d = new PPC();
-        if (ppc.getId() != null) {
-            d.setId(ppc.getId());
-        }
-        d.setNomePPC(ppc.getNomePPC());
-        d.setAno(ppc.getAno());
-        
-         List<Disciplina> disciplinas = ppc.getDisciplinas().stream().map(ppcDisciplinas -> {
-         var disciplina = new Disciplina();
-         if(ppcDisciplinas.getId() != null){
-         disciplina.setId(ppcDisciplinas.getId());
-          }
-          disciplina.setNome(ppcDisciplinas.getNome());
-          disciplina.setCodDisciplina(ppcDisciplinas.getCodDisciplina());
-          disciplina.setCargaHoraria(ppcDisciplinas.getCargaHoraria());
-          //disciplina.setPpc(d);
-          return disciplina;
-          }).collect(Collectors.toList());
-         
-            d.setDisciplinas(disciplinas);
-       
-            ppcRepository.save(d);
-            return d;
-    }
-    
+  
     public PPC createPPC(@Valid @NotNull PpcCreateDTO ppcRequest) {
         PPC p1 = new PPC();
         Curso curso = new Curso();
@@ -137,22 +110,6 @@ public class PPCService {
         return ppc;
     }
     
-    public PPC updateOrCreate(@Valid @NotNull PPC ppc) {
-
-        PPC p = new PPC();
-        if (ppc.getId() != null) {
-            p.setId(ppc.getId());
-        }
-        p.setNomePPC(ppc.getNomePPC());
-        p.setAno(ppc.getAno());
-
-        if (ppc.getCurso() != null) {
-            p.setCurso(ppc.getCurso());
-        }
-
-        ppcRepository.save(p);
-        return p;
-    }
 
     public List<PpcReadDTO> listAlternative() {
         List<PpcReadDTO> ppcs = new ArrayList<PpcReadDTO>();
@@ -162,4 +119,5 @@ public class PPCService {
         ppcRepository.findAll();
         return ppcs;
     }
+
 }
