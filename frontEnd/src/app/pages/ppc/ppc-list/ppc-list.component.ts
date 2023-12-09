@@ -37,6 +37,7 @@ export class PpcListComponent {
           return (
             ppc.nomePPC == null ? 'nome não encontrado' :
             ppc.nomePPC.toLowerCase().includes(term) ||
+            ppc.nomeCurso.toLowerCase().includes(term) ||
             (typeof ppc.ano === 'number' && ppc.ano.toString().includes(term))
           );
         });
@@ -51,16 +52,24 @@ export class PpcListComponent {
     } else {
       this.orderByKey = key as keyof PpcCreate;
       this.ppcList.sort((a, b) => {
-        const keys = key.toString().split('.');
-        const x = this.getPropertyValue(a, keys);
-        const y = this.getPropertyValue(b, keys);
-        return x.localeCompare(y);
+        const x = this.getPropertyValue(a, key);
+        const y = this.getPropertyValue(b, key);
+        if (key === 'curso.nome') {
+          return x.localeCompare(y); // Ordenação alfabética para o nome do curso
+        } else {
+          return x.toString().localeCompare(y.toString());
+        }
       });
     }
   }
 
-  getPropertyValue(item: any, keys: string[]): string {
-    return keys.reduce((acc, current) => (acc ? acc[current] : ''), item).toString().toLowerCase();
+  getPropertyValue(item: any, key: keyof PpcCreate | string): string {
+    if (typeof key === 'string' && key.includes('.')) {
+      const keys = key.split('.');
+      return keys.reduce((acc, current) => (acc ? acc[current] : ''), item).toString().toLowerCase();
+    } else {
+      return item[key].toString().toLowerCase();
+    }
   }
 
 
