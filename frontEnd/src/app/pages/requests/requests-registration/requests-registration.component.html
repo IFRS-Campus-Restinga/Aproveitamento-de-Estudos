@@ -185,7 +185,7 @@
   <div *ngIf="idRequest != '0'" style="width: 40%;">
     <div class="form-half-grid">
       <div class="btn-submit-container">
-        <button type="submit" class="btn-register" (click)="viewAnalytics()">Visualizar analises</button>
+        <button type="submit" class="btn-register" (click)="viewAnalytics(idRequest)">Visualizar analises</button>
       </div>
        <div class="btn-submit-container">
           <button type="reset" class="btn-register btn-red" (click)="addAnalysis()">Realizar analise</button>
@@ -193,5 +193,5 @@
     </div>
   </div>
 </div>
-<app-add-analysis *ngIf="isAddVisible" [message]="idRequest" (confirmed)="handleConfirmation($event)"
+<app-add-analysis *ngIf="isAddVisible" [idRequicao]="idRequest" [idServidor]="idServidor" (confirmed)="handleConfirmation($event)"
 ></app-add-analysis>

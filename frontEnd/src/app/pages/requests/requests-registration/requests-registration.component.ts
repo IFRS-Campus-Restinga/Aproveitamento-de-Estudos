@@ -18,7 +18,9 @@ import { Disciplina } from 'src/app/model/Disciplina';
 export class RequestsRegistrationComponent implements OnInit {
   tipoSolicitacao: string = '';
   form!: FormGroup;
+  public numAnalise: number = 0;
   public idRequest: string = "0";
+  public idServidor: string = "7";
   public isAddVisible: boolean = false;
 
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
@@ -60,13 +62,16 @@ export class RequestsRegistrationComponent implements OnInit {
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
 
     if (requisicao) {
+      this.numAnalise = requisicao.analises.length
       this.idRequest = requisicao.id;
       this.isEditMode = true;
       this.tipoSolicitacao = requisicao.tipo;
       this.getDisciplina(requisicao.disciplina_id);
     } else {
+      this.numAnalise = 0;
       requisicao = this.generateObject();
     }
+
 
     this.form = this.formBuilder.group({
       id: [requisicao.id],
@@ -98,6 +103,7 @@ export class RequestsRegistrationComponent implements OnInit {
     if (requisicao.id != '') {
       this.getAnexos(requisicao.anexos);
     }
+
   }
 
   clearFormValues() {
@@ -161,7 +167,7 @@ export class RequestsRegistrationComponent implements OnInit {
       diciplinaCursaAnteriormente: '',
       notaObtida: 0,
       cargaHoraria: 0,
-      analises: [{id: '', status: '', parecer: '', servidor: '0', requisicao: 0}],
+      analises: [{id: '', status: '', parecer: '', servidor_id: 0, requisicao_id: 0}],
       anexos: [{id: '', nome: '', arquivo: '', requisicao: 0 }],
       aluno_id: 1,
       edital_id: 1,
@@ -303,15 +309,15 @@ export class RequestsRegistrationComponent implements OnInit {
     id: '',
     status: '',
     parecer: '',
-    servidor: '0',
-    requisicao: 0,
+    servidor_id: 0,
+    requisicao_id: 0,
   }) {
     return this.formBuilder.group({
       id: [analise.id],
       status: [analise.status],
       parecer: [analise.parecer],
-      servidor: [analise.servidor],
-      requisicao: [analise.requisicao],
+      servidor: [analise.servidor_id],
+      requisicao: [analise.requisicao_id],
     });
   }
 
@@ -392,8 +398,15 @@ export class RequestsRegistrationComponent implements OnInit {
   }
 
 
-  viewAnalytics(){
-    alert("teste 1");
+  viewAnalytics(id: any){
+    if(this.numAnalise > 0){
+      this.router.navigate(['analises', id], {relativeTo: this.route});
+      alert("teste 1");
+
+    }else{
+      alert("Requisição não possui analises!");
+    }
+
   }
 
   addAnalysis(){
@@ -402,9 +415,9 @@ export class RequestsRegistrationComponent implements OnInit {
 
   handleConfirmation(confirmed: boolean) {
     if (confirmed) {
-      alert('ok');
+      //alert('ok');
     }else{
-      alert('ok');
+      //alert('ok');
     }
     this.isAddVisible = false;
   }

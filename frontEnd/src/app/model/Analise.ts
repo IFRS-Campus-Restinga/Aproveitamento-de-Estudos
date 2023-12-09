@@ -2,6 +2,6 @@ export interface Analise {
   id: string;
   status: string;
   parecer: string;
-  servidor: string;
-  requisicao: number;
+  servidor_id: number;
+  requisicao_id: number;
 }

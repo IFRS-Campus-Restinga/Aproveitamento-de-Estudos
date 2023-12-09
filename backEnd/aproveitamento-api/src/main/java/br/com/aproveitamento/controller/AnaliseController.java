@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.AnaliseDTO;
 import br.com.aproveitamento.model.Analise;
 import br.com.aproveitamento.service.AnaliseService;
 import jakarta.validation.Valid;
@@ -37,12 +38,12 @@ public class AnaliseController {
 	}
 	
 	@GetMapping("/{id}")
-	public Analise findById(@PathVariable @NotNull @Positive Long id) {
-		return analiseService.findById(id);
+	public List<Analise> findById(@PathVariable @NotNull @Positive Long id) {
+		return analiseService.listByIdRequisicao(id);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Analise> create(@RequestBody @NotNull @Valid Analise analise){
+	public ResponseEntity<Analise> create(@RequestBody @NotNull @Valid AnaliseDTO analise){
 		return ResponseEntity.status(HttpStatus.CREATED).body(analiseService.create(analise));
 	}
 	
