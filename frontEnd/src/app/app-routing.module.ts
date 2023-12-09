@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisciplineRegistrationComponent } from './pages/discipline/discipline-registration/discipline-registration.component';
 import { StudentResgistrationComponent } from './pages/student/student-resgistration/student-resgistration.component';
@@ -19,6 +19,9 @@ import { DisciplinaResolver } from './pages/discipline/guards/discipline-registr
 import { RequestResolver } from './pages/requests/guards/request-registration.resolver';
 import { StudentResolver } from './pages/student/guards/student-registration.resolver';
 import { CourseResolver } from './pages/course/guards/course.resolver';
+import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
+import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
+import { PpcResolver } from './pages/ppc/guards/ppc-registration.resolver';
 
 const routes: Routes = [
   {
@@ -107,7 +110,21 @@ const routes: Routes = [
     path: 'course/edit/:id',
     component: CourseRegistrationComponent,
     resolve:{curso : CourseResolver}
+  },
+  {
+    path: 'ppc/register',
+    component: PpcRegistrationComponent
+  },
+  {
+    path: 'ppc',
+    component: PpcListComponent
+  },
+  {
+    path: 'ppc/edit/:id',
+    component: PpcRegistrationComponent,
+    resolve:{PpcCreate : PpcResolver}
   }
+
 ];
 
 @NgModule({

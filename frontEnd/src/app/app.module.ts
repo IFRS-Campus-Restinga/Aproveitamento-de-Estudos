@@ -34,6 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
+import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ServantRegistrationComponent,
     ServantListComponent,
     ConfirmationDialogComponent,
+    PpcListComponent,
+    PpcRegistrationComponent,
   ],
   imports: [
     BrowserModule,
