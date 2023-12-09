@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.AnaliseReadDTO;
 import br.com.aproveitamento.dto.AnaliseDTO;
 import br.com.aproveitamento.model.Analise;
 import br.com.aproveitamento.service.AnaliseService;
@@ -38,8 +39,8 @@ public class AnaliseController {
 	}
 	
 	@GetMapping("/{id}")
-	public List<Analise> findById(@PathVariable @NotNull @Positive Long id) {
-		return analiseService.listByIdRequisicao(id);
+	public List<AnaliseReadDTO> listByIdRequest(@PathVariable @NotNull @Positive Long id) {
+		return analiseService.listByIdRequest(id);
 	}
 	
 	@PostMapping

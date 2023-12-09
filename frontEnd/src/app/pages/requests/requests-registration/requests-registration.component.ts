@@ -22,6 +22,7 @@ export class RequestsRegistrationComponent implements OnInit {
   public idRequest: string = "0";
   public idServidor: string = "7";
   public isAddVisible: boolean = false;
+  public isViewVisible: boolean = false;
 
   public listTiposRequisicoes: Array<{ tipoSolicitacao: string }> = [
       { tipoSolicitacao: 'CERTIFICACAO' },
@@ -60,7 +61,6 @@ export class RequestsRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.getDisciplinas();
     let requisicao: Requisicao = this.route.snapshot.data['requisicao'];
-
     if (requisicao) {
       this.numAnalise = requisicao.analises.length
       this.idRequest = requisicao.id;
@@ -400,9 +400,7 @@ export class RequestsRegistrationComponent implements OnInit {
 
   viewAnalytics(id: any){
     if(this.numAnalise > 0){
-      this.router.navigate(['analises', id], {relativeTo: this.route});
-      alert("teste 1");
-
+      this.isViewVisible = true;
     }else{
       alert("Requisição não possui analises!");
     }
@@ -414,12 +412,11 @@ export class RequestsRegistrationComponent implements OnInit {
   }
 
   handleConfirmation(confirmed: boolean) {
-    if (confirmed) {
-      //alert('ok');
-    }else{
-      //alert('ok');
-    }
     this.isAddVisible = false;
+  }
+
+  handleConfirmationView(confirmed: boolean) {
+    this.isViewVisible = false;
   }
 
 }

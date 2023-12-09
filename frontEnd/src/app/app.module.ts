@@ -35,6 +35,7 @@ import { ServantRegistrationComponent } from './pages/servant/servant-registrati
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AddAnalysisComponent } from './components/add-analysis/add-analysis.component';
+import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { AddAnalysisComponent } from './components/add-analysis/add-analysis.com
     ServantListComponent,
     ConfirmationDialogComponent,
     AddAnalysisComponent,
+    ViewAnalysisComponent,
   ],
   imports: [
     BrowserModule,

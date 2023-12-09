@@ -193,5 +193,7 @@
     </div>
   </div>
 </div>
-<app-add-analysis *ngIf="isAddVisible" [idRequicao]="idRequest" [idServidor]="idServidor" (confirmed)="handleConfirmation($event)"
-></app-add-analysis>
+<app-add-analysis *ngIf="isAddVisible" [idRequicao]="idRequest" [idServidor]="idServidor" (confirmed)="handleConfirmation($event)">
+</app-add-analysis>
+<app-view-analysis *ngIf="isViewVisible" [idRequicao]="idRequest" (confirmed)="handleConfirmationView($event)">
+</app-view-analysis>

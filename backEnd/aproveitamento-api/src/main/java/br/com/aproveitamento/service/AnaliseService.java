@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.aproveitamento.dto.AnaliseDTO;
+import br.com.aproveitamento.dto.AnaliseReadDTO;
 import br.com.aproveitamento.enums.converters.RequisicaoStatusConverter;
 import br.com.aproveitamento.model.Analise;
 import br.com.aproveitamento.model.Requisicao;
@@ -97,4 +98,15 @@ public class AnaliseService {
 
 		return analises;
 	}
+
+    public List<AnaliseReadDTO> listByIdRequest(@NotNull @Positive Long id) {
+		Optional<Requisicao> requisicao = requisicaoRepository.findById(id);
+		List<AnaliseReadDTO> analises = new ArrayList<AnaliseReadDTO>();
+		if(!requisicao.isPresent()) return null;
+		for(Analise a: requisicao.get().getAnalises()){
+			analises.add(new AnaliseReadDTO(a.getId(), a.getStatus(), a.getParecer(), a.getServidor().getNome()));
+		}
+
+        return analises;
+    }
 }

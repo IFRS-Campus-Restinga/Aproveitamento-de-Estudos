@@ -12,12 +12,13 @@ export class AnaliseService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list() {
-    return this.httpClient.get<Analise[]>(this.API)
+  list(id: any) {
+    return this.httpClient.get<Analise[]>(`${this.API}/${id}`)
       .pipe(
         first()
       );
   }
+
 
   createAanalise(record: Partial<Analise>) {
     return this.httpClient.post<Analise>(this.API, record).pipe(first());

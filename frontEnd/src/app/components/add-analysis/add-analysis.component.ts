@@ -10,10 +10,20 @@ import { AnaliseService } from 'src/app/services/analise.service';
 })
 export class AddAnalysisComponent implements OnInit {
 
-  formData!: FormGroup;
   @Input() idRequicao: string | undefined;
   @Input() idServidor: string | undefined;
   @Output() confirmed: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  formData!: FormGroup;
+  listStatus: any[] = [
+    {nome: 'Solicitação-criada', status: 'SOLICITACAO_CRIADA'},
+    {nome: 'Aprovada-pelo-ensino', status: 'APROVADA_PELO_ENSINO'},
+    {nome: 'Prova-agendada', status: 'PROVA_AGENDADA'},
+    {nome: 'Aprovada-pelo-professor', status: 'APROVADA_PELO_PROFESSOR'},
+    {nome: 'Aprovada-pelo-coordenador', status: 'APROVADA_PELO_COORDENADOR'},
+    {nome: 'Deferida', status: 'DEFERIDA'},
+    {nome: 'Indeferida', status: 'INDEFERIDA'},
+  ]
 
   constructor(private formBuilder: FormBuilder, private analiseService: AnaliseService) {
 

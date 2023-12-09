@@ -4,7 +4,11 @@
     <form [formGroup]="formData" (ngSubmit)="submitForm(formData)">
         <div class="form-group">
           <label for="status">Status</label>
-          <input type="text" id="status" formControlName="status" placeholder="" required>
+          <select name="status" id="status" formControlName="status" required>
+            <option *ngFor="let item of listStatus" [ngValue]="item.status">
+              {{ item.nome }}
+            </option>
+          </select>
         </div>
 
         <div class="form-group">
