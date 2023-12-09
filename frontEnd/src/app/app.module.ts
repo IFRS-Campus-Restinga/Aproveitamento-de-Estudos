@@ -34,6 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AddAnalysisComponent } from './components/add-analysis/add-analysis.component';
+import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.component';
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 
@@ -60,6 +62,8 @@ import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-regis
     ServantRegistrationComponent,
     ServantListComponent,
     ConfirmationDialogComponent,
+    AddAnalysisComponent,
+    ViewAnalysisComponent,
     PpcListComponent,
     PpcRegistrationComponent,
   ],
