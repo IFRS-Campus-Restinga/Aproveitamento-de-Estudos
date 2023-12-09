@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Requisicao } from 'src/app/model/Requisicao';
+import { Usuario } from 'src/app/model/Usuario';
 import { RequisicaoService } from 'src/app/services/requisicao.service';
 
 @Component({
@@ -16,17 +17,26 @@ export class RequestsListComponent implements OnInit {
   @Output() delete = new EventEmitter(false);
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que desja excluir esta Requisicao?';
+  public recarregado = localStorage.getItem('novoLogin');
+  currentUserStr = localStorage.getItem('currentUser')
+  usuario: Usuario = JSON.parse(this.currentUserStr == null ? '{"id":"","nome":"","email":"","admin":false,"tipo":""}' : this.currentUserStr)
 
   constructor(private route: ActivatedRoute,
-              private requisicaoService: RequisicaoService,
-              private router: Router){
+    private requisicaoService: RequisicaoService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
     this.getAnnouncement();
+    if (this.recarregado == 'true') {
+      location.reload();
+      console.log(this.recarregado)
+      localStorage.setItem('novoLogin', 'false');
+      console.log(this.recarregado)
+    }
   }
 
-  getAnnouncement(){
+  getAnnouncement() {
     this.requisicaoService.list().subscribe(
       (_requisicoes: Requisicao[]) => {
         this.requisicaoList = _requisicoes;
@@ -46,12 +56,21 @@ export class RequestsListComponent implements OnInit {
 
 
   onEdit(requisicao: Requisicao) {
-    this.router.navigate(['edit', requisicao.id], {relativeTo: this.route});
+    if (this.usuario.admin == true || requisicao.aluno_id == parseInt(this.usuario.id)) {
+      this.router.navigate(['edit', requisicao.id], { relativeTo: this.route });
+    } else {
+      alert("voce não pode realisar essa ação OTARIO")
+    }
   }
 
   showConfirmationDialog(requisicao: Requisicao) {
-    this.isConfirmationVisible = true;
-    this.requisicaoDelete = requisicao;
+    if (this.usuario.admin == true || requisicao.aluno_id == parseInt(this.usuario.id)) {
+      this.isConfirmationVisible = true;
+      this.requisicaoDelete = requisicao;
+    } else {
+      alert("voce não pode realisar essa ação OTARIO")
+    }
+
   }
 
   handleConfirmation(confirmed: boolean) {

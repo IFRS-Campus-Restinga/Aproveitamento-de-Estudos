@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/Usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -11,11 +12,15 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  usuario!: Usuario
+  usuario!: Usuario;
+  usuarioLogado!: Usuario;
+  public recarregado = localStorage.getItem('novoLogin');
+
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -23,22 +28,25 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
       password: ['', [Validators.required, Validators.pattern(/^[\w\d \-~]{8,60}$/)]],
     });
+
+    if(this.recarregado == null){
+      location.reload();
+      localStorage.setItem('novoLogin', 'false');
+    }
   }
 
   submitForm(form: FormGroup) {
-    // if (this.isFormValid()) {
-    if (true) {
+    if (this.isFormValid()) {
       this.usuarioService.loadByEmail(form.value.email)
         .subscribe(
           (response) => {
-            // Recebe a resposta do backend
             this.usuario = response;
             console.log(this.usuario);
-            // Aqui você pode tratar os dados recebidos e redirecionar para outra página, por exemplo.
             localStorage.setItem('currentUser', JSON.stringify(this.usuario));
+            localStorage.setItem('novoLogin', 'true');
+            this.router.navigate(['/request']);
           },
           (error) => {
-            // Trata erros caso a requisição falhe
             console.error('Erro:', error);
           }
         );

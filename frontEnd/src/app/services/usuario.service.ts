@@ -8,7 +8,7 @@ import { Usuario } from '../model/Usuario';
     providedIn: 'root'
 })
 export class UsuarioService {
-
+    
     private readonly API = '/api/usuario';
 
     constructor(private httpClient: HttpClient) { }
@@ -17,5 +17,7 @@ export class UsuarioService {
     loadByEmail(email: string): Observable<Usuario> {
         return this.httpClient.get<Usuario>(`${this.API}/email/${email}`);
     }
+
+    
 
 }
