@@ -22,7 +22,9 @@ public record DisciplinaDTO(
                 @Min(value = 10, message = "A carga horária deve ser no mínimo 10")
                 @Max(value = 88, message = "A carga horária deve ser no máximo 88")
         int cargaHoraria, 
+        @NotNull(message = "O ID do PPC é obrigatório")
         long ppc_id,
+        @NotNull(message = "O ID do curso é obrigatório")
         long curso_id) {
 
 }

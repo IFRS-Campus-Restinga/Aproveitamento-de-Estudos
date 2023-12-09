@@ -58,7 +58,7 @@ export class DisciplineRegistrationComponent implements OnInit {
       disciplina: [disciplina.nome, [Validators.required, 
         Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/), 
         Validators.minLength(10),Validators.maxLength(120)]],
-      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(88)]],
+      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(88), Validators.pattern(/^(?:[1-9]|[1-7][0-9]|88)$/)]],
     });
      
   }
@@ -172,8 +172,13 @@ export class DisciplineRegistrationComponent implements OnInit {
   }
 
   isPpcValid() {
-    return this.formData.get('ppc')?.valid;
+    const ppcControl = this.formData.get('ppc');
+    if (ppcControl?.value  !== '0') {
+      return true;
+    }
+    return false;
   }
+
 
   check(variableName: string, condition: string): boolean {
     const variable = this.formData.get(variableName);

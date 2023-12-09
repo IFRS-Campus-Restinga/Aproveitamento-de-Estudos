@@ -36,6 +36,8 @@ import { ServantListComponent } from './pages/servant/servant-list/servant-list.
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AddAnalysisComponent } from './components/add-analysis/add-analysis.component';
 import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.component';
+import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
+import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 
 
 @NgModule({
@@ -62,6 +64,8 @@ import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.
     ConfirmationDialogComponent,
     AddAnalysisComponent,
     ViewAnalysisComponent,
+    PpcListComponent,
+    PpcRegistrationComponent,
   ],
   imports: [
     BrowserModule,

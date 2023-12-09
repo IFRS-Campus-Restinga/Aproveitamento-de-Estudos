@@ -66,10 +66,10 @@ public class AproveitamentoApiApplication {
 			curso1.getPPCs().add(ppc1);
 			curso2.getPPCs().add(ppc2);
 
-			Disciplina disciplina1 = new Disciplina("Prog I", 88, ppc1, "123");
-			Disciplina disciplina2 = new Disciplina("Prog II", 88, ppc1, "124");
-			Disciplina disciplina3 = new Disciplina("Literatura", 65, ppc2, "125");
-			Disciplina disciplina4 = new Disciplina("Portugues", 65, ppc2, "126");
+			Disciplina disciplina1 = new Disciplina("Programacao I", 88, ppc1, "ABC-DEF123");
+			Disciplina disciplina2 = new Disciplina("Programacao II", 88, ppc1, "ABC-DEF124");
+			Disciplina disciplina3 = new Disciplina("Literatura", 65, ppc2, "ABC-DEF125");
+			Disciplina disciplina4 = new Disciplina("Portugues", 65, ppc2, "ABC-DEF126");
 
 			ppc1.getDisciplinas().add(disciplina1);
 			ppc1.getDisciplinas().add(disciplina2);
@@ -104,10 +104,10 @@ public class AproveitamentoApiApplication {
 				// TODO: handle exception
 			}
 
-			Coordenador coordenador1 = new Coordenador("Yuri", "yuri@teste.com", true, UsuarioTipo.COORDENADOR,
-					"987456", new Date(), new Date(), curso1, true);
-			Coordenador coordenador2 = new Coordenador("João", "joão@teste.com", true, UsuarioTipo.COORDENADOR,
-					"369852", new Date(), new Date(), curso2, true);
+			Coordenador coordenador1 = new Coordenador("Yuri Albanes", "yuri@restinga.ifrs.edu.br", true, UsuarioTipo.COORDENADOR,
+					"9874564587", new Date(), new Date(), curso1, true);
+			Coordenador coordenador2 = new Coordenador("João Silva", "joão@restinga.ifrs.edu.br", true, UsuarioTipo.COORDENADOR,
+					"3698523214", new Date(), new Date(), curso2, true);
 
 			try {
 				coordenadorRepository.save(coordenador1);
@@ -118,8 +118,8 @@ public class AproveitamentoApiApplication {
 				// TODO: handle exception
 			}
 
-			Professor professor1 = new Professor("Ricardo", "ricardo@teste.com", true, UsuarioTipo.PROFESSOR, "258741");
-			Professor professor2 = new Professor("Eliana", "eliana@teste.com", true, UsuarioTipo.PROFESSOR, "951357");
+			Professor professor1 = new Professor("Ricardo", "ricardo@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "2587416678");
+			Professor professor2 = new Professor("Eliana", "eliana@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "9513571589");
 
 			try {
 				ProfessorRepository.save(professor1);
@@ -129,8 +129,8 @@ public class AproveitamentoApiApplication {
 				// TODO: handle exception
 			}
 
-			Ensino ensino1 = new Ensino("Fulano", "fulano@teste.com", true, UsuarioTipo.ENSINO, "962478");
-			Ensino ensino2 = new Ensino("Ciclino", "ciclano@teste.com", true, UsuarioTipo.ENSINO, "314658");
+			Ensino ensino1 = new Ensino("Fulano", "fulano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "9624787767");
+			Ensino ensino2 = new Ensino("Ciclino", "ciclano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "3146586478");
 
 			try {
 				ensinoRepository.save(ensino1);
@@ -212,7 +212,7 @@ public class AproveitamentoApiApplication {
 			Requisicao requisicao2 = new Requisicao(RequisicaoTipo.CERTIFICACAO,
 					RequisicaoStatus.SOLICITACAO_CRIADA,
 					new Date(),
-					"Prog II", new Date(), 0.00,
+					"Programacao II", new Date(), 0.00,
 					"Funilaria", 0.00, 0,
 					aluno1, edital, disciplina2);
 
