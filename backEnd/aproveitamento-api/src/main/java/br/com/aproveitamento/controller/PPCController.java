@@ -69,5 +69,4 @@ public class PPCController {
     public void delete(@PathVariable @NotNull @Positive Long id) {
         ppcService.delete(id);
     }
-
 }

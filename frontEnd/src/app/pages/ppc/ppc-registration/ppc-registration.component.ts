@@ -48,7 +48,6 @@ export class PpcRegistrationComponent implements OnInit {
     });
   }
 
-  //--------------------------------------------------
   submitForm(form: FormGroup) {
     if (form.valid) {
       const selectedCursoId = this.formData.get('curso')?.value;
@@ -74,8 +73,6 @@ export class PpcRegistrationComponent implements OnInit {
       }
     }
   }
-
-  //--------------------------------------------------
 
   isFormValid(): boolean {
     return this.formData.valid && this.isCursoValid();
@@ -110,5 +107,4 @@ export class PpcRegistrationComponent implements OnInit {
     }
     return false;
   }
-
 }

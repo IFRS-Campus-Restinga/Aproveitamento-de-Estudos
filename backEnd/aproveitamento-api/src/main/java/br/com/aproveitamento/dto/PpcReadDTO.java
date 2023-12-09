@@ -6,5 +6,4 @@ public record PpcReadDTO(
     String nomePPC,
     int ano,
     String nomeCurso) {
-
 }

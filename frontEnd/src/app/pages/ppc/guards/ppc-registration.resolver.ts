@@ -9,7 +9,6 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,4 +28,3 @@ export class PpcResolver implements Resolve<PpcCreate> {
     });
   }
 }
-

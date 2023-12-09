@@ -43,11 +43,10 @@ public class PPCService {
         return new PpcCreateDTO(ppc.get().getId().toString(), ppc.get().getCurso().getId(), ppc.get().getNomePPC(), ppc.get().getAno());
     }
 
-    //
     public PPC create(@Valid @NotNull PPC ppc) {
         return ppcRepository.save(ppc);
     }
-    //
+    
     public PPC update(@Valid PPC ppc) {
         return ppcRepository.save(ppc);
     }
@@ -80,7 +79,6 @@ public class PPCService {
         return ppc;
     }
 
-    //
     public PPC UpdateOrCreate(@Valid @NotNull PPC ppc) {
 
         PPC d = new PPC();
@@ -107,8 +105,6 @@ public class PPCService {
             ppcRepository.save(d);
             return d;
     }
-
-    //------------------------[Inicio das alterações]--------------------------------------------------
     
     public PPC createPPC(@Valid @NotNull PpcCreateDTO ppcRequest) {
         PPC p1 = new PPC();
@@ -166,6 +162,4 @@ public class PPCService {
         ppcRepository.findAll();
         return ppcs;
     }
-    
-    //----------------------------------------------------------
 }

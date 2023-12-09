@@ -55,7 +55,7 @@ export class PpcListComponent {
         const x = this.getPropertyValue(a, key);
         const y = this.getPropertyValue(b, key);
         if (key === 'curso.nome') {
-          return x.localeCompare(y); // Ordenação alfabética para o nome do curso
+          return x.localeCompare(y);
         } else {
           return x.toString().localeCompare(y.toString());
         }
@@ -71,7 +71,6 @@ export class PpcListComponent {
       return item[key].toString().toLowerCase();
     }
   }
-
 
   onEdit(ppc: PpcCreate) {
     this.router.navigate(['edit', ppc.id], {relativeTo: this.route});

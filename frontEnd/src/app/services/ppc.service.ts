@@ -25,8 +25,6 @@ export class PpcService {
     return this.httpClient.post(`${this.API}/disciplina`, obj).pipe(first());
   }
 
-
-  //-------------------------------------------
   list() {
     return this.httpClient.get<PpcRead[]>(`${this.API}/ppcs`)
       .pipe(
