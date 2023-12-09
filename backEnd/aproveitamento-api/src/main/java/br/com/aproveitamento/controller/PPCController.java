@@ -59,11 +59,6 @@ public class PPCController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createDiscipline(ppc));
     }
 
-    @PutMapping
-    public PPC update(@RequestBody @Valid PPC ppc) {
-        return ppcService.updateOrCreate(ppc);
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull @Positive Long id) {
