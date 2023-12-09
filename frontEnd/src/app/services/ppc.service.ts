@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
 import { Ppc } from '../model/Ppc';
 import { PpcCreate } from '../model/PpcCreate';
+import { PpcRead } from '../model/PpcRead';
 
 
 @Injectable({
@@ -27,20 +28,16 @@ export class PpcService {
 
   //-------------------------------------------
   list() {
-    return this.httpClient.get<Ppc[]>(this.API)
+    return this.httpClient.get<PpcRead[]>(`${this.API}/ppcs`)
       .pipe(
         first()
       );
   }
 
   loadById(id: string) {
-    return this.httpClient.get<Ppc>(`${this.API}/${id}`);
-  }
-
-  loadById2(id: string) {
     return this.httpClient.get<PpcCreate>(`${this.API}/${id}`);
   }
-/*
+
   save(record: Partial<PpcCreate>) {
     console.log(record);
     if (record.id) {
@@ -48,34 +45,19 @@ export class PpcService {
       return this.update(record);
     }
     console.log('create');
-    return this.createPpc(record);
+    return this.createPPC(record);
   }
 
-  createPpc(record: Partial<PpcCreate>) {
-    return this.httpClient.post<Ppc>(this.API, record).pipe(first());
+  public createPPC(record: Partial<PpcCreate>) {
+    return this.httpClient.post<PpcCreate>(this.API, record).pipe(first());
   }
 
   private update(record: Partial<PpcCreate>) {
-    return this.httpClient.put<Ppc>(`${this.API}`, record).pipe(first());
-  }
-*/
-
-  save(record: Partial<PpcCreate>) {
-    console.log(record)
-    return this.createPpc(record);
-  }
-
-  private createPpc(record: Partial<Ppc>) {
-    return this.create(record);
-  }
-
-  private create(record: Partial<Ppc>) {
-    return this.httpClient.post<Ppc>(this.API, record).pipe(first());
+    return this.httpClient.put<PpcCreate>(`${this.API}`, record).pipe(first());
   }
 
   remove(id: string) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
-
 
 }

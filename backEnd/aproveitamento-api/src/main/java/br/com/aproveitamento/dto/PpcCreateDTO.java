@@ -4,8 +4,8 @@ import br.com.aproveitamento.model.Curso;
 
 public record PpcCreateDTO(
     String id,
-    Curso curso,
-    String nomePCC,
+    Long curso_id,
+    String nomePPC,
     int ano) { 
 
 }

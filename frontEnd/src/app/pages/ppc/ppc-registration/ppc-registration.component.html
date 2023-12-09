@@ -14,7 +14,7 @@
     <!-- Nome ppc -->
     <div class="form-group">
       <label for="nomePPC">Nome PPC</label>
-      <input type="text" id="nomePPC" formControlName="nomePPC" placeholder="nome do ppc"
+      <input type="text" id="nomePPC" formControlName="nomePPC" placeholder="nome"
           [ngClass]="{'valid-input': !isValid('nomePPC'), 'invalid-input': isValid('nomePPC')}"
           required>
     </div>
@@ -22,7 +22,7 @@
     <!-- Ano ppc -->
     <div class="form-group">
       <label for="ano">Ano</label>
-      <input type="number" id="ano" formControlName="ano" placeholder="ano do ppc" required
+      <input type="number" id="ano" formControlName="ano" min="2010" minlength="4" maxlength="4" placeholder="ano do ppc" required
           [ngClass]="{'valid-input': !isValid('ano'), 'invalid-input': isValid('ano')}">
     </div>
 

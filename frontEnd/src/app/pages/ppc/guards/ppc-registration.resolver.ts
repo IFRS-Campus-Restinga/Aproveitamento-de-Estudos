@@ -19,11 +19,11 @@ export class PpcResolver implements Resolve<PpcCreate> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PpcCreate> {
     if(route.params && route.params['id']){
-      return this.ppcService.loadById2(route.params['id']);
+      return this.ppcService.loadById(route.params['id']);
     }
     return of({
       id: '',
-      curso:'',
+      curso_id: 0,
       nomePPC: '',
       ano: 0
     });

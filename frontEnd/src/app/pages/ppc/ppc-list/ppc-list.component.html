@@ -1,10 +1,9 @@
 <app-lists-title title="PPC" route="/ppc/register" buttonName="Adicionar PPC"></app-lists-title>
 
-
 <div class="containerFiltro">
   <div class="form-group">
     <label class="mr-2">Filtro </label>
-    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa"
+     <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="termoPesquisa"
       (input)="getPpc()">
   </div>
 </div>
@@ -13,16 +12,16 @@
   <table class="aluno-container" style="width: 60%;">
     <thead class="thead-dark" style="text-align: center;">
       <tr>
-        <th>Id</th>
-        <th>Curso</th>
-        <th>Nome PPC</th>
-        <th>Ano</th>
+        <th (click)="orderBy('id')">Id</th>
+        <th (click)="orderBy('curso.id')">Curso</th>
+        <th (click)="orderBy('nomePPC')">Nome PPC</th>
+        <th (click)="orderBy('ano')">Ano</th>
       </tr>
     </thead>
     <tbody style="padding-left: 7px;text-align: center;" *ngIf="ppcList && ppcList.length">
       <tr *ngFor="let ppc of  ppcList">
         <td>{{ppc.id}}</td>
-        <td>{{ppc.cursos?.id}}</td>
+        <td>{{ppc.nomeCurso}}</td>
         <td>{{ppc.nomePPC}}</td>
         <td>{{ppc.ano}}</td>
         <td style="width: 28%;">

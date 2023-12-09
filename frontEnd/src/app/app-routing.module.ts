@@ -122,7 +122,7 @@ const routes: Routes = [
   {
     path: 'ppc/edit/:id',
     component: PpcRegistrationComponent,
-    resolve:{curso : PpcResolver}
+    resolve:{PpcCreate : PpcResolver}
   }
 
 ];

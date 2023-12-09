@@ -12,6 +12,11 @@
   padding: .3rem;
 }
 
+th {
+  user-select: none;
+  cursor: pointer;
+}
+
 .btn-register-ppc{
   background-color: #0d8a29;
   color: white;

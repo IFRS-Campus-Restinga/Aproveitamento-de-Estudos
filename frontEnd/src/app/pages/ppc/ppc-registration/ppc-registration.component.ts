@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Ppc } from 'src/app/model/Ppc';
 import { PpcService } from 'src/app/services/ppc.service';
 import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -27,12 +26,15 @@ export class PpcRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCursos();
-    let ppc: PpcCreate = this.route.snapshot.data['ppc'];
+    let ppc: PpcCreate = this.route.snapshot.data['PpcCreate'];
+    const anoAtual: number = new Date().getFullYear();
+
+    console.log(ppc);
 
     if(!ppc) {
       ppc = {
         id: '',
-        curso: '',
+        curso_id: 0,
         nomePPC: '',
         ano: 0,
       }
@@ -40,11 +42,12 @@ export class PpcRegistrationComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       ppc_id: [ppc.id],
-      curso: [ppc.curso.id],
-      nomePPC: [ppc.nomePPC,],
-      ano: [ppc.ano],
+      curso: [ppc.curso_id],
+      nomePPC: [ppc.nomePPC],
+      ano: [ppc.ano, [Validators.max(anoAtual), Validators.required]],
     });
   }
+
   //--------------------------------------------------
   submitForm(form: FormGroup) {
     if (form.valid) {
@@ -53,16 +56,13 @@ export class PpcRegistrationComponent implements OnInit {
 
       const ppc: PpcCreate = {
         id: form.get('ppc_id')?.value,
-        curso: {
-          id: selectedCursoId,
-          nome: "",
-        },
+        curso_id: selectedCursoId,
         nomePPC: form.get('nomePPC')?.value,
         ano: form.get('ano')?.value,
       };
 
       if (ppc) {
-        this.ppcService.save(ppc).subscribe(
+        this.ppcService.createPPC(ppc).subscribe(
           (data) => {
             alert('PPC salvo com sucesso!');
             this.router.navigate(['/ppc']);
@@ -110,4 +110,5 @@ export class PpcRegistrationComponent implements OnInit {
     }
     return false;
   }
+
 }
