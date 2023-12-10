@@ -75,8 +75,8 @@ public class AuthorizationSecurityConfig {
 
         httpSecurity.exceptionHandling( (exceptions) -> exceptions.authenticationEntryPoint(
                 new LoginUrlAuthenticationEntryPoint("/login")
-        ))
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        ));
+                //.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
         return httpSecurity.build();
     }

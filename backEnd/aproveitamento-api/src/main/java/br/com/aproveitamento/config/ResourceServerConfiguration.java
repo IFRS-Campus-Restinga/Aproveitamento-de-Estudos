@@ -24,8 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration
-@EnableMethodSecurity
+
 public class ResourceServerConfiguration {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
