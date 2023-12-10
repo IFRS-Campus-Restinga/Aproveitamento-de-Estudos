@@ -1,16 +1,11 @@
 package br.com.aproveitamento.config;
 
 
-import java.util.*;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider.ResponseToken;
 //import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
@@ -22,42 +17,46 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 //import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 //import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfiguration {
+@EnableMethodSecurity
+public class ResourceServerConfiguration {
 
-
-
-    @GetMapping("hello")
-    public Map<String, String> hello(){
-        return Collections.singletonMap("text", "hello");
-    }
-
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    private String issuerUri;
 
 //    @Bean
 //    SecurityFilterChain configure(HttpSecurity http) throws Exception {
 //
-//        // configurando a permissao dos caminhos
+//
+//
 //        return http
 //                .authorizeHttpRequests( auth -> {
-//                    auth.requestMatchers("/").permitAll();
 //                    auth.anyRequest().authenticated();
 //                })  // configurando os metodos de login, utilizando o resource server
-//                .oauth2Login(withDefaults())
-//                //.oauth2Client(withDefaults())
-//                .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
+//                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt ->
+//                        jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri))))
 //                //.formLogin(withDefaults())
 //                .build();
 //    }
-
-
+//
+//
+//    @Bean
+//    public JwtAuthenticationConverter jwtAuthenticationConverter(){
+//        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+//        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+//        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
+//        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+//
+//        return jwtAuthenticationConverter;
+//    }
 
 //    @Bean
 //    public OAuth2AuthorizedClientManager authorizedClientManager(

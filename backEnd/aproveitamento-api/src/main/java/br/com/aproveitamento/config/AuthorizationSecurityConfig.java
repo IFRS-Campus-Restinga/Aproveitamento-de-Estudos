@@ -7,11 +7,13 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.server.servlet.OAuth2AuthorizationServerAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,7 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -32,6 +35,8 @@ import org.springframework.security.oauth2.server.authorization.settings.Authori
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -59,6 +64,8 @@ public class AuthorizationSecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final ClientService clientService;
 
+
+
     @Bean
     @Order(1)
     public SecurityFilterChain authSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -76,17 +83,31 @@ public class AuthorizationSecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain webSecurityFilterChaain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain webSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests( auth -> auth.requestMatchers("/auth/**", "*/client/**").permitAll().anyRequest().authenticated())
                 .formLogin(withDefaults())
+
                 .oauth2Login(Customizer.withDefaults())
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()));
+
+                .oauth2Client(Customizer.withDefaults());
+
+//                .oauth2Client(oauth2 -> oauth2
+//                        .clientRegistrationRepository(this.clientRegistrationRepository())
+//                        .authorizedClientRepository(this.authorizedClientRepository())
+//                        .authorizedClientService(this.authorizedClientService())
+//                        .authorizationCodeGrant(codeGrant -> codeGrant
+//                            .authorizationRequestRepository(this.authorizationRequestRepository())
+//                            .authorizationRequestResolver(this.authorizationRequestResolver())
+//                            .accessTokenResponseClient(this.accessTokenResponseClient())
+//                        )
+//                );
 
         httpSecurity.csrf().ignoringRequestMatchers("/auth/**", "*/client/**");
 
 
         return httpSecurity.build();
     }
+
 
 
 
