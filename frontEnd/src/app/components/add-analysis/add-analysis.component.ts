@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Analise } from 'src/app/model/Analise';
 import { AnaliseService } from 'src/app/services/analise.service';
 
@@ -32,8 +32,11 @@ export class AddAnalysisComponent implements OnInit {
   ngOnInit(): void {
     this.formData = this.formBuilder.group({
       id: [''],
-      status: [''],
-      parecer: ['']
+      status: ['', Validators.required],
+      parecer: ['', [Validators.required,
+                     Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+                     Validators.minLength(10),
+                     Validators.maxLength(200)]]
     });
   }
 
@@ -45,17 +48,22 @@ export class AddAnalysisComponent implements OnInit {
     this.confirmed.emit(false);
   }
 
-  submitForm(form: any) {
-    this.analiseService.createAanalise(this.generateAnalysis(form))
-    .subscribe(
-      result =>{
-        alert("Salvo com sucesso");
-      },
-      erro => {
-        alert('erro ao salvar analise!')
-      }
-    );
-    this.confirm();
+  submitForm(form: FormGroup) {
+    if(form.valid){
+      this.analiseService.createAanalise(this.generateAnalysis(form))
+      .subscribe(
+        result =>{
+          alert("Salvo com sucesso");
+        },
+        erro => {
+          alert('erro ao salvar analise!');
+        }
+      );
+      this.confirm();
+    }else{
+      alert('Formulario invalido');
+    }
+
   }
 
   generateAnalysis(form: any): Analise {
@@ -66,5 +74,32 @@ export class AddAnalysisComponent implements OnInit {
       servidor_id: Number(this.idServidor),
       requisicao_id: Number(this.idRequicao)
     };
+  }
+
+  check(variableName: string, condition: string): boolean {
+    const variable = this.formData.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
+  }
+
+  isStatusValid() {
+    const ppcControl = this.formData.get('status');
+    if (ppcControl?.value  !== '') {
+      return true;
+    }
+    return false;
   }
 }

@@ -9,11 +9,23 @@
               {{ item.nome }}
             </option>
           </select>
+          <span class="alert" *ngIf="!isStatusValid() && formData.get('status')?.touched">
+            É necessario definir o status da requisição.
+          </span>
         </div>
 
         <div class="form-group">
           <label for="parecer">Parecer</label>
           <textarea type="text" id="parecer" formControlName="parecer" placeholder="" required></textarea>
+          <span class="alert" *ngIf="formData.get('codigo')?.hasError('required') && formData.get('codigo')?.touched">
+            Este campo é obrigatório.
+          </span>
+          <span class="alert" *ngIf=" check('parecer', 'minLength') ">
+            Exigidos 10 caracteres!
+          </span>
+          <span class="alert" *ngIf=" check('parecer', 'maxLength') ">
+            Máximo 200 caracteres!
+          </span>
         </div>
         <div class="form-half-grid">
           <div class="btn-submit-container" id="botaoSalvar">
