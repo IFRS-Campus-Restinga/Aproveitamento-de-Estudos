@@ -10,12 +10,12 @@ public record ServidorDTO(
     
     @NotBlank(message = "O nome não pode estar em branco")
     @Pattern(regexp = "^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\\s]*(?:[.,]\\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\\s]*)*$", message = "Contém caracter inválido! Use somente letras.")
-        @Size(min = 6, max = 120, message = "O nome deve ter entre 6 e 120 caracteres")
+        @Size(min = 3, max = 120, message = "O nome deve ter entre 3 e 120 caracteres")
     String nome,
 
     @NotBlank(message = "O e-mail não pode estar em branco")
         @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@restinga\\.ifrs\\.edu\\.br$", message = "O e-mail deve ser válido")
-        @Size(max = 50, message = "O e-mail deve ter no máximo 50 caracteres")
+        @Size(max = 50, message = "O e-mail deve ter no maximo 50 caracteres")
     String email, 
     boolean admin, 
     UsuarioTipo tipo,
