@@ -48,7 +48,7 @@ export class StudentResgistrationComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       aluno_id: [aluno.id],
-      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+(\s[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+){1,}$/), 
+      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(\s[a-zA-ZÀ-ÖØ-öø-ÿ]+)+$/), 
       Validators.minLength(3),Validators.maxLength(120)]],
       email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$'), 
       Validators.maxLength(50), Validators.email ]],

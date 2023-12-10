@@ -96,9 +96,9 @@ public class DisciplinaService {
 
         Disciplina disciplina = obterDisciplinaParaAtualizar(disciplinaRequest.id());
         // Adicionando validações
-        validarNomeDisciplina(disciplinaRequest.nome());
+        /*validarNomeDisciplina(disciplinaRequest.nome());
         validarCodDisciplina(disciplinaRequest.codDisciplina());
-        validarCargaHoraria(disciplinaRequest.cargaHoraria());
+        validarCargaHoraria(disciplinaRequest.cargaHoraria());*/
 
         PPC ppc = ppcRepository.findById(disciplinaRequest.ppc_id()).orElseThrow(() -> new IllegalArgumentException("PPC não encontrado"));
 
@@ -126,7 +126,7 @@ public class DisciplinaService {
 	  }
     // Métodos de validação
 
-    private String validarNomeDisciplina(String nome) {
+    /*private String validarNomeDisciplina(String nome) {
         if (nome == null || nome.trim().length() < 6 || nome.trim().length() > 120) {
             throw new IllegalArgumentException("O nome deve ter entre 6 e 120 caracteres");
         }
@@ -145,6 +145,6 @@ public class DisciplinaService {
             throw new IllegalArgumentException("A carga horária deve estar entre 10 e 88 horas");
         }
         return cargaHoraria;
-    }
+    }*/
 
 }

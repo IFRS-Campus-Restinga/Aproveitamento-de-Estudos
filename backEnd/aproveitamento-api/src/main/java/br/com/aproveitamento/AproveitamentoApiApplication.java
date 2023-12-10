@@ -87,10 +87,10 @@ public class AproveitamentoApiApplication {
 			disciplinaRepository.save(disciplina3);
 			disciplinaRepository.save(disciplina4);
 
-			Aluno aluno1 = new Aluno("jackson", "jack@restinga.ifrs.edu.br", false,
+			Aluno aluno1 = new Aluno("Jackson Balest", "jack@restinga.ifrs.edu.br", false,
 					UsuarioTipo.ALUNO, "1234567890",
 					"02/2022", curso1);
-			Aluno aluno2 = new Aluno("igor", "igor@restinga.ifrs.edu.br", false,
+			Aluno aluno2 = new Aluno("Igor Farias", "igor@restinga.ifrs.edu.br", false,
 					UsuarioTipo.ALUNO, "1122334455",
 					"01/2023", curso2);
 

@@ -10,6 +10,8 @@ import jakarta.validation.constraints.Size;
 public record AlunoDTO(
     Long id,
     @NotBlank(message = "O nome não pode estar em branco.")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÖØ-öø-ÿ]+(\\s[a-zA-ZÀ-ÖØ-öø-ÿ]+)+$", 
+                message = "O nome está incompleto ou tem algum caracter inválido")
     @Size(min = 3, max = 120, message = "O nome deve ter entre 3 e 120 caracteres.")
     String nome,
     @NotBlank(message = "O e-mail não pode estar em branco.")

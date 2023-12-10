@@ -16,14 +16,23 @@
                   </span>
                   <span class="alert" *ngIf=" check('nomeCompleto', 'status') && formData.get('nomeCompleto')?.touched 
                     && !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
-                    Contém caracter inválido! Use somente letras, números e ponto final.
+                    Contém caracter inválido ou o nome está incompleto! Use somente letras.
                   </span>
         </div>
 
         <div class="form-group">
             <label for="email">Email Institucional</label>
-            <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required
-                [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" required>
+            <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required>
+                <span class="alert" *ngIf="formData.get('email')?.hasError('required') && formData.get('email')?.touched">
+                  Este campo é obrigatório.
+                </span>
+                <span class="alert" *ngIf=" check('email', 'maxLength') ">
+                  Máximo 120 caracteres!
+                </span>
+                <span class="alert" *ngIf=" check('email', 'status') && formData.get('email')?.touched 
+                  && !formData.get('email')?.hasError('required')">
+                  Contém caracter inválido! Digite um email válido.
+                </span>
         </div>
 
         <div class="form-group">
