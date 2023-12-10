@@ -9,7 +9,7 @@ public record ServidorDTO(
     Long id,
     
     @NotBlank(message = "O nome não pode estar em branco")
-    @Pattern(regexp = "^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\\s]*(?:[.,]\\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\\s]*)*$", message = "Contém caracter inválido! Use somente letras.")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÖØ-öø-ÿ]+(\\s[a-zA-ZÀ-ÖØ-öø-ÿ]+)+$", message = "Contém caracter inválido ou nome incompleto! Use somente letras.")
         @Size(min = 3, max = 120, message = "O nome deve ter entre 3 e 120 caracteres")
     String nome,
 

@@ -9,14 +9,14 @@
                     Este campo é obrigatório.
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
-                    Exigidos 6 caracteres!
+                    Exigidos 3 caracteres!
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
                     Máximo 120 caracteres!
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'status') && !formData.get('nomeCompleto')?.touched && 
                   !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
-                  Contém caracter inválido! Use somente letras.
+                  Contém caracter inválido ou o nome está incompleto! Use somente letras.
                 </span>
         </div>
 
