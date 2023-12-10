@@ -48,9 +48,10 @@ export class StudentResgistrationComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       aluno_id: [aluno.id],
-      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/), 
+      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+(\s[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+){1,}$/), 
       Validators.minLength(3),Validators.maxLength(120)]],
-      email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$'), Validators.maxLength(50)]],
+      email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$'), 
+      Validators.maxLength(50), Validators.email ]],
       curso: [aluno.curso.id, Validators.required],
       matricula: [aluno.matricula, [Validators.required, Validators.pattern('[0-9]{10}'), Validators.minLength(10), Validators.maxLength(10)]],
       ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/), Validators.minLength(7), Validators.maxLength(7)]],
