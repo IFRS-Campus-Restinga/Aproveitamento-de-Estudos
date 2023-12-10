@@ -1,5 +1,7 @@
 package br.com.aproveitamento.config;
 
+import br.com.aproveitamento.federated.FederatedIdentityConfigurer;
+import br.com.aproveitamento.federated.UserRepositoryOAuth2UserHandler;
 import br.com.aproveitamento.service.ClientService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -12,12 +14,15 @@ import org.springframework.boot.autoconfigure.security.oauth2.server.servlet.OAu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +31,7 @@ import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -41,6 +47,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -69,14 +76,13 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain authSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(httpSecurity);
         httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .oidc(Customizer.withDefaults());
+                .oidc(Customizer.withDefaults());  // habilita o login com o OpenID Connect 1.0
 
-        httpSecurity.exceptionHandling( (exceptions) -> exceptions.authenticationEntryPoint(
-                new LoginUrlAuthenticationEntryPoint("/login")
-        ));
-                //.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        httpSecurity.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        httpSecurity.apply( new FederatedIdentityConfigurer());
 
         return httpSecurity.build();
     }
@@ -84,32 +90,45 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests( auth -> auth.requestMatchers("/auth/**", "*/client/**").permitAll().anyRequest().authenticated())
-                .formLogin(withDefaults())
+        FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
+                .oauth2UserHandler(new UserRepositoryOAuth2UserHandler());
 
-                .oauth2Login(Customizer.withDefaults())
-
-                .oauth2Client(Customizer.withDefaults());
-
-//                .oauth2Client(oauth2 -> oauth2
-//                        .clientRegistrationRepository(this.clientRegistrationRepository())
-//                        .authorizedClientRepository(this.authorizedClientRepository())
-//                        .authorizedClientService(this.authorizedClientService())
-//                        .authorizationCodeGrant(codeGrant -> codeGrant
-//                            .authorizationRequestRepository(this.authorizationRequestRepository())
-//                            .authorizationRequestResolver(this.authorizationRequestResolver())
-//                            .accessTokenResponseClient(this.accessTokenResponseClient())
-//                        )
-//                );
+        httpSecurity
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers( "/auth/**", "*/client/**", "/assets/**", "/webjars/**", "/login").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin(Customizer.withDefaults())
+                .apply(federatedIdentityConfigurer);
 
         httpSecurity.csrf().ignoringRequestMatchers("/auth/**", "*/client/**");
-
 
         return httpSecurity.build();
     }
 
 
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
 
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
+
+    @Bean
+    public OAuth2AuthorizationService authorizationService() {
+        return new InMemoryOAuth2AuthorizationService();
+    }
+
+    @Bean
+    public OAuth2AuthorizationConsentService authorizationConsentService() {
+        // Will be used by the ConsentController
+        return new InMemoryOAuth2AuthorizationConsentService();
+    }
 
 
 //    @Bean

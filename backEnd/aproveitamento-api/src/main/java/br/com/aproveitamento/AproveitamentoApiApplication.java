@@ -58,7 +58,7 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 		Set<String> scopes = new HashSet<>();
 		scopes.add("openid");
 
-		Client cliente = new Client("client", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
+		Client cliente = new Client("yuri", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
 
 		clientRepository.save(cliente);
 	}
