@@ -5,11 +5,16 @@
 
     <div class="form-group">
       <label for="curso">Curso</label>
-      <select id="curso" formControlName="curso" required [class.invalid]="isCursoValid()">
-          <option value="" disabled selected>Selecione um curso</option>
-          <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
-      </select>
-      <span class="alert" *ngIf="formData.get('nomePPC')?.touched && isCursoValid()">
+      <ng-container *ngIf="!isEditMode">
+        <select id="curso" formControlName="curso" required [class.invalid]="isCursoValid()">
+            <option value="" disabled selected>Selecione um curso</option>
+            <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
+        </select>
+      </ng-container>
+      <ng-container *ngIf="isEditMode">
+        <input type="text" name="curso" id="curso" [placeholder]= "cursoSelecionado" readonly />
+      </ng-container>
+      <span class="alert" *ngIf="formData.get('curso')?.touched && (formData.get('curso')?.invalid || formData.get('curso')?.value === 0 || formData.get('curso')?.value === '0')">
         É necessário selecionar um curso.
       </span>
     </div>
@@ -37,6 +42,9 @@
           <ng-container *ngIf="formData.get('nomePPC')?.hasError('multipleSpaces')">
             Não pode ter espaço duplo.
           </ng-container>
+          <!-- <ng-container *ngIf="formData.get('nomePPC')?.hasError('pattern')">
+            Não pode ter caracter especiais ou alfanuméricos.
+          </ng-container> -->
         </span>
     </div>
 
@@ -66,7 +74,10 @@
     <div class="btn-submit-container">
       <button type="submit" class="btn-register"
           [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
-          [disabled]="!formData.valid">Enviar</button>
+          [disabled]="!formData.valid || formData.get('curso')?.value === 0">Enviar</button>
     </div>
   </form>
 </div>
+{{formData.value | json}}
+{{isEdit()|json}}
+

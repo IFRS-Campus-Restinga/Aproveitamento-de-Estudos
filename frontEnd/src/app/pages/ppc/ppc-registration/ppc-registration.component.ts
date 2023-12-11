@@ -4,8 +4,6 @@ import { CursoService } from 'src/app/services/curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PpcCreate } from 'src/app/model/PpcCreate';
-
-
 @Component({
   selector: 'app-ppc-registration',
   templateUrl: './ppc-registration.component.html',
@@ -18,6 +16,8 @@ export class PpcRegistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number }> = [];
   formData!: FormGroup;
   anoAtual!: number;
+  isEditMode: boolean = false;
+  cursoSelecionado: string = ''; // Ou do tipo apropriado para o curso
 
   constructor(private ppcService: PpcService,
               private cursoService: CursoService,
@@ -29,6 +29,13 @@ export class PpcRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.loadCursos();
     let ppc: PpcCreate = this.route.snapshot.data['PpcCreate'];
+
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.isEditMode = true;
+        // Mais lógica aqui, se necessário, ao entrar no modo de edição
+      }
+    });
 
     this.anoAtual = new Date().getFullYear();
     console.log(ppc);
@@ -50,7 +57,7 @@ export class PpcRegistrationComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(100),
         this.spaceValidator(),
-        //Validators.pattern(/^(?!\s)(?!.*\s$)(?!.* {2})[^\s].*[^\s]$/),
+        // Validators.pattern(/^[^\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/),
       ]],
       ano: [ppc.ano, [
         Validators.required,
@@ -94,8 +101,14 @@ export class PpcRegistrationComponent implements OnInit {
           data.forEach((curso: any) => {
             this.listCursos.push(
               { curso: curso.nome, id: curso.id }
-            )
+            );
           });
+
+          // Define o curso selecionado se estiver em modo de edição
+          if (this.isEdit() && this.listCursos.length >= 0) {
+            const cursoSelecionado = this.listCursos.find(curso => curso.id === this.formData.get('curso')?.value);
+            this.cursoSelecionado = cursoSelecionado ? cursoSelecionado.curso : '';
+          }
         }
       },
       (error) => {
@@ -121,7 +134,7 @@ export class PpcRegistrationComponent implements OnInit {
 
   isCursoValid() {
     const cursoControl = this.formData.get('curso');
-    return cursoControl?.touched && cursoControl?.invalid;
+    return cursoControl?.touched && cursoControl?.invalid && cursoControl?.value !== 0;
   }
 
   isValid(campo: string): boolean {
@@ -131,6 +144,10 @@ export class PpcRegistrationComponent implements OnInit {
       return !fieldControl.valid && fieldControl.touched;
     }
     return false;
+  }
+
+  isEdit(){
+    return this.isEditMode;
   }
 
 }
