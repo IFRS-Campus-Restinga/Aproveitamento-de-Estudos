@@ -2,6 +2,7 @@ package br.com.aproveitamento.config;
 
 import br.com.aproveitamento.federated.FederatedIdentityConfigurer;
 import br.com.aproveitamento.federated.UserRepositoryOAuth2UserHandler;
+import br.com.aproveitamento.repository.GoogleUserRepository;
 import br.com.aproveitamento.service.ClientService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -70,6 +71,7 @@ public class AuthorizationSecurityConfig {
 
     private final PasswordEncoder passwordEncoder;
     private final ClientService clientService;
+    private final GoogleUserRepository googleUserRepository;
 
 
 
@@ -91,7 +93,7 @@ public class AuthorizationSecurityConfig {
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
-                .oauth2UserHandler(new UserRepositoryOAuth2UserHandler());
+                .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository));
 
         httpSecurity
                 .authorizeHttpRequests(authorize ->
