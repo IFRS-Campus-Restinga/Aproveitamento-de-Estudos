@@ -1,0 +1,27 @@
+<div class="confirmation-dialog-overlay">
+  <div class="confirmation-dialog">
+    <div class="analise-container">
+      <div class="analise" *ngFor="let analise of analises">
+          <div class="form-half-grid">
+            <div class="info-row">
+              <label for="">Servidor: </label>
+              <p>{{analise.servidorNome}}</p>
+            </div>
+            <div class="info-row">
+              <label for="">Status: </label>
+              <p>{{analise.status}}</p>
+            </div>
+          </div>
+          <div>
+            <label for="">Parecer: </label>
+            <textarea readonly>{{analise.parecer}}</textarea>
+          </div>
+      </div>
+    </div>
+
+    <div class="btn-submit-container" style="width: 40%;">
+      <button type="reset" class="btn-register btn-red" (click)="close()">Fechar</button>
+    </div>
+  </div>
+
+</div>

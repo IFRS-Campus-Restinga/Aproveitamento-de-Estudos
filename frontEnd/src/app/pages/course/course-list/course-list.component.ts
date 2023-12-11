@@ -1,53 +1,63 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { CoursesService } from 'src/app/services/courses.service';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { ErrorDialogComponent } from 'src/app/components/error-dialog/error-dialog.component';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from 'src/app/model/Curso';
+import { CursoService } from 'src/app/services/curso.service';
 
 @Component({
-  selector: 'app-course-list',
+  selector: 'app-discipline-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent {
+  public cursoList: Curso[] = [];
+  public cursoDelete!: Curso;
+  @Output() edit = new EventEmitter(false);
+  @Output() delete = new EventEmitter(false);
+  public isConfirmationVisible: boolean | undefined;
+  public confirmationMessage = 'Tem certeza que deseja excluir está Curso?';
+  public termoPesquisa: String = '';
 
-  courses$: Observable<Curso[]>;
-  displayedColumns = ['nome','ppc','actions'];
+  constructor(private route: ActivatedRoute,
+              private cursoService: CursoService,
+              private router: Router){
+  }
 
-  constructor(private coursesService: CoursesService, public dialog: MatDialog, private router: Router){
-    this.courses$ = this.coursesService.list()
-    .pipe(
-      catchError(error => {
-       this.onError('Erro ao carregar cursos!');
-       return of([]);
-      })
-    );
+  ngOnInit(): void {
+    this.getCurso();
+  }
 
+  getCurso(){
+    this.cursoService.list().subscribe(
+      (_curso: Curso[]) => {
+        this.cursoList = _curso.filter(curso =>
+          (curso.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
+          (curso.id.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
+        );
+      },
+      error => console.log(error)
+    )
 
   }
 
-  onInit(){
-    this.courses$ = this.coursesService.list()
-    .pipe(
-      catchError(error => {
-       this.onError('Erro ao carregar cursos!');
-       return of([]);
-      })
-    );
+  onEdit(curso: Curso) {
+    this.router.navigate(['edit', curso.id], {relativeTo: this.route});
+    console.log(curso)
   }
 
-  onError(errorMsg: string) {
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
-    });
-
+  showConfirmationDialog(curso: Curso) {
+    this.isConfirmationVisible = true;
+    this.cursoDelete = curso;
   }
 
-  onAdd() {
-    console.log('cadastrar');
-    this.router.navigate(['course/register']);
+  handleConfirmation(confirmed: boolean) {
+    if (confirmed) {
+      this.cursoService.remove(this.cursoDelete?.id).subscribe(
+        result => alert("Curso deletada com sucesso"),
+        error => alert("Erro ao deletar curso")
+      );
+    }
+    this.router.navigate(['/discipline']);
+    location.reload();
+    this.isConfirmationVisible = false;
   }
 }

@@ -1,1 +1,48 @@
-<app-lists-title title="Requisições" route="/register/request" buttonName="Adicinar requisição"></app-lists-title>
+<app-lists-title title="Requisições" route="/register/request" buttonName="Adicionar requisição"></app-lists-title>
+
+<div class="containerFiltro">
+  <div class="form-group">
+    <label class="mr-2">Filtro </label>
+    <input type="text" class="form-control mr-2" placeholder="buscar">
+  </div>
+</div>
+
+<div class="container">
+<table class="edital-container" style="width: 60%;">
+  <thead class="thead-dark" style="text-align: right;">
+    <tr>
+      <th>Id</th>
+      <th>Tipo</th>
+      <th>Status</th>
+      <th>Data de criação</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody style="padding-left: 7px;text-align: right;" *ngIf="requisicaoList && requisicaoList.length">
+
+      <tr *ngFor="let requisicao of  requisicaoList">
+        <td>{{requisicao.id}}</td>
+        <td>{{requisicao.tipo}}</td>
+        <td>{{requisicao.status}}</td>
+        <td>{{toDate(requisicao.dataCriacao)}}</td>
+        <td style="width: 28%;">
+          <button type="button" class="btn-register-edital" (click)=onEdit(requisicao)>Editar</button>
+          <button type="button" class="btn-alert-edital" (click)=showConfirmationDialog(requisicao)>Excluir</button>
+        </td>
+      </tr>
+
+  </tbody>
+  <tfoot *ngIf="!requisicaoList.length">
+    <tr>
+      <td colspan="8">
+        <h4>Nenhum edital encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+<app-confirmation-dialog
+*ngIf="isConfirmationVisible"
+[message]="confirmationMessage"
+(confirmed)="handleConfirmation($event)"
+></app-confirmation-dialog>

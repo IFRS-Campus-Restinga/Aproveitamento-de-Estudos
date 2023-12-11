@@ -38,7 +38,7 @@ export class EditalService {
   }
 
   private update(record: Partial<Edital>) {
-    return this.httpClient.put<Edital>(`${this.API}/${record.id}`, record).pipe(first());
+    return this.httpClient.put<Edital>(`${this.API}`, record).pipe(first());
   }
 
   remove(id: string) {

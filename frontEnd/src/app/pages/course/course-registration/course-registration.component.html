@@ -1,77 +1,55 @@
 <div class="container">
-  <form  [formGroup]="form" (ngSubmit)="onSubmit(form)" id="formCurso">
-    <div class="form-group">
-        <label for="nome">Nome do Curso</label>
-        <input type="text" id="nome" name="nome" placeholder=""
-        formControlName="nome" required>
-    </div>
+  <app-title title="Cadastro de Curso"></app-title>
+  <form [formGroup]="formData" (ngSubmit)="submitForm(formData)">
 
     <div class="form-group">
-        <label for="PPCs">Ano do PPC</label>
-        <input type="text" id="PPCs" name="PPcs" placeholder=""
-        formControlName="PPCs" required>
+      <label for="nome">Nome do Curso</label>
+      <input type="text" id="nome" formControlName="nome" placeholder=""
+         required>
     </div>
 
-    <div class="form-group">
-        <label for="coordenadores">Coordenador</label>
-        <input type="text" id="coordenadores" name="coordenadores" placeholder=""
-        formControlName="coordenadores" required>
+    <!-- <div class="form-group">
+      <label for="ppcs">Ano do PPC</label>
+      <input type="text" id="ppcs" formControlName="ppcs" placeholder="AAAA"
+        [ngClass]="{'valid-input': !isValid('ppcs'), 'invalid-input': isValid('ppcs')}" required>
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label for="coordenadores">Coordenadores</label>
+      <input type="text" id="coordenadores" formControlName="coordenadores" placeholder="Nome"
+        [ngClass]="{'valid-input': !isValid('coordenadores'), 'invalid-input': isValid('coordenadores')}" required>
+    </div> -->
+
+    <div class="form-group" *ngIf="exibeCoordenadores && listCoordenadores.length > 0">
+      <label for="coordenador">Coordenador</label>
+      <select id="coordenador_id" formControlName="coordenador_id" (ngModelChange)="coordenadoresChange()" required>
+        <option *ngFor="let item of listCoordenadores" [value]="item.id">{{ item.nome }}</option>
+      </select>
     </div>
+
 
     <div class="btn-submit-container" id="botaoSalvar">
-        <button type="submit" class="btn-register">Salvar</button>
+      <button type="submit" class="btn-register" >Salvar</button>
     </div>
   </form>
 </div>
-{{form.value | json}}
 
-<!--
 
-  <mat-card>
-    <form [formGroup]="form">
-      <mat-form-field class="full-width" >
-        <input matInput placeholder="Nome do Curso" formControlName="nomeCurso">
-      </mat-form-field>
 
-      <mat-form-field class="full-width" >
-        <input matInput placeholder="Ano PPC" formControlName="anoPpc">
-      </mat-form-field>
+<!-- <div class="form-group">
+  <label for="nome">Nome do Curso</label>
+  <input type="text" id="nome" formControlName="nome" placeholder=""
+    [ngClass]="{'valid-input': !isValid('nome'), 'invalid-input': isValid('nome')}" required>
+</div>
 
-      <mat-form-field class="full-width" >
-        <input matInput placeholder="Coordenador" formControlName="coordenador">
-      </mat-form-field>
+<div class="form-group">
+  <label for="coordenador">Coordenador</label>
+  <select id="coordenador" formControlName="coordenador" (ngModelChange)="coordenadoresChange()" required>
+    <option *ngFor="let item of listCoordenadores" [value]="item.id">{{ item.coordenador }}</option>
+  </select>
+</div>
 
-      <mat-card-actions class="button">
-        <button mat-raised-button color="primary"> Salvar </button>
-        <button mat-raised-button color="warn"> Apagar </button>
-      </mat-card-actions>
 
-    </form>
-  </mat-card>
-
---------------------------
-
-    <form #form="ngForm" (ngSubmit)="submitForm(form)" id="formCurso">
-        <div class="form-group">
-            <label for="nomeCurso">Nome do Curso</label>
-            <input type="text" id="nomeCurso" name="nomeCurso" placeholder=""
-                [(ngModel)]="formData.nomeCurso" required>
-        </div>
-
-        <div class="form-group">
-            <label for="anoPpc">Ano do PPC</label>
-            <input type="text" id="anoPpc" name="anoPpc" placeholder=""
-                [(ngModel)]="formData.anoPpc" required>
-        </div>
-
-        <div class="form-group">
-            <label for="coordenador">Coordenador</label>
-            <input type="text" id="coordenador" name="coordenador" placeholder=""
-                [(ngModel)]="formData.coordenador" required>
-        </div>
-
-        <div class="btn-submit-container" id="botaoSalvar">
-            <button type="submit" class="btn-register">Salvar</button>
-        </div>
-    </form>
-  -->
+<div class="btn-submit-container" id="botaoSalvar">
+  <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
+    [disabled]="!formData.valid">Salvar</button> -->

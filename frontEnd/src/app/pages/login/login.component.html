@@ -2,35 +2,35 @@
   <app-title title="Login"></app-title>
 
   <div id="form-login">
-      <form #form="ngForm" (ngSubmit)="submitForm(form)">
-          <div id="logo">
-              <img src="../../../assets/images/logotipo_campus_restinga_horizontal.png">
-          </div>
-
-          <div class="form-group" >
-              <label for="email">Email: </label>
-              <input type="email" id="email" name="email" placeholder="matricula@restinga.ifrs.edu.br" [(ngModel)]="formData.email"
-              required>
-          </div>
-          <div class="form-group">
-
-              <label for="senha">Senha: </label>
-              <input type="password" id="password" name="password" placeholder="Senha" [(ngModel)]="formData.password"
-              required>
-          </div>
-
-      </form>
-      <div id="botoes-login">
-          <div class="btn-submit-container">
-              <button type="submit" class="btn-register" [routerLink]="['request']">Acessar</button>
-          </div>
-
-          <div id="botoes-login">
-              <button type="submit"  id="cadastrar" class="btn-register" [routerLink]="['student/register']">Cadastrar</button>
-          </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm)">
+      <div id="logo">
+        <img src="../../../assets/images/logotipo_campus_restinga_horizontal.png">
       </div>
+
+      <div class="form-group">
+        <label for="email">Email Institucional</label>
+        <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required
+          [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}">
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha: </label>
+        <input type="password" id="password" formControlName="password" placeholder="Senha"
+          [ngClass]="{'valid-input': !isValid('password'), 'invalid-input': isValid('password')}">
+      </div>
+
+      <div id="botoes-login">
+        <div class="btn-submit-container">
+          <button type="submit" class="btn-register" >Acessar</button>
+        </div>
+
+        <div id="botoes-login">
+          <button type="button" id="cadastrar" class="btn-register" [routerLink]="['student/register']">Cadastrar</button>
+        </div>
+      </div>
+    </form>
+
+    {{ loginForm.valid | json }}
+    {{ loginForm.value | json }}
   </div>
-
-
-  {{form.value | json}}
 </div>

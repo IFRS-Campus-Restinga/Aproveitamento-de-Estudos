@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-login-oauth',
@@ -12,12 +11,11 @@ export class LoginOAuthComponent {
 
   private readonly api = "http://localhost:8080/api";
 
-  constructor(private router: Router, public authService: AuthService){
+  constructor(private router: Router){
 
   }
 
   loginWithRedirect() {
-    this.authService.loginWithRedirect();
   }
 
 

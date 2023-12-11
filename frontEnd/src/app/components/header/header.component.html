@@ -10,18 +10,20 @@
     </div>
     <div class="menu">
       <ul>
-        <li><button href="">Perfil</button></li>
+        <li><button >Perfil</button></li>
         <li (click)="toggleDropdown()">
-          <button [ngClass]="{ 'active': ['discipline', 'course', 'student', 'announcement'].includes(currentPage) }">Gerenciar</button>
+          <button [ngClass]="{ 'active': adminManegent.includes(currentPage) }">Gerenciar</button>
           <ul *ngIf="showDropdown" class="dropdown">
-            <li><a [routerLink]="['discipline']">Disciplina</a></li>
-            <li><a [routerLink]="['course']">Curso</a></li>
             <li><a [routerLink]="['student']">Aluno</a></li>
+            <li><a [routerLink]="['course']">Curso</a></li>
+            <li><a [routerLink]="['discipline']">Disciplina</a></li>
             <li><a [routerLink]="['announcement']">Edital</a></li>
+            <li><a [routerLink]="['ppc']">PPC</a></li>
+            <li><a [routerLink]="['servant']">Servidor</a></li>
           </ul>
         </li>
-        <li><button [ngClass]="{ 'active': currentPage === 'request' }" [routerLink]="['request']">Solicitações</button></li>
-        <li><button [routerLink]="['logout']">Logout</button></li>
+        <li><button [ngClass]="{ 'active': currentPage === 'request' }" [routerLink]="['request']">Requisições</button></li>
+        <li><button >Logout</button></li>
       </ul>
     </div>
   </nav>

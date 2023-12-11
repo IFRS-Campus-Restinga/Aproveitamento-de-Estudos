@@ -1,10 +1,3 @@
-#formCurso {
-    border: 1px solid #EAEBEE;
-    margin: 2vh;
-    padding: 60px;
-
-}
-
 #formCurso #botaoSalvar, input{
     display: flex;
     justify-content: center;
@@ -35,3 +28,22 @@ mat-card {
 .button button{
   margin: 1%;
 }
+btn-green {
+  background-color: green;
+  color: white;
+}
+
+.btn-gray {
+  background-color: gray;
+  color: white;
+}
+.valid-input {
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
+
+.invalid-input {
+  background-color: rgb(229, 204, 204);
+  color: white;
+}
+

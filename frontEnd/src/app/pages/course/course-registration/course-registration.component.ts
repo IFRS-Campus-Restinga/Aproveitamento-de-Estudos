@@ -1,56 +1,143 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CoursesService } from 'src/app/services/courses.service';
-//import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from '@angular/core';
+import { CursoCreate } from 'src/app/model/CursoCreate';
+import { CursoService } from 'src/app/services/curso.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Curso } from '../../../model/Curso';
+import { CoordenadorService } from 'src/app/services/coordenador.service';
+import { Coordenador } from 'src/app/model/Coordenador';
 
 @Component({
   selector: 'app-course-registration',
   templateUrl: './course-registration.component.html',
   styleUrls: ['./course-registration.component.css']
 })
-export class CourseRegistrationComponent {
-  formData: any = {};
-  form: FormGroup;
 
-  // construtor utilizando o material snackbar, para customização do alert de sucesso
-  //constructor(private formBuilder: FormBuilder, private service: CoursesService, private snackBar: MatSnackBar, private router: Router) {
-  
-  constructor(private formBuilder: FormBuilder, private service: CoursesService, private router: Router) {
+export class CourseRegistrationComponent implements OnInit {
 
-    this.form = this.formBuilder.group({
-      nome: [null],
-      PPCs: [null],
-      coordenadores: [null],
+  private curso: CursoCreate | null = null;
+  listCoordenadores!: Coordenador[];
+  formData!: FormGroup;
+  exibeCoordenadores: boolean = false;
+
+
+  constructor(private cursoService: CursoService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private coordenadorService: CoordenadorService) {
+  }
+
+  ngOnInit(): void {
+    let curso: CursoCreate = this.route.snapshot.data['curso'];
+    if (!curso) {
+      curso = {
+        id: '',
+        nome: '',
+        coordenador_id: 0,
+        coordenadores: [{ nome: 'Selecione o curso', id: '0', ativo: false }]
+      }
+    } else {
+      this.exibeCoordenadores = true;
+      this.listCoordenadores = curso.coordenadores;
+      console.log(this.exibeCoordenadores);
+      console.log(this.listCoordenadores);
+    }
+    this.formData = this.formBuilder.group({
+      id: [curso.id],
+      nome: [curso.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      coordenador_id: [curso.coordenador_id, []],
     });
+
   }
 
 
-  onSubmit(form: any) {
-    console.log(this.form.value);
-
-    const curso: Curso = {
-      nome: form.get('nome')?.value,
-      PPCs: form.get('PPCs')?.value,
-      coordenadores: form.get('')?.value,
-      alunos: null,
+  submitForm(form: FormGroup) {
+    if (form.valid) {
+      const curso: CursoCreate = {
+        id: form.get('id')?.value,
+        nome: form.get('nome')?.value,
+        coordenador_id: form.get('coordenador_id')?.value,
+        coordenadores: this.listCoordenadores
+      }
+      if (curso) {
+        this.cursoService.save(curso).subscribe(
+          (data) => {
+            alert('Curso salvo com sucesso!');
+            this.router.navigate(['/course']);
+          },
+          (error) => {
+            alert("Erro ao salvar o curso");
+          }
+        );
+      }
+    }else{
+      alert("from invalido");
     }
+  }
 
-    this.service.save(curso).subscribe(
+  loadCoordenadores() {
+    this.coordenadorService.list().subscribe(
       (data) => {
-        alert('Curso salvo com sucesso!');
+        if (data !== null) {
+          data.forEach((coordenador: Coordenador) => {
+            this.listCoordenadores.push(
+              { nome: coordenador.nome, id: coordenador.id, ativo: coordenador.ativo }
+              // coordenador: string, id: string, ativo: boolean
+            )
+          });
+        }
       },
       (error) => {
-        console.error('Erro:', error);
-      });
-
-    this.router.navigate(['course'])
-
-    
+        console.log('Erro:', error);
+      }
+    );
   }
 
-//  private onError(){
-//    this.snackBar.open('erro ao salvar curso.', '', { duration: 5000});
-//  }
+  loadCoordenadoresByIdCurso(id: number) {
+    this.coordenadorService.listByIdCurso(id).subscribe(
+      (data) => {
+        if (data !== null) {
+          data.forEach((coordenador: Coordenador) => {
+            this.listCoordenadores.push(
+              { nome: coordenador.nome, id: coordenador.id, ativo: coordenador.ativo }
+              // coordenador: string, id: string, ativo: boolean
+            )
+          });
+        }
+      },
+      (error) => {
+        console.log('Erro:', error);
+      }
+    );
+  }
+
+
+
+
+  isFormValid(): boolean {
+    return this.formData.valid;
+  }
+
+  isValid(campo: string): boolean {
+    const fieldControl = this.formData.get(campo);
+
+    if (fieldControl) {
+      return !fieldControl.valid && fieldControl.touched;
+    }
+    return false;
+  }
+
+  coordenadoresChange() {
+
+  }
 }
+
+
+
+
+
+
+
+
+
