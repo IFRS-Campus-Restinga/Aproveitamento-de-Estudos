@@ -4,12 +4,12 @@
 
     <div class="form-group">
       <label for="nome">Nome do Curso</label>
-      <input type="text" id="nome" formControlName="nome" placeholder="Nome do Curso" required>
+      <input type="text" id="nome" formControlName="nome" placeholder="Nome do Curso" [attr.readonly]="isReadOnly ? true : null" required>
       <span class="alert" *ngIf="formData.get('nome')?.hasError('required') && formData.get('nome')?.touched">
         Este campo é obrigatório.
       </span>
       <span class="alert" *ngIf=" check('nome', 'minLength') ">
-        Mínimo 2 caracteres para a sigla do curso!
+        Mínimo 3 caracteres caso queira usar só a sigla do curso!
       </span>
       <span class="alert" *ngIf=" check('nome', 'maxLength') ">
         Máximo 120 caracteres!

@@ -19,6 +19,7 @@ export class CourseRegistrationComponent implements OnInit {
   listCoordenadores!: Coordenador[];
   formData!: FormGroup;
   exibeCoordenadores: boolean = false;
+  isReadOnly: boolean = false;
 
 
   constructor(private cursoService: CursoService,
@@ -40,13 +41,14 @@ export class CourseRegistrationComponent implements OnInit {
     } else {
       this.exibeCoordenadores = true;
       this.listCoordenadores = curso.coordenadores;
+      this.isReadOnly = true;
       console.log(this.exibeCoordenadores);
       console.log(this.listCoordenadores);
     }
     this.formData = this.formBuilder.group({
       id: [curso.id],
       nome: [curso.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]*$/),
-      Validators.minLength(2),Validators.maxLength(120)]],
+      Validators.minLength(3),Validators.maxLength(120)]],
       coordenador_id: [curso.coordenador_id, []],
     });
 
