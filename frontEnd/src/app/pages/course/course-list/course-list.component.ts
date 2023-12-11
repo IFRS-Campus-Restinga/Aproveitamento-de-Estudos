@@ -30,8 +30,7 @@ export class CourseListComponent {
     this.cursoService.list().subscribe(
       (_curso: Curso[]) => {
         this.cursoList = _curso.filter(curso =>
-          (curso.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))||
-          (curso.id.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
+          (curso.nome.toLowerCase().includes(this.termoPesquisa.toLowerCase()))
         );
       },
       error => console.log(error)
