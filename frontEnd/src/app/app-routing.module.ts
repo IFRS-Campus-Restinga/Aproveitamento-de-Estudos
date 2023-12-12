@@ -23,10 +23,18 @@ import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-regis
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcResolver } from './pages/ppc/guards/ppc-registration.resolver';
 import { AuthorizedComponent } from './components/authorized/authorized.component';
+import { LoginOAuthComponent } from './pages/login-oauth/login-oauth.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  {path: 'authorized', component: AuthorizedComponent },
-  {path: '**', redirectTo: '', pathMatch: 'full'},
+  // componentes de login como home
+  //{ path:'', component:LoginComponent },
+  //{ path:'', component:LoginOAuthComponent },
+  // componente home como home
+  { path:'', component:HomeComponent },
+
+  { path: 'authorized', component: AuthorizedComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full'},
 
   {
     path:'discipline',
@@ -91,9 +99,8 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
-    path:'',
-    component:LoginComponent,
-    pathMatch: 'full'
+    path:'login/oauth',
+    component:LoginOAuthComponent
   },
   {
     path: 'announcement/edit/:id',

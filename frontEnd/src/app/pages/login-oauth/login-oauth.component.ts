@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-oauth',
@@ -9,18 +10,38 @@ import { RouterLink, Router } from '@angular/router';
 })
 export class LoginOAuthComponent {
 
-  private readonly api = "http://localhost:8080/api";
 
-  constructor(private router: Router){
+
+
+  authorize_uri = environment.authorize_uri;
+
+  params: any = {
+    client_id: environment.client_id,
+    redirect_uri: environment.redirect_uri,
+    scope: environment.scope,
+    response_type: environment.response_type,
+    response_mode: environment.response_mode,
+    code_challenge_method: environment.code_challenge_method,
+    code_challenge: environment.code_challenge,
+  }
+
+
+  constructor(private router: Router) {
 
   }
 
-  loginWithRedirect() {
+  ngOnInit(): void {
+    console.log(btoa('client:secret'));
   }
 
+  onLogin(): void {
+    const httpParams = new HttpParams({fromObject: this.params});
+    const codeUrl = this.authorize_uri + httpParams.toString();
+    location.href = codeUrl;
 
-  onClick() {
-    console.log('indo');
-    window.location.href = this.api;
+  }
+
+  onLogout(): void {
+
   }
 }

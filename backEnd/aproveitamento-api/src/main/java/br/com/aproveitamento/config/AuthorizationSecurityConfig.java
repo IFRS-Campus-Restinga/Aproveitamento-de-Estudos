@@ -82,7 +82,7 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain authSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
+        httpSecurity.cors(Customizer.withDefaults());
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(httpSecurity);
         httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults());  // habilita o login com o OpenID Connect 1.0
@@ -96,6 +96,7 @@ public class AuthorizationSecurityConfig {
     @Bean
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors(Customizer.withDefaults());
         FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
                 .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository, usuarioRepository, roleRepository));
 

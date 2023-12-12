@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -39,6 +40,7 @@ import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 import { AuthorizedComponent } from './components/authorized/authorized.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -68,6 +70,7 @@ import { AuthorizedComponent } from './components/authorized/authorized.componen
     PpcListComponent,
     PpcRegistrationComponent,
     AuthorizedComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
