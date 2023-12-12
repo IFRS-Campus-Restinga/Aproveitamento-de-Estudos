@@ -53,7 +53,7 @@ public class Usuario implements UserDetails {
     private boolean credentialsExpired = false;
     private boolean disable = false;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn
     private GoogleUser googleUser;
 
