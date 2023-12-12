@@ -25,6 +25,8 @@ import { PpcResolver } from './pages/ppc/guards/ppc-registration.resolver';
 import { AuthorizedComponent } from './components/authorized/authorized.component';
 import { LoginOAuthComponent } from './pages/login-oauth/login-oauth.component';
 import { HomeComponent } from './components/home/home.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   // componentes de login como home
@@ -32,8 +34,9 @@ const routes: Routes = [
   //{ path:'', component:LoginOAuthComponent },
   // componente home como home
   { path:'', component:HomeComponent },
-
   { path: 'authorized', component: AuthorizedComponent },
+  { path: 'user', component: UserComponent},
+  { path: 'admin', component: AdminComponent},
   { path: '**', redirectTo: '', pathMatch: 'full'},
 
   {

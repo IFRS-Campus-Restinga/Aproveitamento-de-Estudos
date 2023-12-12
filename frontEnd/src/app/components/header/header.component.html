@@ -10,7 +10,9 @@
     </div>
     <div class="menu">
       <ul>
-        <li><button >Perfil</button></li>
+        <li><a routerLink="/user">Usuario</a></li>
+        <li><a routerLink="/admin">Admin</a></li>
+
         <li (click)="toggleDropdown()">
           <button [ngClass]="{ 'active': adminManegent.includes(currentPage) }">Gerenciar</button>
           <ul *ngIf="showDropdown" class="dropdown">

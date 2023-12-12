@@ -20,6 +20,6 @@ public class ResourceController {
     @RequestMapping("/admin")
     @PreAuthorize("hasAuthority('COORDENADOR')")
     public ResponseEntity<MessageDTO> admin(Authentication authentication){
-        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName()));
+        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName() ));
     }
 }

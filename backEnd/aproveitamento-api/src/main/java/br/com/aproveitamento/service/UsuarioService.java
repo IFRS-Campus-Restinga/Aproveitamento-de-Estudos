@@ -13,6 +13,7 @@ import br.com.aproveitamento.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -67,6 +68,8 @@ public class UsuarioService {
 	public List<Usuario> list(){
 		return usuarioRepository.findAll();
 	}
+
+
 	
 	public Usuario findById(@NotNull @Positive Long id){
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
@@ -85,4 +88,6 @@ public class UsuarioService {
 	public void delete(@NotNull @Positive Long id){
 		usuarioRepository.deleteById(id);
 	}
+
+
 }

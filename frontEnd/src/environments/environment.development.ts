@@ -12,6 +12,7 @@ export const environment = {
   token_url: "http://localhost:8080/oauth2/token",
   state:'igpx0zc61vo',
   nonce:'5n71vuebp9r',
-  grant_type: 'authorization_code'
+  grant_type: 'authorization_code',
+  resource_url: 'http://localhost:8080/resource/'
 
 };

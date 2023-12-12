@@ -43,6 +43,7 @@ public class GoogleUser {
                 .givenName(oAuth2User.getAttributes().get("given_name").toString())
                 .familyName(oAuth2User.getAttributes().get("family_name").toString())
                 .pictureUrl(oAuth2User.getAttributes().get("picture").toString())
+                .pictureUrl(oAuth2User.getAttributes().get("").toString())
                 .build();
 
         return googleUser;

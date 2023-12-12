@@ -31,7 +31,7 @@ import { ListsTitleComponent } from './components/lists-title/lists-title.compon
 import { DisciplineListComponent } from './pages/discipline/discipline-list/discipline-list.component';
 import { StudentListComponent } from './pages/student/student-list/student-list.component';
 import { RequestsListComponent } from './pages/requests/requests-list/requests-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ServantRegistrationComponent } from './pages/servant/servant-registration/servant-registration.component';
 import { ServantListComponent } from './pages/servant/servant-list/servant-list.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
@@ -41,6 +41,9 @@ import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 import { AuthorizedComponent } from './components/authorized/authorized.component';
 import { HomeComponent } from './components/home/home.component';
+import { ResourceInterceptor } from './interceptors/resource.interceptor';
+import { UserComponent } from './components/user/user.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
@@ -71,6 +74,8 @@ import { HomeComponent } from './components/home/home.component';
     PpcRegistrationComponent,
     AuthorizedComponent,
     HomeComponent,
+    UserComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,7 @@ import { HomeComponent } from './components/home/home.component';
     MatSnackBarModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: ResourceInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

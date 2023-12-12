@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 
@@ -53,11 +51,9 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
                 // precisa de aprimoramento
                 if(googleUser.getEmail().contains("aluno")){
                     role.add(roleRepository.findByRole(UsuarioTipo.ALUNO).get());
-                    novoUsuario.setRoles(role);
                     tipo = UsuarioTipo.ALUNO;
                 } else if(googleUser.getEmail().contains("coord.")){
                     role.add(roleRepository.findByRole(UsuarioTipo.COORDENADOR).get());
-                    novoUsuario.setRoles(role);
                     tipo = UsuarioTipo.COORDENADOR;
                     admin = true;
 
@@ -75,13 +71,16 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
                 novoUsuario.setPassword(null);
                 novoUsuario.setId(null);
                 novoUsuario.setAdmin(admin);
-                novoUsuario.setRoles(role);
+                novoUsuario.setRoles((Set<Role>) role);
                 novoUsuario.setTipo(tipo);
 
                 novoUsuario.setGoogleUser(googleUser);
 
+
+
                 // conecta o novoUsuario com a conta do google
                 googleUser.setUsuario(novoUsuario);
+
 
                 // salva o login do google
                 this.googleUserRepository.save(googleUser);
