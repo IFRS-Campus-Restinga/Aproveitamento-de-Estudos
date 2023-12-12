@@ -87,7 +87,6 @@ public class AuthorizationSecurityConfig {
         httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults());  // habilita o login com o OpenID Connect 1.0
 
-        httpSecurity.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
         httpSecurity.apply( new FederatedIdentityConfigurer());
 
         return httpSecurity.build();
@@ -97,6 +96,8 @@ public class AuthorizationSecurityConfig {
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(Customizer.withDefaults());
+        httpSecurity.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+
         FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
                 .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository, usuarioRepository, roleRepository));
 

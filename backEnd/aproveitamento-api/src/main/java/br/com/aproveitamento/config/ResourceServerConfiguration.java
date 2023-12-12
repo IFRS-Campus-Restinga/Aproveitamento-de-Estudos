@@ -4,6 +4,7 @@ package br.com.aproveitamento.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
@@ -30,32 +31,30 @@ public class ResourceServerConfiguration {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
 
-//    @Bean
-//    SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//
-//
-//
-//        return http
-//                .authorizeHttpRequests( auth -> {
-//                    auth.anyRequest().authenticated();
-//                })  // configurando os metodos de login, utilizando o resource server
-//                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt ->
-//                        jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri))))
-//                //.formLogin(withDefaults())
-//                .build();
-//    }
-//
-//
-//    @Bean
-//    public JwtAuthenticationConverter jwtAuthenticationConverter(){
-//        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-//        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-//        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
-//        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-//
-//        return jwtAuthenticationConverter;
-//    }
+    @Bean
+    SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.cors(Customizer.withDefaults());
+        return http
+                .authorizeHttpRequests( auth -> {
+                    auth.anyRequest().authenticated();
+                })  // configurando os metodos de login, utilizando o resource server
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt ->
+                        jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri))))
+                //.formLogin(withDefaults())
+                .build();
+    }
+
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter(){
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+
+        return jwtAuthenticationConverter;
+    }
 
 //    @Bean
 //    public OAuth2AuthorizedClientManager authorizedClientManager(
