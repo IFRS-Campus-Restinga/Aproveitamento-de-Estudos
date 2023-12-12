@@ -53,6 +53,10 @@ public class Usuario implements UserDetails {
     private boolean credentialsExpired = false;
     private boolean disable = false;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private GoogleUser googleUser;
+
     // -------------------------------------------------------------
     public Usuario(@NotNull String nome, @NotNull String email, boolean admin, @NotNull UsuarioTipo tipo) {
         super();

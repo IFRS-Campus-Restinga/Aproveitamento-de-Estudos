@@ -52,11 +52,21 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 		authenticationsGrantTypes.add("refresh_token");
 		authenticationsGrantTypes.add("client_credentials");
 
+
+
+		// alterar esse valor a mão no banco apos o inicio do back-end
+		// alterar para o endereço do front
+		// para debug, utilizando o: https://oauthdebugger.com/
+//		Set<String> redirectUris = new HashSet<>();
+//		redirectUris.add("https://oauthdebugger.com/debug");
+
 		Set<String> redirectUris = new HashSet<>();
-		redirectUris.add("https://oauthdebugger.com/debug");
+		redirectUris.add("http://127.0.0.1:4200/authorized");
+
 
 		Set<String> scopes = new HashSet<>();
 		scopes.add("openid");
+		scopes.add("profile");
 
 		Client cliente = new Client("client", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
 

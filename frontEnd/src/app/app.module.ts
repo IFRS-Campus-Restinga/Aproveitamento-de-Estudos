@@ -38,6 +38,7 @@ import { AddAnalysisComponent } from './components/add-analysis/add-analysis.com
 import { ViewAnalysisComponent } from './components/view-analysis/view-analysis.component';
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
+import { AuthorizedComponent } from './components/authorized/authorized.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-regis
     ViewAnalysisComponent,
     PpcListComponent,
     PpcRegistrationComponent,
+    AuthorizedComponent,
   ],
   imports: [
     BrowserModule,

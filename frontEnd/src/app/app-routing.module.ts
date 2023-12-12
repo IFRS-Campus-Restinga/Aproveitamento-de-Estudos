@@ -22,8 +22,12 @@ import { CourseResolver } from './pages/course/guards/course.resolver';
 import { PpcRegistrationComponent } from './pages/ppc/ppc-registration/ppc-registration.component';
 import { PpcListComponent } from './pages/ppc/ppc-list/ppc-list.component';
 import { PpcResolver } from './pages/ppc/guards/ppc-registration.resolver';
+import { AuthorizedComponent } from './components/authorized/authorized.component';
 
 const routes: Routes = [
+  {path: 'authorized', component: AuthorizedComponent },
+  {path: '**', redirectTo: '', pathMatch: 'full'},
+
   {
     path:'discipline',
     component:DisciplineListComponent

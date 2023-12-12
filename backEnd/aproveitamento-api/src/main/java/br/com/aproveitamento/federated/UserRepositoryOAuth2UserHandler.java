@@ -29,6 +29,9 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
             GoogleUser googleUser = GoogleUser.fromOauth2User(oAuth2User);
 
             log.info(googleUser.toString());
+
+            // tratamento para definição de roles e conexão de usuario do google com o usuario do back
+
             this.googleUserRepository.save(googleUser);
         } else {
             log.info("Bem vindo {}", oAuth2User.getAttributes().get("given_name"));

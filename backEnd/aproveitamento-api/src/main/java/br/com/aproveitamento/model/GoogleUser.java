@@ -1,9 +1,6 @@
 package br.com.aproveitamento.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -31,6 +28,12 @@ public class GoogleUser {
 
 
     private String pictureUrl;
+
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 
     public static GoogleUser fromOauth2User(OAuth2User oAuth2User){
