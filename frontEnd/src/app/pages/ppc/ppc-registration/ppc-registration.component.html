@@ -42,9 +42,9 @@
           <ng-container *ngIf="formData.get('nomePPC')?.hasError('multipleSpaces')">
             Não pode ter espaço duplo.
           </ng-container>
-          <!-- <ng-container *ngIf="formData.get('nomePPC')?.hasError('pattern')">
-            Não pode ter caracter especiais ou alfanuméricos.
-          </ng-container> -->
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('pattern')">
+            O nome do PPC não pode conter caracteres especiais
+          </ng-container>
         </span>
     </div>
 

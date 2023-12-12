@@ -17,6 +17,7 @@ public record PpcCreateDTO(
     @Size(min = 3, max = 100, message = "O nome do PPC deve ter entre 3 e 100 caracteres")
     @Pattern(regexp = "^[^\\s].*[^\\s]$", message = "O nome do PPC não pode começar ou terminar com espaços")
     @Pattern(regexp = "^(?!.*\\s{2}).*$", message = "O nome do PPC não pode ter espaços duplos")
+    @Pattern(regexp = "^[A-Za-z0-9\\s-]*$", message = "O nome do PPC não pode conter caracteres especiais")
     String nomePPC,
 
     @NotNull(message = "O ano é obrigatório")

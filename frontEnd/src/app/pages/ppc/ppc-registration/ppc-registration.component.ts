@@ -17,7 +17,7 @@ export class PpcRegistrationComponent implements OnInit {
   formData!: FormGroup;
   anoAtual!: number;
   isEditMode: boolean = false;
-  cursoSelecionado: string = ''; // Ou do tipo apropriado para o curso
+  cursoSelecionado: string = '';
 
   constructor(private ppcService: PpcService,
               private cursoService: CursoService,
@@ -33,7 +33,6 @@ export class PpcRegistrationComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.isEditMode = true;
-        // Mais lógica aqui, se necessário, ao entrar no modo de edição
       }
     });
 
@@ -57,7 +56,7 @@ export class PpcRegistrationComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(100),
         this.spaceValidator(),
-        // Validators.pattern(/^[^\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/),
+        Validators.pattern('^[A-Za-z0-9\\s-]*$'),
       ]],
       ano: [ppc.ano, [
         Validators.required,
@@ -103,8 +102,6 @@ export class PpcRegistrationComponent implements OnInit {
               { curso: curso.nome, id: curso.id }
             );
           });
-
-          // Define o curso selecionado se estiver em modo de edição
           if (this.isEdit() && this.listCursos.length >= 0) {
             const cursoSelecionado = this.listCursos.find(curso => curso.id === this.formData.get('curso')?.value);
             this.cursoSelecionado = cursoSelecionado ? cursoSelecionado.curso : '';
