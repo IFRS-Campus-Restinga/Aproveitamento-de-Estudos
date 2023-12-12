@@ -12,9 +12,11 @@ import { EditalService } from 'src/app/services/edital.service';
 })
 export class AnnouncementRegistrationComponent implements OnInit {
 
+  today: number = new Date().getDay();
   anoCorrente: number = new Date().getFullYear();
   minDate: string = `${this.anoCorrente}-01-01`;
   maxDate: string = `${this.anoCorrente}-12-31`;
+  hoje: string = '';
 
   minLengthValue: number = 0;
   maxLengthValue: number = 0;
@@ -36,6 +38,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit(): void {
+    this.hoje = this.obterDataAtual();
     const currentYear = new Date().getFullYear();
     let edital: Edital = this.route.snapshot.data['edital'];
 
@@ -349,7 +352,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
     }
     return true;
   }
-  
+
   validarEtapasSemSobreposicao(formGroup: FormGroup): boolean {
     const etapasArray = formGroup.get('etapas') as FormArray;
     const etapasOrdenadas = etapasArray.controls.slice().sort((a, b) => {
@@ -357,7 +360,7 @@ export class AnnouncementRegistrationComponent implements OnInit {
       const dataInicioB = new Date((b as FormGroup).get('dataInicio')?.value).getTime();
       return dataInicioA - dataInicioB;
     });
-  
+
     for (let i = 0; i < etapasOrdenadas.length - 1; i++) {
       const etapaAtual = etapasOrdenadas[i] as FormGroup;
       const etapaSeguinte = etapasOrdenadas[i + 1] as FormGroup;
@@ -370,9 +373,27 @@ export class AnnouncementRegistrationComponent implements OnInit {
     return true;
   }
 
+  obterDataAtual(): string {
+    const dataOntem = new Date();
+    dataOntem.setDate(dataOntem.getDate());
+    const anoOntem = dataOntem.getFullYear();
+    const mesOntem = (dataOntem.getMonth() + 1).toString().padStart(2, '0');
+    const diaOntem = dataOntem.getDate().toString().padStart(2, '0');
+    return `${anoOntem}-${mesOntem}-${diaOntem}`;
+  }
+
   haEtapas(formGroup: FormGroup): boolean {
     const etapasArray = formGroup.get('etapas') as FormArray;
     return etapasArray.length > 0;
+  }
+
+  isDataInicioEditalValid(): boolean {
+    const dataInicio = new Date(this.form.get('dataInicio')?.value);
+    const dataOntem = new Date();
+    dataOntem.setDate(dataOntem.getDate() - 1);
+    dataInicio.setHours(0, 0, 0, 0);
+    dataOntem.setHours(0, 0, 0, 0);
+    return dataInicio.getTime() >= dataOntem.getTime();
   }
 
 }

@@ -28,22 +28,28 @@ mat-card {
 .button button{
   margin: 1%;
 }
-btn-green {
+.btn-green {
   background-color: green;
   color: white;
-}
-
-.btn-gray {
+  }
+  
+  .btn-gray {
   background-color: gray;
   color: white;
-}
-.valid-input {
+  }
+  
+  .valid-input {
   background-color: rgb(255, 255, 255);
   color: white;
-}
-
-.invalid-input {
+  }
+  
+  .invalid-input {
   background-color: rgb(229, 204, 204);
   color: white;
-}
-
+  }
+  
+  .alert {
+    background-color: rgb(188, 4, 5);
+    color: rgb(255, 255, 255);
+    }
+  

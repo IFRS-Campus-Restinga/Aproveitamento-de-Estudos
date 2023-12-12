@@ -45,7 +45,8 @@ export class CourseRegistrationComponent implements OnInit {
     }
     this.formData = this.formBuilder.group({
       id: [curso.id],
-      nome: [curso.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
+      nome: [curso.nome, [Validators.required,  Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+      Validators.minLength(5),Validators.maxLength(120)]],
       coordenador_id: [curso.coordenador_id, []],
     });
 
@@ -131,13 +132,25 @@ export class CourseRegistrationComponent implements OnInit {
   coordenadoresChange() {
 
   }
+
+  check(variableName: string, condition: string): boolean {
+    const variable = this.formData.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
+
 }
 
-
-
-
-
-
-
-
-
+}

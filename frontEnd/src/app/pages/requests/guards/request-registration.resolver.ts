@@ -27,7 +27,7 @@ export class RequestResolver implements Resolve<Requisicao> {
                 experienciasAnteriores: '',
                 dataAgendamentoProva: '',
                 notaDaProva: 0,
-                diciplinaCursaAnteriormente: '',
+                disciplinaCursaAnteriormente: '',
                 notaObtida: 0,
                 cargaHoraria: 0,
                 analises: [],

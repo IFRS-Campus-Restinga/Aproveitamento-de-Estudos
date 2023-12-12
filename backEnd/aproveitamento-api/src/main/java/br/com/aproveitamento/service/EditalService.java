@@ -52,7 +52,7 @@ public class EditalService {
             throw new IllegalArgumentException("A data de início não pode ser posterior à data de fim do edital.");
         }
 
-        // Definindo o horário para 13:00 nas datas de início e fim
+       
         setHorario13(edital.getDataInicio());
         setHorario13(edital.getDataFim());
 
@@ -83,7 +83,7 @@ public class EditalService {
         return e;
     }
 
-    // Método para definir o horário para 13:00 em uma data
+    
     private void setHorario13(java.util.Date data) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");

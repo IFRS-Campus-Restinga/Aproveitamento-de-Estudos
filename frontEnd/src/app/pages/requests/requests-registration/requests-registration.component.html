@@ -78,7 +78,7 @@
           <div class="btn-submit-container">
             <button type="submit" class="btn-register"
         (click)="submitForm()"[ngClass]="{'btn-green': form.valid && !isInvalidFiles('qtdMin'), 'btn-gray': !form.valid || isInvalidFiles('qtdMin') }"
-        [disabled]="!form.valid || isInvalidFiles('qtdMin')">Enviar</button>
+        [disabled]="!form.valid || isInvalidFiles('qtdMin')">Salvar</button>
           </div>
           <div class="btn-submit-container">
             <button type="reset" class="btn-register btn-red" (click)="handleResetClick()">Cancelar</button>
@@ -94,8 +94,8 @@
               {{ item.nome }}
             </option>
           </select>
-          <span class="alert" *ngIf=" !isValid('disciplina_id') && form.get('diciplinaCursaAnteriormente')?.hasError('required')
-          && form.get('diciplinaCursaAnteriormente')?.touched ">
+          <span class="alert" *ngIf=" !isValid('disciplina_id') && form.get('disciplinaCursaAnteriormente')?.hasError('required')
+          && form.get('disciplinaCursaAnteriormente')?.touched ">
             Componente Curricular é obrigatório!
           </span>
         </div>
@@ -103,19 +103,19 @@
   <div class="form-group">
     <label for="componenteCursado">Componente cursado anteriormente:</label>
     <input type="text" name="componenteCursado" id="componenteCursado" placeholder="Nome do curso frequentado"
-      formControlName="diciplinaCursaAnteriormente" [required]="!isCertificacao()"/>
-    <span class="alert" *ngIf="form.get('diciplinaCursaAnteriormente')?.hasError('required')
-      && form.get('diciplinaCursaAnteriormente')?.touched">
+      formControlName="disciplinaCursaAnteriormente" [required]="!isCertificacao()"/>
+    <span class="alert" *ngIf="form.get('disciplinaCursaAnteriormente')?.hasError('required')
+      && form.get('disciplinaCursaAnteriormente')?.touched">
       Este campo é obrigatório.
     </span>
-    <span class="alert" *ngIf=" check('diciplinaCursaAnteriormente', 'minLength') ">
+    <span class="alert" *ngIf=" check('disciplinaCursaAnteriormente', 'minLength') ">
       Mínimo 6 caracteres!
     </span>
-    <span class="alert" *ngIf=" check('diciplinaCursaAnteriormente', 'maxLength') ">
+    <span class="alert" *ngIf=" check('disciplinaCursaAnteriormente', 'maxLength') ">
       Máximo 120 caracteres!
     </span>
-    <span class="alert" *ngIf=" (check('diciplinaCursaAnteriormente', 'status') && form.get('diciplinaCursaAnteriormente')?.touched)
-      && (!check('diciplinaCursaAnteriormente', 'minLength') && !form.get('diciplinaCursaAnteriormente')?.hasError('required'))">
+    <span class="alert" *ngIf=" (check('disciplinaCursaAnteriormente', 'status') && form.get('disciplinaCursaAnteriormente')?.touched)
+      && (!check('disciplinaCursaAnteriormente', 'minLength') && !form.get('disciplinaCursaAnteriormente')?.hasError('required'))">
       Contém caracter inválido! Use somente letras e números, ponto final e vírgula não repetidos.
     </span>
   </div>
@@ -159,7 +159,7 @@
     <span class="alert" *ngIf=" isInvalidFiles('size') ">
       Tamaho inválido. Máximo 10 megabytes, por arquivo.
     </span>
-    <span class="alert" *ngIf=" isInvalidFiles('qtdMin') && form.get('diciplinaCursaAnteriormente')?.touched ">
+    <span class="alert" *ngIf=" isInvalidFiles('qtdMin') && form.get('disciplinaCursaAnteriormente')?.touched ">
       Mínimo 1 arquivo obrigatório. PDF ou JPEG.
     </span>
   </div>
@@ -169,7 +169,7 @@
     <div class="btn-submit-container">
       <button type="submit" class="btn-register"
         (click)="submitForm()"[ngClass]="{'btn-green': form.valid && !isInvalidFiles('qtdMin'), 'btn-gray': !form.valid || isInvalidFiles('qtdMin') }"
-        [disabled]="!form.valid || isInvalidFiles('qtdMin')">Enviar</button>
+        [disabled]="!form.valid || isInvalidFiles('qtdMin')">Salvar</button>
     </div>
      <div class="btn-submit-container">
         <button type="reset" class="btn-register btn-red" (click)="handleResetClick()">Cancelar</button>
@@ -183,3 +183,4 @@
 
   </form>
 </div>
+

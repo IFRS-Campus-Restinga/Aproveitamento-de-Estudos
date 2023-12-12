@@ -70,7 +70,7 @@ public class RequisicaoController {
 			@RequestParam("experienciasAnteriores") String experienciasAnteriores,
 			@RequestParam("dataAgendamentoProva") String dataAgendamentoProva,
 			@RequestParam("notaDaProva") String notaDaProva,
-			@RequestParam("diciplinaCursaAnteriormente") String diciplinaCursaAnteriormente,
+			@RequestParam("disciplinaCursaAnteriormente") String disciplinaCursaAnteriormente,
 			@RequestParam("notaObtida") String notaObtida,
 			@RequestParam("cargaHoraria") String cargaHoraria,
 			@RequestParam("edital_id") String edital_id,
@@ -81,7 +81,7 @@ public class RequisicaoController {
         try {
 			RequisicaoDTO requisicaoDTO = requisicaoService.adapterDto(id, tipoSolicitacao, status, dataCriacao, 
 																	   experienciasAnteriores, dataAgendamentoProva, 
-																	   notaDaProva, diciplinaCursaAnteriormente, notaObtida, 
+																	   notaDaProva, disciplinaCursaAnteriormente, notaObtida, 
 																	   cargaHoraria, aluno_id, edital_id, disciplina_id); 
 			if(files != null && !files.isEmpty()){
 				String uuid = UUID.randomUUID().toString();
