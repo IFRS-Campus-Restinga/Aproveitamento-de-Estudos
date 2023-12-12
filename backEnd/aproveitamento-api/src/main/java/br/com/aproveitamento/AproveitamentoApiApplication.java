@@ -87,10 +87,10 @@ public class AproveitamentoApiApplication {
 			disciplinaRepository.save(disciplina3);
 			disciplinaRepository.save(disciplina4);
 
-			Aluno aluno1 = new Aluno("jackson", "jack@restinga.ifrs.edu.br", false,
+			Aluno aluno1 = new Aluno("Jackson Balest", "jack@restinga.ifrs.edu.br", false,
 					UsuarioTipo.ALUNO, "1234567890",
 					"02/2022", curso1);
-			Aluno aluno2 = new Aluno("igor", "igor@restinga.ifrs.edu.br", false,
+			Aluno aluno2 = new Aluno("Igor Farias", "igor@restinga.ifrs.edu.br", false,
 					UsuarioTipo.ALUNO, "1122334455",
 					"01/2023", curso2);
 
@@ -118,8 +118,8 @@ public class AproveitamentoApiApplication {
 				// TODO: handle exception
 			}
 
-			Professor professor1 = new Professor("Ricardo", "ricardo@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "2587416678");
-			Professor professor2 = new Professor("Eliana", "eliana@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "9513571589");
+			Professor professor1 = new Professor("Ricardo Luís", "ricardo@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "2587416678");
+			Professor professor2 = new Professor("Eliana Pereira", "eliana@restinga.ifrs.edu.br", true, UsuarioTipo.PROFESSOR, "9513571589");
 
 			try {
 				ProfessorRepository.save(professor1);
@@ -129,8 +129,8 @@ public class AproveitamentoApiApplication {
 				// TODO: handle exception
 			}
 
-			Ensino ensino1 = new Ensino("Fulano", "fulano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "9624787767");
-			Ensino ensino2 = new Ensino("Ciclino", "ciclano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "3146586478");
+			Ensino ensino1 = new Ensino("Fulano de Tal", "fulano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "9624787767");
+			Ensino ensino2 = new Ensino("Ciclino Jarbas", "ciclano@restinga.ifrs.edu.br", true, UsuarioTipo.ENSINO, "3146586478");
 
 			try {
 				ensinoRepository.save(ensino1);

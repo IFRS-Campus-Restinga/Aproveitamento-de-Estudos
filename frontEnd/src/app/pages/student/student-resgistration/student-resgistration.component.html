@@ -4,15 +4,35 @@
 
         <div class="form-group">
             <label for="nomeCompleto">Nome Completo</label>
-            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Seu Nome"
-                [ngClass]="{'valid-input': !isValid('nomeCompleto'), 'invalid-input': isValid('nomeCompleto')}"
-                required>
+            <input type="text" id="nomeCompleto" formControlName="nomeCompleto" placeholder="Seu Nome" required>
+                <span class="alert" *ngIf="formData.get('nomeCompleto')?.hasError('required') && formData.get('nomeCompleto')?.touched">
+                    Este campo é obrigatório.
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
+                    Mínimo 3 caracteres!
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
+                    Máximo 120 caracteres!
+                  </span>
+                  <span class="alert" *ngIf=" check('nomeCompleto', 'status') && formData.get('nomeCompleto')?.touched 
+                    && !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
+                    Contém caracter inválido ou o nome está incompleto! Use somente letras.
+                  </span>
         </div>
 
         <div class="form-group">
             <label for="email">Email Institucional</label>
-            <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required
-                [ngClass]="{'valid-input': !isValid('email'), 'invalid-input': isValid('email')}" required>
+            <input type="email" id="email" formControlName="email" placeholder="matrícula@restinga.ifrs.edu.br" required>
+                <span class="alert" *ngIf="formData.get('email')?.hasError('required') && formData.get('email')?.touched">
+                  Este campo é obrigatório.
+                </span>
+                <span class="alert" *ngIf=" check('email', 'maxLength') ">
+                  Máximo 120 caracteres!
+                </span>
+                <span class="alert" *ngIf=" check('email', 'status') && formData.get('email')?.touched 
+                  && !formData.get('email')?.hasError('required')">
+                  Contém caracter inválido! Digite um email válido.
+                </span>
         </div>
 
         <div class="form-group">
@@ -20,25 +40,51 @@
             <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
                 <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
             </select>
+            <span class="alert" *ngIf="formData.get('curso')?.hasError('required')">
+                É necessário selecionar um curso.
+            </span>
         </div>
 
         <div class="form-half-grid">
             <div class="form-group">
                 <label for="matricula">Matrícula</label>
-                <input type="text" id="matricula" formControlName="matricula" placeholder="10 dígitos" required
-                    [ngClass]="{'valid-input': !isValid('matricula'), 'invalid-input': isValid('matricula')}">
+                <input type="text" id="matricula" formControlName="matricula" placeholder="10 dígitos" required >
+                    <span class="alert" *ngIf="formData.get('matricula')?.hasError('required') && formData.get('matricula')?.touched">
+                        Este campo é obrigatório.
+                      </span>
+                      <span class="alert" *ngIf=" check('matricula', 'minLength') ">
+                        Exigidos 10 caracteres!
+                      </span>
+                      <span class="alert" *ngIf=" check('matricula', 'maxLength') ">
+                        Máximo 10 caracteres!
+                      </span>
+                      <span class="alert" *ngIf=" check('matricula', 'status') && !formData.get('matricula')?.touched && !check('matricula', 'minLength') && !formData.get('matricula')?.hasError('required')">
+                        Contém caracter inválido! Use somente números.
+                      </span>
             </div>
 
             <div class="form-group">
                 <label for="ingresso">Data de Ingresso (SEMESTRE/ANO)</label>
-                <input type="text" id="ingresso" formControlName="ingresso" placeholder="SS/AAAA"
-                    [ngClass]="{'valid-input': !isValid('ingresso'), 'invalid-input': isValid('ingresso')}" required>
+                <input type="text" id="ingresso" formControlName="ingresso" placeholder="SS/AAAA" required>
+                    <span class="alert" *ngIf="formData.get('ingresso')?.hasError('required') && formData.get('ingresso')?.touched">
+                        Este campo é obrigatório.
+                      </span>
+                      <span class="alert" *ngIf=" check('ingresso', 'minLength') ">
+                        Mínimo 7 caracteres!
+                      </span>
+                      <span class="alert" *ngIf=" check('ingresso', 'maxLength') ">
+                        Máximo 7 caracteres!
+                      </span>
+                      <span class="alert" *ngIf=" check('ingresso', 'status') && formData.get('ingresso')?.touched 
+                        && !check('ingresso', 'minLength') && !formData.get('ingresso')?.hasError('required')">
+                        Contém caracter inválido! Use como exemplo (07/2023).
+                      </span>
             </div>
         </div>
         <div class="btn-submit-container">
             <button type="submit" class="btn-register"
                 [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
-                [disabled]="!formData.valid">Enviar</button>
+                [disabled]="!formData.valid">Salvar</button>
         </div>
     </form>
 </div>

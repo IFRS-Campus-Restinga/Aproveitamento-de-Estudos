@@ -91,20 +91,20 @@ public class CursoService {
         }
         curso.setNome(cursoDto.nome());
 
-        if(cursoDto.coordenadores() != null){
-            for(CoordenadorDTO coordenadorDTO : cursoDto.coordenadores()){
-                Optional<Coordenador> coordenador = coordenadorRepository.findById(coordenadorDTO.id());
-                if (coordenador.isPresent()){
-                    Coordenador c = coordenador.get();
-                    if(c.getId() == cursoDto.coordenador_id().longValue()){
-                        c.setAtivo(true);
-                    }else{
-                        c.setAtivo(false);
-                    }
-                    curso.getCoordenadores().add(c);
-                    coordenadorRepository.save(c);
-                }
-            }
+        if (cursoDto.coordenadores() != null) {
+            cursoDto.coordenadores().forEach(coordenadorDTO -> {
+                coordenadorRepository.findById(coordenadorDTO.id())
+                        .ifPresent(coordenador -> {
+                            if (coordenador.getId() == cursoDto.coordenador_id()) {
+                                coordenador.setAtivo(true);
+                            } else {
+                                coordenador.setAtivo(false);
+                            }
+                            
+                            curso.getCoordenadores().add(coordenador);
+                            coordenadorRepository.save(coordenador);
+                        });
+            });
         }
         
         cursoRepository.save(curso);
