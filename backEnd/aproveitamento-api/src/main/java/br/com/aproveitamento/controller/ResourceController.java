@@ -42,11 +42,14 @@ public class ResourceController {
     @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER')")
     public ResponseEntity<MessageDTO> user(Authentication authentication){
 
-        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getCredentials().toString() + " | "
-                                                    + authentication.getPrincipal().toString()     + " | "
-                                                    + authentication.getDetails()       + " | "
-                                                    + authentication.getName()          + " | "
-                                                    + authentication.getAuthorities()   + " | " ));
+//        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getCredentials().toString() + " | "
+//                                                    + authentication.getPrincipal().toString()     + " | "
+//                                                    + authentication.getDetails()       + " | "
+//                                                    + authentication.getName()          + " | "
+//                                                    + authentication.getAuthorities()   + " | " ));
+
+        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getName()));
+
     }
 
     @RequestMapping("/admin")

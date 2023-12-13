@@ -14,6 +14,7 @@ import br.com.aproveitamento.enums.RequisicaoStatus;
 import br.com.aproveitamento.enums.RequisicaoTipo;
 import br.com.aproveitamento.enums.UsuarioTipo;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 @SpringBootApplication
 public class AproveitamentoApiApplication implements CommandLineRunner{
@@ -67,6 +68,8 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 		Set<String> scopes = new HashSet<>();
 		scopes.add("openid");
 		scopes.add("profile");
+
+		Client google = new Client("google", passEncoder.encode("google"), AuthorizationGrantType.AUTHORIZATION_CODE, );
 
 		Client cliente = new Client("client", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
 
