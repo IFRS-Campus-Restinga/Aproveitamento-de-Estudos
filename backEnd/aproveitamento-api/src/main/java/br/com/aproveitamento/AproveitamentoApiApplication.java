@@ -62,6 +62,7 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 //		redirectUris.add("https://oauthdebugger.com/debug");
 
 		Set<String> redirectUris = new HashSet<>();
+		//redirectUris.add("http://127.0.0.1:4200/login/oauth2/code/messaging-client-oidc");
 		redirectUris.add("http://127.0.0.1:4200/authorized");
 
 

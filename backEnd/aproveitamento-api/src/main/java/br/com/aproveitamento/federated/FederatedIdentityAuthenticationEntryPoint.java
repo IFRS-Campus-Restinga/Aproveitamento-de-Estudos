@@ -3,6 +3,7 @@ package br.com.aproveitamento.federated;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.security.core.AuthenticationException;
@@ -19,6 +20,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
+
+@Slf4j
 public class FederatedIdentityAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -38,9 +41,11 @@ public class FederatedIdentityAuthenticationEntryPoint implements Authentication
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
         String idp = request.getParameter("idp");
+        log.info(" IDP AQUI -> " + idp);
+
         if (idp != null){
             ClientRegistration clientRegistration = this.clientRegistrationRepository.findByRegistrationId(idp);
-
+            log.info(" Cliente AQUI -> " + clientRegistration.getClientName());
             if(clientRegistration != null){
                 String redirectUri = UriComponentsBuilder.fromHttpRequest(new ServletServerHttpRequest(request))
                         .replaceQuery(null)

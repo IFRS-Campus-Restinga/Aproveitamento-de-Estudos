@@ -19,14 +19,11 @@ public class CreateClientDTO {
     //    private Instant clientSecretExpiresAt;
     //private String clientName;
 
-    //    @Column(length = 1000)
 
-    private Set<ClientAuthenticationMethod> authenticationMethodsSet;
-
-    //    @Column(length = 1000)
 
     private Set<AuthorizationGrantType> authorizationGrantTypes;
 
+    private Set<ClientAuthenticationMethod> authenticationMethodsSet;
 
     private Set<String> redirectUris;
 

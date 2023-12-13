@@ -28,10 +28,8 @@ public class ResourceServerConfiguration {
         http.cors(Customizer.withDefaults());
         return http
                 .authorizeHttpRequests( auth -> auth.anyRequest().authenticated())  // configurando os metodos de login, utilizando o resource server
-                .oauth2ResourceServer(oauth2 -> {
-                    oauth2.jwt(jwt -> jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri)) );
-                })
-                //.formLogin(withDefaults())
+                .oauth2ResourceServer(oauth2 ->
+                    oauth2.jwt(jwt -> jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri))))
                 .build();
 
     }
