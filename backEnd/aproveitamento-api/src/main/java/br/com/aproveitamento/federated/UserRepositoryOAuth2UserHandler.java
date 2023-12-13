@@ -10,7 +10,14 @@ import br.com.aproveitamento.repository.RoleRepository;
 import br.com.aproveitamento.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.server.authorization.context.Context;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenClaimsContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -89,6 +96,7 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
                 this.usuarioRepository.save(novoUsuario);
 
             }
+
 
 
         } else {

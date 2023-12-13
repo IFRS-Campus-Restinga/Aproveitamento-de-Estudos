@@ -112,7 +112,7 @@ public class AuthorizationSecurityConfig {
                 .apply(federatedIdentityConfigurer);
 
         httpSecurity.csrf().ignoringRequestMatchers("/auth/**", "*/client/**" );
-
+        httpSecurity.logout().logoutSuccessUrl("http://127.0.0.1:4200/logout");
         return httpSecurity.build();
     }
 
@@ -168,6 +168,16 @@ public class AuthorizationSecurityConfig {
 //    }
 
     @Bean
+    public UserDetailsService users() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user1")
+                .password("password")
+                .roles("user", "admin")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer (){
         return context -> {
             Authentication principal = context.getPrincipal();
@@ -178,7 +188,12 @@ public class AuthorizationSecurityConfig {
             if(context.getTokenType().getValue().equals("access_token")){
                 context.getClaims().claim("token_type","access token");
                 Set<String> roles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+                log.info("CLAIMS AQUI -> " + principal.getName());
+                context.getClaims().claims((claims) -> {
+                    claims.put("email", context.getPrincipal().getName());
+                });
                 context.getClaims().claim("roles", roles).claim("username",principal.getName());
+
             }
         };
     }
@@ -190,7 +205,7 @@ public class AuthorizationSecurityConfig {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){
-        return AuthorizationServerSettings.builder().issuer("http://localhost:8080").build();
+        return AuthorizationServerSettings.builder().issuer("http://localhost:9000").build();
     }
 
     @Bean

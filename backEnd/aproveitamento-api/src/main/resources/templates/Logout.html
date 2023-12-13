@@ -13,7 +13,7 @@
     <form class="form-signin w-100 m-auto" method="post" th:action="@{/logout}">
 
         <button class="w-100 btn btn-lg btn-outline-primary btn-block" type="submit">Sim</button>
-        <button class="w-100 btn btn-lg btn-outline-secondary btn-block" href="https://oauthdebuuger.com/debug">Não</button>
+        <a th:href="@{http://127.0.0.1:4200}" style="text-decoration: none"> <button class="w-100 btn btn-lg btn-outline-secondary btn-block" type="button">Não</button></a>
     </form>
 </div>
 </body>

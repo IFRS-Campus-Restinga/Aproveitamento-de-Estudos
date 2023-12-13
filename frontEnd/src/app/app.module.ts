@@ -44,6 +44,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ResourceInterceptor } from './interceptors/resource.interceptor';
 import { UserComponent } from './components/user/user.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { AdminComponent } from './components/admin/admin.component';
     HomeComponent,
     UserComponent,
     AdminComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

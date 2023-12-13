@@ -2,6 +2,7 @@ package br.com.aproveitamento.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Entity
@@ -9,6 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @AllArgsConstructor
 @Data
 @Builder
+@Slf4j
 public class GoogleUser {
 
     @Id
@@ -44,6 +46,8 @@ public class GoogleUser {
                 .familyName(oAuth2User.getAttributes().get("family_name").toString())
                 .pictureUrl(oAuth2User.getAttributes().get("picture").toString())
                 .build();
+
+        log.info(oAuth2User.getAttributes().toString());
 
         return googleUser;
     }

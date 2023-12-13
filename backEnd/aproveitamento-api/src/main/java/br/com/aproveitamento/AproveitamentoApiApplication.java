@@ -67,9 +67,9 @@ public class AproveitamentoApiApplication implements CommandLineRunner{
 
 		Set<String> scopes = new HashSet<>();
 		scopes.add("openid");
+		scopes.add("email");
 		scopes.add("profile");
 
-		Client google = new Client("google", passEncoder.encode("google"), AuthorizationGrantType.AUTHORIZATION_CODE, );
 
 		Client cliente = new Client("client", passEncoder.encode("secret"), "client", authenticationsMethods, authenticationsGrantTypes, redirectUris, scopes, true);
 

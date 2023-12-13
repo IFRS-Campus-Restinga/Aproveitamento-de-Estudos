@@ -1,4 +1,6 @@
 package br.com.aproveitamento.config;
 
-public class TokenService {
+
+public class OAuth2LoginConfig {
+
 }

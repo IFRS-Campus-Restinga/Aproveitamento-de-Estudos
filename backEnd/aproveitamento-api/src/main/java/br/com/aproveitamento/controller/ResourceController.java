@@ -5,6 +5,7 @@ import br.com.aproveitamento.dto.MessageDTO;
 import br.com.aproveitamento.model.Usuario;
 import br.com.aproveitamento.repository.GoogleUserRepository;
 import br.com.aproveitamento.service.UserDetailsServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -33,28 +36,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.attribute.UserPrincipal;
 
-
-@RestController
-@RequestMapping("/resource")
+//@Slf4j
+//@RestController
+//@RequestMapping("/resource")
 public class ResourceController {
-
-    @RequestMapping("/user")
-    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER')")
-    public ResponseEntity<MessageDTO> user(Authentication authentication){
-
-//        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getCredentials().toString() + " | "
-//                                                    + authentication.getPrincipal().toString()     + " | "
+//
+//    @RequestMapping("/user")
+//    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER')")
+//    public ResponseEntity<MessageDTO> user(Authentication authentication){
+//
+//
+//        log.info("AQUI ->> " + authentication.getPrincipal().getClass());
+//        log.info("AQUI ->>> " + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() + " | " + SecurityContextHolder.getContext().getAuthentication().getName());
+//        return ResponseEntity.ok(new MessageDTO("Ola " //+ authentication.getCredentials().toString() + " | "
+//                                                    //+ authentication.getPrincipal().toString()     + " | "
+//                                                    //+ authentication.getCredentials() + " | "
+//                                                    //+ authentication.getPrincipal()     + " | "
 //                                                    + authentication.getDetails()       + " | "
 //                                                    + authentication.getName()          + " | "
 //                                                    + authentication.getAuthorities()   + " | " ));
-
-        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getName()));
-
-    }
-
-    @RequestMapping("/admin")
-    @PreAuthorize("hasAuthority('COORDENADOR')")
-    public ResponseEntity<MessageDTO> admin(Authentication authentication, OAuth2User googleUser){
-        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName() ));
-    }
+//
+//      //  return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getName() ));
+//
+//    }
+//
+//    @RequestMapping("/admin")
+//    @PreAuthorize("hasAuthority('COORDENADOR')")
+//    public ResponseEntity<MessageDTO> admin(Authentication authentication, OAuth2User googleUser){
+//        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName() ));
+//    }
 }
