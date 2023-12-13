@@ -13,13 +13,13 @@ export class AuthorizedComponent implements OnInit{
   code = '';
 
   constructor(
-    private activateRoute : ActivatedRoute,
+    private activatedRoute : ActivatedRoute,
     private authService: AuthService,
     private tokenService: TokenService){
   }
 
   ngOnInit(): void {
-    this.activateRoute.queryParams.subscribe(data => {
+    this.activatedRoute.queryParams.subscribe(data => {
       this.code = data.code;
       this.getToken();
     });

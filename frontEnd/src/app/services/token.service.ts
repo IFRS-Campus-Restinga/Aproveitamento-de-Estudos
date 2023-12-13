@@ -11,6 +11,7 @@ export class TokenService {
   constructor() { }
 
   setTokens(access_token: string, refresh_token: string): void {
+    // salvando o token na sessao do navegador
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.setItem(ACCESS_TOKEN, access_token);
     localStorage.removeItem(REFRESH_TOKEN);

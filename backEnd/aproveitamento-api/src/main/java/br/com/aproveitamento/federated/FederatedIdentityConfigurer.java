@@ -50,6 +50,7 @@ public class FederatedIdentityConfigurer extends AbstractHttpConfigurer<Federate
     @Override
     public void init(HttpSecurity http) throws Exception{
         ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
+
         ClientRegistrationRepository clientRegistrationRepository = applicationContext.getBean(ClientRegistrationRepository.class);
         FederatedIdentityAuthenticationEntryPoint authenticationEntryPoint = new FederatedIdentityAuthenticationEntryPoint(this.loginPageUrl, clientRegistrationRepository);
 
@@ -74,8 +75,8 @@ public class FederatedIdentityConfigurer extends AbstractHttpConfigurer<Federate
                 oauth2Login.successHandler(authenticationSuccessHandler);
                 if(this.authorizationRequestUri != null){
                     String baseUri = this.authorizationRequestUri.replace("/{registrationId}", "");
-                    oauth2Login.authorizationEndpoint(authenticationEndPoint ->
-                            authenticationEndPoint.baseUri(baseUri)
+                    oauth2Login.authorizationEndpoint(authorizationEndPoint ->
+                            authorizationEndPoint.baseUri(baseUri)
                     );
                 }
             });

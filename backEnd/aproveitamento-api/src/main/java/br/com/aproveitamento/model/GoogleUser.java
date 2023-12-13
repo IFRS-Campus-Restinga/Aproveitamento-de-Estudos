@@ -38,12 +38,11 @@ public class GoogleUser {
 
     public static GoogleUser fromOauth2User(OAuth2User oAuth2User){
         GoogleUser googleUser = GoogleUser.builder()
-                .email(oAuth2User.getAttributes().get("email").toString())
+                .email(oAuth2User.getAttribute("email"))
                 .name(oAuth2User.getAttributes().get("name").toString())
                 .givenName(oAuth2User.getAttributes().get("given_name").toString())
                 .familyName(oAuth2User.getAttributes().get("family_name").toString())
                 .pictureUrl(oAuth2User.getAttributes().get("picture").toString())
-                .pictureUrl(oAuth2User.getAttributes().get("").toString())
                 .build();
 
         return googleUser;
@@ -51,7 +50,7 @@ public class GoogleUser {
 
     @Override
     public String toString(){
-        return "GoogleUser{" +
+        return "GoogleUser{ " +
                 "id="               + id            +
                 ", email='"         + email         + '\'' +
                 ", name='"          + name          + '\'' +

@@ -29,7 +29,7 @@ public class Client {
 //    private Instant clientIdIssuedAt;
     private String clientSecret;
 //    private Instant clientSecretExpiresAt;
-    private String clientName;
+   private String clientName;
 
     //    @Column(length = 1000)
     @ElementCollection(fetch = FetchType.EAGER)

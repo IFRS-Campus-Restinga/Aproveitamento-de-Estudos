@@ -88,18 +88,13 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
                 // salva o novo usuario
                 this.usuarioRepository.save(novoUsuario);
 
-            } else if(this.usuarioRepository.findByEmail(googleUser.getEmail()).getId() != this.googleUserRepository.findByEmail(googleUser.getEmail()).get().getId() ){
-
-                // se já houver um usuario cadastrado com o email, e não houver um usuario google atrelado a ele, faz link entre os dois
-                googleUser.setUsuario(this.usuarioRepository.findByEmail(googleUser.getEmail()));
-                this.googleUserRepository.save(googleUser);
-
             }
 
 
         } else {
             // já esta cadastrado e salvo
             log.info("Bem vindo {}", oAuth2User.getAttributes().get("given_name"));
+            log.info(oAuth2User.getAttributes().toString());
         }
     }
 

@@ -17,11 +17,11 @@ public class CreateClientDTO {
     //    private Instant clientIdIssuedAt;
     private String clientSecret;
     //    private Instant clientSecretExpiresAt;
-    private String clientName;
+    //private String clientName;
 
     //    @Column(length = 1000)
 
-    private Set<ClientAuthenticationMethod> clientAuthenticationMethodsSet;
+    private Set<ClientAuthenticationMethod> authenticationMethodsSet;
 
     //    @Column(length = 1000)
 

@@ -20,6 +20,6 @@ export class ResourceInterceptor implements HttpInterceptor {
     if(token != null && request.url.includes('resource')) {
       intReq = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token)});
     }
-    return next.handle(request);
+    return next.handle(intReq);
   }
 }

@@ -50,7 +50,7 @@ public class ClientService implements RegisteredClientRepository {
         Client client = Client.builder()
                 .clientId(dto.getClientId())
                 .clientSecret(passwordEncoder.encode(dto.getClientSecret()))
-                .clientAuthenticationMethodsSet(dto.getClientAuthenticationMethodsSet())
+                .clientAuthenticationMethodsSet(dto.getAuthenticationMethodsSet())
                 .authorizationGrantTypes(dto.getAuthorizationGrantTypes())
                 .redirectUris(dto.getRedirectUris())
                 .scopes(dto.getScopes())
