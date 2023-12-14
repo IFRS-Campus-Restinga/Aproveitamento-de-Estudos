@@ -7,6 +7,9 @@
       <select id="curso" formControlName="curso" (change)="selectPpcs($event)" required [class.invalid]="!isCursoValid()">
         <option *ngFor="let item of listCursos" [value]="item.id">{{ item.curso }}</option>
       </select>
+      <span class="alert" *ngIf="formData.get('curso')?.hasError('required')">
+        É necessário selecionar um curso.
+      </span>
     </div>
 
     <div class="form-group">
@@ -14,6 +17,9 @@
       <select id="ppc" formControlName="ppc" (ngModelChange)="ppcChange()" required [class.invalid]="!isPpcValid()">
         <option *ngFor="let item of listPpcs" [value]="item.id">{{ item.nomePPC }} - {{item.ano}}</option>
       </select>
+      <span class="alert" *ngIf="!isPpcValid() && formData.get('codigo')?.touched">
+        PPC é obrigatório.
+      </span>
     </div>
 
     <div class="form-group">
@@ -41,7 +47,7 @@
           Este campo é obrigatório.
         </span>
         <span class="alert" *ngIf=" check('disciplina', 'minLength') ">
-          Mínimo 10 caracteres!
+          Mínimo 6 caracteres!
         </span>
         <span class="alert" *ngIf=" check('disciplina', 'maxLength') ">
           Máximo 120 caracteres!
@@ -53,22 +59,22 @@
     </div>
 
     <div class="form-group">
-      <label for="cargaHoraria">Carga Horária</label>
-      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Número em horas" required>
+      <label for="cargaHoraria">Carga Horária (Horas Relógio)</label>
+      <input type="number" id="cargaHoraria" formControlName="cargaHoraria" placeholder="Número em horas (horas relógio)" required min="10" max="110" pattern="[1-9][0-9]*">
         <span class="alert" *ngIf="formData.get('cargaHoraria')?.hasError('required') && formData.get('cargaHoraria')?.touched">
           Este campo é obrigatório.
         </span>
         <span class="alert" *ngIf=" check('cargaHoraria', 'status') && formData.get('cargaHoraria')?.touched 
           && !check('cargaHoraria', 'min') && !formData.get('cargaHoraria')?.hasError('required')">
-          A carga horária deve estar entre 10 e 88 horas.
+          A carga horária deve estar entre 10 e 110 horas.
         </span>
     </div>
 
     <hr>
 
     <div class="btn-submit-container">
-      <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
-        [disabled]="!formData.valid">Cadastrar</button>
+      <button type="submit" class="btn-register" [ngClass]="{'btn-green': (formData.valid && isPpcValid()), 'btn-gray': !(formData.valid && isPpcValid())}"
+        [disabled]="!(formData.valid && isPpcValid())">Salvar</button>
     </div>
   </form>
 </div>

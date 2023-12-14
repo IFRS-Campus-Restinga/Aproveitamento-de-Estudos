@@ -19,6 +19,7 @@ export class CourseRegistrationComponent implements OnInit {
   listCoordenadores!: Coordenador[];
   formData!: FormGroup;
   exibeCoordenadores: boolean = false;
+  isReadOnly: boolean = false;
 
 
   constructor(private cursoService: CursoService,
@@ -40,6 +41,7 @@ export class CourseRegistrationComponent implements OnInit {
     } else {
       this.exibeCoordenadores = true;
       this.listCoordenadores = curso.coordenadores;
+      this.isReadOnly = true;
       console.log(this.exibeCoordenadores);
       console.log(this.listCoordenadores);
     }
@@ -113,9 +115,6 @@ export class CourseRegistrationComponent implements OnInit {
     );
   }
 
-
-
-
   isFormValid(): boolean {
     return this.formData.valid;
   }
@@ -130,7 +129,6 @@ export class CourseRegistrationComponent implements OnInit {
   }
 
   coordenadoresChange() {
-
   }
 
   check(variableName: string, condition: string): boolean {
@@ -151,6 +149,6 @@ export class CourseRegistrationComponent implements OnInit {
         return false;
     }
 
-}
+  }
 
 }

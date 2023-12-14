@@ -14,11 +14,12 @@
         <li (click)="toggleDropdown()">
           <button [ngClass]="{ 'active': adminManegent.includes(currentPage) }">Gerenciar</button>
           <ul *ngIf="showDropdown" class="dropdown">
-            <li><a [routerLink]="['discipline']">Disciplina</a></li>
-            <li><a [routerLink]="['course']">Curso</a></li>
             <li><a [routerLink]="['student']">Aluno</a></li>
-            <li><a [routerLink]="['servant']">Servidor</a></li>
+            <li><a [routerLink]="['course']">Curso</a></li>
+            <li><a [routerLink]="['discipline']">Disciplina</a></li>
             <li><a [routerLink]="['announcement']">Edital</a></li>
+            <li><a [routerLink]="['ppc']">PPC</a></li>
+            <li><a [routerLink]="['servant']">Servidor</a></li>
           </ul>
         </li>
         <li><button [ngClass]="{ 'active': currentPage === 'request' }" [routerLink]="['request']">Requisições</button></li>

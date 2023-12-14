@@ -9,14 +9,14 @@
                     Este campo é obrigatório.
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'minLength') ">
-                    Exigidos 6 caracteres!
+                    Exigidos 3 caracteres!
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'maxLength') ">
                     Máximo 120 caracteres!
                 </span>
                 <span class="alert" *ngIf=" check('nomeCompleto', 'status') && !formData.get('nomeCompleto')?.touched && 
                   !check('nomeCompleto', 'minLength') && !formData.get('nomeCompleto')?.hasError('required')">
-                  Contém caracter inválido! Use somente letras.
+                  Contém caracter inválido ou o nome está incompleto! Use somente letras.
                 </span>
         </div>
 
@@ -29,6 +29,10 @@
             <span class="alert" *ngIf=" check('email', 'maxLength') ">
                 Máximo 50 caracteres!
             </span>
+            <span class="alert" *ngIf=" check('email', 'status') && !formData.get('email')?.touched && 
+                  !check('email', 'minLength') && !formData.get('email')?.hasError('required')">
+                  Contém caracter inválido! Use somente letras e números.
+                </span>
         </div>
 
         <div class="form-half-grid">
@@ -48,15 +52,18 @@
 
             <div class="form-group">
                 <label for="tipo">Cargo</label>
-                <select id="tipo" formControlName="tipo" placeholder=""required [class.invalid]="!isTipoValid()">
+                <select id="tipo" formControlName="tipo" placeholder=""required>
                 <option value="" [disabled]="isTipoSolicitacaoSelected()">Selecione um cargo</option>
                 <option *ngFor="let userType of userTypes" [value]="userType">{{ userType }}</option>
                 </select>
+                <span class="alert" *ngIf="formData.get('tipo')?.hasError('required') && formData.get('siape')?.touched">
+                    É necessário escolher um cargo.
+                </span>
               </div>
         </div>
         <div class="btn-submit-container">
             <button type="submit" class="btn-register" [ngClass]="{'btn-green': formData.valid && isTipoValid(),
-            'btn-gray': !formData.valid || !isTipoValid() }" [disabled]="!formData.valid || !isTipoValid()">Enviar</button>
+            'btn-gray': !formData.valid || !isTipoValid() }" [disabled]="!formData.valid || !isTipoValid()">Salvar</button>
         </div>
     </form>
   </div>

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aproveitamento.dto.PpcCreateDTO;
 import br.com.aproveitamento.dto.PpcDTO;
+import br.com.aproveitamento.dto.PpcReadDTO;
 import br.com.aproveitamento.model.PPC;
 import br.com.aproveitamento.service.PPCService;
 import jakarta.validation.Valid;
@@ -37,24 +39,24 @@ public class PPCController {
         return ppcService.list();
     }
 
+    @GetMapping("/ppcs")
+    public @ResponseBody List<PpcReadDTO> listAlternative() {
+        return ppcService.listAlternative();
+    }
+
     @GetMapping("/{id}")
-    public PPC findById(@PathVariable @NotNull @Positive Long id) {
+    public PpcCreateDTO findById(@PathVariable @NotNull @Positive Long id) {
         return ppcService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<PPC> create(@RequestBody @NotNull @Valid PPC ppc) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.create(ppc));
+    public ResponseEntity<PPC> create(@RequestBody @NotNull @Valid PpcCreateDTO ppc) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createPPC(ppc));
     }
 
     @PostMapping("/disciplina")
     public ResponseEntity<PPC> createDiscipline(@RequestBody @NotNull @Valid PpcDTO ppc) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ppcService.createDiscipline(ppc));
-    }
-
-    @PutMapping
-    public PPC update(@RequestBody @Valid PPC ppc) {
-        return ppcService.update(ppc);
     }
 
     @DeleteMapping("/{id}")
@@ -64,3 +66,4 @@ public class PPCController {
     }
 
 }
+
