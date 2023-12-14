@@ -94,7 +94,7 @@ public class RequisicaoService {
 				requisicao.getExperienciasAnteriores(), 
 				requisicao.getDataAgendamentoProva(),
 				requisicao.getNotaDaProva(),
-				requisicao.getDiciplinaCursaAnteriormente(), 
+				requisicao.getDisciplinaCursaAnteriormente(), 
 				requisicao.getNotaObtida(), requisicao.getCargaHoraria(), 
 				requisicao.getAnalises(), requisicao.getAnexos(), 
 				requisicao.getAluno().getId(),
@@ -123,7 +123,7 @@ public class RequisicaoService {
 		requisicao.setExperienciasAnteriores(requisicaoDTO.experienciasAnteriores());
 		requisicao.setDataAgendamentoProva(requisicaoDTO.dataAgendamentoProva());
 		requisicao.setNotaDaProva(requisicaoDTO.notaDaProva());
-		requisicao.setDiciplinaCursaAnteriormente(requisicaoDTO.diciplinaCursaAnteriormente());
+		requisicao.setDisciplinaCursaAnteriormente(requisicaoDTO.disciplinaCursaAnteriormente());
 		requisicao.setNotaObtida(requisicaoDTO.notaObtida());
 		requisicao.setCargaHoraria(requisicaoDTO.cargaHoraria());
 
@@ -174,7 +174,7 @@ public class RequisicaoService {
 	}
 
 	public RequisicaoDTO adapterDto(String id, String tipo, String status, String dataCriacao, String experienciasAnteriores, 
-									String dataAgendamentoProva, String notaDaProva, String diciplinaCursaAnteriormente, String notaObtida, 
+									String dataAgendamentoProva, String notaDaProva, String disciplinaCursaAnteriormente, String notaObtida, 
 									String cargaHoraria, String aluno_id, String edital_id, String disciplina_id){
 			
 		RequisicaoDTO requisicaoDTO = new RequisicaoDTO(convertLong(id), 
@@ -184,7 +184,7 @@ public class RequisicaoService {
 														experienciasAnteriores, 
 														convertDate(dataAgendamentoProva), 
 														convertDouble(notaDaProva), 
-														diciplinaCursaAnteriormente, 
+														disciplinaCursaAnteriormente, 
 														convertDouble(notaObtida), 
 														convertInteger(cargaHoraria), 
 														new ArrayList<Analise>(), 

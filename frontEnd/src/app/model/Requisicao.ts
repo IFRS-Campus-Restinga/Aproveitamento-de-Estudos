@@ -9,7 +9,7 @@ export interface Requisicao {
   experienciasAnteriores: string,
   dataAgendamentoProva: string,
   notaDaProva: number,
-  diciplinaCursaAnteriormente: string,
+  disciplinaCursaAnteriormente: string,
   notaObtida: number,
   cargaHoraria: number,
   analises: Analise[],

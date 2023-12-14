@@ -30,7 +30,7 @@ export class RequestsRegistrationComponent implements OnInit {
     ];
 
   isAproveitamento(): boolean {
-    this.form.get('diciplinaCursaAnteriormente')?.setValue('');
+    this.form.get('disciplinaCursaAnteriormente')?.setValue('');
     this.form.get('notaObtida')?.setValue('');
     this.form.get('cargaHoraria')?.setValue('');
     return this.tipoSolicitacao === 'APROVEITAMENTO';
@@ -46,7 +46,7 @@ export class RequestsRegistrationComponent implements OnInit {
   listDisciplinas: Disciplina[] = []
   maxFileCount: number = 5;
   selectedFileCount: number = 0;
-  maxFileSizeInBytes: number = 10 * 1024 * 1024;
+  maxFileSizeInBytes: number = 10 * 1024 * 1024 ;
   isEditMode: boolean = false;
 
   constructor(private formBuilder: NonNullableFormBuilder,
@@ -84,9 +84,9 @@ export class RequestsRegistrationComponent implements OnInit {
       ],
       dataAgendamentoProva: [requisicao.dataAgendamentoProva],
       notaDaProva: [requisicao.notaDaProva],
-      diciplinaCursaAnteriormente: [
-        requisicao.diciplinaCursaAnteriormente,
-        this.getDiciplinaCursaAnteriormenteValidators(),
+      disciplinaCursaAnteriormente: [
+        requisicao.disciplinaCursaAnteriormente,
+        this.getDisciplinaCursaAnteriormenteValidators(),
       ],
       notaObtida: [requisicao.notaObtida, this.getNotaObtidaValidators()],
       cargaHoraria: [requisicao.cargaHoraria, this.getCargaHorariaValidators()],
@@ -124,7 +124,7 @@ export class RequestsRegistrationComponent implements OnInit {
     }
   }
 
-  private getDiciplinaCursaAnteriormenteValidators(): ValidatorFn[] {
+  private getDisciplinaCursaAnteriormenteValidators(): ValidatorFn[] {
     if (this.tipoSolicitacao === 'APROVEITAMENTO') {
       return [];
     } else {
@@ -164,7 +164,7 @@ export class RequestsRegistrationComponent implements OnInit {
       experienciasAnteriores:'',
       dataAgendamentoProva: '',
       notaDaProva: 0,
-      diciplinaCursaAnteriormente: '',
+      disciplinaCursaAnteriormente: '',
       notaObtida: 0,
       cargaHoraria: 0,
       analises: [{id: '', status: '', parecer: '', servidor_id: 0, requisicao_id: 0}],
@@ -175,10 +175,10 @@ export class RequestsRegistrationComponent implements OnInit {
     }
   }
 
-  getDisciplina(diciplina_id: number) {
+  getDisciplina(disciplina_id: number) {
     let disciplinaAux: Disciplina = {id: '',nome: '',codDisciplina: '', cargaHoraria: 0};
     this.listDisciplinas.forEach(disciplina => {
-      if (parseInt(disciplina.id) === diciplina_id){
+      if (parseInt(disciplina.id) === disciplina_id){
         disciplinaAux = disciplina;
       }
     });
@@ -341,8 +341,8 @@ export class RequestsRegistrationComponent implements OnInit {
 
   getDisciplinas() {
     this.disciplinaService.listAlternative().subscribe(
-      (_diciplinas: Disciplina[]) => {
-        this.listDisciplinas = _diciplinas;
+      (_disciplinas: Disciplina[]) => {
+        this.listDisciplinas = _disciplinas;
       },
       error => console.log(error)
     )

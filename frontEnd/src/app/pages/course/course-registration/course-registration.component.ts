@@ -47,8 +47,8 @@ export class CourseRegistrationComponent implements OnInit {
     }
     this.formData = this.formBuilder.group({
       id: [curso.id],
-      nome: [curso.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]*$/),
-      Validators.minLength(3),Validators.maxLength(120)]],
+      nome: [curso.nome, [Validators.required,  Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/),
+      Validators.minLength(5),Validators.maxLength(120)]],
       coordenador_id: [curso.coordenador_id, []],
     });
 
@@ -148,5 +148,7 @@ export class CourseRegistrationComponent implements OnInit {
       default:
         return false;
     }
+
   }
+
 }
