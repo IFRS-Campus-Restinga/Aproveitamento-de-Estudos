@@ -21,7 +21,8 @@
 
       <div id="botoes-login">
         <div class="btn-submit-container">
-          <button type="submit" class="btn-register" >Acessar</button>
+          <button type="submit" class="btn-register" [ngClass]="{'btn-green': isFormValid(), 'btn-gray': !isFormValid()}"
+          [disabled]="!isFormValid()" >Acessar</button>
         </div>
 
         <div id="botoes-login">
