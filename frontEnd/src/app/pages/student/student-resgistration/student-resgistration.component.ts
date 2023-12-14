@@ -18,6 +18,8 @@ export class StudentResgistrationComponent implements OnInit {
   public listCursos: Array<{ curso: string, id: number }> = [];
   formData!: FormGroup;
 
+  isEditMode: boolean = false;
+
   constructor(private alunoService: AlunoService,
     private cursoService: CursoService,
     private formBuilder: FormBuilder,
@@ -46,11 +48,13 @@ export class StudentResgistrationComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       aluno_id: [aluno.id],
-      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']{5,120}$/)]],
-      email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$')]],
+      nomeCompleto: [aluno.nome, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÖØ-öø-ÿ]+(\s[a-zA-ZÀ-ÖØ-öø-ÿ]+)+$/), 
+      Validators.minLength(3),Validators.maxLength(120)]],
+      email: [aluno.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@restinga\.ifrs\.edu\.br$'), 
+      Validators.maxLength(50), Validators.email ]],
       curso: [aluno.curso.id, Validators.required],
-      matricula: [aluno.matricula, [Validators.required, Validators.pattern('[0-9]{10}')]],
-      ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/)]],
+      matricula: [aluno.matricula, [Validators.required, Validators.pattern('[0-9]{10}'), Validators.minLength(10), Validators.maxLength(10)]],
+      ingresso: [aluno.dataIngresso, [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/(201[6-9]|202[0-6])$/), Validators.minLength(7), Validators.maxLength(7)]],
       tipo: ['ALUNO'],
       admin: false
     });
@@ -110,8 +114,35 @@ export class StudentResgistrationComponent implements OnInit {
     );
   }
 
-  isCursoValid(): boolean {
+  /*isCursoValid(): boolean {
     return this.formData.get('curso')?.value !== 'Selecione um curso';
+  }*/
+
+  isCursoValid(){
+    const cursoControl = this.formData.get('curso');
+    if (cursoControl?.value  !== '0') {
+      return true;
+    }
+    return false;
+  }
+
+  check(variableName: string, condition: string): boolean {
+    const variable = this.formData.get(variableName);
+
+    if (!variable) {
+      return false;
+    }
+
+    switch (condition) {
+      case 'minLength':
+        return variable.hasError('minlength');
+      case 'maxLength':
+        return variable.hasError('maxlength');
+      case 'status':
+        return variable.invalid;
+      default:
+        return false;
+    }
   }
 
   isValid(campo: string): boolean {
@@ -122,4 +153,14 @@ export class StudentResgistrationComponent implements OnInit {
     }
     return false;
   }
+
+  isTipoSolicitacaoSelected(): boolean {
+    return this.formData.get('curso')?.touched || this.formData.get('curso')?.value !== '';
+  }
+
+  isEdit(){
+    return this.isEditMode;
+  }
+
+  
 }

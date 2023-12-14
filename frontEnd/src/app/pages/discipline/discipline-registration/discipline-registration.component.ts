@@ -57,8 +57,8 @@ export class DisciplineRegistrationComponent implements OnInit {
       codigo: [disciplina.codDisciplina, [Validators.required, Validators.pattern('^[A-Z]{3}-[A-Z]{3}[0-9]{3}$'), Validators.minLength(10), Validators.maxLength(10)]],
       disciplina: [disciplina.nome, [Validators.required, 
         Validators.pattern(/^(?!.*[.]{2})(?!.*[,]{2})(?!.*[\s]{2})[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*(?:[.,]\s?[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]*)*$/), 
-        Validators.minLength(10),Validators.maxLength(120)]],
-      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(88), Validators.pattern(/^(?:[1-9]|[1-7][0-9]|88)$/)]],
+        Validators.minLength(6),Validators.maxLength(120)]],
+      cargaHoraria: [disciplina.cargaHoraria, [Validators.required, Validators.min(10), Validators.max(110), Validators.pattern(/^(?:[1-9]|[1-7][0-9]|110)$/)]],
     });
      
   }
