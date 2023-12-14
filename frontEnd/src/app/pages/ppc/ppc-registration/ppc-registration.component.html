@@ -5,22 +5,68 @@
 
     <div class="form-group">
       <label for="curso">Curso</label>
-      <select id="curso" formControlName="curso" required [class.invalid]="!isCursoValid()">
-          <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
-      </select>
+      <ng-container *ngIf="!isEditMode">
+        <select id="curso" formControlName="curso" required [class.invalid]="isCursoValid()">
+            <option value="" disabled selected>Selecione um curso</option>
+            <option *ngFor="let item of listCursos" [value]="item.id"> {{ item.curso }} </option>
+        </select>
+      </ng-container>
+      <ng-container *ngIf="isEditMode">
+        <input type="text" name="curso" id="curso" [placeholder]= "cursoSelecionado" readonly />
+      </ng-container>
+      <span class="alert" *ngIf="formData.get('curso')?.touched && (formData.get('curso')?.invalid || formData.get('curso')?.value === 0 || formData.get('curso')?.value === '0')">
+        É necessário selecionar um curso.
+      </span>
     </div>
 
     <div class="form-group">
       <label for="nomePPC">Nome PPC</label>
-      <input type="text" id="nomePPC" formControlName="nomePPC" placeholder="nome"
-          [ngClass]="{'valid-input': !isValid('nomePPC'), 'invalid-input': isValid('nomePPC')}"
-          required>
+      <input type="text" id="nomePPC" formControlName="nomePPC" placeholder="Nome" required
+        [ngClass]="{'valid-input': !isValid('nomePPC'), 'invalid-input': isValid('nomePPC')}">
+        <span class="alert" *ngIf="formData.get('nomePPC')?.touched && !formData.get('nomePPC')?.valid">
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('required')">
+            Este campo é obrigatório.
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('minlength')">
+            Mínimo 3 caracteres!
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('maxlength')">
+            Máximo 100 caracteres!
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('startsSpace')">
+            Não pode começar com espaço.
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('endsSpace')">
+            Não pode terminar com espaço.
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('multipleSpaces')">
+            Não pode ter espaço duplo.
+          </ng-container>
+          <ng-container *ngIf="formData.get('nomePPC')?.hasError('pattern')">
+            O nome do PPC não pode conter caracteres especiais
+          </ng-container>
+        </span>
     </div>
 
     <div class="form-group">
       <label for="ano">Ano</label>
-      <input type="number" id="ano" formControlName="ano" min="2010" minlength="4" maxlength="4" placeholder="ano do ppc" required
-          [ngClass]="{'valid-input': !isValid('ano'), 'invalid-input': isValid('ano')}">
+      <input type="number" id="ano" formControlName="ano" placeholder="Ano do PPC" min="2010" required
+          [ngClass]="{'valid-input': !isValid('ano'), 'invalid-input': isValid('ano')}"
+          [max]="anoAtual">
+          <span class="alert" *ngIf="formData.get('ano')?.touched">
+            <ng-container *ngIf="formData.get('ano')?.hasError('required')">
+              Este campo é obrigatório.
+            </ng-container>
+            <ng-container *ngIf="formData.get('ano')?.value?.toString().length !== 4">
+              ano deve conter 4 dígitos.
+            </ng-container>
+            <ng-container *ngIf="formData.get('ano')?.hasError('min') && formData.get('ano')?.value < 2010">
+              ano deve ser maior ou igual a 2010.
+            </ng-container>
+            <ng-container *ngIf="formData.get('ano')?.hasError('max') && formData.get('ano')?.value > anoAtual">
+              ano não pode ser maior que {{ anoAtual }}.
+            </ng-container>
+          </span>
     </div>
 
     <hr>
@@ -28,7 +74,7 @@
     <div class="btn-submit-container">
       <button type="submit" class="btn-register"
           [ngClass]="{'btn-green': formData.valid, 'btn-gray': !formData.valid}"
-          [disabled]="!formData.valid">Salvar</button>
+          [disabled]="!formData.valid || formData.get('curso')?.value === 0">Enviar</button>
     </div>
   </form>
 </div>
