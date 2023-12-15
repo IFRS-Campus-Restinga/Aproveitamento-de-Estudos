@@ -2,10 +2,13 @@ package br.com.aproveitamento.controller;
 
 import java.util.List;
 
+import br.com.aproveitamento.dto.MessageDTO;
 import br.com.aproveitamento.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,26 +36,33 @@ public class CursoController {
     private CursoService cursoService;
 
     @GetMapping
-    public @ResponseBody List<Curso> list() {
-        return cursoService.list();
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
+    public ResponseEntity<MessageDTO> list(Authentication authentication) {
+        return ResponseEntity.ok(new MessageDTO(cursoService.list().toString()));
     }
 
+
+
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
     public Curso findById(@PathVariable @NotNull @Positive Long id) {
         return cursoService.findById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
     public ResponseEntity<Curso> create(@RequestBody @NotNull @Valid Curso curso) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(curso));
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
     public Curso update(@RequestBody @Valid Curso curso) {
         return cursoService.update(curso);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull @Positive Long id) {
         cursoService.delete(id);

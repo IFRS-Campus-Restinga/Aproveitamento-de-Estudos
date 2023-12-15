@@ -24,14 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/resource")
 public class ResourceController {
-
+    // colocar um controler de googleUser e puxar pelo Sub do perfil
     @RequestMapping("/user")
     @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
     public ResponseEntity<MessageDTO> user(Authentication authentication){
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        jwt.getHeaders().get("email");
 
-        //log.info("JWT AQUI -> " + jwt.getClaimAsString("email"));
+
+        log.info("JWT AQUI -> " + authentication.getClass());
 //        log.info("AQUI ->> " + authentication.getPrincipal().getClass());
 //        log.info("AQUI ->>> " + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() + " | " + SecurityContextHolder.getContext().getAuthentication().getName());
 //        return ResponseEntity.ok(new MessageDTO("Ola " //+ authentication.getCredentials().toString() + " | "

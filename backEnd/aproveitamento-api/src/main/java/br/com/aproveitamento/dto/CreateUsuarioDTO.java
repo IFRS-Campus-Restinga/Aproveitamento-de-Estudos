@@ -3,6 +3,8 @@ package br.com.aproveitamento.dto;
 import java.util.List;
 
 public record CreateUsuarioDTO (
+
+
     String nome,
     String email,
     boolean admin,

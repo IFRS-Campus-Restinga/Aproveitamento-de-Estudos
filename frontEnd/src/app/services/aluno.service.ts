@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs';
 import { Aluno } from '../model/Aluno';
@@ -11,8 +12,8 @@ export class AlunoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list() {
-    return this.httpClient.get<Aluno[]>(this.API)
+  list(): Observable<any> {
+    return this.httpClient.get<any[]>(this.API)
       .pipe(
         first()
       );

@@ -11,6 +11,7 @@ export const environment = {
   code_verifier: 'AmnyX1kD8G0emvxsCDGv5JbGX80KIhZz2fkKcVclAk7',
   token_url: "http://localhost:9000/oauth2/token",
   grant_type: 'authorization_code',
-  resource_url: 'http://localhost:8080/resource/'
+  resource_url: 'http://localhost:9000/resource/',
+  curso_url: 'http://localhost:9000/api/curso/'
 
 };

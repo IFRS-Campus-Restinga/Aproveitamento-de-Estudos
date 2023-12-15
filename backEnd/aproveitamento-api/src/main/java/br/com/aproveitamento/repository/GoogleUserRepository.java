@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface GoogleUserRepository extends JpaRepository<GoogleUser, Integer> {
     Optional<GoogleUser> findByEmail(String email);
 
+    Optional<GoogleUser> findBySub(String sub);
+
     Optional<GoogleUser> findGoogleUsersByEmailAfter(String parteDepoisEmail);
 
     Optional<GoogleUser> findGoogleUsersByEmailContains(String parteEmail);

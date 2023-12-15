@@ -2,13 +2,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from 'src/app/model/Curso';
 import { CursoService } from 'src/app/services/curso.service';
+import { TokenService } from 'src/app/services/token.service';
+
 
 @Component({
   selector: 'app-discipline-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css']
 })
-export class CourseListComponent {
+export class CourseListComponent implements OnInit{
   public cursoList: Curso[] = [];
   public cursoDelete!: Curso;
   @Output() edit = new EventEmitter(false);
@@ -16,14 +18,23 @@ export class CourseListComponent {
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que deseja excluir está Curso?';
   public termoPesquisa: String = '';
+  message = '';
 
   constructor(private route: ActivatedRoute,
               private cursoService: CursoService,
-              private router: Router){
+              private router: Router,
+              private tokenService: TokenService){
   }
 
   ngOnInit(): void {
-    this.getCurso();
+    this.cursoService.list().subscribe( data => {
+      this.message = data.message;
+      console.log(this.message);
+    },
+    err => {
+      console.log(err);
+    });
+
   }
 
   getCurso(){

@@ -17,6 +17,8 @@ export class StudentListComponent {
   public isConfirmationVisible: boolean | undefined;
   public confirmationMessage = 'Tem certeza que deseja excluir este Aluno?';
   public termoPesquisa: string = '';
+  
+  message = '';
 
   constructor(private route: ActivatedRoute,
               private alunoService: AlunoService,
@@ -24,7 +26,13 @@ export class StudentListComponent {
   }
 
   ngOnInit(): void {
-    this.getStudent();
+    this.alunoService.list().subscribe( data => {
+      this.message = data.message;
+    },
+    err => {
+      console.log(err);
+    });
+ 
   }
 
   getStudent(){

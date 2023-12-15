@@ -33,11 +33,10 @@ const routes: Routes = [
   //{ path:'', component:LoginComponent },
   //{ path:'', component:LoginOAuthComponent },
   // componente home como home
-  { path:'', component:HomeComponent },
+  { path: '', component:HomeComponent },
   { path: 'authorized', component: AuthorizedComponent },
   { path: 'user', component: UserComponent},
   { path: 'admin', component: AdminComponent},
-  { path: '**', redirectTo: '', pathMatch: 'full'},
 
   {
     path:'discipline',

@@ -2,9 +2,12 @@ package br.com.aproveitamento.controller;
 
 import java.util.List;
 
+import br.com.aproveitamento.model.GoogleUser;
+import br.com.aproveitamento.service.GoogleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+
+	@Autowired
+	private GoogleUserService googleUserService;
 	
 	@GetMapping
 	public @ResponseBody List<Usuario> list(){
@@ -56,5 +62,11 @@ public class UsuarioController {
 	public void delete(@PathVariable @NotNull @Positive Long id){
 		usuarioService.delete(id);
     }
+
+	@GetMapping("/email/{email}")
+	@PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
+	public GoogleUser findByEmail(@PathVariable @NotNull int email) {
+		return googleUserService.findById(email);
+	}
 
 }

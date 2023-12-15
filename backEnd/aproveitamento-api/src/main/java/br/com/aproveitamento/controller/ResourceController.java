@@ -2,9 +2,12 @@ package br.com.aproveitamento.controller;
 
 
 import br.com.aproveitamento.dto.MessageDTO;
+import br.com.aproveitamento.model.GoogleUser;
 import br.com.aproveitamento.model.Usuario;
 import br.com.aproveitamento.repository.GoogleUserRepository;
+import br.com.aproveitamento.service.GoogleUserService;
 import br.com.aproveitamento.service.UserDetailsServiceImpl;
+import br.com.aproveitamento.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -31,21 +34,31 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.Optional;
 
-//@Slf4j
-//@RestController
-//@RequestMapping("/resource")
+@Slf4j
+@RestController
+@RequestMapping("/resource")
 public class ResourceController {
-//
-//    @RequestMapping("/user")
-//    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER')")
-//    public ResponseEntity<MessageDTO> user(Authentication authentication){
-//
-//
+    // colocar um controler de googleUser e puxar pelo Sub do perfil
+
+
+
+
+    @RequestMapping("/user")
+    @PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
+    public ResponseEntity<MessageDTO> user(Authentication authentication){
+
+
+        log.info("JWT AQUI -> " + authentication.getName());
+      //  log.info("EMAIL AQUI -> " + googleUser.get().getEmail());
+
 //        log.info("AQUI ->> " + authentication.getPrincipal().getClass());
 //        log.info("AQUI ->>> " + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() + " | " + SecurityContextHolder.getContext().getAuthentication().getName());
 //        return ResponseEntity.ok(new MessageDTO("Ola " //+ authentication.getCredentials().toString() + " | "
@@ -55,14 +68,13 @@ public class ResourceController {
 //                                                    + authentication.getDetails()       + " | "
 //                                                    + authentication.getName()          + " | "
 //                                                    + authentication.getAuthorities()   + " | " ));
-//
-//      //  return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getName() ));
-//
-//    }
-//
-//    @RequestMapping("/admin")
-//    @PreAuthorize("hasAuthority('COORDENADOR')")
-//    public ResponseEntity<MessageDTO> admin(Authentication authentication, OAuth2User googleUser){
-//        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName() ));
-//    }
+
+        return ResponseEntity.ok(new MessageDTO("Ola " + authentication.getName()));
+
+    }
+    @RequestMapping("/admin")
+    @PreAuthorize("hasAuthority('COORDENADOR')")
+    public ResponseEntity<MessageDTO> admin(Authentication authentication, OAuth2User googleUser){
+        return ResponseEntity.ok(new MessageDTO("Ola Sr. | Sra." + authentication.getName() ));
+    }
 }

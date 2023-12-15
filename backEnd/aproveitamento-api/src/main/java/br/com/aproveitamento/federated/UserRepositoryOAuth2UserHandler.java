@@ -83,7 +83,7 @@ public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2Use
 
                 novoUsuario.setGoogleUser(googleUser);
 
-
+                googleUser.setSub(oAuth2User.getAttribute("sub"));
 
                 // conecta o novoUsuario com a conta do google
                 googleUser.setUsuario(novoUsuario);

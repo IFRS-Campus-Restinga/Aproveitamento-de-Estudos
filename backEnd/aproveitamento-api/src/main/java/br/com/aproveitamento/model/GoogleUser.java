@@ -31,6 +31,8 @@ public class GoogleUser {
 
     private String pictureUrl;
 
+    private String sub;
+
 
     @OneToOne
     @MapsId

@@ -2,9 +2,12 @@ package br.com.aproveitamento.controller;
 
 import java.util.List;
 
+import br.com.aproveitamento.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,11 +34,18 @@ public class AlunoController {
 	@Autowired
 	private AlunoService alunoService;
 	
+//	@GetMapping
+//	public @ResponseBody List<Aluno> list(){
+//		return alunoService.list();
+//	}
+
 	@GetMapping
-	public @ResponseBody List<Aluno> list(){
-		return alunoService.list();
+	@PreAuthorize("hasAnyAuthority('ALUNO', 'OIDC_USER', 'SCOPE_openid')")
+	public ResponseEntity<MessageDTO> list(Authentication authentication) {
+		return ResponseEntity.ok(new MessageDTO(alunoService.list().toString()));
 	}
-	
+
+
 	@GetMapping("/{id}")
 	public Aluno findById(@PathVariable @NotNull @Positive Long id) {
 		return alunoService.findById(id);

@@ -1,18 +1,18 @@
 package br.com.aproveitamento.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import br.com.aproveitamento.dto.CreateUsuarioDTO;
 import br.com.aproveitamento.dto.MessageDTO;
 import br.com.aproveitamento.enums.UsuarioTipo;
 import br.com.aproveitamento.model.Role;
+import br.com.aproveitamento.repository.GoogleUserRepository;
 import br.com.aproveitamento.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -88,6 +88,7 @@ public class UsuarioService {
 	public void delete(@NotNull @Positive Long id){
 		usuarioRepository.deleteById(id);
 	}
+
 
 
 }
